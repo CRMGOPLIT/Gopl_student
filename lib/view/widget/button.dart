@@ -13,12 +13,15 @@ class ButtonPrimary extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 50.h,
-      width: 320.w,
+      width: 360.w,
       child: ElevatedButton(
         onPressed: () {
           onPressed();
         },
-        child: Text(title),
+        child: Text(title,
+            style: Text2Regular(
+              AppColors.PrimaryWhiteColor,
+            )),
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.PrimaryMainColor,
           textStyle: OtpText(AppColors.PrimaryWhiteColor),

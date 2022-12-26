@@ -50,21 +50,22 @@ class Constant {
   static const double ConstantWidth = 360;
 
   static const String font_family_rubik = 'Rubik';
-  static const String font_family_sans = 'Roboto';
-  static const String font_sans_regular = 'SourceSansPro-Regular.ttf';
-  static const String font_sans_black = 'SourceSansPro-Black.ttf';
-  static const String font_sans_blackItalic = 'SourceSansPro-BlackItalic.ttf';
-  static const String font_sans_bold = 'SourceSansPro-Bold.ttf';
-  static const String font_sans_boldItalic = 'SourceSansPro-BoldItalic.ttf';
-  static const String font_sans_italic = 'SourceSansPro-Italic.ttf';
-  static const String font_sans_light = 'SourceSansPro-Light.ttf';
-  static const String font_sans_extraLightItalic =
-      'SourceSansPro-ExtraLightItalic.ttf';
-  static const String font_sans_extraLight = 'SourceSansPro-ExtraLight.ttf';
-  static const String font_sans_lightItalic = 'SourceSansPro-LightItalic.ttf';
-  static const String font_sans_semiBold = 'SourceSansPro-SemiBold.ttf';
-  static const String font_sans_semiBoldItalic =
-      'SourceSansPro-SemiBoldItalic.ttf';
+  static const String font_family_poppins = 'Poppins';
+  // static const String font_sans_regular = 'SourceSansPro-Regular.ttf';
+  // static const String font_sans_black = 'SourceSansPro-Black.ttf';
+  // static const String font_sans_blackItalic = 'SourceSansPro-BlackItalic.ttf';
+  static const String font_poppins_bold = 'Poppins-Bold.ttf';
+  static const String font_poppins_regular = 'Poppins-Regular.ttf';
+  // static const String font_sans_boldItalic = 'SourceSansPro-BoldItalic.ttf';
+  // static const String font_sans_italic = 'SourceSansPro-Italic.ttf';
+  // static const String font_sans_light = 'SourceSansPro-Light.ttf';
+  // static const String font_sans_extraLightItalic =
+  //     'SourceSansPro-ExtraLightItalic.ttf';
+  // static const String font_sans_extraLight = 'SourceSansPro-ExtraLight.ttf';
+  // static const String font_sans_lightItalic = 'SourceSansPro-LightItalic.ttf';
+  // static const String font_sans_semiBold = 'SourceSansPro-SemiBold.ttf';
+  // static const String font_sans_semiBoldItalic =
+  //     'SourceSansPro-SemiBoldItalic.ttf';
 
   static const String APP_VERSION = "4.0";
   static const String ENGLISH = 'en';

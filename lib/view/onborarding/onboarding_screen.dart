@@ -92,7 +92,8 @@ class _OnbordingState extends State<Onbording> {
                 currtpage == contents.length - 1
                     ? GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, RoutesName.otp);
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, RoutesName.login, (routes) => false);
                         },
                         child: Align(
                             alignment: Alignment.bottomRight,

@@ -61,7 +61,7 @@ class _PinInputState extends State<PinInput> {
                 debugPrint('onCompleted: $pin');
               },
               onChanged: (value) {
-                debugPrint('onChangd: $value');
+                debugPrint('onChange0 d: $value');
               },
               cursor: Column(
                 mainAxisAlignment: MainAxisAlignment.end,

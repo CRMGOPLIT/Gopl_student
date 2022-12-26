@@ -4,6 +4,7 @@ class RoutesName {
 
   //accounts routes name
   static const String onbording = 'onboarding_screen';
+  static const String login = 'login_screen';
   static const String otp = 'otp_screen';
 
   //home screen routes name

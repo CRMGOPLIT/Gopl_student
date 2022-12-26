@@ -40,6 +40,8 @@ class _OtpPageState extends State<OtpPage> {
                 child: Image.asset(
                   "assets/images/otpimg.png",
                   fit: BoxFit.cover,
+                  height: 280.h,
+                  width: 280.w,
                 ),
               ),
               Text("Verification code",
