@@ -33,15 +33,15 @@ class _OtpPageState extends State<OtpPage> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(15.r),
+          padding: EdgeInsets.only(left: 15.r, right: 15.r),
           child: Column(
             children: [
               Center(
                 child: Image.asset(
                   "assets/images/otpimg.png",
                   fit: BoxFit.cover,
-                  height: 280.h,
-                  width: 280.w,
+                  height: 250.h,
+                  width: 250.w,
                 ),
               ),
               Text("Verification code",

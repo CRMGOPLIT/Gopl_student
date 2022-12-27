@@ -23,12 +23,12 @@ class ButtonPrimary extends StatelessWidget {
               AppColors.PrimaryWhiteColor,
             )),
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.PrimaryMainColor,
-          textStyle: OtpText(AppColors.PrimaryWhiteColor),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
-          shadowColor: AppColors.PrimaryGreyColor,
-        ),
+            backgroundColor: AppColors.PrimaryMainColor,
+            textStyle: OtpText(AppColors.PrimaryWhiteColor),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.r)),
+            shadowColor: AppColors.PrimaryMainColor,
+            elevation: 10),
       ),
     );
   }

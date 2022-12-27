@@ -4,6 +4,7 @@ import 'package:global_student/view/login/login_page.dart';
 
 import '../../view/login/otp_page.dart';
 import '../../view/onborarding/onboarding_screen.dart';
+import '../../view/register/register.dart';
 import '../../view/splash/splash_screen.dart';
 
 class Routes {
@@ -13,7 +14,7 @@ class Routes {
     switch (settings.name) {
       case RoutesName.splash:
         return MaterialPageRoute(
-            builder: (BuildContext context) => const SplashScreen());
+            builder: (BuildContext context) => const RegisterPage());
 
       case RoutesName.onbording:
         return MaterialPageRoute(
