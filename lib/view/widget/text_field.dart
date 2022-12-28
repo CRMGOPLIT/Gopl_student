@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:global_student/utils/color.dart';
 
@@ -7,8 +8,17 @@ import '../../utils/text_style.dart';
 class TextFormWidget extends StatelessWidget {
   String? title;
   String? hint;
+  final List<TextInputFormatter>? inputFormatters;
 
-  TextFormWidget({super.key, required this.title, required this.hint});
+  //final String? Function(String?)? validator;
+
+  TextFormWidget({
+    super.key,
+    required this.title,
+    required this.hint,
+    this.inputFormatters,
+    //required this.validator
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +26,19 @@ class TextFormWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("$title",
-            style: H2TextStyle(
+            style: FieldTextStyle(
               AppColors.PrimaryBlackColor,
             )),
         TextFormField(
+          inputFormatters: inputFormatters,
+          //  validator: validator,
+          // validator:((value) => {
+          //   valid();
+          // },
+          // [
+          style: TextStyle(
+              color: AppColors.PrimaryMainColor, fontWeight: FontWeight.w600),
+          // ],
           cursorColor: AppColors.PrimaryBlackColor,
           decoration: InputDecoration(
             hintText: "$hint",

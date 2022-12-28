@@ -14,7 +14,7 @@ class Routes {
     switch (settings.name) {
       case RoutesName.splash:
         return MaterialPageRoute(
-            builder: (BuildContext context) => const RegisterPage());
+            builder: (BuildContext context) => const SplashScreen());
 
       case RoutesName.onbording:
         return MaterialPageRoute(
@@ -29,6 +29,9 @@ class Routes {
       case RoutesName.login:
         return MaterialPageRoute(
             builder: (BuildContext context) => const LginPage());
+      case RoutesName.register:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const RegisterPage());
 
       default:
         return MaterialPageRoute(builder: (_) {

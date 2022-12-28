@@ -94,6 +94,18 @@ class _LginPageState extends State<LginPage> {
                       context, RoutesName.otp, (routes) => false);
                 },
               ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, RoutesName.register);
+                  },
+                  child: Text(
+                    'Register'.toUpperCase(),
+                    style: TextRegular(AppColors.PrimaryMainColor),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

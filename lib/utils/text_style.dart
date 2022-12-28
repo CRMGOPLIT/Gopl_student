@@ -19,6 +19,14 @@ TextStyle H2TextStyle(Color? color) {
       fontSize: 16.sp);
 }
 
+TextStyle FieldTextStyle(Color? color) {
+  return TextStyle(
+      color: color ?? AppColors.PrimaryBlackColor,
+      fontFamily: Constant.font_family_poppins,
+      fontWeight: FontWeight.w600,
+      fontSize: 14.sp);
+}
+
 // TextStyle H2TextStyle(Color? color) {
 //   return TextStyle(
 //       color: color ?? AppColors.PrimaryBlackColor,
