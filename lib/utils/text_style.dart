@@ -7,7 +7,7 @@ TextStyle H1TextStyle(Color? color) {
   return TextStyle(
       color: color ?? AppColors.PrimaryBlackColor,
       fontFamily: Constant.font_family_poppins,
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.w500,
       fontSize: 26.sp);
 }
 

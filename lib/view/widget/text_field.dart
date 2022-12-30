@@ -42,6 +42,8 @@ class TextFormWidget extends StatelessWidget {
           cursorColor: AppColors.PrimaryBlackColor,
           decoration: InputDecoration(
             hintText: "$hint",
+            hintStyle: TextStyle(
+                color: AppColors.PrimaryMainColor, fontWeight: FontWeight.w400),
             fillColor: AppColors.PrimaryMainColor,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),

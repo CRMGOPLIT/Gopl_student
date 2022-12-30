@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
+import 'package:global_student/view/widget/app_bar.dart';
 import 'package:global_student/view/widget/text_field.dart';
 import '../../utils/text_style.dart';
 import '../widget/button.dart';
@@ -31,27 +32,18 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: AppColors.PrimaryWhiteColor,
-      appBar: AppBar(
-        backgroundColor: AppColors.PrimaryMainColor,
-        elevation: 0,
-        leading: GestureDetector(
-          onTap: () {
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(50.h), // here the desired height
+        child: AppBarCustom(
+          title: "Registration",
+          onpress: () {
             Navigator.pushNamed(context, RoutesName.login);
           },
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: AppColors.PrimaryWhiteColor,
-            size: 30.sp,
-          ),
-        ),
-        centerTitle: true,
-        title: Text(
-          "Registration",
-          style: H1TextStyle(AppColors.PrimaryWhiteColor),
         ),
       ),
+
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 fit: BoxFit.cover,
                 image: AssetImage(

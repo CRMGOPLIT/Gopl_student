@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
+import 'package:global_student/view/dashboard/home_page.dart';
+import 'package:global_student/view/edit/edit_page.dart';
 import 'package:global_student/view/login/login_page.dart';
 
 import '../../view/login/otp_page.dart';
@@ -14,7 +16,7 @@ class Routes {
     switch (settings.name) {
       case RoutesName.splash:
         return MaterialPageRoute(
-            builder: (BuildContext context) => const SplashScreen());
+            builder: (BuildContext context) => const HomePage());
 
       case RoutesName.onbording:
         return MaterialPageRoute(
@@ -32,6 +34,12 @@ class Routes {
       case RoutesName.register:
         return MaterialPageRoute(
             builder: (BuildContext context) => const RegisterPage());
+      case RoutesName.edit:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const EditPage());
+      case RoutesName.home:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const HomePage());
 
       default:
         return MaterialPageRoute(builder: (_) {

@@ -18,17 +18,17 @@ class _OtpPageState extends State<OtpPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.PrimaryMainColor,
         elevation: 0,
         leading: Icon(
           Icons.arrow_back_ios,
-          color: Colors.black,
+          color: AppColors.PrimaryWhiteColor,
           size: 30.sp,
         ),
         centerTitle: true,
         title: Text(
           "OTP",
-          style: H1TextStyle(AppColors.PrimaryBlackColor),
+          style: H1TextStyle(AppColors.PrimaryWhiteColor),
         ),
       ),
       body: SingleChildScrollView(

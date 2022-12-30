@@ -7,6 +7,7 @@ class RoutesName {
   static const String login = 'login_screen';
   static const String otp = 'otp_screen';
   static const String register = 'register_screen';
+  static const String edit = 'edit_screen';
 
   //home screen routes name
   static const String home = 'home_sceen';
