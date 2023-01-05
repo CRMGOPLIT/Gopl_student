@@ -5,6 +5,8 @@ import 'package:global_student/utils/text_style.dart';
 import 'package:global_student/view/widget/button.dart';
 import 'package:global_student/view/widget/otp_widget.dart';
 
+import '../../utils/routes/routes_name.dart';
+
 class OtpPage extends StatefulWidget {
   const OtpPage({super.key});
 
@@ -75,12 +77,16 @@ class _OtpPageState extends State<OtpPage> {
               ),
               ButtonPrimary(
                 title: "Submit",
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, RoutesName.home);
+                },
               ),
               Align(
                 alignment: Alignment.bottomRight,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, RoutesName.login);
+                  },
                   child: Text(
                     'Resend Otp'.toUpperCase(),
                     style: TextRegular(AppColors.PrimaryMainColor),

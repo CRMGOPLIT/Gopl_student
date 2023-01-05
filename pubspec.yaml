@@ -38,6 +38,8 @@ dependencies:
   dropdown_button2: ^1.9.2
   flutter_image_slideshow: ^0.1.4
   lottie: ^2.1.0
+  file_picker: ^5.0.1
+  path_provider:
 
 
   # The following adds the Cupertino Icons font to your application.

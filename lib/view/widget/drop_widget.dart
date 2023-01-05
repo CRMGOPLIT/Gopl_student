@@ -5,19 +5,19 @@
 // class DropDownWidget extends StatefulWidget {
 //   final String? dropvalue;
 
-//   final List<DropdownMenuItem<String>>? items;
-//   DropDownWidget({super.key, this.dropvalue, this.items});
+//   final List<DropdownMenuItem<String>>? data;
+//   DropDownWidget({super.key, this.dropvalue, required this.data});
 
 //   @override
-//   State<DropDownWidget> createState() => _DropDownWidgetState(dropvalue, items);
+//   State<DropDownWidget> createState() => _DropDownWidgetState(dropvalue, data);
 // }
 
 // class _DropDownWidgetState extends State<DropDownWidget> {
 //   String? dropvalue;
 //   bool isSelected = true;
-//    final List<DropdownMenuItem<String>>? items;
+//   final List<DropdownMenuItem<String>>? data;
 
-//   _DropDownWidgetState(this.dropvalue, this.items);
+//   _DropDownWidgetState(this.dropvalue, this.data);
 //   @override
 //   Widget build(BuildContext context) {
 //     return Column(
@@ -51,8 +51,8 @@
 //                 color: AppColors.PrimaryBlackColor,
 //               ),
 //             ),
-//             items:items.map((String items) {
-//               return DropdownMenuItem(
+//             items: [data.toString()].map((String items) {
+//               return DropdownMenuItem<String>(
 //                 value: items,
 //                 child: Padding(
 //                   padding: EdgeInsets.only(left: 10.r),

@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
                 indicatorColor: AppColors.PrimaryMainColor,
                 indicatorBackgroundColor: Colors.white,
                 onPageChanged: (value) {},
-                autoPlayInterval: 5000,
+                autoPlayInterval: 3000,
                 isLoop: true,
                 children: List.generate(image.length, (index) {
                   return Container(
@@ -76,28 +76,43 @@ class _HomePageState extends State<HomePage> {
                     Expanded(
                       child: GridView.builder(
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 15.r,
-                          mainAxisSpacing: 20.r,
-                        ),
-                        itemCount: dashgrid.length,
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 15.r,
+                            mainAxisSpacing: 20.r,
+                            childAspectRatio: 10 / 8),
+                        itemCount: 8,
                         itemBuilder: (BuildContext context, int index) {
                           return Container(
-                            //height: 20.h,
-                            // width: 300.w,
-                            padding: EdgeInsets.all(10.r),
+                            padding: EdgeInsets.all(5.r),
                             decoration: BoxDecoration(
                                 color: AppColors.PrimaryWhiteColor,
                                 borderRadius: BorderRadius.circular(10.r),
                                 boxShadow: const [
                                   BoxShadow(
-                                      offset: Offset(5, 10),
+                                      offset: Offset(
+                                        5,
+                                        10,
+                                      ),
                                       color: Colors.black38,
                                       blurRadius: 2.0,
                                       spreadRadius: 2.0),
+                                  // BoxShadow(
+                                  //     offset: Offset(
+                                  //       -2,
+                                  //       -5,
+                                  //     ),
+                                  //     color: Colors.black12,
+                                  //     blurRadius: 2.0,
+                                  //     spreadRadius: 2.0),
                                 ]),
                             child: Column(children: [
-                              Lottie.asset(
+                              // Lottie.asset(
+                              //   dashgrid[index].image!,
+                              //   height: 60.h,
+                              //   width: 60.w,
+                              //   fit: BoxFit.cover,
+                              // ),
+                              Image.asset(
                                 // "assets/images/timer.json",
                                 dashgrid[index].image!,
                                 height: 60.h,
@@ -106,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                                 fit: BoxFit.cover,
                               ),
                               SizedBox(
-                                height: 15.h,
+                                height: 10.h,
                               ),
                               Text(dashgrid[index].title!,
                                   textAlign: TextAlign.center,

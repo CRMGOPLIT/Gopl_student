@@ -9,6 +9,10 @@ class RoutesName {
   static const String register = 'register_screen';
   static const String edit = 'edit_screen';
 
+  //qualification routes
+
+  static const String highschool = 'highschool_screen';
+
   //home screen routes name
   static const String home = 'home_sceen';
 }
