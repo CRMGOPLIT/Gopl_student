@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
+import 'package:global_student/view/applicationStatus/application_status.dart';
 import 'package:global_student/view/dashboard/home_page.dart';
 import 'package:global_student/view/edit/edit_page.dart';
 import 'package:global_student/view/login/login_page.dart';
@@ -17,7 +18,7 @@ class Routes {
     switch (settings.name) {
       case RoutesName.splash:
         return MaterialPageRoute(
-            builder: (BuildContext context) => const SplashScreen());
+            builder: (BuildContext context) => const ApplicationStatus());
 
       case RoutesName.onbording:
         return MaterialPageRoute(
@@ -44,6 +45,10 @@ class Routes {
       case RoutesName.highschool:
         return MaterialPageRoute(
             builder: (BuildContext context) => const HighSchool());
+
+      case RoutesName.applicationStatus:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const ApplicationStatus());
 
       default:
         return MaterialPageRoute(builder: (_) {

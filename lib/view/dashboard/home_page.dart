@@ -3,7 +3,9 @@ import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/text_style.dart';
+import 'package:global_student/view/applicationStatus/application_status.dart';
 import 'package:global_student/view/dashboard/dash_grid_model.dart';
+import 'package:global_student/view/login/otp_page.dart';
 import 'package:lottie/lottie.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,6 +21,15 @@ class _HomePageState extends State<HomePage> {
     "assets/images/banner2.jpg",
     "assets/images/banner1.jpg",
     "assets/images/banner2.jpg"
+  ];
+
+  List page = [
+    OtpPage(),
+    ApplicationStatus(),
+    OtpPage(),
+    ApplicationStatus(),
+    OtpPage(),
+    ApplicationStatus(),
   ];
 
   @override
@@ -79,56 +90,66 @@ class _HomePageState extends State<HomePage> {
                             crossAxisCount: 2,
                             crossAxisSpacing: 15.r,
                             mainAxisSpacing: 20.r,
-                            childAspectRatio: 10 / 8),
+                            childAspectRatio: 10 / 7.5),
                         itemCount: 8,
                         itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                            padding: EdgeInsets.all(5.r),
-                            decoration: BoxDecoration(
-                                color: AppColors.PrimaryWhiteColor,
-                                borderRadius: BorderRadius.circular(10.r),
-                                boxShadow: const [
-                                  BoxShadow(
-                                      offset: Offset(
-                                        5,
-                                        10,
-                                      ),
-                                      color: Colors.black38,
-                                      blurRadius: 2.0,
-                                      spreadRadius: 2.0),
-                                  // BoxShadow(
-                                  //     offset: Offset(
-                                  //       -2,
-                                  //       -5,
-                                  //     ),
-                                  //     color: Colors.black12,
-                                  //     blurRadius: 2.0,
-                                  //     spreadRadius: 2.0),
-                                ]),
-                            child: Column(children: [
-                              // Lottie.asset(
-                              //   dashgrid[index].image!,
-                              //   height: 60.h,
-                              //   width: 60.w,
-                              //   fit: BoxFit.cover,
-                              // ),
-                              Image.asset(
-                                // "assets/images/timer.json",
-                                dashgrid[index].image!,
-                                height: 60.h,
-                                width: 60.w,
+                          return InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => page[index]));
+                              // Navigator.pushNamed(
+                              //     context, page[index].toString());
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(5.r),
+                              decoration: BoxDecoration(
+                                  color: AppColors.PrimaryWhiteColor,
+                                  borderRadius: BorderRadius.circular(10.r),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                        offset: Offset(
+                                          5,
+                                          10,
+                                        ),
+                                        color: Colors.black38,
+                                        blurRadius: 2.0,
+                                        spreadRadius: 2.0),
+                                    // BoxShadow(
+                                    //     offset: Offset(
+                                    //       -2,
+                                    //       -5,
+                                    //     ),
+                                    //     color: Colors.black12,
+                                    //     blurRadius: 2.0,
+                                    //     spreadRadius: 2.0),
+                                  ]),
+                              child: Column(children: [
+                                // Lottie.asset(
+                                //   dashgrid[index].image!,
+                                //   height: 60.h,
+                                //   width: 60.w,
+                                //   fit: BoxFit.cover,
+                                // ),
+                                Image.asset(
+                                  // "assets/images/timer.json",
+                                  dashgrid[index].image!,
+                                  height: 60.h,
+                                  width: 60.w,
 
-                                fit: BoxFit.cover,
-                              ),
-                              SizedBox(
-                                height: 10.h,
-                              ),
-                              Text(dashgrid[index].title!,
-                                  textAlign: TextAlign.center,
-                                  style: Text2Regular(
-                                    AppColors.PrimaryMainColor,
-                                  )),
-                            ]),
+                                  fit: BoxFit.cover,
+                                ),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                Text(dashgrid[index].title!,
+                                    textAlign: TextAlign.center,
+                                    style: Text2Regular(
+                                      AppColors.PrimaryMainColor,
+                                    )),
+                              ]),
+                            ),
                           );
                         },
                       ),

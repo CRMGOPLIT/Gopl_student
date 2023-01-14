@@ -15,4 +15,8 @@ class RoutesName {
 
   //home screen routes name
   static const String home = 'home_sceen';
+
+  //Application Status
+  static const String applicationStatus = 'application_status';
+
 }

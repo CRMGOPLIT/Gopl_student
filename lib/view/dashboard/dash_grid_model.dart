@@ -22,7 +22,7 @@ List<GridModel> dashgrid = [
     image: 'assets/images/course.png',
   ),
   GridModel(
-    title: 'Application Information status',
+    title: 'Application Information',
     image: 'assets/images/aps.png',
   ),
   GridModel(

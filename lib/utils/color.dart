@@ -8,4 +8,5 @@ class AppColors {
   static const PrimaryWhiteColor = Color(0xffFFFFFF);
 
   static const TextRegularkColor = Color(0xFF1E1E1E);
+  static const backgroungcolor = Color(0xFFebf2ff);
 }
