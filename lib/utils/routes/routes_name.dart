@@ -19,4 +19,6 @@ class RoutesName {
   //Application Status
   static const String applicationStatus = 'application_status';
 
+  //Batch details
+  static const String batchDetails = 'application_status';
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/view/applicationStatus/application_status.dart';
+import 'package:global_student/view/batch_details/batch_details.dart';
 import 'package:global_student/view/dashboard/home_page.dart';
 import 'package:global_student/view/edit/edit_page.dart';
 import 'package:global_student/view/login/login_page.dart';
@@ -9,7 +10,6 @@ import 'package:global_student/view/qualification/highschool.dart';
 import '../../view/login/otp_page.dart';
 import '../../view/onborarding/onboarding_screen.dart';
 import '../../view/register/register.dart';
-import '../../view/splash/splash_screen.dart';
 
 class Routes {
   static Route<dynamic> generateRoute(
@@ -18,7 +18,7 @@ class Routes {
     switch (settings.name) {
       case RoutesName.splash:
         return MaterialPageRoute(
-            builder: (BuildContext context) => const ApplicationStatus());
+            builder: (BuildContext context) => const BatchDetails());
 
       case RoutesName.onbording:
         return MaterialPageRoute(
@@ -49,6 +49,10 @@ class Routes {
       case RoutesName.applicationStatus:
         return MaterialPageRoute(
             builder: (BuildContext context) => const ApplicationStatus());
+
+      case RoutesName.batchDetails:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const BatchDetails());
 
       default:
         return MaterialPageRoute(builder: (_) {
