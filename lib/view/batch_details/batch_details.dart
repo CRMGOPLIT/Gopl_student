@@ -30,7 +30,7 @@ class _BatchDetailsState extends State<BatchDetails> {
             itemCount: 5,
             itemBuilder: ((context, index) {
               return ListBatch(
-                key: ValueKey<int>(index),
+                key: ValueKey(index),
                 index: index,
               );
             })));
@@ -39,7 +39,7 @@ class _BatchDetailsState extends State<BatchDetails> {
 
 class ListBatch extends StatefulWidget {
   final int index;
-  ListBatch({
+  const ListBatch({
     Key? key,
     required this.index,
   }) : super(key: key);
@@ -112,13 +112,25 @@ class _ListBatchState extends State<ListBatch> {
                           decoration: BoxDecoration(
                               color: AppColors.PrimaryMainColor,
                               borderRadius: BorderRadius.circular(10.r)),
-                          child: Center(
-                            child: Text(
-                              "IELTS/2022/0064",
-                              textAlign: TextAlign.center,
-                              style:
-                                  FieldTextStyle(AppColors.PrimaryWhiteColor),
-                            ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.all(10.r),
+                                child: Image.asset(
+                                  "assets/images/logo.png",
+                                  fit: BoxFit.cover,
+                                  height: 60.h,
+                                ),
+                              ),
+                              Text(
+                                "IELTS/2022/0064",
+                                textAlign: TextAlign.center,
+                                style:
+                                    FieldTextStyle(AppColors.PrimaryWhiteColor),
+                              ),
+                            ],
                           )),
                       Padding(
                         padding: EdgeInsets.only(left: 10.r),
@@ -314,7 +326,7 @@ class _ListBatchState extends State<ListBatch> {
                           color: AppColors.PrimaryWhiteColor,
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(7.0),
+                          padding: EdgeInsets.all(7.r),
                           child: Column(
                             // crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
