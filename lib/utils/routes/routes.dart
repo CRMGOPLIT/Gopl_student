@@ -6,6 +6,7 @@ import 'package:global_student/view/dashboard/home_page.dart';
 import 'package:global_student/view/edit/edit_page.dart';
 import 'package:global_student/view/login/login_page.dart';
 import 'package:global_student/view/qualification/highschool.dart';
+import 'package:global_student/view/splash/splash_screen.dart';
 
 import '../../view/login/otp_page.dart';
 import '../../view/onborarding/onboarding_screen.dart';
@@ -18,14 +19,14 @@ class Routes {
     switch (settings.name) {
       case RoutesName.splash:
         return MaterialPageRoute(
-            builder: (BuildContext context) => const BatchDetails());
+            builder: (BuildContext context) => const SplashScreen());
 
       case RoutesName.onbording:
         return MaterialPageRoute(
             builder: (
           BuildContext context,
         ) =>
-                Onbording());
+                const Onbording());
 
       case RoutesName.otp:
         return MaterialPageRoute(

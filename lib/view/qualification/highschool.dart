@@ -39,7 +39,7 @@ class _HighSchoolState extends State<HighSchool> {
         child: AppBarCustom(
           title: "Qualification",
           onpress: () {
-            Navigator.pushNamed(context, RoutesName.login);
+            Navigator.pushNamed(context, RoutesName.home);
           },
         ),
       ),

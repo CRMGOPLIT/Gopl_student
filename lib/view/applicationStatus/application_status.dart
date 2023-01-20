@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:global_student/utils/color.dart';
+import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/view/applicationStatus/according_widget.dart';
 import 'package:global_student/view/widget/app_bar.dart';
 
@@ -23,7 +24,7 @@ class _ApplicationStatusState extends State<ApplicationStatus> {
         child: AppBarCustom(
           title: "Application Status",
           onpress: () {
-            // Navigator.pushNamed(context, RoutesName.login);
+            Navigator.pushNamed(context, RoutesName.home);
           },
         ),
       ),

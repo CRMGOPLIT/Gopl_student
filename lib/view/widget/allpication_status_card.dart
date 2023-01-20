@@ -13,8 +13,9 @@ class ApplicationStatusCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 20),
-      margin: const EdgeInsets.all(10),
+      padding:
+          EdgeInsets.only(left: 30.r, right: 30.r, top: 20.r, bottom: 20.r),
+      margin: EdgeInsets.all(10.r),
       decoration: BoxDecoration(
           color: AppColors.backgroungcolor,
           boxShadow: const [
@@ -38,8 +39,8 @@ class ApplicationStatusCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.sp)),
       child: Column(
         children: [
-          Container(
-            width: 80.w,
+          SizedBox(
+            width: 85.w,
             child: Text(
               "$title",
               textAlign: TextAlign.center,
@@ -47,12 +48,12 @@ class ApplicationStatusCard extends StatelessWidget {
             ),
           ),
           Container(
-            margin: EdgeInsets.all(5),
+            margin: EdgeInsets.all(5.r),
             height: 1.h,
             width: 70.w,
             color: AppColors.PrimaryBlackColor,
           ),
-          Container(
+          SizedBox(
             width: 80.w,
             child: Text(
               "$subtitle",

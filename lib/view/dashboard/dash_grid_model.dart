@@ -18,8 +18,8 @@ List<GridModel> dashgrid = [
     image: 'assets/images/document.png',
   ),
   GridModel(
-    title: 'Course Branch',
-    image: 'assets/images/course.png',
+    title: 'Course Serarch',
+    image: 'assets/images/batch.png',
   ),
   GridModel(
     title: 'Application Information',
@@ -27,7 +27,7 @@ List<GridModel> dashgrid = [
   ),
   GridModel(
     title: 'Batch Details',
-    image: 'assets/images/batch.png',
+    image: 'assets/images/course.png',
   ),
   GridModel(
     title: 'Event Details',

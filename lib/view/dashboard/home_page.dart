@@ -9,6 +9,8 @@ import 'package:global_student/view/dashboard/dash_grid_model.dart';
 import 'package:global_student/view/login/otp_page.dart';
 import 'package:lottie/lottie.dart';
 
+import '../qualification/highschool.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -25,11 +27,13 @@ class _HomePageState extends State<HomePage> {
   ];
 
   List page = [
+    HighSchool(),
+    OtpPage(),
     OtpPage(),
     ApplicationStatus(),
-    OtpPage(),
     BatchDetails(),
     OtpPage(),
+    ApplicationStatus(),
     ApplicationStatus(),
   ];
 

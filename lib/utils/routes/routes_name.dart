@@ -20,5 +20,5 @@ class RoutesName {
   static const String applicationStatus = 'application_status';
 
   //Batch details
-  static const String batchDetails = 'application_status';
+  static const String batchDetails = 'batch_details';
 }
