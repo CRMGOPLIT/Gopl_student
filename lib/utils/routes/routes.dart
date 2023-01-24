@@ -4,6 +4,7 @@ import 'package:global_student/view/applicationStatus/application_status.dart';
 import 'package:global_student/view/batch_details/batch_details.dart';
 import 'package:global_student/view/dashboard/home_page.dart';
 import 'package:global_student/view/edit/edit_page.dart';
+import 'package:global_student/view/event_details/event_detils.dart';
 import 'package:global_student/view/login/login_page.dart';
 import 'package:global_student/view/qualification/highschool.dart';
 import 'package:global_student/view/splash/splash_screen.dart';
@@ -19,7 +20,7 @@ class Routes {
     switch (settings.name) {
       case RoutesName.splash:
         return MaterialPageRoute(
-            builder: (BuildContext context) => const SplashScreen());
+            builder: (BuildContext context) => const EventDetails());
 
       case RoutesName.onbording:
         return MaterialPageRoute(
@@ -54,6 +55,10 @@ class Routes {
       case RoutesName.batchDetails:
         return MaterialPageRoute(
             builder: (BuildContext context) => const BatchDetails());
+
+      case RoutesName.eventDetails:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const EventDetails());
 
       default:
         return MaterialPageRoute(builder: (_) {

@@ -51,7 +51,7 @@ TextStyle Text2Regular(Color? color) {
       fontFamily: Constant.font_family_poppins,
       fontWeight: FontWeight.w400,
       height: 1.1,
-      fontSize: 16.sp);
+      fontSize: 14.sp);
 }
 
 TextStyle OtpText(Color? color) {

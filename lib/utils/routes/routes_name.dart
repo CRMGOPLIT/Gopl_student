@@ -21,4 +21,7 @@ class RoutesName {
 
   //Batch details
   static const String batchDetails = 'batch_details';
+
+  //Event Details
+  static const String eventDetails = 'event_details';
 }
