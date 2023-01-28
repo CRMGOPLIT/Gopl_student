@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/view/widget/app_bar.dart';
-
 import '../../utils/routes/routes_name.dart';
 import '../../utils/text_style.dart';
 
@@ -23,7 +22,7 @@ class _EventDetailsState extends State<EventDetails> {
         child: AppBarCustom(
           title: "Event Details",
           onpress: () {
-            Navigator.pushNamed(context, RoutesName.login);
+            Navigator.pushNamed(context, RoutesName.home);
           },
         ),
       ),
