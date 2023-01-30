@@ -24,4 +24,8 @@ class RoutesName {
 
   //Event Details
   static const String eventDetails = 'event_details';
+
+  //Branch Location
+   static const String branchLocation = 'event_details';
+
 }

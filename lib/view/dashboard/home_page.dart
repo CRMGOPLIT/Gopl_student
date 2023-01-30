@@ -5,6 +5,7 @@ import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/text_style.dart';
 import 'package:global_student/view/applicationStatus/application_status.dart';
 import 'package:global_student/view/batch_details/batch_details.dart';
+import 'package:global_student/view/branch_location/branch_location.dart';
 import 'package:global_student/view/dashboard/dash_grid_model.dart';
 import 'package:global_student/view/event_details/event_detils.dart';
 import 'package:global_student/view/login/otp_page.dart';
@@ -34,7 +35,7 @@ class _HomePageState extends State<HomePage> {
     ApplicationStatus(),
     BatchDetails(),
     EventDetails(),
-    ApplicationStatus(),
+    BranchLocation(),
     ApplicationStatus(),
   ];
 
@@ -132,20 +133,20 @@ class _HomePageState extends State<HomePage> {
                                     //     spreadRadius: 2.0),
                                   ]),
                               child: Column(children: [
-                                // Lottie.asset(
-                                //   dashgrid[index].image!,
-                                //   height: 60.h,
-                                //   width: 60.w,
-                                //   fit: BoxFit.cover,
-                                // ),
-                                Image.asset(
-                                  // "assets/images/timer.json",
+                                Lottie.asset(
                                   dashgrid[index].image!,
                                   height: 60.h,
                                   width: 60.w,
-
                                   fit: BoxFit.cover,
                                 ),
+                                // Image.asset(
+                                //   // "assets/images/timer.json",
+                                //   dashgrid[index].image!,
+                                //   height: 60.h,
+                                //   width: 60.w,
+
+                                //   fit: BoxFit.cover,
+                                // ),
                                 SizedBox(
                                   height: 10.h,
                                 ),

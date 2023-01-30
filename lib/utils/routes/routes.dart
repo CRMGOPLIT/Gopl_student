@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/view/applicationStatus/application_status.dart';
 import 'package:global_student/view/batch_details/batch_details.dart';
+import 'package:global_student/view/branch_location/branch_location.dart';
 import 'package:global_student/view/dashboard/home_page.dart';
 import 'package:global_student/view/edit/edit_page.dart';
 import 'package:global_student/view/event_details/event_detils.dart';
@@ -20,7 +21,7 @@ class Routes {
     switch (settings.name) {
       case RoutesName.splash:
         return MaterialPageRoute(
-            builder: (BuildContext context) => const EventDetails());
+            builder: (BuildContext context) => const SplashScreen());
 
       case RoutesName.onbording:
         return MaterialPageRoute(
@@ -59,6 +60,10 @@ class Routes {
       case RoutesName.eventDetails:
         return MaterialPageRoute(
             builder: (BuildContext context) => const EventDetails());
+
+      case RoutesName.branchLocation:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const BranchLocation());
 
       default:
         return MaterialPageRoute(builder: (_) {
