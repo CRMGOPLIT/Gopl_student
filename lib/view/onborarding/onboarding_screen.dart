@@ -37,7 +37,7 @@ class _OnbordingState extends State<Onbording> {
           Expanded(
             child: PageView.builder(
               controller: _controller,
-              itemCount: contents.length,
+              itemCount: contents.length, 
               onPageChanged: (int index) {
                 setState(() {
                   currtpage = index;

@@ -75,3 +75,37 @@ List<GridModel> dashgrid = [
     image: 'assets/images/edu.json',
   ),
 ];
+
+List<GridModel> Countrycourse = [
+  GridModel(
+    title: 'Uk',
+    image: 'assets/images/Ukicon.png',
+  ),
+  GridModel(
+    title: 'Germany',
+    image: 'assets/images/Germanyicon.png',
+  ),
+  GridModel(
+    title: 'Canada',
+    image: 'assets/images/canadaicon.png',
+  ),
+  GridModel(
+    title: 'Australia',
+    image: 'assets/images/Australiaicon.png',
+  ),
+];
+
+List<GridModel> universitylist = [
+  GridModel(
+    title: 'SRD Berlin University of Applied SciencesRanking',
+    image: 'assets/images/uicon1.png',
+  ),
+  GridModel(
+    title: 'The University of Findlay',
+    image: 'assets/images/uicon2.png',
+  ),
+  GridModel(
+    title: 'Cambrian College',
+    image: 'assets/images/uicon3.png',
+  ),
+];

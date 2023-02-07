@@ -6,6 +6,7 @@ import 'package:global_student/utils/text_style.dart';
 import 'package:global_student/view/applicationStatus/application_status.dart';
 import 'package:global_student/view/batch_details/batch_details.dart';
 import 'package:global_student/view/branch_location/branch_location.dart';
+import 'package:global_student/view/couse_search/course_search.dart';
 import 'package:global_student/view/dashboard/dash_grid_model.dart';
 import 'package:global_student/view/event_details/event_detils.dart';
 import 'package:global_student/view/login/otp_page.dart';
@@ -31,7 +32,7 @@ class _HomePageState extends State<HomePage> {
   List page = [
     HighSchool(),
     OtpPage(),
-    OtpPage(),
+    CourseSerach(),
     ApplicationStatus(),
     BatchDetails(),
     EventDetails(),

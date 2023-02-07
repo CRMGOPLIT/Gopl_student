@@ -3,13 +3,15 @@ import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/view/applicationStatus/application_status.dart';
 import 'package:global_student/view/batch_details/batch_details.dart';
 import 'package:global_student/view/branch_location/branch_location.dart';
+import 'package:global_student/view/comapre.dart';
+import 'package:global_student/view/couse_search/course_search.dart';
 import 'package:global_student/view/dashboard/home_page.dart';
 import 'package:global_student/view/edit/edit_page.dart';
 import 'package:global_student/view/event_details/event_detils.dart';
 import 'package:global_student/view/login/login_page.dart';
 import 'package:global_student/view/qualification/highschool.dart';
+import 'package:global_student/view/second.dart';
 import 'package:global_student/view/splash/splash_screen.dart';
-
 import '../../view/login/otp_page.dart';
 import '../../view/onborarding/onboarding_screen.dart';
 import '../../view/register/register.dart';
@@ -21,7 +23,7 @@ class Routes {
     switch (settings.name) {
       case RoutesName.splash:
         return MaterialPageRoute(
-            builder: (BuildContext context) => const SplashScreen());
+            builder: (BuildContext context) => CourseSerach());
 
       case RoutesName.onbording:
         return MaterialPageRoute(
@@ -64,6 +66,16 @@ class Routes {
       case RoutesName.branchLocation:
         return MaterialPageRoute(
             builder: (BuildContext context) => const BranchLocation());
+      case RoutesName.cpmpare:
+        return MaterialPageRoute(builder: (BuildContext context) => Compare());
+
+      case RoutesName.multiple:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => MyHomePage());
+
+      case RoutesName.courseSearch:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const CourseSerach());
 
       default:
         return MaterialPageRoute(builder: (_) {

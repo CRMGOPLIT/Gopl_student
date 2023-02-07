@@ -338,11 +338,17 @@ class _ListBatchState extends State<ListBatch> {
                               SizedBox(
                                 height: 5.h,
                               ),
-                              Text(
-                                "5",
-                                textAlign: TextAlign.center,
-                                style:
-                                    Text2Regular(AppColors.PrimaryWhiteColor),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(context, RoutesName.home,
+                                      arguments: ["name ", "jdnwkk", "wndopi"]);
+                                },
+                                child: Text(
+                                  "5",
+                                  textAlign: TextAlign.center,
+                                  style:
+                                      Text2Regular(AppColors.PrimaryWhiteColor),
+                                ),
                               ),
                             ],
                           ),

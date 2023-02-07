@@ -26,6 +26,12 @@ class RoutesName {
   static const String eventDetails = 'event_details';
 
   //Branch Location
-   static const String branchLocation = 'event_details';
+  static const String branchLocation = 'event_details';
 
+  static const String cpmpare = 'compare';
+  static const String multiple = 'multiple';
+
+  //Course Search
+
+  static const String courseSearch = 'courseSearch';
 }
