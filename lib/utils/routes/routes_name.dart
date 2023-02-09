@@ -34,4 +34,8 @@ class RoutesName {
   //Course Search
 
   static const String courseSearch = 'courseSearch';
+
+  //Search Page
+  static const String searchPage = 'searchPage';
+
 }

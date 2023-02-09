@@ -18,19 +18,129 @@ class _CourseSerachState extends State<CourseSerach> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroungcolor,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(50.h), // here the desired height
-        child: AppBarCustom(
-          title: "Course Search",
-          onpress: () {
+      appBar: AppBar(
+        backgroundColor: AppColors.PrimaryMainColor,
+        elevation: 0,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(25),
+              bottomLeft: Radius.circular(25)),
+        ),
+        leading: InkWell(
+          onTap: () {
             Navigator.pushNamed(context, RoutesName.home);
           },
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: AppColors.PrimaryWhiteColor,
+            size: 20.sp,
+          ),
+        ),
+        centerTitle: true,
+        title: InkWell(
+          onTap: () {
+            Navigator.pushNamed(context, RoutesName.searchPage);
+          },
+          child: Container(
+            height: 30.h,
+            width: 230.w,
+            decoration: BoxDecoration(
+                color: AppColors.PrimaryWhiteColor,
+                borderRadius: BorderRadius.circular(10.r)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 10.w,
+                ),
+                Icon(
+                  Icons.search,
+                  color: AppColors.PrimaryMainColor,
+                ),
+                SizedBox(
+                  width: 20.w,
+                ),
+                Text(
+                  "Search Courses/University",
+                  style: TextRegular(AppColors.PrimaryMainColor),
+                )
+              ],
+            ),
+          ),
         ),
       ),
+      // appBar: PreferredSize(
+      //   preferredSize: Size.fromHeight(50.h), // here the desired height
+      //   child: AppBarCustom(
+      //     title: "Course Search",
+      //     onpress: () {
+      //       Navigator.pushNamed(context, RoutesName.home);
+      //     },
+      //   ),
+      // ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Container(
+            //   height: 60.h,
+            //   width: 380.w,
+            //   padding: EdgeInsets.all(10.r),
+            //   decoration: BoxDecoration(color: AppColors.PrimaryMainColor),
+            //   child: Container(
+            //     height: 30.h,
+            //     width: 250.w,
+            //     decoration: BoxDecoration(
+            //         color: AppColors.PrimaryWhiteColor,
+            //         borderRadius: BorderRadius.circular(20.r)),
+            //     child: Padding(
+            //       padding: const EdgeInsets.all(10.0),
+            //       child: Row(
+            //         mainAxisAlignment: MainAxisAlignment.start,
+            //         children: [
+            //           SizedBox(
+            //             width: 10.w,
+            //           ),
+            //           Icon(
+            //             Icons.search,
+            //             color: AppColors.PrimaryMainColor,
+            //           ),
+            //           SizedBox(
+            //             width: 20.w,
+            //           ),
+            //           Text(
+            //             "Search Courses/University",
+            //             style: Text2Regular(AppColors.PrimaryMainColor),
+            //           )
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            // Row(children: [
+            //   Flexible(
+            //     flex: 1,
+            //     child: TextField(
+            //       cursorColor: Colors.grey,
+            //       decoration: InputDecoration(
+            //           fillColor: Colors.white,
+            //           filled: true,
+            //           border: OutlineInputBorder(
+            //               borderRadius: BorderRadius.circular(10),
+            //               borderSide: BorderSide.none),
+            //           hintText: 'Search',
+            //           hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
+            //           prefixIcon: Container(
+            //             padding: EdgeInsets.all(15),
+            //             child: Icon(
+            //               Icons.search,
+            //               color: AppColors.PrimaryMainColor,
+            //             ),
+            //             width: 18,
+            //           )),
+            //     ),
+            //   ),
+            // ]),
             ListTile(
               visualDensity: VisualDensity(horizontal: 1.r, vertical: -3.r),
               leading: Text(

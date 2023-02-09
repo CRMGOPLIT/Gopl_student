@@ -20,7 +20,7 @@ class AppBarCustom extends StatelessWidget {
         child: Icon(
           Icons.arrow_back_ios,
           color: AppColors.PrimaryWhiteColor,
-          size: 30.sp,
+          size: 20.sp,
         ),
       ),
       centerTitle: true,

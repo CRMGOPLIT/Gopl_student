@@ -134,20 +134,20 @@ class _HomePageState extends State<HomePage> {
                                     //     spreadRadius: 2.0),
                                   ]),
                               child: Column(children: [
-                                Lottie.asset(
-                                  dashgrid[index].image!,
-                                  height: 60.h,
-                                  width: 60.w,
-                                  fit: BoxFit.cover,
-                                ),
-                                // Image.asset(
-                                //   // "assets/images/timer.json",
+                                // Lottie.asset(
                                 //   dashgrid[index].image!,
                                 //   height: 60.h,
                                 //   width: 60.w,
-
                                 //   fit: BoxFit.cover,
                                 // ),
+                                Image.asset(
+                                  // "assets/images/timer.json",
+                                  dashgrid[index].image!,
+                                  height: 60.h,
+                                  width: 60.w,
+
+                                  fit: BoxFit.cover,
+                                ),
                                 SizedBox(
                                   height: 10.h,
                                 ),
