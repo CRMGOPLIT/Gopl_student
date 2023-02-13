@@ -134,7 +134,7 @@ class _SearchPageState extends State<SearchPage> {
               child: Container(
                 height: 40.h,
                 width: 50.w,
-                padding: EdgeInsets.only(right: 15),
+                padding: const EdgeInsets.only(right: 15),
                 decoration: BoxDecoration(
                     color: AppColors.PrimaryWhiteColor,
                     borderRadius: BorderRadius.only(
@@ -152,109 +152,114 @@ class _SearchPageState extends State<SearchPage> {
       ),
       body: Column(
         children: [
-          Expanded(
+          Expanded( 
             child: ListView.builder(
                 itemCount: 6,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      color: Colors.white,
-                      elevation: 10,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          //mainAxisSize: MainAxisSize.min,
-                          children: [
-                            ListTile(
-                                // leading: Text("Master of Science in Computer science With Big Data andArtificial Interlligence"),
-                                title: Text(
-                                    'Master of Science in Computer science With Big Data andArtificial Interlligence',
-                                    style: Text2Regular(
-                                        AppColors.PrimaryBlackColor)),
-                                subtitle: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: 5.h,
-                                    ),
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Image.asset(
-                                          "assets/images/uicon1.png",
-                                          height: 40.h,
-                                          width: 40.w,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        SizedBox(
-                                          width: 5.w,
-                                        ),
-                                        SizedBox(
-                                          width: 230.w,
-                                          child: Text(
-                                            "SRH Berlin University of Applied science",
-                                            style: TextRegular(
-                                                AppColors.PrimaryBlackColor),
+                  return InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, RoutesName.courseDetails);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        color: Colors.white,
+                        elevation: 10,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            //mainAxisSize: MainAxisSize.min,
+                            children: [
+                              ListTile(
+                                  // leading: Text("Master of Science in Computer science With Big Data andArtificial Interlligence"),
+                                  title: Text(
+                                      'Master of Science in Computer science With Big Data andArtificial Interlligence',
+                                      style: Text2Regular(
+                                          AppColors.PrimaryBlackColor)),
+                                  subtitle: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Image.asset(
+                                            "assets/images/uicon1.png",
+                                            height: 40.h,
+                                            width: 40.w,
+                                            fit: BoxFit.cover,
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        // Icon(Icons.map),
-                                        Image.asset(
-                                          "assets/images/worldmap.png",
-                                          height: 30.h,
-                                          width: 30.w,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        SizedBox(
-                                          width: 5.w,
-                                        ),
-                                        SizedBox(
-                                          width: 100.w,
-                                          child: Text(
-                                            "Germany, Berlin",
-                                            style: TextRegular(
-                                                AppColors.PrimaryBlackColor),
+                                          SizedBox(
+                                            width: 5.w,
                                           ),
-                                        ),
-                                        SizedBox(
-                                          width: 10.w,
-                                        ),
-                                        Image.asset(
-                                          "assets/images/rupee.png",
-                                          height: 30.h,
-                                          width: 30.w,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        SizedBox(
-                                          width: 5.w,
-                                        ),
-                                        SizedBox(
-                                          width: 100.w,
-                                          child: Text(
-                                            "€ 6450/semester",
-                                            style: TextRegular(
-                                                AppColors.PrimaryBlackColor),
+                                          SizedBox(
+                                            width: 230.w,
+                                            child: Text(
+                                              "SRH Berlin University of Applied science",
+                                              style: TextRegular(
+                                                  AppColors.PrimaryBlackColor),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          // Icon(Icons.map),
+                                          Image.asset(
+                                            "assets/images/worldmap.png",
+                                            height: 30.h,
+                                            width: 30.w,
+                                            fit: BoxFit.cover,
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                )),
-                          ],
+                                          SizedBox(
+                                            width: 5.w,
+                                          ),
+                                          SizedBox(
+                                            width: 100.w,
+                                            child: Text(
+                                              "Germany, Berlin",
+                                              style: TextRegular(
+                                                  AppColors.PrimaryBlackColor),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 10.w,
+                                          ),
+                                          Image.asset(
+                                            "assets/images/rupee.png",
+                                            height: 30.h,
+                                            width: 30.w,
+                                            fit: BoxFit.cover,
+                                          ),
+                                          SizedBox(
+                                            width: 5.w,
+                                          ),
+                                          SizedBox(
+                                            width: 100.w,
+                                            child: Text(
+                                              "€ 6450/semester",
+                                              style: TextRegular(
+                                                  AppColors.PrimaryBlackColor),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  )),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -490,13 +495,13 @@ class _SearchPageState extends State<SearchPage> {
                                   decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.r),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                           color: AppColors.PrimaryGreyColor,
                                           width: 1),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.r),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: AppColors.PrimaryBlackColor,
                                         width: 1,
                                       ),
@@ -551,13 +556,13 @@ class _SearchPageState extends State<SearchPage> {
                                   decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.r),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                           color: AppColors.PrimaryGreyColor,
                                           width: 1),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.r),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: AppColors.PrimaryBlackColor,
                                         width: 1,
                                       ),
@@ -612,13 +617,13 @@ class _SearchPageState extends State<SearchPage> {
                                   decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.r),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                           color: AppColors.PrimaryGreyColor,
                                           width: 1),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.r),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: AppColors.PrimaryBlackColor,
                                         width: 1,
                                       ),
@@ -673,13 +678,13 @@ class _SearchPageState extends State<SearchPage> {
                                   decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.r),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                           color: AppColors.PrimaryGreyColor,
                                           width: 1),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.r),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: AppColors.PrimaryBlackColor,
                                         width: 1,
                                       ),
@@ -734,13 +739,13 @@ class _SearchPageState extends State<SearchPage> {
                                   decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.r),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                           color: AppColors.PrimaryGreyColor,
                                           width: 1),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.r),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: AppColors.PrimaryBlackColor,
                                         width: 1,
                                       ),
@@ -795,13 +800,13 @@ class _SearchPageState extends State<SearchPage> {
                                   decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.r),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                           color: AppColors.PrimaryGreyColor,
                                           width: 1),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.r),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: AppColors.PrimaryBlackColor,
                                         width: 1,
                                       ),
@@ -859,13 +864,13 @@ class _SearchPageState extends State<SearchPage> {
                                   decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.r),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                           color: AppColors.PrimaryGreyColor,
                                           width: 1),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.r),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: AppColors.PrimaryBlackColor,
                                         width: 1,
                                       ),
@@ -926,7 +931,9 @@ class _SearchPageState extends State<SearchPage> {
 
                       // foregroundColor: Colors.transparent,
                       backgroundColor: AppColors.PrimaryMainColor,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       label: const Text("Search")),
                 ),
                 SizedBox(

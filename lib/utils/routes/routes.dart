@@ -4,6 +4,7 @@ import 'package:global_student/view/applicationStatus/application_status.dart';
 import 'package:global_student/view/batch_details/batch_details.dart';
 import 'package:global_student/view/branch_location/branch_location.dart';
 import 'package:global_student/view/comapre.dart';
+import 'package:global_student/view/course_details/course_details.dart';
 import 'package:global_student/view/couse_search/course_search.dart';
 import 'package:global_student/view/dashboard/home_page.dart';
 import 'package:global_student/view/edit/edit_page.dart';
@@ -80,6 +81,10 @@ class Routes {
       case RoutesName.searchPage:
         return MaterialPageRoute(
             builder: (BuildContext context) => const SearchPage());
+
+      case RoutesName.courseDetails:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const CourseDetails());
 
       default:
         return MaterialPageRoute(builder: (_) {

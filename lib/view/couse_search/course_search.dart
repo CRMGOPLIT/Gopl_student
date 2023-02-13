@@ -4,7 +4,6 @@ import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/utils/text_style.dart';
 import 'package:global_student/view/dashboard/dash_grid_model.dart';
-import 'package:global_student/view/widget/app_bar.dart';
 
 class CourseSerach extends StatefulWidget {
   const CourseSerach({super.key});
@@ -65,7 +64,7 @@ class _CourseSerachState extends State<CourseSerach> {
                   style: TextRegular(AppColors.PrimaryMainColor),
                 )
               ],
-            ),
+            ), 
           ),
         ),
       ),
