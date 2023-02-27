@@ -1,46 +1,50 @@
+import 'package:flutter/material.dart';
+
 class GridModel {
   String? image;
   String? title;
+  Color? color;
 
   GridModel({
     this.image,
     this.title,
+    this.color,
   });
 }
 
 List<GridModel> dashgrid = [
   GridModel(
-    title: 'Admission Details',
-    image: 'assets/images/admission.png',
-  ),
+      title: 'Admission Details',
+      image: 'assets/images/admission.png',
+      color: Color(0xffE4EEF8)),
   GridModel(
-    title: 'Upload Document',
-    image: 'assets/images/document.png',
-  ),
+      title: 'Upload Document',
+      image: 'assets/images/document.png',
+      color: Color(0xffF7E9E8)),
   GridModel(
-    title: 'Course Serarch',
-    image: 'assets/images/batch.png',
-  ),
+      title: 'Course Serarch',
+      image: 'assets/images/batch.png',
+      color: Color(0xffE1F2E2)),
   GridModel(
-    title: 'Application Information',
-    image: 'assets/images/aps.png',
-  ),
+      title: 'Application Information',
+      image: 'assets/images/aps.png',
+      color: Color(0xffD9EAF2)),
   GridModel(
-    title: 'Batch Details',
-    image: 'assets/images/course.png',
-  ),
+      title: 'Batch Details',
+      image: 'assets/images/course.png',
+      color: Color(0xffE1E1F2)),
   GridModel(
-    title: 'Event Details',
-    image: 'assets/images/event.png',
-  ),
+      title: 'Event Details',
+      image: 'assets/images/event.png',
+      color: Color(0xffF2E1E5)),
   GridModel(
-    title: 'Branch Location',
-    image: 'assets/images/location.png',
-  ),
+      title: 'Branch Location',
+      image: 'assets/images/location.png',
+      color: Color(0xffF2F0E1)),
   GridModel(
-    title: 'Apply Visa Upload',
-    image: 'assets/images/Visad.png',
-  ),
+      title: 'Apply Visa Upload',
+      image: 'assets/images/Visad.png',
+      color: Color(0xffE1F2EB)),
 
   // GridModel(
   //   title: 'Admission Details',

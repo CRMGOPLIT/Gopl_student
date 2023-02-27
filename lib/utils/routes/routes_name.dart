@@ -37,7 +37,10 @@ class RoutesName {
 
   //Search Page
   static const String searchPage = 'searchPage';
-   static const String courseDetails = 'courseDetails';
+  static const String courseDetails = 'courseDetails';
 
-
+  //Visa Page
+  static const String visaPage = 'visaPage';
+   static const String myform = 'myform';
+     static const String checkon = 'checkon';
 }

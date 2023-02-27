@@ -10,6 +10,8 @@ import 'package:global_student/view/couse_search/course_search.dart';
 import 'package:global_student/view/dashboard/dash_grid_model.dart';
 import 'package:global_student/view/event_details/event_detils.dart';
 import 'package:global_student/view/login/otp_page.dart';
+import 'package:global_student/view/visa/visa_page.dart';
+import 'package:global_student/view/widget/internetconnection.dart';
 import 'package:lottie/lottie.dart';
 
 import '../qualification/highschool.dart';
@@ -25,20 +27,25 @@ class _HomePageState extends State<HomePage> {
   List image = [
     "assets/images/banner1.jpg",
     "assets/images/banner2.jpg",
-    "assets/images/banner1.jpg",
+    "assets/images/banner3.jpg",
     "assets/images/banner2.jpg"
   ];
 
   List page = [
-    HighSchool(),
-    OtpPage(),
-    CourseSerach(),
-    ApplicationStatus(),
-    BatchDetails(),
-    EventDetails(),
-    BranchLocation(),
-    ApplicationStatus(),
+    const HighSchool(),
+    const OtpPage(),
+    const CourseSerach(),
+    const ApplicationStatus(),
+    const BatchDetails(),
+    const EventDetails(),
+    const BranchLocation(),
+    const VisaPage(),
   ];
+  @override
+  void initState() {
+    //  ConnectionChecker();
+    // TODO: implement initState
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +61,9 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         children: [
-          SizedBox(
-            height: 150.h,
+          Container(
+            height: 160.h,
+            padding: EdgeInsets.all(15.r),
             child: ImageSlideshow(
                 width: double.infinity,
                 // height: 15.h,
@@ -68,38 +76,41 @@ class _HomePageState extends State<HomePage> {
                 children: List.generate(image.length, (index) {
                   return Container(
                     decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.sp),
                       image: DecorationImage(
-                        image: AssetImage(image[index]),
-                        fit: BoxFit.cover,
-                      ),
+                          image: AssetImage(image[index]), fit: BoxFit.fill
+                          // fit: BoxFit.cover,
+                          ),
                     ),
                   );
                 })),
           ),
-          SizedBox(
-            height: 20.h,
-          ),
+          // SizedBox(
+          //   height: 10.h,
+          // ),
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                color: AppColors.PrimaryMainColor,
+                // color: AppColors.PrimaryMainColor,
                 borderRadius: BorderRadius.only(
                   topRight: Radius.circular(25.r),
                   topLeft: Radius.circular(25.r),
                 ),
               ),
-              child: Padding(
+              child: Container(
+                //color: AppColors.PrimaryMainColor,
                 padding: EdgeInsets.all(15.r),
                 child: Row(
                   children: [
                     Expanded(
                       child: GridView.builder(
+                        shrinkWrap: true,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
-                            crossAxisSpacing: 15.r,
+                            crossAxisSpacing: 20.r,
                             mainAxisSpacing: 20.r,
-                            childAspectRatio: 10 / 7.5),
-                        itemCount: 8,
+                            childAspectRatio: 10 / 7),
+                        itemCount: dashgrid.length,
                         itemBuilder: (BuildContext context, int index) {
                           return InkWell(
                             onTap: () {
@@ -113,17 +124,17 @@ class _HomePageState extends State<HomePage> {
                             child: Container(
                               padding: EdgeInsets.all(5.r),
                               decoration: BoxDecoration(
-                                  color: AppColors.PrimaryWhiteColor,
+                                  color: dashgrid[index].color,
                                   borderRadius: BorderRadius.circular(10.r),
                                   boxShadow: const [
                                     BoxShadow(
                                         offset: Offset(
-                                          5,
-                                          10,
+                                          3,
+                                          3,
                                         ),
-                                        color: Colors.black38,
-                                        blurRadius: 2.0,
-                                        spreadRadius: 2.0),
+                                        color: Colors.black12,
+                                        blurRadius: 1.0,
+                                        spreadRadius: 0.0),
                                     // BoxShadow(
                                     //     offset: Offset(
                                     //       -2,
@@ -133,30 +144,41 @@ class _HomePageState extends State<HomePage> {
                                     //     blurRadius: 2.0,
                                     //     spreadRadius: 2.0),
                                   ]),
-                              child: Column(children: [
-                                // Lottie.asset(
-                                //   dashgrid[index].image!,
-                                //   height: 60.h,
-                                //   width: 60.w,
-                                //   fit: BoxFit.cover,
-                                // ),
-                                Image.asset(
-                                  // "assets/images/timer.json",
-                                  dashgrid[index].image!,
-                                  height: 60.h,
-                                  width: 60.w,
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    // Lottie.asset(
+                                    //   dashgrid[index].image!,
+                                    //   height: 60.h,
+                                    //   width: 60.w,
+                                    //   fit: BoxFit.cover,
+                                    // ),
+                                    Container(
+                                      padding: EdgeInsets.all(10.sp),
+                                      alignment: Alignment.center,
+                                      height: 40.h,
+                                      width: 40.w,
+                                      decoration: const BoxDecoration(
+                                          color: AppColors.PrimaryWhiteColor,
+                                          shape: BoxShape.circle),
+                                      child: Image.asset(
+                                        // "assets/images/timer.json",
+                                        dashgrid[index].image!,
+                                        // height: 5.h,
+                                        // width: 5.w,
 
-                                  fit: BoxFit.cover,
-                                ),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                                Text(dashgrid[index].title!,
-                                    textAlign: TextAlign.center,
-                                    style: Text2Regular(
-                                      AppColors.PrimaryMainColor,
-                                    )),
-                              ]),
+                                        //fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10.h,
+                                    ),
+                                    Text(dashgrid[index].title!,
+                                        textAlign: TextAlign.center,
+                                        style: Text2Regular(
+                                          AppColors.PrimaryBlackColor,
+                                        )),
+                                  ]),
                             ),
                           );
                         },

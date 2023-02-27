@@ -3,8 +3,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:global_student/utils/routes/routes.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/view/edit/multi_form.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+int? isViewed;
+
+bool? screenboard;
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  screenboard = prefs.getBool('screenboard') ?? false;
+  // isViewed = prefs.getInt('onBoard');
   runApp(const MyApp());
 }
 
@@ -24,7 +32,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          // home: MultiContactFormWidget(),
+          // home: HomePage(),
           initialRoute: RoutesName.splash,
           onGenerateRoute: Routes.generateRoute,
         );

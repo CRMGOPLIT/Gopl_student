@@ -14,6 +14,8 @@ import 'package:global_student/view/qualification/highschool.dart';
 import 'package:global_student/view/search/search.dart';
 import 'package:global_student/view/second.dart';
 import 'package:global_student/view/splash/splash_screen.dart';
+import 'package:global_student/view/visa/visa_page.dart';
+import 'package:global_student/view/widget/common_widget.dart';
 import '../../view/login/otp_page.dart';
 import '../../view/onborarding/onboarding_screen.dart';
 import '../../view/register/register.dart';
@@ -85,6 +87,14 @@ class Routes {
       case RoutesName.courseDetails:
         return MaterialPageRoute(
             builder: (BuildContext context) => const CourseDetails());
+
+      case RoutesName.visaPage:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const VisaPage());
+
+      case RoutesName.myform:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => MyFormWidget());
 
       default:
         return MaterialPageRoute(builder: (_) {

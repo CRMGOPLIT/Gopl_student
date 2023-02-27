@@ -12,9 +12,11 @@ class SearchPage extends StatefulWidget {
   State<SearchPage> createState() => _SearchPageState();
 }
 
-class _SearchPageState extends State<SearchPage> {
+class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
   bool selected = false;
   bool selectedrequire = false;
+
+  bool selectindex = false;
   final List<ItemModel> _chipsList = [
     ItemModel("UG", AppColors.PrimaryWhiteColor, false),
     ItemModel("Twinning Programmes (UG)", AppColors.PrimaryWhiteColor, false),
@@ -67,6 +69,20 @@ class _SearchPageState extends State<SearchPage> {
     'Item 5',
   ];
   bool isSelected = false;
+
+  TabController? _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(vsync: this, length: 3, initialIndex: 0);
+    _tabController!.addListener(_handleTabSelection);
+  }
+
+  void _handleTabSelection() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -152,7 +168,7 @@ class _SearchPageState extends State<SearchPage> {
       ),
       body: Column(
         children: [
-          Expanded( 
+          Expanded(
             child: ListView.builder(
                 itemCount: 6,
                 shrinkWrap: true,
@@ -380,6 +396,7 @@ class _SearchPageState extends State<SearchPage> {
   bottomDialog(index) {
     return showModalBottomSheet(
       elevation: 1,
+
       backgroundColor: AppColors.backgroungcolor,
 
       // isScrollControlled: true,
@@ -431,37 +448,54 @@ class _SearchPageState extends State<SearchPage> {
                 SizedBox(
                   height: 10.h,
                 ),
-                TabBar(
-                  isScrollable: true,
-                  //labelColor: Colors.red,
-                  indicatorColor: AppColors.PrimaryMainColor,
-                  indicatorWeight: 5.h,
+                Container(
+                  height: 40,
+                  decoration: BoxDecoration(
+                      color: AppColors.backgroungcolor,
+                      borderRadius: BorderRadius.circular(20)),
+                  child: TabBar(
+                    isScrollable: true,
+                    // labelColor:
+                    //    AppColors.PrimaryWhiteColor, //<-- selected text color
+                    // unselectedLabelColor: AppColors.PrimaryWhiteColor,
 
-                  padding: EdgeInsets.only(left: 10.r, right: 10.r),
-                  indicatorSize: TabBarIndicatorSize.label,
-                  // indicator: BoxDecoration(
-                  //     borderRadius: BorderRadius.circular(50),
-                  //     border: Border.all(color: AppColors.PrimaryMainColor)),
-                  tabs: <Widget>[
-                    Tab(
-                      child: Text(
-                        "Advanced",
-                        style: Text2Regular(AppColors.PrimaryMainColor),
-                      ),
+                    labelColor: Colors.red,
+                    // indicatorColor: AppColors.PrimaryMainColor,
+                    // unselectedLabelColor: Colors.red,
+                    //indicatorWeight: 2.h,
+
+                    padding: EdgeInsets.only(left: 10.r, right: 10.r),
+
+                    //indicatorSize: TabBarIndicatorSize.label,
+
+                    indicator: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: AppColors.PrimaryMainColor,
+                      // border: Border.all(color: AppColors.PrimaryMainColor)
                     ),
-                    Tab(
-                      child: Text(
-                        "Program Level",
-                        style: Text2Regular(AppColors.PrimaryMainColor),
+                    tabs: <Widget>[
+                      Tab(
+                        child: Text(
+                          "Advanced",
+                          style: Text2Regular(_tabController?.index == 0
+                              ? AppColors.PrimaryWhiteColor
+                              : AppColors.PrimaryMainColor),
+                        ),
                       ),
-                    ),
-                    Tab(
-                      child: Text(
-                        "Requirements",
-                        style: Text2Regular(AppColors.PrimaryMainColor),
+                      Tab(
+                        child: Text(
+                          "Program Level",
+                          style: Text2Regular(AppColors.PrimaryMainColor),
+                        ),
                       ),
-                    ),
-                  ],
+                      Tab(
+                        child: Text(
+                          "Requirements",
+                          style: Text2Regular(AppColors.PrimaryMainColor),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 SizedBox(
                   height: 10.h,

@@ -8,7 +8,7 @@ class IntroModel {
 List<IntroModel> contents = [
   IntroModel(
     title: 'Counselling',
-    image: 'assets/images/intro1.png',
+    image: 'assets/images/on1.png',
     discription:
         'Order from the best local restaurants with easy, on-demand delivery.',
   ),

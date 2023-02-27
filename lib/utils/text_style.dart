@@ -20,7 +20,7 @@ TextStyle H2TextStyle(Color? color) {
 }
 
 TextStyle FieldTextStyle(Color? color) {
-  return TextStyle( 
+  return TextStyle(
       color: color ?? AppColors.PrimaryBlackColor,
       fontFamily: Constant.font_family_poppins,
       fontWeight: FontWeight.w600,
