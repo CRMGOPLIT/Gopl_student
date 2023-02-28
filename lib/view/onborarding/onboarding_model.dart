@@ -14,7 +14,7 @@ List<IntroModel> contents = [
   ),
   IntroModel(
     title: 'Visa',
-    image: 'assets/images/visapl.png',
+    image: 'assets/images/visaimg1.png',
     discription:
         'Free delivery for new customers via Apple Pay and others payment methods.',
   ),

@@ -20,11 +20,11 @@ class _OtpPageState extends State<OtpPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: AppColors.PrimaryMainColor,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         leading: Icon(
           Icons.arrow_back_ios,
-          color: AppColors.PrimaryWhiteColor,
+          color: AppColors.PrimaryBlackColor,
           size: 30.sp,
         ),
         centerTitle: true,
@@ -37,43 +37,47 @@ class _OtpPageState extends State<OtpPage> {
         child: Padding(
           padding: EdgeInsets.only(left: 15.r, right: 15.r),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
                 child: Image.asset(
-                  "assets/images/otpimg.png",
+                  "assets/images/otpnew1.png",
                   fit: BoxFit.cover,
-                  height: 250.h,
-                  width: 250.w,
+                  height: 220.h,
+                  //width: 350.h,
                 ),
               ),
+              SizedBox(
+                height: 60,
+              ),
               Text("Verification code",
-                  style: H1TextStyle(AppColors.PrimaryBlackColor)),
+                  style: H2TextStyle(AppColors.PrimaryBlackColor)),
               SizedBox(
                 height: 10.h,
               ),
               RichText(
-                textAlign: TextAlign.center,
+                // textAlign: TextAlign.center,
                 text: TextSpan(
-                  text: 'We have send the code verification to\n ',
-                  style: TextRegular(AppColors.TextRegularkColor),
+                  text: 'We have send the code verification to\n',
+                  style: Text2Regular(AppColors.TextRegularkColor),
                   children: [
                     TextSpan(
                         text: 'Your  Mobile Number !',
-                        style: TextRegular(AppColors.TextRegularkColor)),
+                        style: Text2Regular(AppColors.TextRegularkColor)),
                   ],
                 ),
               ),
               SizedBox(
-                height: 15.h,
+                height: 50.h,
               ),
-              Text("+91 00000 00000",
-                  style: Text2Regular(AppColors.PrimaryBlackColor)),
+              Text("Enter the 4-digit code",
+                  style: H2TextStyle(AppColors.PrimaryBlackColor)),
               SizedBox(
-                height: 30.h,
+                height: 10.h,
               ),
               const PinInput(),
               SizedBox(
-                height: 30.h,
+                height: 20.h,
               ),
               ButtonPrimary(
                 title: "Submit",
@@ -88,7 +92,8 @@ class _OtpPageState extends State<OtpPage> {
                     Navigator.pushNamed(context, RoutesName.login);
                   },
                   child: Text(
-                    'Resend Otp'.toUpperCase(),
+                    'Resend',
+                    textAlign: TextAlign.center,
                     style: TextRegular(AppColors.PrimaryMainColor),
                   ),
                 ),

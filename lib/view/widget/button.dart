@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/text_style.dart';
+import 'package:global_student/view/login/otp_page.dart';
 
 class ButtonPrimary extends StatelessWidget {
   const ButtonPrimary({Key? key, required this.title, required this.onPressed})
@@ -11,25 +12,62 @@ class ButtonPrimary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       height: 50.h,
       width: 360.w,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.r),
+          gradient: const LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: [
+              Color(0xff143C79),
+              Color(0xff2A67C5),
+            ],
+          )
+          ),
       child: ElevatedButton(
         onPressed: () {
           onPressed();
         },
-        child: Text(title,
-            style: Text2Regular(
+        child: Text(title.toUpperCase(),
+            style: btntext(
               AppColors.PrimaryWhiteColor,
             )),
         style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.PrimaryMainColor,
+            backgroundColor: Colors.transparent,
             textStyle: OtpText(AppColors.PrimaryWhiteColor),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.r)),
-            shadowColor: AppColors.PrimaryMainColor,
+            // shape: RoundedRectangleBorder(
+            //     borderRadius: BorderRadius.circular(30.r)),
+            shadowColor: Colors.transparent,
             elevation: 10),
       ),
     );
   }
 }
+
+
+
+  // Container(
+              //   height: 60.h,
+              //   decoration: BoxDecoration(
+              //       borderRadius: BorderRadius.circular(10.sp),
+              //       gradient: const LinearGradient(
+              //         begin: Alignment.centerLeft,
+              //         end: Alignment.centerRight,
+              //         colors: [
+              //           Color(0xff143C79),
+              //           Color(0xff2A67C5),
+              //         ],
+              //       )),
+              //   child: const Center(
+              //     child: Text(
+              //       'Next',
+              //       style: TextStyle(
+              //         fontSize: 28.0,
+              //         fontWeight: FontWeight.bold,
+              //         color: Colors.white,
+              //       ),
+              //     ),
+              //   ),
+              // ),

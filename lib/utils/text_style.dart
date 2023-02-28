@@ -16,6 +16,7 @@ TextStyle H2TextStyle(Color? color) {
       color: color ?? AppColors.PrimaryBlackColor,
       fontFamily: Constant.font_family_poppins,
       fontWeight: FontWeight.bold,
+      letterSpacing: 1.2,
       fontSize: 16.sp);
 }
 
@@ -50,6 +51,7 @@ TextStyle Text2Regular(Color? color) {
       color: color ?? AppColors.TextRegularkColor,
       fontFamily: Constant.font_family_poppins,
       fontWeight: FontWeight.w400,
+      letterSpacing: 1.2,
       height: 1.1,
       fontSize: 14.sp);
 }
@@ -61,4 +63,22 @@ TextStyle OtpText(Color? color) {
       fontWeight: FontWeight.w600,
       height: 1.1,
       fontSize: 20.sp);
+}
+
+TextStyle btntext(Color? color) {
+  return TextStyle(
+      color: color ?? AppColors.TextRegularkColor,
+      fontFamily: Constant.font_poppins_bold,
+      fontWeight: FontWeight.w500,
+      height: 1.1,
+      fontSize: 18.sp);
+}
+
+TextStyle hometext(Color? color) {
+  return TextStyle(
+      color: color ?? AppColors.TextRegularkColor,
+      fontFamily: Constant.font_poppins_bold,
+      fontWeight: FontWeight.w500,
+      height: 1.1,
+      fontSize: 15.sp);
 }

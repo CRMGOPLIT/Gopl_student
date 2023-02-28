@@ -64,7 +64,7 @@ class _CourseSerachState extends State<CourseSerach> {
                   style: TextRegular(AppColors.PrimaryMainColor),
                 )
               ],
-            ), 
+            ),
           ),
         ),
       ),
@@ -315,7 +315,7 @@ class _CourseSerachState extends State<CourseSerach> {
                       margin: EdgeInsets.only(
                           left: 14.r, bottom: 10.h, top: 10.h, right: 14.r),
                       //height: 100.h,
-                      width: 300.w,
+                      width: 320.w,
                       decoration: BoxDecoration(
                         color: AppColors.PrimaryWhiteColor,
                         borderRadius: BorderRadius.circular(10.r),

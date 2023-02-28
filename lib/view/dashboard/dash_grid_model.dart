@@ -15,36 +15,36 @@ class GridModel {
 List<GridModel> dashgrid = [
   GridModel(
       title: 'Admission Details',
-      image: 'assets/images/admission.png',
-      color: Color(0xffE4EEF8)),
+      image: 'assets/images/addnew1.png',
+      color: Color(0xffEEF5FF)),
   GridModel(
       title: 'Upload Document',
-      image: 'assets/images/document.png',
-      color: Color(0xffF7E9E8)),
+      image: 'assets/images/addnew1.png',
+      color: Color(0xffFFEEF0)),
   GridModel(
       title: 'Course Serarch',
-      image: 'assets/images/batch.png',
-      color: Color(0xffE1F2E2)),
+      image: 'assets/images/addnew1.png',
+      color: Color(0xffF4F3FF)),
   GridModel(
       title: 'Application Information',
-      image: 'assets/images/aps.png',
-      color: Color(0xffD9EAF2)),
+      image: 'assets/images/addnew1.png',
+      color: Color(0xffF2F9F6)),
   GridModel(
       title: 'Batch Details',
-      image: 'assets/images/course.png',
-      color: Color(0xffE1E1F2)),
+      image: 'assets/images/addnew1.png',
+      color: Color(0xffF9F2F6)),
   GridModel(
       title: 'Event Details',
-      image: 'assets/images/event.png',
-      color: Color(0xffF2E1E5)),
+      image: 'assets/images/addnew1.png',
+      color: Color(0xffFFEEF9)),
   GridModel(
       title: 'Branch Location',
-      image: 'assets/images/location.png',
-      color: Color(0xffF2F0E1)),
+      image: 'assets/images/addnew1.png',
+      color: Color(0xffFFF6EE)),
   GridModel(
       title: 'Apply Visa Upload',
-      image: 'assets/images/Visad.png',
-      color: Color(0xffE1F2EB)),
+      image: 'assets/images/addnew1.png',
+      color: Color(0xffF3FCFF)),
 
   // GridModel(
   //   title: 'Admission Details',

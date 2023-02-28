@@ -58,14 +58,12 @@
 // }
 
 import 'dart:async';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
-import 'package:global_student/utils/text_style.dart';
 import 'package:global_student/view/widget/button.dart';
 
 class ConnectionChecker extends StatefulWidget {
@@ -128,35 +126,59 @@ class _ConnectionCheckerState extends State<ConnectionChecker> {
     return Scaffold(
       // appBar: AppBar(),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Center(
+            child: Container(
+                height: 230.h,
+                width: 250.w,
+                child: Image.asset(
+                  'assets/images/net.png',
+                  fit: BoxFit.cover,
+                )),
+          ),
           SizedBox(
-            height: 200.h,
+            height: 20.h,
           ),
-          Image.asset('assets/images/on1.png'),
+          Text("NO connection",
+              style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w800)),
           SizedBox(
-            height: 60.h,
+            height: 10.h,
           ),
-          Text(
-            "No Connection Internet",
-            style: H1TextStyle(AppColors.PrimaryBlackColor),
-          ),
+          Text("Please check your internet connectivity and try again",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500)),
           SizedBox(
             height: 30.h,
           ),
           isConnected == true
-              ? Container(
+              ? SizedBox(
                   width: 150.w,
                   child: ButtonPrimary(
-                      title: "Check",
+                      title: "Retry",
                       onPressed: () {
                         Future.delayed(const Duration(seconds: 0), () {
                           Navigator.pushNamed(context, RoutesName.splash);
                         });
                       }),
                 )
-              : Container(
+              : SizedBox(
                   width: 150.w,
-                  child: ButtonPrimary(title: "Check", onPressed: () {}))
+                  child: ButtonPrimary(
+                      title: "Retry",
+                      onPressed: () {
+                        final snackBar = SnackBar(
+                          content: const Text('No Internet Connection'),
+                          backgroundColor: (Colors.black),
+                          action: SnackBarAction(
+                            textColor: AppColors.PrimaryWhiteColor,
+                            label: 'Dismiss',
+                            onPressed: () {},
+                          ),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }))
         ],
       ),
     );

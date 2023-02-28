@@ -87,8 +87,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void dispose() {
-    subscription.cancel();
-    subscription2.cancel();
+    // subscription.cancel();
+    //subscription2.cancel();
     super.dispose();
   }
 
@@ -187,10 +187,12 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   initState() {
     //   checkmethod();
-    startStreaming();
-    _checkInternetConnection();
+    // startStreaming();
+    // _checkInternetConnection();
     //getConnectivity();
-
+    Future.delayed(const Duration(seconds: 3), () {
+      Navigator.pushNamed(context, RoutesName.onbording);
+    });
     super.initState();
   }
 

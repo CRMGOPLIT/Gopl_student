@@ -26,12 +26,15 @@ class _PinInputState extends State<PinInput> {
   @override
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
-      width: 50.w,
-      height: 50.h,
+      //padding: EdgeInsets.all(30),
+      margin: EdgeInsets.all(10),
+      width: 60.w,
+      height: 60.h,
       textStyle: OtpText(AppColors.PrimaryBlackColor),
       decoration: BoxDecoration(
-        color: AppColors.PrimaryGreyColor,
-        borderRadius: BorderRadius.circular(30.r),
+        //color: AppColors.PrimaryGreyColor,
+        border: Border.all(color: AppColors.PrimaryGreyColor),
+        borderRadius: BorderRadius.circular(10.r),
       ),
     );
     return Form(
@@ -64,10 +67,12 @@ class _PinInputState extends State<PinInput> {
                 debugPrint('onChange0 d: $value');
               },
               cursor: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    margin: const EdgeInsets.only(bottom: 9),
+                    margin: const EdgeInsets.only(
+                      bottom: 9,
+                    ),
                     width: 22,
                     height: 1,
                     // color: focusedBorderColor,
@@ -76,14 +81,14 @@ class _PinInputState extends State<PinInput> {
               ),
               focusedPinTheme: defaultPinTheme.copyWith(
                 decoration: defaultPinTheme.decoration!.copyWith(
-                  borderRadius: BorderRadius.circular(30.r),
+                  borderRadius: BorderRadius.circular(10.r),
                   color: AppColors.PrimaryGreyColor,
                 ),
               ),
               submittedPinTheme: defaultPinTheme.copyWith(
                 decoration: defaultPinTheme.decoration!.copyWith(
                   color: AppColors.PrimaryGreyColor,
-                  borderRadius: BorderRadius.circular(30.r),
+                  borderRadius: BorderRadius.circular(10.r),
                 ),
               ),
               errorPinTheme: defaultPinTheme.copyBorderWith(

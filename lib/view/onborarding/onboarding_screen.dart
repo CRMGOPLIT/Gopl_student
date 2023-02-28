@@ -34,163 +34,174 @@ class _OnbordingState extends State<Onbording> {
     return Scaffold(
       backgroundColor: AppColors.backgroungcolor,
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.all(15.sp),
-          child: Column(
-            children: [
-              // SizedBox(
-              //   height: 40.h,
-              // ),
-              Align(
-                  alignment: Alignment.topRight,
-                  child: Text(
-                    "Skip Now",
-                    style: TextStyle(
-                        color: AppColors.PrimaryMainColor,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp),
-                  )),
-              Expanded(
-                child: PageView.builder(
-                  controller: _controller,
-                  itemCount: contents.length,
-                  onPageChanged: (int index) {
-                    setState(() {
-                      currtpage = index;
-                    });
-                  },
-                  itemBuilder: (_, i) {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 250.h,
-                          //   color: AppColors.PrimaryWhiteColor,
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                  height: 220.h,
-                                  // width: 220.w,
-                                  child: Image.asset(
-                                    contents[i].image!,
-                                    fit: BoxFit.contain,
-                                  )),
-                              SizedBox(
-                                height: 20.h,
-                              ),
-                            ],
-                          ),
-                        ),
-                        // SizedBox(
-                        //   height: 50.h,
-                        // ),
-                        Text(
-                          contents[i].title!,
-                          style: TextStyle(
-                              color: AppColors.PrimaryMainColor,
-                              fontWeight: FontWeight.w800,
-                              fontSize: 20.sp),
-                        ),
-                        SizedBox(
-                          height: 15.h,
-                        ),
-                        Text(
-                          contents[i].discription!,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: AppColors.PrimaryMainColor,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14.sp),
-                        ),
-                      ],
-                    );
-                  },
-                ),
-              ),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(
-                      contents.length, (index) => buildDot(index, context))),
-              // Container(
-              //   height: 60.h,
-              //   decoration: BoxDecoration(
-              //       borderRadius: BorderRadius.circular(10.sp),
-              //       gradient: const LinearGradient(
-              //         begin: Alignment.centerLeft,
-              //         end: Alignment.centerRight,
-              //         colors: [
-              //           Color(0xff143C79),
-              //           Color(0xff2A67C5),
-              //         ],
-              //       )),
-              //   child: const Center(
-              //     child: Text(
-              //       'Next',
-              //       style: TextStyle(
-              //         fontSize: 28.0,
-              //         fontWeight: FontWeight.bold,
-              //         color: Colors.white,
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              Container(
-                height: 100.h,
-                margin: EdgeInsets.all(20.sp),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 30.h,
-                    ),
-                    currtpage == contents.length - 1
-                        ? GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context, RoutesName.login, (routes) => false);
-                            },
-                            child: Align(
-                              alignment: Alignment.bottomRight,
-                              child: Container(
-                                height: 40.h,
-                                width: 100.h,
-                                // color: Colors.red,
-                                child: Center(
-                                  child: Text(
-                                    "Continue",
-                                    style: TextStyle(
-                                        color: AppColors.PrimaryMainColor,
-                                        fontSize: 17.sp,
-                                        fontWeight: FontWeight.w500),
-                                  ),
+        child: Container(
+          decoration:const BoxDecoration(
+              gradient:  LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xffF4F8FE),
+              Color(0xffFDF7F4),
+            ],
+          )),
+          child: Padding(
+            padding: EdgeInsets.all(15.sp),
+            child: Column(
+              children: [
+                // SizedBox(
+                //   height: 40.h,
+                // ),
+                Align(
+                    alignment: Alignment.topRight,
+                    child: Text(
+                      "Skip Now",
+                      style: TextStyle(
+                          color: AppColors.PrimaryMainColor,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14.sp),
+                    )),
+                Expanded(
+                  child: PageView.builder(
+                    controller: _controller,
+                    itemCount: contents.length,
+                    onPageChanged: (int index) {
+                      setState(() {
+                        currtpage = index;
+                      });
+                    },
+                    itemBuilder: (_, i) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 250.h,
+                            //   color: AppColors.PrimaryWhiteColor,
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                    height: 220.h,
+                                    // width: 220.w,
+                                    child: Image.asset(
+                                      contents[i].image!,
+                                      fit: BoxFit.contain,
+                                    )),
+                                SizedBox(
+                                  height: 20.h,
                                 ),
-                              ),
-                            ))
-                        : GestureDetector(
-                            onTap: () {
-                              _controller?.nextPage(
-                                  duration: const Duration(seconds: 1),
-                                  curve: Curves.ease);
-                            },
-                            child: Align(
+                              ],
+                            ),
+                          ),
+                          // SizedBox(
+                          //   height: 50.h,
+                          // ),
+                          Text(
+                            contents[i].title!,
+                            style: TextStyle(
+                                color: AppColors.PrimaryMainColor,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 20.sp),
+                          ),
+                          SizedBox(
+                            height: 15.h,
+                          ),
+                          Text(
+                            contents[i].discription!,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: AppColors.PrimaryMainColor,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14.sp),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(
+                        contents.length, (index) => buildDot(index, context))),
+                // Container(
+                //   height: 60.h,
+                //   decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(10.sp),
+                //       gradient: const LinearGradient(
+                //         begin: Alignment.centerLeft,
+                //         end: Alignment.centerRight,
+                //         colors: [
+                //           Color(0xff143C79),
+                //           Color(0xff2A67C5),
+                //         ],
+                //       )),
+                //   child: const Center(
+                //     child: Text(
+                //       'Next',
+                //       style: TextStyle(
+                //         fontSize: 28.0,
+                //         fontWeight: FontWeight.bold,
+                //         color: Colors.white,
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                Container(
+                  height: 100.h,
+                  margin: EdgeInsets.all(20.sp),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 30.h,
+                      ),
+                      currtpage == contents.length - 1
+                          ? GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamedAndRemoveUntil(context,
+                                    RoutesName.login, (routes) => false);
+                              },
+                              child: Align(
                                 alignment: Alignment.bottomRight,
-                                child: SizedBox(
+                                child: Container(
                                   height: 40.h,
-                                  width: 60.h,
+                                  width: 100.h,
                                   // color: Colors.red,
                                   child: Center(
                                     child: Text(
-                                      "Next",
+                                      "Continue",
                                       style: TextStyle(
                                           color: AppColors.PrimaryMainColor,
                                           fontSize: 17.sp,
                                           fontWeight: FontWeight.w500),
                                     ),
                                   ),
-                                )))
-                  ],
+                                ),
+                              ))
+                          : GestureDetector(
+                              onTap: () {
+                                _controller?.nextPage(
+                                    duration: const Duration(seconds: 1),
+                                    curve: Curves.ease);
+                              },
+                              child: Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: SizedBox(
+                                    height: 40.h,
+                                    width: 60.h,
+                                    // color: Colors.red,
+                                    child: Center(
+                                      child: Text(
+                                        "Next",
+                                        style: TextStyle(
+                                            color: AppColors.PrimaryMainColor,
+                                            fontSize: 17.sp,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                    ),
+                                  )))
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

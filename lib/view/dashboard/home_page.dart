@@ -30,6 +30,16 @@ class _HomePageState extends State<HomePage> {
     "assets/images/banner3.jpg",
     "assets/images/banner2.jpg"
   ];
+  List<Color> color = [
+    Color(0xff5D88C6),
+    Color(0xffCE7983),
+    Color(0xff908BCB),
+    Color(0xff61B993),
+    Color(0xffB96191),
+    Color(0xffC65DAF),
+    Color(0xffCEA279),
+    Color(0xff6DACC0),
+  ];
 
   List page = [
     const HighSchool(),
@@ -52,12 +62,27 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: AppColors.PrimaryWhiteColor,
       appBar: AppBar(
-        backgroundColor: AppColors.PrimaryMainColor,
+        backgroundColor: AppColors.PrimaryWhiteColor,
         elevation: 0,
-        leading: const Icon(
+        leading: Icon(
           Icons.menu,
-          color: AppColors.PrimaryWhiteColor,
+          color: AppColors.PrimaryBlackColor,
+          size: 30.sp,
         ),
+        title: Text("Welcome Mohit",
+            style: btntext(
+              AppColors.PrimaryBlackColor,
+            )),
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: 20),
+            child: Icon(
+              Icons.notifications_rounded,
+              size: 30.sp,
+              color: AppColors.PrimaryBlackColor,
+            ),
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -98,7 +123,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               child: Container(
-                //color: AppColors.PrimaryMainColor,
                 padding: EdgeInsets.all(15.r),
                 child: Row(
                   children: [
@@ -109,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                             crossAxisCount: 2,
                             crossAxisSpacing: 20.r,
                             mainAxisSpacing: 20.r,
-                            childAspectRatio: 10 / 7),
+                            childAspectRatio: 10 / 8),
                         itemCount: dashgrid.length,
                         itemBuilder: (BuildContext context, int index) {
                           return InkWell(
@@ -156,10 +180,10 @@ class _HomePageState extends State<HomePage> {
                                     Container(
                                       padding: EdgeInsets.all(10.sp),
                                       alignment: Alignment.center,
-                                      height: 40.h,
-                                      width: 40.w,
-                                      decoration: const BoxDecoration(
-                                          color: AppColors.PrimaryWhiteColor,
+                                      height: 55.h,
+                                      width: 55.w,
+                                      decoration: BoxDecoration(
+                                          color: color[index],
                                           shape: BoxShape.circle),
                                       child: Image.asset(
                                         // "assets/images/timer.json",
@@ -175,7 +199,7 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     Text(dashgrid[index].title!,
                                         textAlign: TextAlign.center,
-                                        style: Text2Regular(
+                                        style: hometext(
                                           AppColors.PrimaryBlackColor,
                                         )),
                                   ]),
