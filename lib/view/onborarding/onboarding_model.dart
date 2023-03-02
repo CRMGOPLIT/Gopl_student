@@ -10,18 +10,18 @@ List<IntroModel> contents = [
     title: 'Counselling',
     image: 'assets/images/on1.png',
     discription:
-        'Order from the best local restaurants with easy, on-demand delivery.',
+        'Global Opportunities has an expert team of counsellors with a long years of experience. ',
   ),
   IntroModel(
     title: 'Visa',
     image: 'assets/images/visaimg1.png',
     discription:
-        'Free delivery for new customers via Apple Pay and others payment methods.',
+        'Our ex-visa officials always know the shortest route to process the Visa faster.',
   ),
   IntroModel(
-    title: 'Ielts Coaching',
+    title: 'IELTS Coaching',
     image: 'assets/images/intro3.png',
     discription:
-        'Easily find your type of food craving and you’ll get delivery in wide range.',
+        'IELTS Test Coaching British council registered faculty for IELTS Coaching & insights on how to score a good band.',
   )
 ];

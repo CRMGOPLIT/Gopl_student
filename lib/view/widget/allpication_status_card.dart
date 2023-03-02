@@ -14,19 +14,19 @@ class ApplicationStatusCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding:
-          EdgeInsets.only(left: 30.r, right: 30.r, top: 20.r, bottom: 20.r),
+          EdgeInsets.only(left: 25.r, right: 25.r, top: 20.r, bottom: 20.r),
       margin: EdgeInsets.all(10.r),
       decoration: BoxDecoration(
-          color: AppColors.backgroungcolor,
+          color: AppColors.PrimaryGreyColor,
           boxShadow: const [
             BoxShadow(
                 offset: Offset(
-                  5,
-                  10,
+                  2,
+                  2,
                 ),
-                color: Colors.black26,
-                blurRadius: 2.0,
-                spreadRadius: 2.0),
+                color: Colors.black12,
+                blurRadius: 1.0,
+                spreadRadius: 0.0),
             // BoxShadow(
             //     offset: Offset(
             //       -2,

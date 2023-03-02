@@ -177,19 +177,26 @@ class _CourseSerachState extends State<CourseSerach> {
                           // height: 100.h,
                           width: 120.w,
                           decoration: BoxDecoration(
-                            color: AppColors.PrimaryWhiteColor,
-                            borderRadius: BorderRadius.circular(10.r),
-                            boxShadow: const [
-                              BoxShadow(
-                                  offset: Offset(
-                                    4,
-                                    4,
-                                  ),
-                                  color: Colors.black12,
-                                  blurRadius: 2.0,
-                                  spreadRadius: 3.0),
-                            ],
-                          ),
+                              color: AppColors.PrimaryWhiteColor,
+                              borderRadius: BorderRadius.circular(10.r),
+                              boxShadow: const [
+                                BoxShadow(
+                                    offset: Offset(
+                                      3,
+                                      3,
+                                    ),
+                                    color: Colors.black12,
+                                    blurRadius: 1.0,
+                                    spreadRadius: 0.0),
+                                // BoxShadow(
+                                //     offset: Offset(
+                                //       -2,
+                                //       -5,
+                                //     ),
+                                //     color: Colors.black12,
+                                //     blurRadius: 2.0,
+                                //     spreadRadius: 2.0),
+                              ]),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
@@ -230,7 +237,7 @@ class _CourseSerachState extends State<CourseSerach> {
               ),
             ),
             SizedBox(
-              height: 170.h,
+              height: 175.h,
               // color: Colors.amber,
               child: ListView.builder(
                   shrinkWrap: true,
@@ -243,19 +250,26 @@ class _CourseSerachState extends State<CourseSerach> {
                       // height: 100.h,
                       width: 170.w,
                       decoration: BoxDecoration(
-                        color: AppColors.PrimaryWhiteColor,
-                        borderRadius: BorderRadius.circular(10.r),
-                        boxShadow: const [
-                          BoxShadow(
-                              offset: Offset(
-                                4,
-                                4,
-                              ),
-                              color: Colors.black12,
-                              blurRadius: 2.0,
-                              spreadRadius: 3.0),
-                        ],
-                      ),
+                          color: AppColors.PrimaryWhiteColor,
+                          borderRadius: BorderRadius.circular(10.r),
+                          boxShadow: const [
+                            BoxShadow(
+                                offset: Offset(
+                                  3,
+                                  3,
+                                ),
+                                color: Colors.black12,
+                                blurRadius: 1.0,
+                                spreadRadius: 0.0),
+                            // BoxShadow(
+                            //     offset: Offset(
+                            //       -2,
+                            //       -5,
+                            //     ),
+                            //     color: Colors.black12,
+                            //     blurRadius: 2.0,
+                            //     spreadRadius: 2.0),
+                          ]),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
@@ -317,19 +331,26 @@ class _CourseSerachState extends State<CourseSerach> {
                       //height: 100.h,
                       width: 320.w,
                       decoration: BoxDecoration(
-                        color: AppColors.PrimaryWhiteColor,
-                        borderRadius: BorderRadius.circular(10.r),
-                        boxShadow: const [
-                          BoxShadow(
-                              offset: Offset(
-                                4,
-                                4,
-                              ),
-                              color: Colors.black12,
-                              blurRadius: 2.0,
-                              spreadRadius: 3.0),
-                        ],
-                      ),
+                          color: AppColors.PrimaryWhiteColor,
+                          borderRadius: BorderRadius.circular(10.r),
+                          boxShadow: const [
+                            BoxShadow(
+                                offset: Offset(
+                                  3,
+                                  3,
+                                ),
+                                color: Colors.black12,
+                                blurRadius: 1.0,
+                                spreadRadius: 0.0),
+                            // BoxShadow(
+                            //     offset: Offset(
+                            //       -2,
+                            //       -5,
+                            //     ),
+                            //     color: Colors.black12,
+                            //     blurRadius: 2.0,
+                            //     spreadRadius: 2.0),
+                          ]),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(

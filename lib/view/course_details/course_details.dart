@@ -47,9 +47,11 @@ class _CourseDetailsState extends State<CourseDetails> {
               SizedBox(
                 height: 10.h,
               ),
-              Text(
-                "Solent University Southampton",
-                style: OtpText(AppColors.PrimaryMainColor),
+              Center(
+                child: Text(
+                  "Solent University Southampton",
+                  style: OtpText(AppColors.PrimaryMainColor),
+                ),
               ),
               SizedBox(
                 height: 10.h,

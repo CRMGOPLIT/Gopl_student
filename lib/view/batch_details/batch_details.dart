@@ -85,19 +85,26 @@ class _ListBatchState extends State<ListBatch> {
             // height: 350.h,
             // width: 390.w,
             decoration: BoxDecoration(
-              color: AppColors.PrimaryWhiteColor,
-              borderRadius: BorderRadius.circular(20.r),
-              boxShadow: const [
-                BoxShadow(
-                    offset: Offset(
-                      4,
-                      10,
-                    ),
-                    color: Colors.black26,
-                    blurRadius: 1.0,
-                    spreadRadius: 1.0),
-              ],
-            ),
+                color: AppColors.PrimaryWhiteColor,
+                borderRadius: BorderRadius.circular(10.r),
+                boxShadow: const [
+                  BoxShadow(
+                      offset: Offset(
+                        3,
+                        3,
+                      ),
+                      color: Colors.black12,
+                      blurRadius: 1.0,
+                      spreadRadius: 0.0),
+                  // BoxShadow(
+                  //     offset: Offset(
+                  //       -2,
+                  //       -5,
+                  //     ),
+                  //     color: Colors.black12,
+                  //     blurRadius: 2.0,
+                  //     spreadRadius: 2.0),
+                ]),
             child: Column(
               children: [
                 Padding(
@@ -107,31 +114,36 @@ class _ListBatchState extends State<ListBatch> {
                     // crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                          height: 120.h,
-                          width: 100.w,
-                          decoration: BoxDecoration(
-                              color: AppColors.PrimaryMainColor,
-                              borderRadius: BorderRadius.circular(10.r)),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.all(10.r),
-                                child: Image.asset(
-                                  "assets/images/logo.png",
-                                  fit: BoxFit.cover,
-                                  height: 60.h,
-                                ),
-                              ),
-                              Text(
-                                "IELTS/2022/0064",
-                                textAlign: TextAlign.center,
-                                style:
-                                    FieldTextStyle(AppColors.PrimaryWhiteColor),
-                              ),
-                            ],
-                          )),
+                        height: 80.h,
+                        width: 100.w,
+                        decoration: BoxDecoration(
+                            color: AppColors.PrimaryMainColor,
+                            image: DecorationImage(
+                              image: AssetImage("assets/images/fimg.png"),
+                              fit: BoxFit.cover,
+                            ),
+                            borderRadius: BorderRadius.circular(10.r)),
+                        // child: Column(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        //   crossAxisAlignment: CrossAxisAlignment.center,
+                        //   children: [
+                        //     Padding(
+                        //       padding: EdgeInsets.all(0.r),
+                        //       child: Image.asset(
+                        //         "assets/images/fimg.png",
+                        //         fit: BoxFit.cover,
+                        //         height: 80.h,
+                        //       ),
+                        //     ),
+                        //     // Text(
+                        //     //   "IELTS/2022/0064",
+                        //     //   textAlign: TextAlign.center,
+                        //     //   style:
+                        //     //       FieldTextStyle(AppColors.PrimaryWhiteColor),
+                        //     // ),
+                        //   ],
+                        // )
+                      ),
                       Padding(
                         padding: EdgeInsets.only(left: 10.r),
                         child: Column(
@@ -141,95 +153,120 @@ class _ListBatchState extends State<ListBatch> {
                             RichText(
                               text: TextSpan(
                                 text: 'Name :- ',
-                                style:
-                                    FieldTextStyle(AppColors.PrimaryBlackColor),
+                                style: batchtext1(AppColors.PrimaryBlackColor),
                                 children: [
                                   TextSpan(
-                                    text: 'Mohit Singh',
-                                    style: Text2Regular(
-                                        AppColors.PrimaryBlackColor),
+                                    text: 'Gautam Sir',
+                                    style:
+                                        batchtext2(AppColors.PrimaryBlackColor),
                                   ),
                                 ],
                               ),
                             ),
                             SizedBox(
-                              height: 5.h,
+                              height: 10.h,
                             ),
                             RichText(
                               text: TextSpan(
                                 text: 'Faculty Grade :- ',
-                                style:
-                                    FieldTextStyle(AppColors.PrimaryBlackColor),
+                                style: batchtext1(AppColors.PrimaryBlackColor),
                                 children: [
                                   TextSpan(
                                     text: 'A',
-                                    style: Text2Regular(
-                                        AppColors.PrimaryBlackColor),
+                                    style:
+                                        batchtext2(AppColors.PrimaryBlackColor),
                                   ),
                                 ],
                               ),
                             ),
                             SizedBox(
-                              height: 5.h,
+                              height: 10.h,
                             ),
                             RichText(
                               text: TextSpan(
                                 text: 'Batch Type :- ',
-                                style:
-                                    FieldTextStyle(AppColors.PrimaryBlackColor),
+                                style: batchtext1(AppColors.PrimaryBlackColor),
                                 children: [
                                   TextSpan(
                                     text: 'Online',
-                                    style: Text2Regular(
-                                        AppColors.PrimaryBlackColor),
+                                    style:
+                                        batchtext2(AppColors.PrimaryBlackColor),
                                   ),
                                 ],
                               ),
                             ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            SizedBox(
-                              width: 190.w,
-                              child: RichText(
-                                overflow: TextOverflow.ellipsis,
-                                text: TextSpan(
-                                  text: 'Start Date :- ',
-                                  style: FieldTextStyle(
-                                      AppColors.PrimaryBlackColor),
-                                  children: [
-                                    TextSpan(
-                                      text: '01 jan 23',
-                                      style: Text2Regular(
-                                          AppColors.PrimaryBlackColor),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            SizedBox(
-                              width: 190.w,
-                              child: RichText(
-                                overflow: TextOverflow.ellipsis,
-                                text: TextSpan(
-                                  text: 'End Date :- ',
-                                  style: FieldTextStyle(
-                                      AppColors.PrimaryBlackColor),
-                                  children: [
-                                    TextSpan(
-                                      text: '02 feb 23',
-                                      style: Text2Regular(
-                                          AppColors.PrimaryBlackColor),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      RichText(
+                        text: TextSpan(
+                          text: 'Batch Name :- ',
+                          style: batchtext1(AppColors.PrimaryBlackColor),
+                          children: [
+                            TextSpan(
+                              text: 'IELTS/2022/0064',
+                              style: batchtext2(AppColors.PrimaryBlackColor),
                             ),
                           ],
                         ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: 170.w,
+                            child: RichText(
+                              overflow: TextOverflow.ellipsis,
+                              text: TextSpan(
+                                text: 'Start Date :- ',
+                                style: batchtext1(AppColors.PrimaryBlackColor),
+                                children: [
+                                  TextSpan(
+                                    text: '01 jan 23',
+                                    style:
+                                        batchtext2(AppColors.PrimaryBlackColor),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 150.w,
+                            child: RichText(
+                              overflow: TextOverflow.ellipsis,
+                              text: TextSpan(
+                                text: 'End Date :- ',
+                                style: batchtext1(AppColors.PrimaryBlackColor),
+                                children: [
+                                  TextSpan(
+                                    text: '02 feb 23',
+                                    style:
+                                        batchtext2(AppColors.PrimaryBlackColor),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      Container(
+                        width: 300,
+                        height: 1.h,
+                        color: AppColors.PrimaryGreyColor,
                       )
                     ],
                   ),
@@ -243,6 +280,7 @@ class _ListBatchState extends State<ListBatch> {
                         color: AppColors.PrimaryMainColor,
                         borderRadius: BorderRadius.circular(10.r)),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(6.0),
@@ -251,17 +289,15 @@ class _ListBatchState extends State<ListBatch> {
                             children: [
                               Text(
                                 "Batch Size",
-                                style:
-                                    FieldTextStyle(AppColors.PrimaryWhiteColor),
+                                style: batchtext1(AppColors.PrimaryWhiteColor),
                               ),
                               SizedBox(
-                                height: 5.h,
+                                height: 10.h,
                               ),
                               Text(
                                 "10",
                                 textAlign: TextAlign.center,
-                                style:
-                                    Text2Regular(AppColors.PrimaryWhiteColor),
+                                style: batchtext2(AppColors.PrimaryWhiteColor),
                               ),
                             ],
                           ),
@@ -278,17 +314,15 @@ class _ListBatchState extends State<ListBatch> {
                             children: [
                               Text(
                                 "Time",
-                                style:
-                                    FieldTextStyle(AppColors.PrimaryWhiteColor),
+                                style: batchtext1(AppColors.PrimaryWhiteColor),
                               ),
                               SizedBox(
-                                height: 5.h,
+                                height: 10.h,
                               ),
                               Text(
                                 "7:00 PM",
                                 textAlign: TextAlign.center,
-                                style:
-                                    Text2Regular(AppColors.PrimaryWhiteColor),
+                                style: batchtext2(AppColors.PrimaryWhiteColor),
                               ),
                             ],
                           ),
@@ -305,17 +339,15 @@ class _ListBatchState extends State<ListBatch> {
                             children: [
                               Text(
                                 "Available",
-                                style:
-                                    FieldTextStyle(AppColors.PrimaryWhiteColor),
+                                style: batchtext1(AppColors.PrimaryWhiteColor),
                               ),
                               SizedBox(
-                                height: 5.h,
+                                height: 10.h,
                               ),
                               Text(
                                 "5",
                                 textAlign: TextAlign.center,
-                                style:
-                                    Text2Regular(AppColors.PrimaryWhiteColor),
+                                style: batchtext2(AppColors.PrimaryWhiteColor),
                               ),
                             ],
                           ),
@@ -332,11 +364,10 @@ class _ListBatchState extends State<ListBatch> {
                             children: [
                               Text(
                                 "Enrolled",
-                                style:
-                                    FieldTextStyle(AppColors.PrimaryWhiteColor),
+                                style: batchtext1(AppColors.PrimaryWhiteColor),
                               ),
                               SizedBox(
-                                height: 5.h,
+                                height: 10.h,
                               ),
                               InkWell(
                                 onTap: () {
@@ -347,7 +378,7 @@ class _ListBatchState extends State<ListBatch> {
                                   "5",
                                   textAlign: TextAlign.center,
                                   style:
-                                      Text2Regular(AppColors.PrimaryWhiteColor),
+                                      batchtext2(AppColors.PrimaryWhiteColor),
                                 ),
                               ),
                             ],

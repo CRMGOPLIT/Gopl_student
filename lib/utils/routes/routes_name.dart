@@ -41,6 +41,9 @@ class RoutesName {
 
   //Visa Page
   static const String visaPage = 'visaPage';
-   static const String myform = 'myform';
-     static const String checkon = 'checkon';
+  static const String myform = 'myform';
+  static const String checkon = 'checkon';
+
+  //Drawer Page
+  static const String aboutpage = 'aboutpage';
 }

@@ -16,7 +16,7 @@ TextStyle H2TextStyle(Color? color) {
       color: color ?? AppColors.PrimaryBlackColor,
       fontFamily: Constant.font_family_poppins,
       fontWeight: FontWeight.bold,
-      letterSpacing: 1.2,
+      letterSpacing: 1,
       fontSize: 16.sp);
 }
 
@@ -25,7 +25,7 @@ TextStyle FieldTextStyle(Color? color) {
       color: color ?? AppColors.PrimaryBlackColor,
       fontFamily: Constant.font_family_poppins,
       fontWeight: FontWeight.w600,
-      fontSize: 14.sp);
+      fontSize: 12.sp);
 }
 
 // TextStyle H2TextStyle(Color? color) {
@@ -41,7 +41,7 @@ TextStyle TextRegular(Color? color) {
   return TextStyle(
       color: color ?? AppColors.TextRegularkColor,
       fontFamily: Constant.font_poppins_bold,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w500,
       height: 1.1,
       fontSize: 12.sp);
 }
@@ -51,8 +51,8 @@ TextStyle Text2Regular(Color? color) {
       color: color ?? AppColors.TextRegularkColor,
       fontFamily: Constant.font_family_poppins,
       fontWeight: FontWeight.w400,
-      letterSpacing: 1.2,
-      height: 1.1,
+      letterSpacing: 1,
+      height: 1.2,
       fontSize: 14.sp);
 }
 
@@ -61,7 +61,7 @@ TextStyle OtpText(Color? color) {
       color: color ?? AppColors.TextRegularkColor,
       fontFamily: Constant.font_poppins_bold,
       fontWeight: FontWeight.w600,
-      height: 1.1,
+      height: 1,
       fontSize: 20.sp);
 }
 
@@ -81,4 +81,24 @@ TextStyle hometext(Color? color) {
       fontWeight: FontWeight.w500,
       height: 1.1,
       fontSize: 15.sp);
+}
+
+TextStyle batchtext1(Color? color) {
+  return TextStyle(
+      color: color ?? AppColors.TextRegularkColor,
+      fontFamily: Constant.font_poppins_bold,
+      fontWeight: FontWeight.w500,
+      height: 1.1,
+      letterSpacing: 1,
+      fontSize: 12.sp);
+}
+
+TextStyle batchtext2(Color? color) {
+  return TextStyle(
+      color: color ?? AppColors.TextRegularkColor,
+      fontFamily: Constant.font_poppins_bold,
+      fontWeight: FontWeight.w600,
+      height: 1.1,
+      letterSpacing: 1,
+      fontSize: 12.sp);
 }

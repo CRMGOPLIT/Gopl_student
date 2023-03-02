@@ -68,6 +68,8 @@ class _HighSchoolState extends State<HighSchool> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.r)),
                     child: DropdownButtonFormField(
+                      dropdownColor: AppColors.PrimaryGreyColor,
+                      elevation: 5,
                       style: TextStyle(
                           color: AppColors.PrimaryMainColor,
                           fontWeight: FontWeight.w600),
@@ -86,7 +88,7 @@ class _HighSchoolState extends State<HighSchool> {
                         ),
                       ),
                       value: dropdownvalue,
-                      isExpanded: true,
+                      isExpanded: false,
                       icon: Padding(
                         padding: EdgeInsets.only(right: 10.r),
                         child: Icon(
@@ -97,11 +99,9 @@ class _HighSchoolState extends State<HighSchool> {
                       ),
                       items: items.map((String items) {
                         return DropdownMenuItem(
+                          alignment: AlignmentDirectional.centerStart,
                           value: items,
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 10.r),
-                            child: Text(items),
-                          ),
+                          child: Text(items),
                         );
                       }).toList(),
                       onChanged: (String? newValue) {
@@ -154,10 +154,7 @@ class _HighSchoolState extends State<HighSchool> {
                       items: items.map((String items) {
                         return DropdownMenuItem(
                           value: items,
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 10.r),
-                            child: Text(items),
-                          ),
+                          child: Text(items),
                         );
                       }).toList(),
                       onChanged: (String? newValue) {
@@ -516,46 +513,147 @@ class _HighSchoolState extends State<HighSchool> {
                     },
                     child: Container(
                         height: 50.h,
-                        width: 400.w,
+                        width: 340.w,
                         decoration: BoxDecoration(
                             border:
                                 Border.all(color: AppColors.PrimaryGreyColor),
                             borderRadius: BorderRadius.circular(10.r)),
                         child: (file == null)
-                            ? Lottie.asset(
-                                "assets/images/upload.json",
+                            ? Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                      padding:
+                                          EdgeInsets.only(left: 20.r, right: 0),
+                                      child: Row(
+                                          // mainAxisAlignment:
+                                          //     MainAxisAlignment.end,
+                                          children: [
+                                            Text("Upload File"),
+                                            Center(
+                                                child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                Container(
+                                                    margin: EdgeInsets.only(
+                                                        left: 10.r),
+                                                    width: 220.w,
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment.end,
+                                                      children: [
+                                                        Container(
+                                                          height: 50,
+                                                          width: 1,
+                                                          color: AppColors
+                                                              .PrimaryGreyColor,
+                                                        ),
+                                                        Container(
+                                                          height: 50.h,
+                                                          width: 100.w,
+                                                          decoration: BoxDecoration(
+                                                              // color: AppColors
+                                                              //     .PrimaryGreyColor,
+                                                              // border: Border.all(
+                                                              //     color: AppColors
+                                                              //         .PrimaryGreyColor),
+                                                              // borderRadius:
+                                                              //     const BorderRadius
+                                                              //             .only(
+                                                              //         topRight: Radius
+                                                              //             .circular(
+                                                              //                 10),
+                                                              //         bottomRight: Radius
+                                                              //             .circular(
+                                                              //                 10))
+                                                              ),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Icon(Icons
+                                                                  .attach_file),
+                                                              Text(
+                                                                "Attach",
+                                                                style: btntext(
+                                                                    AppColors
+                                                                        .PrimaryBlackColor),
+                                                              )
+                                                            ],
+                                                          ),
+                                                        )
+                                                      ],
+                                                    )
+                                                    //Text(file!.path!.split('/').last),
+                                                    ),
+                                              ],
+                                            )),
+                                          ])
+                                      // : Row(
+                                      //     children: [
+                                      //       Image.asset(
+                                      //         "assets/images/docx.png",
+                                      //         height: 20.h,
+                                      //       ),
+                                      //       Center(
+                                      //           child: Container(
+                                      //         margin: EdgeInsets.only(
+                                      //             left: 10.r),
+                                      //         width: 250.w,
+                                      //         child: Text(file!.path!
+                                      //             .split('/')
+                                      //             .last),
+                                      //       )),
+                                      //     ],
+                                      //   )
+                                      ),
+                                ],
                               )
-                            : Padding(
-                                padding: EdgeInsets.only(left: 20.r),
-                                child: (file!.extension == "pdf")
-                                    ? Row(children: [
-                                        const Icon(
-                                          Icons.picture_as_pdf,
-                                          color: Colors.red,
-                                        ),
-                                        Center(
-                                            child: Container(
-                                          margin: EdgeInsets.only(left: 10.r),
-                                          width: 250.w,
-                                          child:
-                                              Text(file!.path!.split('/').last),
-                                        ))
-                                      ])
-                                    : Row(
-                                        children: [
-                                          Image.asset(
-                                            "assets/images/docx.png",
-                                            height: 20.h,
-                                          ),
-                                          Center(
-                                              child: Container(
-                                            margin: EdgeInsets.only(left: 10.r),
-                                            width: 250.w,
-                                            child: Text(
-                                                file!.path!.split('/').last),
-                                          )),
-                                        ],
-                                      ))),
+                            : Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                      padding:
+                                          EdgeInsets.only(left: 20.r, right: 0),
+                                      child: (file!.extension == "pdf")
+                                          ? Row(
+                                              // mainAxisAlignment:
+                                              //     MainAxisAlignment.end,
+                                              children: [
+                                                  const Icon(
+                                                    Icons.picture_as_pdf,
+                                                    color: Colors.red,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 10.w,
+                                                  ),
+                                                  Text(file!.path!
+                                                      .split('/')
+                                                      .last),
+                                                ])
+                                          : Row(
+                                              children: [
+                                                Image.asset(
+                                                  "assets/images/docx.png",
+                                                  height: 20.h,
+                                                ),
+                                                Center(
+                                                    child: Container(
+                                                  margin: EdgeInsets.only(
+                                                      left: 10.r),
+                                                  width: 250.w,
+                                                  child: Text(file!.path!
+                                                      .split('/')
+                                                      .last),
+                                                )),
+                                              ],
+                                            )),
+                                ],
+                              )),
                   ),
                 ],
               ),

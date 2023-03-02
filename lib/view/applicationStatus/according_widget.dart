@@ -53,7 +53,7 @@ class _AccordingWidgetState extends State<AccordingWidget> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text("Application No :- 12345",
-                      style: Text2Regular(
+                      style: FieldTextStyle(
                         AppColors.PrimaryWhiteColor,
                       )),
                   isExpanded == true
@@ -89,11 +89,11 @@ class _AccordingWidgetState extends State<AccordingWidget> {
           isExpanded == true
               ? FadeIn(
                   curve: Curves.easeInOut,
-                  duration:const Duration(milliseconds: 1000),
+                  duration: const Duration(milliseconds: 1000),
                   child: Column(
                     children: [
                       Container(
-                        decoration:const BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: AppColors.PrimaryWhiteColor,
                         ),
                         child: Column(

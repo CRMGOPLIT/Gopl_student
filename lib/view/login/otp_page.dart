@@ -42,7 +42,7 @@ class _OtpPageState extends State<OtpPage> {
               Center(
                 child: Image.asset(
                   "assets/images/otpnew1.png",
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain,
                   height: 220.h,
                   //width: 350.h,
                 ),
@@ -68,16 +68,16 @@ class _OtpPageState extends State<OtpPage> {
                 ),
               ),
               SizedBox(
-                height: 50.h,
+                height: 40.h,
               ),
               Text("Enter the 4-digit code",
                   style: H2TextStyle(AppColors.PrimaryBlackColor)),
               SizedBox(
-                height: 10.h,
+                height: 5.h,
               ),
               const PinInput(),
               SizedBox(
-                height: 20.h,
+                height: 15.h,
               ),
               ButtonPrimary(
                 title: "Submit",

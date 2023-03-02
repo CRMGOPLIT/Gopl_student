@@ -7,6 +7,7 @@ import 'package:global_student/view/comapre.dart';
 import 'package:global_student/view/course_details/course_details.dart';
 import 'package:global_student/view/couse_search/course_search.dart';
 import 'package:global_student/view/dashboard/home_page.dart';
+import 'package:global_student/view/drawerpage/aboutus.dart';
 import 'package:global_student/view/edit/edit_page.dart';
 import 'package:global_student/view/event_details/event_detils.dart';
 import 'package:global_student/view/login/login_page.dart';
@@ -95,6 +96,10 @@ class Routes {
       case RoutesName.myform:
         return MaterialPageRoute(
             builder: (BuildContext context) => MyFormWidget());
+
+      case RoutesName.aboutpage:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const AboutUs());
 
       default:
         return MaterialPageRoute(builder: (_) {

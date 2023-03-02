@@ -15,7 +15,6 @@ class BranchLocation extends StatefulWidget {
 }
 
 class _BranchLocationState extends State<BranchLocation> {
-  
   List loc = [
     'https://flutter.dev',
     'https://maps.app.goo.gl/TsrBfPciHARX7nRo6',
@@ -37,6 +36,7 @@ class _BranchLocationState extends State<BranchLocation> {
         ),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
             child: ListView.builder(
@@ -48,20 +48,21 @@ class _BranchLocationState extends State<BranchLocation> {
                       // height: 350.h,
                       // width: 390.w,
                       decoration: BoxDecoration(
-                        color: AppColors.PrimaryWhiteColor,
-                        borderRadius: BorderRadius.circular(20.r),
-                        boxShadow: const [
-                          BoxShadow(
-                              offset: Offset(
-                                4,
-                                10,
-                              ),
-                              color: Colors.black26,
-                              blurRadius: 1.0,
-                              spreadRadius: 1.0),
-                        ],
-                      ),
+                          color: AppColors.PrimaryWhiteColor,
+                          borderRadius: BorderRadius.circular(10.r),
+                          boxShadow: const [
+                            BoxShadow(
+                                offset: Offset(
+                                  3,
+                                  3,
+                                ),
+                                color: Colors.black12,
+                                blurRadius: 1.0,
+                                spreadRadius: 0.0),
+                          ]
+                          ),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
                             padding: EdgeInsets.all(15.r),
@@ -126,7 +127,7 @@ class _BranchLocationState extends State<BranchLocation> {
                                         children: [
                                           Icon(
                                             Icons.location_on,
-                                            size: 25.sp,
+                                            size: 15.sp,
                                             color: AppColors.PrimaryMainColor,
                                           ),
                                           SizedBox(
@@ -154,14 +155,14 @@ class _BranchLocationState extends State<BranchLocation> {
                                                     fontFamily: Constant
                                                         .font_family_poppins,
                                                     fontWeight: FontWeight.w600,
-                                                    fontSize: 14.sp),
+                                                    fontSize: 12.sp),
                                               ),
                                             ),
                                           )
                                         ],
                                       ),
                                       SizedBox(
-                                        height: 3.h,
+                                        height: 10.h,
                                       ),
                                       Row(
                                         crossAxisAlignment:
@@ -171,7 +172,7 @@ class _BranchLocationState extends State<BranchLocation> {
                                         children: [
                                           Icon(
                                             Icons.phone,
-                                            size: 20.sp,
+                                            size: 15.sp,
                                             color: AppColors.PrimaryBlackColor,
                                           ),
                                           SizedBox(
@@ -181,7 +182,7 @@ class _BranchLocationState extends State<BranchLocation> {
                                             width: 160.w,
                                             child: Text(
                                               "9898989898",
-                                              style: FieldTextStyle(
+                                              style: batchtext2(
                                                   AppColors.PrimaryBlackColor),
                                             ),
                                           )

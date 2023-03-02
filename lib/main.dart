@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:global_student/utils/routes/routes.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
-import 'package:global_student/view/dashboard/home_page.dart';
-import 'package:global_student/view/edit/multi_form.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 int? isViewed;
@@ -33,7 +31,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          // home: HomePage(),
+          // home: AboutUs(),
           initialRoute: RoutesName.splash,
           onGenerateRoute: Routes.generateRoute,
         );

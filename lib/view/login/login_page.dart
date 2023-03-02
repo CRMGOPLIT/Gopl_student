@@ -36,7 +36,7 @@ class _LginPageState extends State<LginPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 40.h,
+                  height: 30.h,
                 ),
                 // Text("Hello, Welcome back to our account",
                 //     style: Text2Regular(
@@ -48,11 +48,11 @@ class _LginPageState extends State<LginPage> {
                       width: 350.h,
                       child: Image.asset(
                         "assets/images/loginnew1.png",
-                        // fit: BoxFit.cover,
+                        fit: BoxFit.contain,
                       )),
                 ),
                 SizedBox(
-                  height: 60.h,
+                  height: 55.h,
                 ),
                 Text("Login Account",
                     style: H2TextStyle(
@@ -66,7 +66,7 @@ class _LginPageState extends State<LginPage> {
                       AppColors.TextRegularkColor,
                     )),
                 SizedBox(
-                  height: 30.h,
+                  height: 20.h,
                 ),
                 Text("Enter Your Phone Number",
                     style: H2TextStyle(

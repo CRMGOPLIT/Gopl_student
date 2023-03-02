@@ -13,6 +13,10 @@ class AppBarCustom extends StatelessWidget {
     return AppBar(
       backgroundColor: AppColors.PrimaryMainColor,
       elevation: 0,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            bottomRight: Radius.circular(20), bottomLeft: Radius.circular(20)),
+      ),
       leading: GestureDetector(
         onTap: () {
           onpress!();
@@ -26,7 +30,7 @@ class AppBarCustom extends StatelessWidget {
       centerTitle: true,
       title: Text(
         title!,
-        style: H1TextStyle(AppColors.PrimaryWhiteColor),
+        style: btntext(AppColors.PrimaryWhiteColor),
       ),
     );
   }

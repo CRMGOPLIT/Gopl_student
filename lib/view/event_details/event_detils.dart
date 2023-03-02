@@ -38,38 +38,37 @@ class _EventDetailsState extends State<EventDetails> {
                       // height: 350.h,
                       // width: 390.w,
                       decoration: BoxDecoration(
-                        color: AppColors.PrimaryWhiteColor,
-                        borderRadius: BorderRadius.circular(20.r),
-                        boxShadow: const [
-                          BoxShadow(
-                              offset: Offset(
-                                4,
-                                10,
-                              ),
-                              color: Colors.black26,
-                              blurRadius: 1.0,
-                              spreadRadius: 1.0),
-                        ],
-                      ),
+                          color: AppColors.PrimaryWhiteColor,
+                          borderRadius: BorderRadius.circular(10.r),
+                          boxShadow: const [
+                            BoxShadow(
+                                offset: Offset(
+                                  3,
+                                  3,
+                                ),
+                                color: Colors.black12,
+                                blurRadius: 1.0,
+                                spreadRadius: 0.0),
+                          ]),
                       child: Column(
                         children: [
                           Padding(
                             padding: EdgeInsets.all(8.r),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              // mainAxisAlignment: MainAxisAlignment.start,
+                              // crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Stack(
-                                  alignment: Alignment.bottomCenter,
+                                  alignment: Alignment.topRight,
                                   clipBehavior: Clip.none,
                                   children: [
                                     Container(
-                                      height: 100.h,
-                                      width: 100.w,
+                                      height: 120.h,
+                                      width: 320.w,
                                       decoration: BoxDecoration(
                                           color: AppColors.PrimaryMainColor,
                                           borderRadius:
-                                              BorderRadius.circular(10.r),
+                                              BorderRadius.circular(5.r),
                                           image: const DecorationImage(
                                               fit: BoxFit.cover,
                                               image: AssetImage(
@@ -77,111 +76,112 @@ class _EventDetailsState extends State<EventDetails> {
                                               ))),
                                     ),
                                     Positioned(
-                                      top: 90,
+                                      left: 175.h,
+                                      top: 5.h,
                                       child: Container(
                                         constraints: const BoxConstraints(
                                           maxHeight: double.infinity,
                                         ),
-                                        width: 80.w,
+                                        width: 120.w,
                                         decoration: BoxDecoration(
-                                          color: AppColors.PrimaryMainColor,
+                                          color: AppColors.PrimaryWhiteColor,
                                           borderRadius:
-                                              BorderRadius.circular(5.r),
+                                              BorderRadius.circular(20.r),
                                         ),
                                         child: Padding(
                                           padding: EdgeInsets.all(8.r),
                                           child: Text(
-                                            "Mumbai",
+                                            "Mumbai, 29 Jan",
                                             textAlign: TextAlign.center,
-                                            style: TextRegular(
-                                                AppColors.PrimaryWhiteColor),
+                                            style: FieldTextStyle(
+                                                AppColors.PrimaryMainColor),
                                           ),
                                         ),
                                       ),
                                     )
                                   ],
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.only(left: 10.r),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      RichText(
-                                        text: TextSpan(
-                                          text: 'Date :- ',
-                                          style: FieldTextStyle(
-                                              AppColors.PrimaryBlackColor),
-                                          children: [
-                                            TextSpan(
-                                              text: '29/01/2023',
-                                              style: Text2Regular(
-                                                  AppColors.PrimaryBlackColor),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 3.h,
-                                      ),
-                                      RichText(
-                                        text: TextSpan(
-                                          text: 'Time :- ',
-                                          style: FieldTextStyle(
-                                              AppColors.PrimaryBlackColor),
-                                          children: [
-                                            TextSpan(
-                                              text: '11:00 AM To 5:00 PM',
-                                              style: Text2Regular(
-                                                  AppColors.PrimaryBlackColor),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 3.h,
-                                      ),
-                                      SizedBox(
-                                        width: 200.w,
-                                        child: RichText(
-                                          // overflow: TextOverflow.ellipsis,
-                                          text: TextSpan(
-                                            text: 'Venue :- ',
-                                            style: FieldTextStyle(
-                                                AppColors.PrimaryBlackColor),
-                                            children: [
-                                              TextSpan(
-                                                text:
-                                                    'Courtyard by Marriott Mumbai',
-                                                style: Text2Regular(AppColors
-                                                    .PrimaryBlackColor),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 3.h,
-                                      ),
-                                      RichText(
-                                        // overflow: TextOverflow.ellipsis,
-                                        text: TextSpan(
-                                          text: 'Phone :- ',
-                                          style: FieldTextStyle(
-                                              AppColors.PrimaryBlackColor),
-                                          children: [
-                                            TextSpan(
-                                              text: '9090909090',
-                                              style: Text2Regular(
-                                                  AppColors.PrimaryBlackColor),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                                // Padding(
+                                //   padding: EdgeInsets.only(left: 10.r),
+                                //   child: Column(
+                                //     crossAxisAlignment:
+                                //         CrossAxisAlignment.start,
+                                //     mainAxisAlignment: MainAxisAlignment.start,
+                                //     children: [
+                                //       RichText(
+                                //         text: TextSpan(
+                                //           text: 'Date :- ',
+                                //           style: batchtext1(
+                                //               AppColors.PrimaryBlackColor),
+                                //           children: [
+                                //             TextSpan(
+                                //               text: '29/01/2023',
+                                //               style: batchtext2(
+                                //                   AppColors.PrimaryBlackColor),
+                                //             ),
+                                //           ],
+                                //         ),
+                                //       ),
+                                //       SizedBox(
+                                //         height: 10.h,
+                                //       ),
+                                //       RichText(
+                                //         text: TextSpan(
+                                //           text: 'Time :- ',
+                                //           style: batchtext1(
+                                //               AppColors.PrimaryBlackColor),
+                                //           children: [
+                                //             TextSpan(
+                                //               text: '11:00 AM To 5:00 PM',
+                                //               style: batchtext2(
+                                //                   AppColors.PrimaryBlackColor),
+                                //             ),
+                                //           ],
+                                //         ),
+                                //       ),
+                                //       SizedBox(
+                                //         height: 10.h,
+                                //       ),
+                                //       SizedBox(
+                                //         width: 200.w,
+                                //         child: RichText(
+                                //           // overflow: TextOverflow.ellipsis,
+                                //           text: TextSpan(
+                                //             text: 'Venue :- ',
+                                //             style: batchtext1(
+                                //                 AppColors.PrimaryBlackColor),
+                                //             children: [
+                                //               TextSpan(
+                                //                 text:
+                                //                     'Courtyard by Marriott Mumbai',
+                                //                 style: batchtext2(AppColors
+                                //                     .PrimaryBlackColor),
+                                //               ),
+                                //             ],
+                                //           ),
+                                //         ),
+                                //       ),
+                                //       SizedBox(
+                                //         height: 10.h,
+                                //       ),
+                                //       RichText(
+                                //         // overflow: TextOverflow.ellipsis,
+                                //         text: TextSpan(
+                                //           text: 'Phone :- ',
+                                //           style: batchtext1(
+                                //               AppColors.PrimaryBlackColor),
+                                //           children: [
+                                //             TextSpan(
+                                //               text: '9090909090',
+                                //               style: batchtext2(
+                                //                   AppColors.PrimaryBlackColor),
+                                //             ),
+                                //           ],
+                                //         ),
+                                //       ),
+                                //     ],
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),
@@ -196,26 +196,78 @@ class _EventDetailsState extends State<EventDetails> {
                           Padding(
                             padding: EdgeInsets.only(
                                 left: 8.r, right: 8.r, bottom: 8.r, top: 8.r),
-                            child: Row(
+                            child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Icon(
-                                  Icons.location_on,
-                                  size: 15.sp,
-                                  color: AppColors.PrimaryMainColor,
-                                ),
+                                // SizedBox(
+                                //   width: 280.w,
+                                //   child: Text(
+                                //     "Cts 215, Andheri - Kurla Rd, Andheri East,Mumbai 400059",
+                                //     style: TextRegular(
+                                //         AppColors.PrimaryMainColor),
+                                //   ),
+                                // ),
                                 SizedBox(
-                                  width: 5.w,
-                                ),
-                                SizedBox(
-                                  width: 280.w,
-                                  child: Text(
-                                    "Cts 215, Andheri - Kurla Rd, Andheri East,Mumbai 400059",
-                                    style:
-                                        TextRegular(AppColors.PrimaryMainColor),
+                                  width: 300.w,
+                                  child: RichText(
+                                    // overflow: TextOverflow.ellipsis,
+                                    text: TextSpan(
+                                      text: 'Venue :- ',
+                                      style: batchtext1(
+                                          AppColors.PrimaryBlackColor),
+                                      children: [
+                                        TextSpan(
+                                          text: 'Courtyard by Marriott Mumbai',
+                                          style: batchtext2(
+                                              AppColors.PrimaryBlackColor),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                )
+                                ),
+                                SizedBox(
+                                  height: 8.h,
+                                ),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.watch_later_outlined,
+                                      size: 15.sp,
+                                    ),
+                                    SizedBox(
+                                      width: 10.h,
+                                    ),
+                                    Text(
+                                      "11:00 AM To 5:00 PM",
+                                      style: batchtext1(
+                                          AppColors.PrimaryBlackColor),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 8.h,
+                                ),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.location_on_outlined,
+                                      size: 20.sp,
+                                      color: AppColors.PrimaryMainColor,
+                                    ),
+                                    SizedBox(
+                                      width: 10.h,
+                                    ),
+                                    SizedBox(
+                                      width: 290,
+                                      child: Text(
+                                        "Cts 215, Andheri - Kurla Rd, Andheri East, Mumbai 400059",
+                                        style: batchtext1(
+                                            AppColors.PrimaryMainColor),
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ],
                             ),
                           ),

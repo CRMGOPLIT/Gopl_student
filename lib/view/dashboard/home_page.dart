@@ -11,6 +11,7 @@ import 'package:global_student/view/dashboard/dash_grid_model.dart';
 import 'package:global_student/view/event_details/event_detils.dart';
 import 'package:global_student/view/login/otp_page.dart';
 import 'package:global_student/view/visa/visa_page.dart';
+import 'package:global_student/view/widget/drawer.dart';
 import 'package:global_student/view/widget/internetconnection.dart';
 import 'package:lottie/lottie.dart';
 
@@ -24,6 +25,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final GlobalKey<ScaffoldState> _drawerscaffoldkey =
+      new GlobalKey<ScaffoldState>();
   List image = [
     "assets/images/banner1.jpg",
     "assets/images/banner2.jpg",
@@ -31,14 +34,14 @@ class _HomePageState extends State<HomePage> {
     "assets/images/banner2.jpg"
   ];
   List<Color> color = [
-    Color(0xff5D88C6),
-    Color(0xffCE7983),
-    Color(0xff908BCB),
-    Color(0xff61B993),
-    Color(0xffB96191),
-    Color(0xffC65DAF),
-    Color(0xffCEA279),
-    Color(0xff6DACC0),
+    const Color(0xff5D88C6),
+    const Color(0xffCE7983),
+    const Color(0xff908BCB),
+    const Color(0xff61B993),
+    const Color(0xffB96191),
+    const Color(0xffC65DAF),
+    const Color(0xffCEA279),
+    const Color(0xff6DACC0),
   ];
 
   List page = [
@@ -64,10 +67,22 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: AppColors.PrimaryWhiteColor,
         elevation: 0,
-        leading: Icon(
-          Icons.menu,
-          color: AppColors.PrimaryBlackColor,
-          size: 30.sp,
+        iconTheme: IconThemeData(color: AppColors.PrimaryMainColor),
+        leading: InkWell(
+          onTap: () {
+            if (_drawerscaffoldkey.currentState!.isDrawerOpen) {
+              //if drawer is open, then close the drawer
+              Navigator.pop(context);
+            } else {
+              _drawerscaffoldkey.currentState!.openDrawer();
+              //if drawer is closed then open the drawer.
+            }
+          },
+          child: Icon(
+            Icons.menu,
+            color: AppColors.PrimaryBlackColor,
+            size: 30.sp,
+          ),
         ),
         title: Text("Welcome Mohit",
             style: btntext(
@@ -75,7 +90,7 @@ class _HomePageState extends State<HomePage> {
             )),
         actions: [
           Padding(
-            padding: EdgeInsets.only(right: 20),
+            padding: const EdgeInsets.only(right: 20),
             child: Icon(
               Icons.notifications_rounded,
               size: 30.sp,
@@ -84,6 +99,8 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
+      drawer: const drawer(),
+      key: _drawerscaffoldkey,
       body: Column(
         children: [
           Container(
