@@ -23,7 +23,7 @@ class _CourseDetailsState extends State<CourseDetails> {
         child: AppBarCustom(
           title: "Course Details",
           onpress: () {
-            Navigator.pushNamed(context, RoutesName.home);
+            Navigator.pushNamed(context, RoutesName.bottomnav);
           },
         ),
       ),

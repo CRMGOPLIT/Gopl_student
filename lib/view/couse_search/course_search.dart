@@ -27,7 +27,7 @@ class _CourseSerachState extends State<CourseSerach> {
         ),
         leading: InkWell(
           onTap: () {
-            Navigator.pushNamed(context, RoutesName.home);
+            Navigator.pushNamed(context, RoutesName.bottomnav);
           },
           child: Icon(
             Icons.arrow_back_ios,

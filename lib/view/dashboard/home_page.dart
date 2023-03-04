@@ -12,9 +12,6 @@ import 'package:global_student/view/event_details/event_detils.dart';
 import 'package:global_student/view/login/otp_page.dart';
 import 'package:global_student/view/visa/visa_page.dart';
 import 'package:global_student/view/widget/drawer.dart';
-import 'package:global_student/view/widget/internetconnection.dart';
-import 'package:lottie/lottie.dart';
-
 import '../qualification/highschool.dart';
 
 class HomePage extends StatefulWidget {
@@ -28,10 +25,9 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _drawerscaffoldkey =
       new GlobalKey<ScaffoldState>();
   List image = [
-    "assets/images/banner1.jpg",
-    "assets/images/banner2.jpg",
-    "assets/images/banner3.jpg",
-    "assets/images/banner2.jpg"
+    "assets/images/appbanner1.jpg",
+    "assets/images/appbanner2.jpg",
+    "assets/images/appbanner3.jpg",
   ];
   List<Color> color = [
     const Color(0xff5D88C6),
@@ -110,8 +106,8 @@ class _HomePageState extends State<HomePage> {
                 width: double.infinity,
                 // height: 15.h,
                 initialPage: 0,
-                indicatorColor: AppColors.PrimaryMainColor,
-                indicatorBackgroundColor: Colors.white,
+                indicatorColor: Color(0xff5D88C6),
+                indicatorBackgroundColor: AppColors.PrimaryGreyColor,
                 onPageChanged: (value) {},
                 autoPlayInterval: 3000,
                 isLoop: true,
@@ -140,11 +136,16 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               child: Container(
-                padding: EdgeInsets.all(15.r),
+                padding: EdgeInsets.only(
+                  left: 15.r,
+                  right: 15.r,
+                ),
                 child: Row(
                   children: [
                     Expanded(
                       child: GridView.builder(
+                        physics: const BouncingScrollPhysics(
+                            parent: AlwaysScrollableScrollPhysics()),
                         shrinkWrap: true,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
@@ -235,25 +236,25 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'School',
-          ),
-        ],
-        // currentIndex: _selectedIndex,
-        // selectedItemColor: Colors.amber[800],
-        // onTap: _onItemTapped,
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: const <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.home),
+      //       label: 'Home',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.business),
+      //       label: 'Business',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.school),
+      //       label: 'School',
+      //     ),
+      //   ],
+      //   // currentIndex: _selectedIndex,
+      //   // selectedItemColor: Colors.amber[800],
+      //   // onTap: _onItemTapped,
+      // ),
     );
   }
 }

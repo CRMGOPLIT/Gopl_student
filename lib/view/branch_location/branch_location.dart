@@ -31,7 +31,7 @@ class _BranchLocationState extends State<BranchLocation> {
         child: AppBarCustom(
           title: "Branch Location",
           onpress: () {
-            Navigator.pushNamed(context, RoutesName.home);
+            Navigator.pushNamed(context, RoutesName.bottomnav);
           },
         ),
       ),
@@ -59,8 +59,7 @@ class _BranchLocationState extends State<BranchLocation> {
                                 color: Colors.black12,
                                 blurRadius: 1.0,
                                 spreadRadius: 0.0),
-                          ]
-                          ),
+                          ]),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

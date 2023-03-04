@@ -22,11 +22,12 @@ class _EventDetailsState extends State<EventDetails> {
         child: AppBarCustom(
           title: "Event Details",
           onpress: () {
-            Navigator.pushNamed(context, RoutesName.home);
+            Navigator.pushNamed(context, RoutesName.bottomnav);
           },
         ),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
             child: ListView.builder(
@@ -198,16 +199,8 @@ class _EventDetailsState extends State<EventDetails> {
                                 left: 8.r, right: 8.r, bottom: 8.r, top: 8.r),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
+                              // mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                // SizedBox(
-                                //   width: 280.w,
-                                //   child: Text(
-                                //     "Cts 215, Andheri - Kurla Rd, Andheri East,Mumbai 400059",
-                                //     style: TextRegular(
-                                //         AppColors.PrimaryMainColor),
-                                //   ),
-                                // ),
                                 SizedBox(
                                   width: 300.w,
                                   child: RichText(
@@ -230,10 +223,11 @@ class _EventDetailsState extends State<EventDetails> {
                                   height: 8.h,
                                 ),
                                 Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Icon(
                                       Icons.watch_later_outlined,
-                                      size: 15.sp,
+                                      size: 20.sp,
                                     ),
                                     SizedBox(
                                       width: 10.h,

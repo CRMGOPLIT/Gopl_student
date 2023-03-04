@@ -82,7 +82,7 @@ class _OtpPageState extends State<OtpPage> {
               ButtonPrimary(
                 title: "Submit",
                 onPressed: () {
-                  Navigator.pushNamed(context, RoutesName.home);
+                  Navigator.pushNamed(context, RoutesName.bottomnav);
                 },
               ),
               Align(

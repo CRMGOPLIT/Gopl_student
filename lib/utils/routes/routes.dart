@@ -16,6 +16,7 @@ import 'package:global_student/view/search/search.dart';
 import 'package:global_student/view/second.dart';
 import 'package:global_student/view/splash/splash_screen.dart';
 import 'package:global_student/view/visa/visa_page.dart';
+import 'package:global_student/view/widget/bottomnavbar.dart';
 import 'package:global_student/view/widget/common_widget.dart';
 import '../../view/login/otp_page.dart';
 import '../../view/onborarding/onboarding_screen.dart';
@@ -100,6 +101,9 @@ class Routes {
       case RoutesName.aboutpage:
         return MaterialPageRoute(
             builder: (BuildContext context) => const AboutUs());
+
+      case RoutesName.bottomnav:
+        return MaterialPageRoute(builder: (BuildContext context) => Bottom());
 
       default:
         return MaterialPageRoute(builder: (_) {

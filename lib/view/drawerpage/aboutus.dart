@@ -22,7 +22,7 @@ class _AboutUsState extends State<AboutUs> {
           child: AppBarCustom(
             title: "About Us",
             onpress: () {
-              Navigator.pushNamed(context, RoutesName.home);
+              Navigator.pushNamed(context, RoutesName.bottomnav);
             },
           ),
         ),

@@ -48,7 +48,7 @@ class _VisaPageState extends State<VisaPage> {
         child: AppBarCustom(
           title: "Apply Visa",
           onpress: () {
-            Navigator.pushNamed(context, RoutesName.home);
+            Navigator.pushNamed(context, RoutesName.bottomnav);
           },
         ),
       ),

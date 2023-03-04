@@ -22,7 +22,7 @@ class _BatchDetailsState extends State<BatchDetails> {
           child: AppBarCustom(
             title: "Batch Details",
             onpress: () {
-              Navigator.pushNamed(context, RoutesName.home);
+              Navigator.pushNamed(context, RoutesName.bottomnav);
             },
           ),
         ),

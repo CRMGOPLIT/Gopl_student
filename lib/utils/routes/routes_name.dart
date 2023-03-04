@@ -46,4 +46,7 @@ class RoutesName {
 
   //Drawer Page
   static const String aboutpage = 'aboutpage';
+
+  //Bottom Navbar
+  static const String bottomnav = 'bottomnav';
 }

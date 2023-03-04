@@ -15,8 +15,7 @@ class ApplicationStatus extends StatefulWidget {
 class _ApplicationStatusState extends State<ApplicationStatus> {
   bool isExpanded = false;
   int? num;
-  
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +25,7 @@ class _ApplicationStatusState extends State<ApplicationStatus> {
         child: AppBarCustom(
           title: "Application Status",
           onpress: () {
-            Navigator.pushNamed(context, RoutesName.home);
+            Navigator.pushNamed(context, RoutesName.bottomnav);
           },
         ),
       ),

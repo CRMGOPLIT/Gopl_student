@@ -19,31 +19,31 @@ List<GridModel> dashgrid = [
       color: Color(0xffEEF5FF)),
   GridModel(
       title: 'Upload Document',
-      image: 'assets/images/addnew1.png',
+      image: 'assets/images/documentic.png',
       color: Color(0xffFFEEF0)),
   GridModel(
       title: 'Course Serarch',
-      image: 'assets/images/addnew1.png',
+      image: 'assets/images/courseic.png',
       color: Color(0xffF4F3FF)),
   GridModel(
       title: 'Application Information',
-      image: 'assets/images/addnew1.png',
+      image: 'assets/images/applicationic.png',
       color: Color(0xffF2F9F6)),
   GridModel(
       title: 'Batch Details',
-      image: 'assets/images/addnew1.png',
+      image: 'assets/images/batchic.png',
       color: Color(0xffF9F2F6)),
   GridModel(
       title: 'Event Details',
-      image: 'assets/images/addnew1.png',
+      image: 'assets/images/eventic.png',
       color: Color(0xffFFEEF9)),
   GridModel(
       title: 'Branch Location',
-      image: 'assets/images/addnew1.png',
+      image: 'assets/images/locationic.png',
       color: Color(0xffFFF6EE)),
   GridModel(
       title: 'Apply Visa Upload',
-      image: 'assets/images/addnew1.png',
+      image: 'assets/images/Visaic.png',
       color: Color(0xffF3FCFF)),
 
   // GridModel(
