@@ -102,3 +102,44 @@ TextStyle batchtext2(Color? color) {
       letterSpacing: 1,
       fontSize: 12.sp);
 }
+
+Widget MediumBottonWithoutIcon(
+  String title,
+  bool isEnable,
+  Function onTap,
+) {
+  return GestureDetector(
+    child: Ink(
+      decoration: BoxDecoration(
+          color: isEnable == false
+              ? AppColors.PrimaryGreyColor
+              : AppColors.PrimaryMainColor,
+          borderRadius: BorderRadius.circular(4)),
+      child: InkWell(
+        onTap: isEnable == false
+            ? () {}
+            : () {
+                onTap();
+              },
+        highlightColor:
+            isEnable == false ? Colors.transparent : AppColors.PrimaryMainColor,
+        borderRadius: BorderRadius.circular(4),
+        autofocus: true,
+        child: Container(
+          height: 48,
+          width: 92,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                title,
+                style: TextRegular(AppColors.PrimaryWhiteColor),
+              )
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}

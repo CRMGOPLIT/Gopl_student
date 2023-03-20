@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:global_student/utils/color.dart';
+import 'package:global_student/utils/text_style.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/routes/routes_name.dart';
 
 class drawer extends StatelessWidget {
-  const drawer({
+  drawer({
     Key? key,
   }) : super(key: key);
-
+  String? token;
   @override
   Widget build(BuildContext context) {
     final imageurl =
@@ -28,7 +31,7 @@ class drawer extends StatelessWidget {
             padding: EdgeInsets.all(0.0),
             children: [
               UserAccountsDrawerHeader(
-                accountName: Text('Oflutter.com'),
+                accountName: Text('Gautam Sir'),
                 accountEmail: Text('example@gmail.com'),
                 currentAccountPicture: CircleAvatar(
                   child: ClipOval(
@@ -42,7 +45,7 @@ class drawer extends StatelessWidget {
                 ),
                 decoration: BoxDecoration(
                   color: AppColors.PrimaryMainColor,
-                  image: DecorationImage(
+                  image: const DecorationImage(
                     image: NetworkImage(
                       'https://insidemusicschools.com/wp-content/uploads/2020/03/pexels-pixabay-267885-scaled.jpg',
                     ),
@@ -63,7 +66,7 @@ class drawer extends StatelessWidget {
               ),
               const ListTile(
                 leading: Icon(
-                  CupertinoIcons.profile_circled,
+                  Icons.person,
                   color: Colors.black,
                 ),
                 title: Text(
@@ -78,7 +81,7 @@ class drawer extends StatelessWidget {
                 },
                 child: const ListTile(
                   leading: Icon(
-                    CupertinoIcons.textformat_abc_dottedunderline,
+                    Icons.school,
                     color: Colors.black,
                   ),
                   title: Text(
@@ -90,18 +93,64 @@ class drawer extends StatelessWidget {
               ),
               ListTile(
                 leading: const Icon(
-                  CupertinoIcons.arrow_down_circle,
+                  Icons.phone,
                   color: Colors.black,
                 ),
                 title: GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/signup');
+                    Navigator.pushNamed(context, RoutesName.contactpage);
                   },
                   child: const Text(
-                    "LOG OUT",
+                    "Contact Us",
                     textScaleFactor: 1.0,
                     style: TextStyle(color: Colors.black),
                   ),
+                ),
+              ),
+              ListTile(
+                leading: const Icon(
+                  Icons.logout,
+                  color: Colors.red,
+                ),
+                title: GestureDetector(
+                  onTap: () {
+                    // Navigator.pushNamed(context, '/signup');
+                    Get.defaultDialog(
+                        title: "Are You Sure Logout ?",
+                        // middleText: "Hello world!",
+                        backgroundColor: AppColors.PrimaryWhiteColor,
+                        titleStyle: btntext(AppColors.PrimaryMainColor),
+                        //middleTextStyle: TextStyle(color: Colors.white),
+                        titlePadding: EdgeInsets.all(15.sp),
+                        textConfirm: "Yes",
+                        textCancel: "No",
+                        cancelTextColor: AppColors.PrimaryMainColor,
+                        confirmTextColor: Colors.white,
+                        buttonColor: AppColors.PrimaryMainColor,
+                        barrierDismissible: false,
+                        radius: 10,
+                        onConfirm: () {
+                          removeValues();
+                          Navigator.pushNamed(context, RoutesName.login);
+                        },
+                        content: Container());
+                  },
+                  child: const Text(
+                    "Log Out",
+                    textScaleFactor: 1.0,
+                    style: TextStyle(color: Colors.red),
+                  ),
+                ),
+              ),
+              ListTile(
+                // leading: const Icon(
+                //   Icons.phone,
+                //   color: Colors.black,
+                // ),
+                title: Text(
+                  "Version 1.0.0",
+                  textScaleFactor: 1.0,
+                  style: TextRegular(AppColors.PrimaryBlackColor),
                 ),
               ),
             ],
@@ -109,5 +158,11 @@ class drawer extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  removeValues() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    token = prefs.remove("stringValue").toString();
   }
 }

@@ -8,6 +8,7 @@ import 'package:global_student/view/course_details/course_details.dart';
 import 'package:global_student/view/couse_search/course_search.dart';
 import 'package:global_student/view/dashboard/home_page.dart';
 import 'package:global_student/view/drawerpage/aboutus.dart';
+import 'package:global_student/view/drawerpage/contactus.dart';
 import 'package:global_student/view/edit/edit_page.dart';
 import 'package:global_student/view/event_details/event_detils.dart';
 import 'package:global_student/view/login/login_page.dart';
@@ -101,6 +102,10 @@ class Routes {
       case RoutesName.aboutpage:
         return MaterialPageRoute(
             builder: (BuildContext context) => const AboutUs());
+
+      case RoutesName.contactpage:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const ContactUs());
 
       case RoutesName.bottomnav:
         return MaterialPageRoute(builder: (BuildContext context) => Bottom());

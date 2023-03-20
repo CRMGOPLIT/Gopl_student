@@ -23,6 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
   String? _connectionStatus;
   String? check;
 
+  String? token;
 //  late StreamSubscription subscription;
   late StreamSubscription subscription2;
   bool isDeviceConnected = false;
@@ -189,10 +190,30 @@ class _SplashScreenState extends State<SplashScreen> {
     // startStreaming();
     // _checkInternetConnection();
     //getConnectivity();
-    Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushNamed(context, RoutesName.onbording);
-    });
+    // getStringValuesSF();
+    getStringValuesSF();
+
+    // Future.delayed(const Duration(seconds: 3), () {
+    //   Navigator.pushNamed(context, RoutesName.onbording);
+    // });
     super.initState();
+  }
+
+  getStringValuesSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Return String
+    token = prefs.getString('stringValue');
+    if (token == null) {
+      Future.delayed(const Duration(seconds: 3), () {
+        Navigator.pushNamed(context, RoutesName.onbording);
+      });
+    } else {
+      Future.delayed(const Duration(seconds: 3), () {
+        Navigator.pushNamed(context, RoutesName.bottomnav);
+      });
+    }
+
+    return token;
   }
 
   @override
@@ -211,6 +232,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       'Internet connection status: $_connectionStatus',
                     ),
                   ),
+                  Text(token.toString()),
                   SizedBox(
                     height: 50.h,
                   ),

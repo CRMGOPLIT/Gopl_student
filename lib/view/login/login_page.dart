@@ -1,10 +1,19 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:global_student/bloc/loginbloc.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/utils/text_style.dart';
+import 'package:global_student/view/helper/apiResponseHelper.dart';
+import 'package:global_student/view/login/otp_page.dart';
 import 'package:global_student/view/widget/button.dart';
+import 'package:global_student/view/widget/loader.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+
+import '../../networking/NetworkConstant.dart';
 
 class LginPage extends StatefulWidget {
   const LginPage({super.key});
@@ -14,6 +23,90 @@ class LginPage extends StatefulWidget {
 }
 
 class _LginPageState extends State<LginPage> {
+  final GlobalKey<State> _keyLoader = new GlobalKey<State>();
+  TextEditingController _mobileNumber = new TextEditingController();
+
+  late LoginDataBloc loginDataBloc;
+
+  @override
+  void initState() {
+    loginDataBloc = LoginDataBloc();
+    // callpostlogindata();
+    loginDataBloc.postloginStream.listen((event) {
+      Navigator.pop(context);
+      bool response =
+          ApiResponseHelper().handleResponse(event: event, context: context);
+
+      if (response == true && event.data['success'] == '1') {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Login Successfully"),
+        ));
+        Get.to(OtpPage(), arguments: _mobileNumber.text);
+        // Get.to(OtpPage(), arguments: _mobileNumber.text);
+        // Navigator.pushNamedAndRemoveUntil(
+        //     context, RoutesName.otp, (routes) => false,
+        //     arguments: {_mobileNumber.text});
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.transparent,
+          behavior: SnackBarBehavior.floating,
+          elevation: 0,
+          duration: const Duration(milliseconds: 1000),
+          content: Container(
+            padding: const EdgeInsets.all(8),
+            height: 60,
+            decoration: BoxDecoration(
+              color: Colors.red.withOpacity(0.9),
+              borderRadius: const BorderRadius.all(Radius.circular(15)),
+            ),
+            child: Row(
+              children: [
+                const SizedBox(
+                  width: 30,
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Oops Error!',
+                        style: TextStyle(fontSize: 18.sp, color: Colors.white),
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      Text("Login Faield",
+                          style: batchtext1(
+                            AppColors.PrimaryWhiteColor,
+                          )),
+                      //         TextStyle(fontSize: 15.sp, color: Colors.white),
+                      //     maxLines: 2,
+                      //     overflow: TextOverflow.ellipsis,
+                      //   ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ));
+      }
+    });
+    // TODO: implement initState
+    super.initState();
+  }
+
+  void callpostlogindata() {
+    NetworkDialog.showLoadingDialog(context, _keyLoader);
+    Map<String, String> data = {
+      NetworkConstant.Mobile_Number: _mobileNumber.text,
+    };
+    loginDataBloc.callPostLogin(data);
+
+    // debugger();
+    print(data);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,11 +169,11 @@ class _LginPageState extends State<LginPage> {
                   height: 10.h,
                 ),
                 IntlPhoneField(
+                  controller: _mobileNumber,
                   flagsButtonMargin: EdgeInsets.all(10.r),
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
                     // labelText: 'Phone Number',
-
                     hintText: "Phone Number",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.r),
@@ -101,8 +194,10 @@ class _LginPageState extends State<LginPage> {
                   title: "Request OTP",
                   onPressed: () {
                     FocusScope.of(context).unfocus();
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, RoutesName.otp, (routes) => false);
+                    callpostlogindata();
+
+                    // Navigator.pushNamedAndRemoveUntil(
+                    //     context, RoutesName.otp, (routes) => false);
                   },
                 ),
                 Align(

@@ -9,16 +9,19 @@ class TextFormWidget extends StatelessWidget {
   String? title;
   String? hint;
   final List<TextInputFormatter>? inputFormatters;
+  TextEditingController? controller;
 
-  //final String? Function(String?)? validator;
+  final String? Function(String?)? validator;
+  TextInputType? keyboardType;
 
-  TextFormWidget({
-    super.key,
-    required this.title,
-    required this.hint,
-    this.inputFormatters,
-    //required this.validator
-  });
+  TextFormWidget(
+      {super.key,
+      required this.title,
+      required this.hint,
+      this.inputFormatters,
+      this.controller,
+      this.validator,
+      this.keyboardType});
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +34,14 @@ class TextFormWidget extends StatelessWidget {
             )),
         TextFormField(
           inputFormatters: inputFormatters,
-          //  validator: validator,
+          controller: controller,
+          validator: validator,
+          keyboardType: keyboardType,
           // validator:((value) => {
           //   valid();
           // },
           // [
-          style: TextStyle(
-              color: AppColors.PrimaryMainColor, fontWeight: FontWeight.w600),
+          style: batchtext2(AppColors.PrimaryMainColor),
           // ],
           cursorColor: AppColors.PrimaryBlackColor,
           decoration: InputDecoration(
@@ -47,15 +51,15 @@ class TextFormWidget extends StatelessWidget {
             fillColor: AppColors.PrimaryMainColor,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
-              borderSide: const BorderSide(
-                color: Color.fromRGBO(217, 217, 217, 1),
+              borderSide: BorderSide(
+                color: AppColors.PrimaryMainColor,
                 width: 1.0,
               ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.r),
               borderSide: BorderSide(
-                color: AppColors.PrimaryBlackColor,
+                color: AppColors.PrimaryMainColor,
                 width: 1,
               ),
             ),

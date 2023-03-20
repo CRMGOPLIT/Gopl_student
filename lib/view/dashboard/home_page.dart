@@ -23,7 +23,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _drawerscaffoldkey =
-      new GlobalKey<ScaffoldState>();
+      GlobalKey<ScaffoldState>();
   List image = [
     "assets/images/appbanner1.jpg",
     "assets/images/appbanner2.jpg",
@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      drawer: const drawer(),
+      drawer: drawer(),
       key: _drawerscaffoldkey,
       body: Column(
         children: [
@@ -177,14 +177,6 @@ class _HomePageState extends State<HomePage> {
                                         color: Colors.black12,
                                         blurRadius: 1.0,
                                         spreadRadius: 0.0),
-                                    // BoxShadow(
-                                    //     offset: Offset(
-                                    //       -2,
-                                    //       -5,
-                                    //     ),
-                                    //     color: Colors.black12,
-                                    //     blurRadius: 2.0,
-                                    //     spreadRadius: 2.0),
                                   ]),
                               child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -236,25 +228,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      // bottomNavigationBar: BottomNavigationBar(
-      //   items: const <BottomNavigationBarItem>[
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.home),
-      //       label: 'Home',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.business),
-      //       label: 'Business',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.school),
-      //       label: 'School',
-      //     ),
-      //   ],
-      //   // currentIndex: _selectedIndex,
-      //   // selectedItemColor: Colors.amber[800],
-      //   // onTap: _onItemTapped,
-      // ),
     );
   }
 }

@@ -3,7 +3,6 @@ import 'package:flutter_fadein/flutter_fadein.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/text_style.dart';
-
 import 'package:global_student/view/widget/allpication_status_card.dart';
 
 class AccordingWidget extends StatefulWidget {
@@ -104,11 +103,11 @@ class _AccordingWidgetState extends State<AccordingWidget> {
                                 children: [
                                   ApplicationStatusCard(
                                     title: "Country",
-                                    subtitle: "Uk",
+                                    subtitle: "Canada",
                                   ),
                                   ApplicationStatusCard(
                                     title: "Institution",
-                                    subtitle: "ABC University",
+                                    subtitle: "Solent University",
                                   ),
                                 ]),
                             Row(
@@ -145,10 +144,65 @@ class _AccordingWidgetState extends State<AccordingWidget> {
                                     title: "Application Date",
                                     subtitle: "24/02/2022",
                                   ),
-                                  ApplicationStatusCard(
-                                    title: "Application Status",
-                                    subtitle: "Visa Approved",
+                                  Container(
+                                    padding: EdgeInsets.only(
+                                        left: 25.r,
+                                        right: 25.r,
+                                        top: 20.r,
+                                        bottom: 20.r),
+                                    margin: EdgeInsets.all(10.r),
+                                    decoration: BoxDecoration(
+                                        color: AppColors.PrimaryGreyColor,
+                                        boxShadow: const [
+                                          BoxShadow(
+                                              offset: Offset(
+                                                2,
+                                                2,
+                                              ),
+                                              color: Colors.black12,
+                                              blurRadius: 1.0,
+                                              spreadRadius: 0.0),
+                                        ],
+                                        borderRadius:
+                                            BorderRadius.circular(10.sp)),
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          width: 85.w,
+                                          child: Text(
+                                            "Application Status",
+                                            textAlign: TextAlign.center,
+                                            style: FieldTextStyle(
+                                                AppColors.PrimaryBlackColor),
+                                          ),
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.all(5.r),
+                                          height: 1.h,
+                                          width: 70.w,
+                                          color: AppColors.PrimaryBlackColor,
+                                        ),
+                                        SizedBox(
+                                          width: 80.w,
+                                          child: Text(
+                                            "Visa Approved",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color:
+                                                    AppColors.PrimaryMainColor,
+                                                // fontFamily: Constant.font_poppins_bold,
+                                                fontWeight: FontWeight.w500,
+                                                height: 1.1,
+                                                fontSize: 12.sp),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
+                                  // ApplicationStatusCard(
+                                  //   title: "Application Status",
+                                  //   subtitle: "Visa Approved".toUpperCase(),
+                                  // ),
                                 ]),
                             SizedBox(
                               height: 15.h,

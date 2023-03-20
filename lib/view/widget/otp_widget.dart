@@ -5,13 +5,17 @@ import 'package:global_student/utils/text_style.dart';
 import 'package:pinput/pinput.dart';
 
 class PinInput extends StatefulWidget {
-  const PinInput({Key? key}) : super(key: key);
+  PinInput({Key? key, required this.controller}) : super(key: key);
+
+  TextEditingController controller;
 
   @override
-  State<PinInput> createState() => _PinInputState();
+  State<PinInput> createState() => _PinInputState(controller);
 }
 
 class _PinInputState extends State<PinInput> {
+  TextEditingController controller;
+  _PinInputState(this.controller);
   final pinController = TextEditingController();
   final focusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
@@ -46,26 +50,26 @@ class _PinInputState extends State<PinInput> {
             textDirection: TextDirection.ltr,
             child: Pinput(
               pinAnimationType: PinAnimationType.rotation,
-              controller: pinController,
+              controller: controller,
               focusNode: focusNode,
               androidSmsAutofillMethod:
                   AndroidSmsAutofillMethod.smsUserConsentApi,
               listenForMultipleSmsOnAndroid: true,
               defaultPinTheme: defaultPinTheme,
-              validator: (value) {
-                return value == '2222' ? null : 'Pin is incorrect';
-              },
-              onClipboardFound: (value) {
-                debugPrint('onClipboardFound: $value');
-                pinController.setText(value);
-              },
-              hapticFeedbackType: HapticFeedbackType.lightImpact,
-              onCompleted: (pin) {
-                debugPrint('onCompleted: $pin');
-              },
-              onChanged: (value) {
-                debugPrint('onChange0 d: $value');
-              },
+              // validator: (value) {
+              //   return value == '2222' ? null : 'Pin is incorrect';
+              // },
+              // onClipboardFound: (value) {
+              //   debugPrint('onClipboardFound: $value');
+              //   pinController.setText(value);
+              // },
+              // hapticFeedbackType: HapticFeedbackType.lightImpact,
+              // onCompleted: (pin) {
+              //   debugPrint('onCompleted: $pin');
+              // },
+              // onChanged: (value) {
+              //   debugPrint('onChange0 d: $value');
+              // },
               cursor: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

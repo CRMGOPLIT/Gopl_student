@@ -27,14 +27,6 @@ class ApplicationStatusCard extends StatelessWidget {
                 color: Colors.black12,
                 blurRadius: 1.0,
                 spreadRadius: 0.0),
-            // BoxShadow(
-            //     offset: Offset(
-            //       -2,
-            //       -5,
-            //     ),
-            //     color: Colors.black12,
-            //     blurRadius: 2.0,
-            //     spreadRadius: 2.0),
           ],
           borderRadius: BorderRadius.circular(10.sp)),
       child: Column(
@@ -53,14 +45,25 @@ class ApplicationStatusCard extends StatelessWidget {
             width: 70.w,
             color: AppColors.PrimaryBlackColor,
           ),
-          SizedBox(
-            width: 80.w,
-            child: Text(
-              "$subtitle",
-              textAlign: TextAlign.center,
-              style: TextRegular(AppColors.PrimaryBlackColor),
-            ),
-          ),
+          subtitle.toString().length <= 25
+              ? SizedBox(
+                  width: 80.w,
+                  child: Text(
+                    //overflow: TextOverflow.ellipsis,
+                    "$subtitle",
+                    textAlign: TextAlign.center,
+                    style: TextRegular(AppColors.PrimaryBlackColor),
+                  ),
+                )
+              : SizedBox(
+                  width: 80.w,
+                  child: Text(
+                    overflow: TextOverflow.ellipsis,
+                    "$subtitle",
+                    textAlign: TextAlign.center,
+                    style: TextRegular(AppColors.PrimaryBlackColor),
+                  ),
+                )
         ],
       ),
     );
