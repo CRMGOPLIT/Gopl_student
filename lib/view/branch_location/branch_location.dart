@@ -35,7 +35,6 @@ class _BranchLocationState extends State<BranchLocation> {
     dashBoardBloc = DashBoardBloc();
     getBranchDetails();
     _gethomeData();
-    // TODO: implement initState
     super.initState();
   }
 
@@ -51,7 +50,6 @@ class _BranchLocationState extends State<BranchLocation> {
               BranchDetailsModel.fromJson(event[i]);
           data.add(branchDetailsModel);
         }
-
         setState(() {
           loanding = false;
           //print(location);
@@ -69,7 +67,7 @@ class _BranchLocationState extends State<BranchLocation> {
     return Scaffold(
       backgroundColor: AppColors.backgroungcolor,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(50.h), // here the desired height
+        preferredSize: Size.fromHeight(50.h),
         child: AppBarCustom(
           title: "Branch Location",
           onpress: () {
@@ -78,7 +76,7 @@ class _BranchLocationState extends State<BranchLocation> {
         ),
       ),
       body: loanding == true
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

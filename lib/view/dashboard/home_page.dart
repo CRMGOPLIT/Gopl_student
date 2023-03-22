@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:global_student/bloc/dashboardBloc.dart';
+import 'package:global_student/model/bannersModel.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/text_style.dart';
 import 'package:global_student/view/applicationStatus/application_status.dart';
@@ -50,10 +54,41 @@ class _HomePageState extends State<HomePage> {
     const BranchLocation(),
     const VisaPage(),
   ];
+
+  bool loanding = true;
+  late DashBoardBloc dashBoardBloc;
+  List data = [];
+  List BranchData = [];
+
   @override
   void initState() {
-    //  ConnectionChecker();
-    // TODO: implement initState
+    dashBoardBloc = DashBoardBloc();
+    getBranchDetails();
+    _gethomeData();
+    super.initState();
+  }
+
+  getBranchDetails() async {
+    await dashBoardBloc.bannersControllerStream.listen((event) {
+      if (event != null) {
+        // debugger();
+        // print(event);
+        BranchData = event;
+        // List<String> branchDetailsModel = String.fromJson(event);
+        for (int i = 0; i < BranchData.length; i++) {
+          data.add(event[i]);
+        }
+
+        setState(() {
+          loanding = false;
+          //print(location);
+        });
+      }
+    });
+  }
+
+  _gethomeData() {
+    dashBoardBloc.callGetBannersDetailsApi();
   }
 
   @override
@@ -100,29 +135,31 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           Container(
-            height: 160.h,
-            padding: EdgeInsets.all(15.r),
-            child: ImageSlideshow(
-                width: double.infinity,
-                // height: 15.h,
-                initialPage: 0,
-                indicatorColor: Color(0xff5D88C6),
-                indicatorBackgroundColor: AppColors.PrimaryGreyColor,
-                onPageChanged: (value) {},
-                autoPlayInterval: 3000,
-                isLoop: true,
-                children: List.generate(image.length, (index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.sp),
-                      image: DecorationImage(
-                          image: AssetImage(image[index]), fit: BoxFit.fill
-                          // fit: BoxFit.cover,
+              height: 160.h,
+              padding: EdgeInsets.all(15.r),
+              child: loanding == true
+                  ? Container()
+                  : ImageSlideshow(
+                      width: double.infinity,
+                      // height: 15.h,
+                      initialPage: 0,
+                      indicatorColor: Color(0xff5D88C6),
+                      indicatorBackgroundColor: AppColors.PrimaryGreyColor,
+                      onPageChanged: (value) {},
+                      autoPlayInterval: 3000,
+                      isLoop: true,
+                      children: List.generate(data.length, (index) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.sp),
+                            image: DecorationImage(
+                                image: NetworkImage(data[index]),
+                                fit: BoxFit.fill
+                                // fit: BoxFit.cover,
+                                ),
                           ),
-                    ),
-                  );
-                })),
-          ),
+                        );
+                      }))),
           // SizedBox(
           //   height: 10.h,
           // ),

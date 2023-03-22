@@ -48,4 +48,8 @@ class NetworkConstant {
   static const String END_POINT_GET_EVENT = "/Event/getUpcomingEvents";
 
   static const String END_POINT_GET_BRANCH = "/GopAndroid/GetBranchDeatis";
+
+  static const String END_POINT_GET_BATCH = "/GopAndroid/ListBatches";
+
+  static const String END_POINT_GET_BANNERS = "/Login/GetDashboardBanner";
 }

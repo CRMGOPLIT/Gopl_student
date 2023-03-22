@@ -21,4 +21,21 @@ class DashBoardGet {
     // print(response.body);
     return response; //GetApplicationDetailsResponse.fromJson(response);
   }
+
+// Batch Details
+  Future<dynamic> getBatchDetailsRepo() async {
+    final response =
+        await _apiProvider.getLocal(NetworkConstant.END_POINT_GET_BATCH);
+    // print(response.body);
+    return response; //GetApplicationDetailsResponse.fromJson(response);
+  }
+
+  //Banner  Details
+
+  Future<dynamic> getBannersDetailsRepo() async {
+    final response =
+        await _apiProvider.getLocal(NetworkConstant.END_POINT_GET_BANNERS);
+    // print(response.body);
+    return response; //GetApplicationDetailsResponse.fromJson(response);
+  }
 }
