@@ -3,6 +3,7 @@ import 'package:global_student/utils/color.dart';
 import 'package:global_student/view/applicationStatus/application_status.dart';
 import 'package:global_student/view/dashboard/home_page.dart';
 import 'package:global_student/view/drawerpage/aboutus.dart';
+import 'package:global_student/view/drawerpage/contactus.dart';
 import 'package:global_student/view/event_details/event_detils.dart';
 
 class Bottom extends StatefulWidget {
@@ -18,7 +19,7 @@ class _BottomState extends State<Bottom> {
   List pageData = [
     const HomePage(),
     const ApplicationStatus(),
-    const AboutUs(),
+    const ContactUs(),
     const EventDetails()
   ];
   @override

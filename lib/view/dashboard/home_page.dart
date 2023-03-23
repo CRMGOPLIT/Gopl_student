@@ -1,11 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:global_student/bloc/dashboardBloc.dart';
-import 'package:global_student/model/bannersModel.dart';
 import 'package:global_student/utils/color.dart';
+import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/utils/text_style.dart';
 import 'package:global_student/view/applicationStatus/application_status.dart';
 import 'package:global_student/view/batch_details/batch_details.dart';
@@ -28,11 +26,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _drawerscaffoldkey =
       GlobalKey<ScaffoldState>();
-  List image = [
-    "assets/images/appbanner1.jpg",
-    "assets/images/appbanner2.jpg",
-    "assets/images/appbanner3.jpg",
-  ];
+  // List image = [
+  //   "assets/images/appbanner1.jpg",
+  //   "assets/images/appbanner2.jpg",
+  //   "assets/images/appbanner3.jpg",
+  // ];
   List<Color> color = [
     const Color(0xff5D88C6),
     const Color(0xffCE7983),
@@ -63,25 +61,20 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     dashBoardBloc = DashBoardBloc();
-    getBranchDetails();
+    getBannersDetails();
     _gethomeData();
     super.initState();
   }
 
-  getBranchDetails() async {
+  getBannersDetails() async {
     await dashBoardBloc.bannersControllerStream.listen((event) {
       if (event != null) {
-        // debugger();
-        // print(event);
         BranchData = event;
-        // List<String> branchDetailsModel = String.fromJson(event);
         for (int i = 0; i < BranchData.length; i++) {
           data.add(event[i]);
         }
-
         setState(() {
           loanding = false;
-          //print(location);
         });
       }
     });
@@ -102,11 +95,9 @@ class _HomePageState extends State<HomePage> {
         leading: InkWell(
           onTap: () {
             if (_drawerscaffoldkey.currentState!.isDrawerOpen) {
-              //if drawer is open, then close the drawer
               Navigator.pop(context);
             } else {
               _drawerscaffoldkey.currentState!.openDrawer();
-              //if drawer is closed then open the drawer.
             }
           },
           child: Icon(
@@ -120,12 +111,17 @@ class _HomePageState extends State<HomePage> {
               AppColors.PrimaryBlackColor,
             )),
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: Icon(
-              Icons.notifications_rounded,
-              size: 30.sp,
-              color: AppColors.PrimaryBlackColor,
+          InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, RoutesName.notificationpage);
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Icon(
+                Icons.notifications_rounded,
+                size: 30.sp,
+                color: AppColors.PrimaryBlackColor,
+              ),
             ),
           ),
         ],
@@ -138,12 +134,14 @@ class _HomePageState extends State<HomePage> {
               height: 160.h,
               padding: EdgeInsets.all(15.r),
               child: loanding == true
-                  ? Container()
+                  ? Container(
+                      color: AppColors.PrimaryGreyColor,
+                    )
                   : ImageSlideshow(
                       width: double.infinity,
                       // height: 15.h,
                       initialPage: 0,
-                      indicatorColor: Color(0xff5D88C6),
+                      indicatorColor: const Color(0xff5D88C6),
                       indicatorBackgroundColor: AppColors.PrimaryGreyColor,
                       onPageChanged: (value) {},
                       autoPlayInterval: 3000,

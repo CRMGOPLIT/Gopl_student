@@ -46,10 +46,11 @@ class RoutesName {
 
   //Drawer Page
   static const String aboutpage = 'aboutpage';
-   static const String contactpage = 'contactpage';
+  static const String contactpage = 'contactpage';
 
   //Bottom Navbar
   static const String bottomnav = 'bottomnav';
 
-  
+  // Notification Page
+  static const String notificationpage = 'notificationpage';
 }
