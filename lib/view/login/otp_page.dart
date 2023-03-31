@@ -37,8 +37,9 @@ class _OtpPageState extends State<OtpPage> {
       Navigator.pop(context);
       bool response =
           ApiResponseHelper().handleResponse(event: event, context: context);
+      //log("ehbjhbe" + event.data[success[]]);
 
-      if (response == true) {
+      if (response == true && event.data['success'] == 1) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text("Otp Verify Successfully"),
         ));
@@ -79,7 +80,7 @@ class _OtpPageState extends State<OtpPage> {
                       SizedBox(
                         height: 5.h,
                       ),
-                      Text("Login Faield",
+                      Text("Wrong Otp",
                           style: batchtext1(
                             AppColors.PrimaryWhiteColor,
                           )),
@@ -119,11 +120,11 @@ class _OtpPageState extends State<OtpPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: Icon(
-          Icons.arrow_back_ios,
-          color: AppColors.PrimaryBlackColor,
-          size: 30.sp,
-        ),
+        // leading: Icon(
+        //   Icons.arrow_back_ios,
+        //   color: AppColors.PrimaryBlackColor,
+        //   size: 30.sp,
+        // ),
         centerTitle: true,
         title: Text(
           "OTP",
@@ -203,10 +204,5 @@ class _OtpPageState extends State<OtpPage> {
         ),
       ),
     );
-  }
-
-  addStringToSF() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('stringValue', "abc");
   }
 }

@@ -39,7 +39,7 @@ class _LginPageState extends State<LginPage> {
 
       if (response == true && event.data['success'] == '1') {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Login Successfully"),
+          content: Text("Otp send your Mobile Number"),
         ));
         Get.to(OtpPage(), arguments: _mobileNumber.text);
         // Get.to(OtpPage(), arguments: _mobileNumber.text);

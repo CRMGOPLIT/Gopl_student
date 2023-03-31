@@ -1,25 +1,74 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_fadein/flutter_fadein.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:global_student/bloc/dashboardBloc.dart';
+import 'package:global_student/model/applicationStatusModel.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/text_style.dart';
+import 'package:global_student/view/applicationStatus/according_model.dart';
 import 'package:global_student/view/widget/allpication_status_card.dart';
 
 class AccordingWidget extends StatefulWidget {
-  // AccordingLModel accordingData;
-  // String title;
-  // AccordingWidget({required this.accordingData});
+  //AccordingLModel accordingData;
+  String? country;
+  String? institution;
+  String? ug;
+  String? course;
+  String? chort;
+  String? preference;
+  String? apidate;
+  String? apistatus;
+  String? apinumber;
+
+  AccordingWidget({
+    required this.country,
+    required this.institution,
+    required this.ug,
+    required this.course,
+    required this.chort,
+    required this.preference,
+    required this.apidate,
+    required this.apistatus,
+    required this.apinumber,
+  });
 
   @override
-  State<AccordingWidget> createState() => _AccordingWidgetState();
+  State<AccordingWidget> createState() => _AccordingWidgetState(
+      country: country,
+      institution: institution,
+      ug: ug,
+      course: course,
+      chort: chort,
+      preference: preference,
+      apidate: apidate,
+      apistatus: apistatus,
+      apinumber: apinumber);
 }
 
 class _AccordingWidgetState extends State<AccordingWidget> {
   final _controller = FadeInController();
 
   // AccordingLModel accordingData;
-  // String title;
-  _AccordingWidgetState();
+  String? country;
+  String? institution;
+  String? ug;
+  String? course;
+  String? chort;
+  String? preference;
+  String? apidate;
+  String? apistatus;
+  String? apinumber;
+  _AccordingWidgetState({
+    required this.country,
+    required this.institution,
+    required this.ug,
+    required this.course,
+    required this.chort,
+    required this.preference,
+    required this.apidate,
+    required this.apistatus,
+    required this.apinumber,
+  });
 
   bool isExpanded = false;
 
@@ -51,7 +100,7 @@ class _AccordingWidgetState extends State<AccordingWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text("Application No :- 12345",
+                  Text("Application No :- " + "$apinumber",
                       style: FieldTextStyle(
                         AppColors.PrimaryWhiteColor,
                       )),
@@ -103,11 +152,11 @@ class _AccordingWidgetState extends State<AccordingWidget> {
                                 children: [
                                   ApplicationStatusCard(
                                     title: "Country",
-                                    subtitle: "Canada",
+                                    subtitle: country,
                                   ),
                                   ApplicationStatusCard(
                                     title: "Institution",
-                                    subtitle: "Solent University",
+                                    subtitle: institution,
                                   ),
                                 ]),
                             Row(
@@ -116,11 +165,11 @@ class _AccordingWidgetState extends State<AccordingWidget> {
                                 children: [
                                   ApplicationStatusCard(
                                     title: "UG/PG",
-                                    subtitle: "PG",
+                                    subtitle: ug,
                                   ),
                                   ApplicationStatusCard(
                                     title: "Course",
-                                    subtitle: "BA",
+                                    subtitle: course,
                                   ),
                                 ]),
                             Row(
@@ -129,11 +178,11 @@ class _AccordingWidgetState extends State<AccordingWidget> {
                                 children: [
                                   ApplicationStatusCard(
                                     title: "Chort",
-                                    subtitle: "Aug 2022 to Nov 2022",
+                                    subtitle: chort,
                                   ),
                                   ApplicationStatusCard(
                                     title: "Preference",
-                                    subtitle: "1",
+                                    subtitle: preference,
                                   ),
                                 ]),
                             Row(
@@ -142,7 +191,7 @@ class _AccordingWidgetState extends State<AccordingWidget> {
                                 children: [
                                   ApplicationStatusCard(
                                     title: "Application Date",
-                                    subtitle: "24/02/2022",
+                                    subtitle: apidate,
                                   ),
                                   Container(
                                     padding: EdgeInsets.only(
@@ -185,7 +234,7 @@ class _AccordingWidgetState extends State<AccordingWidget> {
                                         SizedBox(
                                           width: 80.w,
                                           child: Text(
-                                            "Visa Approved",
+                                            "$apistatus",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 color:

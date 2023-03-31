@@ -53,6 +53,19 @@ class drawer extends StatelessWidget {
                   ),
                 ),
               ),
+              Container(
+                height: 30.h,
+                width: 100.w,
+                child: ListTile(
+                    // leading: const Icon(
+                    //   Icons.phone,
+                    //   color: Colors.black,
+                    // ),
+                    leading: Image.asset("assets/images/bannerlogo.png")),
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
               const ListTile(
                 leading: Icon(
                   CupertinoIcons.home,

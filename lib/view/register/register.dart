@@ -379,7 +379,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   DropdownButtonHideUnderline(
                     child: DropdownButtonFormField2(
                       isDense: false,
-                      isExpanded: false,
+                      isExpanded: true,
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -401,23 +401,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         }
                         return null;
                       },
-                      // customButton: Container(
-                      //   height: 50,
-                      //   width: 360,
-                      //   decoration: BoxDecoration(
-                      //       borderRadius: BorderRadius.circular(10),
-                      //       border: Border.all()
-                      //       // image: const DecorationImage(
-                      //       //   image: NetworkImage(
-                      //       //     'https://cdn.pixabay.com/photo/2020/05/11/06/20/city-5156636_960_720.jpg',
-                      //       //   ),
-                      //       //   fit: BoxFit.cover,
-                      //       // ),
-                      //       ),
-                      // ),
-                      // icon: Container(),
-
-                      //iconStyleData: ,
                       hint: Text(
                         'Please select',
                         style: Text2Regular(AppColors.PrimaryMainColor),
@@ -445,10 +428,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         height: 55,
                         width: 450,
                         padding: const EdgeInsets.all(10),
-                        // decoration: BoxDecoration(
-                        //     borderRadius: BorderRadius.circular(10.sp),
-                        //     border: Border.all(
-                        //         color: AppColors.PrimaryMainColor))
                       ),
                       dropdownStyleData: DropdownStyleData(
                           isOverButton: true,
@@ -530,7 +509,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   DropdownButtonHideUnderline(
                     child: DropdownButtonFormField2(
                       isDense: false,
-                      isExpanded: false,
+                      isExpanded: true,
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -735,7 +714,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       )),
                   DropdownButtonFormField2(
                     isDense: false,
-                    isExpanded: false,
+                    isExpanded: true,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -798,15 +777,15 @@ class _RegisterPageState extends State<RegisterPage> {
                         // accountTypeValidate = true;
                       });
                     },
-                    buttonStyleData: ButtonStyleData(
+                    buttonStyleData: const ButtonStyleData(
                       height: 55,
                       width: 450,
-                      padding: const EdgeInsets.all(10),
+                      padding: EdgeInsets.all(10),
                     ),
                     dropdownStyleData: DropdownStyleData(
                         isOverButton: true,
                         isFullScreen: true,
-                        openInterval: Interval(0.25, 0.5),
+                        openInterval: const Interval(0.25, 0.5),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.sp),
                             color: AppColors.backgroungcolor,

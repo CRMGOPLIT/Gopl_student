@@ -1,9 +1,5 @@
 import 'dart:async';
-
-import 'package:global_student/networking/response.dart';
 import 'package:global_student/repogetory/dashBoardGet.dart';
-
-import '../repogetory/registration.dart';
 
 class DashBoardBloc {
   late DashBoardGet dashBoardGet;
@@ -11,10 +7,20 @@ class DashBoardBloc {
   late StreamController<dynamic> branchController;
   late StreamController<dynamic> batchController;
   late StreamController<dynamic> bannersController;
+  late StreamController<dynamic> userController;
+  late StreamController<dynamic> universityController;
+  late StreamController<dynamic> applicationController;
+  late StreamController<dynamic> qualificationController;
 
+//Event Controller
   StreamSink<dynamic> get getEventDetailsSink => streamController.sink;
 
   Stream<dynamic> get getEventDetailsStream => streamController.stream;
+
+  //University Event
+  StreamSink<dynamic> get universityControllerSink => universityController.sink;
+
+  Stream<dynamic> get universityControllerStream => universityController.stream;
 
 //branch Controller
   StreamSink<dynamic> get branchControllerSink => branchController.sink;
@@ -31,12 +37,35 @@ class DashBoardBloc {
 
   Stream<dynamic> get bannersControllerStream => bannersController.stream;
 
+  //User Controller
+  StreamSink<dynamic> get userControllerSink => userController.sink;
+
+  Stream<dynamic> get userControllerStream => userController.stream;
+
+  //Application Status
+
+  StreamSink<dynamic> get applicationControllerSink =>
+      applicationController.sink;
+
+  Stream<dynamic> get applicationControllerStream =>
+      applicationController.stream;
+
+  //Qualification Controller
+  StreamSink<dynamic> get qualificationControllerSink =>
+      applicationController.sink;
+
+  Stream<dynamic> get qualificationControllerStream =>
+      applicationController.stream;
+
   DashBoardBloc() {
     streamController = StreamController<dynamic>();
     branchController = StreamController<dynamic>();
     batchController = StreamController<dynamic>();
     bannersController = StreamController<dynamic>();
-
+    userController = StreamController<dynamic>();
+    universityController = StreamController<dynamic>();
+    applicationController = StreamController<dynamic>();
+    qualificationController = StreamController<dynamic>();
     dashBoardGet = DashBoardGet();
   }
 //Get All Events Detaails
@@ -46,6 +75,17 @@ class DashBoardBloc {
       getEventDetailsSink.add(chuckCats);
     } catch (e) {
       getEventDetailsSink.add('error');
+      // print(e);
+    }
+  }
+
+  //Get All Events Detaails
+  callGetUniversityDetailsApi() async {
+    try {
+      dynamic chuckCats = await dashBoardGet.getUniversityDetailsRepo();
+      universityControllerSink.add(chuckCats);
+    } catch (e) {
+      universityControllerSink.add('error');
       // print(e);
     }
   }
@@ -85,10 +125,47 @@ class DashBoardBloc {
     }
   }
 
+//User Details
+  callGetUsersDetailsApi() async {
+    try {
+      dynamic chuckCats = await dashBoardGet.getUsersDetailsRepo();
+      userControllerSink.add(chuckCats);
+    } catch (e) {
+      userControllerSink.add('error');
+      // print(e);
+    }
+  }
+
+//User Details
+  callApplicationstatusApi() async {
+    try {
+      dynamic chuckCats = await dashBoardGet.getApplicationStatusRepo();
+      applicationControllerSink.add(chuckCats);
+    } catch (e) {
+      applicationControllerSink.add('error');
+      // print(e);
+    }
+  }
+
+  // Qualification dropdown
+
+  callQualificationListApi() async {
+    try {
+      dynamic chuckCats = await dashBoardGet.getQualificationlistRepo();
+      qualificationControllerSink.add(chuckCats);
+    } catch (e) {
+      qualificationControllerSink.add('error');
+      // print(e);
+    }
+  }
+
   dispose() {
     streamController.close();
     branchController.close();
     batchController.close();
     bannersController.close();
+    userController.close();
+    applicationController.close();
+    qualificationController.close();
   }
 }

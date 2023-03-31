@@ -15,6 +15,14 @@ class DashBoardGet {
     return response; //GetApplicationDetailsResponse.fromJson(response);
   }
 
+  //Get Event Details
+  Future<dynamic> getUniversityDetailsRepo() async {
+    final response =
+        await _apiProvider.getLocal(NetworkConstant.END_POINT_GET_UNIVERSITY);
+    // print(response.body);
+    return response; //GetApplicationDetailsResponse.fromJson(response);
+  }
+
   Future<dynamic> getBranchDetailsRepo() async {
     final response =
         await _apiProvider.getLocal(NetworkConstant.END_POINT_GET_BRANCH);
@@ -37,5 +45,34 @@ class DashBoardGet {
         await _apiProvider.getLocal(NetworkConstant.END_POINT_GET_BANNERS);
     // print(response.body);
     return response; //GetApplicationDetailsResponse.fromJson(response);
+  }
+
+  //Get Users
+
+  Future<dynamic> getUsersDetailsRepo() async {
+    final response =
+        await _apiProvider.getAfterAuth(NetworkConstant.END_POINT_GET_USER);
+    // print(response.body);
+    return response;
+  }
+
+  //Application Status
+
+  Future<dynamic> getApplicationStatusRepo() async {
+    final response = await _apiProvider
+        .getAfterAuthlocal(NetworkConstant.END_POINT_APPLICATION_STATUS);
+    // print(response.body);
+    return response;
+  }
+
+  //Qualification Dropdown get
+
+  //Application Status
+
+  Future<dynamic> getQualificationlistRepo() async {
+    final response = await _apiProvider
+        .getAfterAuthlocal(NetworkConstant.END_POINT_QUALIFICATION_LIST);
+    // print(response.body);
+    return response;
   }
 }

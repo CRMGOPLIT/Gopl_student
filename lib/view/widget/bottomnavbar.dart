@@ -4,6 +4,7 @@ import 'package:global_student/view/applicationStatus/application_status.dart';
 import 'package:global_student/view/dashboard/home_page.dart';
 import 'package:global_student/view/drawerpage/aboutus.dart';
 import 'package:global_student/view/drawerpage/contactus.dart';
+import 'package:global_student/view/drawerpage/profile_page.dart';
 import 'package:global_student/view/event_details/event_detils.dart';
 
 class Bottom extends StatefulWidget {
@@ -20,7 +21,7 @@ class _BottomState extends State<Bottom> {
     const HomePage(),
     const ApplicationStatus(),
     const ContactUs(),
-    const EventDetails()
+    const ProfilePage()
   ];
   @override
   void initState() {

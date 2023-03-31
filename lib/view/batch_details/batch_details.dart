@@ -6,6 +6,7 @@ import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/utils/text_style.dart';
 import 'package:global_student/view/widget/app_bar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BatchDetails extends StatefulWidget {
   const BatchDetails({super.key});
@@ -89,6 +90,7 @@ class _ListBatchState extends State<ListBatch> {
     dashBoardBloc = DashBoardBloc();
     getBranchDetails();
     _gethomeData();
+    SaveName();
     if (_isStart) {
       Future.delayed(Duration(milliseconds: widget.index * 1000), () {
         setState(() {
@@ -131,6 +133,13 @@ class _ListBatchState extends State<ListBatch> {
 
   _gethomeData() {
     dashBoardBloc.callGetBatchDetailsApi();
+  }
+
+  String? sName;
+  SaveName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Return String
+    sName = prefs.getString('Name');
   }
 
   @override

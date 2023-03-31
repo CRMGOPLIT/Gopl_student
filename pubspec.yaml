@@ -42,7 +42,6 @@ dependencies:
   path_provider:
   filter_list: ^1.0.2
   shared_preferences: ^2.0.18
-  connectivity: ^3.0.6
   connectivity_plus: ^3.0.3
   internet_connection_checker: ^1.0.0+1
   http: ^0.13.5

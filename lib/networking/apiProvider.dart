@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:async/async.dart';
 import 'package:path/path.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'NetworkConstant.dart';
 
@@ -15,6 +16,8 @@ class ApiProvider {
   final String beforeAuth = "";
   final String afterAuth = NetworkConstant.AFTER_AUTH;
   final String baseUrllocal = NetworkConstant.BASE_URL_LOCAl;
+
+  String? token;
 
   Future<dynamic> get(String url) async {
     var responseJson;
@@ -31,29 +34,57 @@ class ApiProvider {
     return responseJson;
   }
 
-  // Future<dynamic> getAfterAuth(String url) async {
-  //   SharedPref box = new SharedPref();
-  //   String? token = await box.getToken();
+  Future<dynamic> getAfterAuth(String url) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Return String
+    token = prefs.getString('stringValue');
 
-  //   var responseJson;
-  //   try {
-  //     final response = await http.get(
-  //       Uri.parse(baseUrl + afterAuth + url),
-  //       headers: {
-  //         "authorization": "Bearer " + token,
-  //         "Accept": "application/json"
-  //       },
-  //     );
-  //     // debugger();
-  //     // print(response.body);
-  //     responseJson = _response(response);
-  //   } catch (e) {
-  //     // debugger();
-  //     print(e);
-  //     throw FetchDataException('No Internet connection');
-  //   }
-  //   return responseJson;
-  // }
+    var responseJson;
+    try {
+      final response = await http.get(
+        Uri.parse(baseUrl + url),
+        headers: {
+          // "authorization": "Bearer " + token!,
+          'Authorization': 'Bearer $token',
+          "Accept": "application/json"
+        },
+      );
+      // debugger();
+      // print(token);
+      responseJson = _response(response);
+    } catch (e) {
+      // debugger();
+      print(e);
+      throw FetchDataException('No Internet connection');
+    }
+    return responseJson;
+  }
+
+  Future<dynamic> getAfterAuthlocal(String url) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Return String
+    token = prefs.getString('stringValue');
+
+    var responseJson;
+    try {
+      final response = await http.get(
+        Uri.parse(baseUrllocal + url),
+        headers: {
+          // "authorization": "Bearer " + token!,
+          'Authorization': 'Bearer $token',
+          "Accept": "application/json"
+        },
+      );
+      // debugger();
+      // print(token);
+      responseJson = _response(response);
+    } catch (e) {
+      // debugger();
+      print(e);
+      throw FetchDataException('No Internet connection');
+    }
+    return responseJson;
+  }
 
   Future<dynamic> postBeforeAuth(Map parameter, String url) async {
     // debugger();
@@ -76,10 +107,8 @@ class ApiProvider {
     // debugger();
     var responseJson;
     try {
-      final response = await http.post(
-          Uri.parse(baseUrllocal + beforeAuth + url),
-          headers: {"Accept": "application/json"},
-          body: parameter);
+      final response = await http.post(Uri.parse(baseUrl + beforeAuth + url),
+          headers: {"Accept": "application/json"}, body: parameter);
       // debugger();
       // print(response.body);
       responseJson = _response(response);
@@ -95,7 +124,7 @@ class ApiProvider {
     var responseJson;
     try {
       final response = await http.get(
-        Uri.parse(baseUrllocal + url),
+        Uri.parse(baseUrl + url),
       );
       // debugger();
       // print(response.body);

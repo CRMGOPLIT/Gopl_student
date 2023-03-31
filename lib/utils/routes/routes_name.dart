@@ -53,4 +53,7 @@ class RoutesName {
 
   // Notification Page
   static const String notificationpage = 'notificationpage';
+
+  //profile Page
+  static const String profilepage = 'profilepage';
 }

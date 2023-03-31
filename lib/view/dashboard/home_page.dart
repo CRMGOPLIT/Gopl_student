@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:global_student/bloc/dashboardBloc.dart';
+import 'package:global_student/model/usersModel.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/utils/text_style.dart';
@@ -54,17 +55,47 @@ class _HomePageState extends State<HomePage> {
   ];
 
   bool loanding = true;
+  bool loanding1 = true;
   late DashBoardBloc dashBoardBloc;
   List data = [];
+  List dataUser = [];
   List BranchData = [];
+  late UsersDetailsModel userData1;
 
   @override
   void initState() {
     dashBoardBloc = DashBoardBloc();
     getBannersDetails();
     _gethomeData();
+    getUserDetails();
+    // SaveName();
     super.initState();
   }
+
+  getUserDetails() async {
+    await dashBoardBloc.userControllerStream.listen((event) async {
+      if (event != null) {
+        // debugger();
+        // print(event);
+        userData1 = UsersDetailsModel.fromJson(event[0]);
+
+        // SharedPreferences prefs = await SharedPreferences.getInstance();
+        // prefs.setString('Name', userData1.name.toString());
+
+        // userData1.add(userData);
+        setState(() {
+          loanding1 = false;
+        });
+      }
+    });
+  }
+
+  // String? sName;
+  // SaveName() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   //Return String
+  //   sName = prefs.getString('Name');
+  // }
 
   getBannersDetails() async {
     await dashBoardBloc.bannersControllerStream.listen((event) {
@@ -82,6 +113,7 @@ class _HomePageState extends State<HomePage> {
 
   _gethomeData() {
     dashBoardBloc.callGetBannersDetailsApi();
+    dashBoardBloc.callGetUsersDetailsApi();
   }
 
   @override
@@ -106,10 +138,14 @@ class _HomePageState extends State<HomePage> {
             size: 30.sp,
           ),
         ),
-        title: Text("Welcome Mohit",
-            style: btntext(
-              AppColors.PrimaryBlackColor,
-            )),
+        title: loanding1 == true
+            ? const Text(
+                "",
+              )
+            : Text(userData1.fFirstName.toString(),
+                style: btntext(
+                  AppColors.PrimaryBlackColor,
+                )),
         actions: [
           InkWell(
             onTap: () {
@@ -161,6 +197,7 @@ class _HomePageState extends State<HomePage> {
           // SizedBox(
           //   height: 10.h,
           // ),
+
           Expanded(
             child: Container(
               decoration: BoxDecoration(

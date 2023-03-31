@@ -32,23 +32,30 @@ class _ContactUsState extends State<ContactUs> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(15.0),
+          padding: EdgeInsets.all(15.sp),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Container(
-              //   height: 160,
-              //   width: 380,
-              //   decoration: BoxDecoration(
-              //       borderRadius: BorderRadius.circular(15),
-              //       image: DecorationImage(
-              //           image: AssetImage("assets/images/appbanner1.jpg"))),
-              // ),
-              Container(
-                  height: 240,
-                  width: 300,
-                  padding: EdgeInsets.all(0.sp),
-                  child: Lottie.asset("assets/images/contactus.json")),
+              Center(
+                child: Container(
+                    height: 150,
+                    width: 150,
+                    child: Lottie.asset("assets/images/contactus.json",
+                        fit: BoxFit.fill)),
+              ),
+              Center(
+                child: Container(
+                  height: 40.h,
+                  width: 300.w,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15.sp),
+                      image: const DecorationImage(
+                          image: AssetImage("assets/images/bannerlogo.png"))),
+                ),
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
               Card(
                 elevation: 3,
                 child: ListTile(
@@ -94,14 +101,8 @@ class _ContactUsState extends State<ContactUs> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "HS-27, Kailash Colony Market, New Delhi - 110048.",
-                          style: TextStyle(
-                              color: AppColors.PrimaryMainColor,
-                              //decoration: TextDecoration.underline,
-                              fontFamily: Constant.font_family_poppins,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 12.sp),
-                        ),
+                            "HS-27, Kailash Colony Market, New Delhi - 110048.",
+                            style: TextRegular(AppColors.PrimaryBlackColor)),
                       ],
                     ),
                   ),
@@ -122,15 +123,8 @@ class _ContactUsState extends State<ContactUs> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          " +91 11 47141414, +91 8282828215, 1800111119",
-                          style: TextStyle(
-                              color: AppColors.PrimaryMainColor,
-                              //decoration: TextDecoration.underline,
-                              fontFamily: Constant.font_family_poppins,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 12.sp),
-                        ),
+                        Text(" +91 11 47141414, +91 8282828215,   1800111119",
+                            style: TextRegular(AppColors.PrimaryBlackColor)),
                       ],
                     ),
                   ),
@@ -151,15 +145,8 @@ class _ContactUsState extends State<ContactUs> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "info@global-opportunities.net",
-                          style: TextStyle(
-                              color: AppColors.PrimaryMainColor,
-                              // decoration: TextDecoration.underline,
-                              fontFamily: Constant.font_family_poppins,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 12.sp),
-                        ),
+                        Text("info@global-opportunities.net",
+                            style: TextRegular(AppColors.PrimaryBlackColor)),
                       ],
                     ),
                   ),
