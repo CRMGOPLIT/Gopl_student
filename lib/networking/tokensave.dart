@@ -24,3 +24,28 @@
 //     return true;
 //   }
 // }
+
+
+
+
+
+// void selectFiles() async {
+//   try {
+//     FilePickerResult? result = await FilePicker.platform.pickFiles(
+//       allowedExtensions: ['pdf'],
+//       type: FileType.custom,
+//     );
+
+//     if (result != null) {
+//       setState(() {
+//         selectedFile = File(result.files.single.path!);
+//       });
+//     } else {
+//       // User canceled the picker
+//     }
+//   } catch (e) {
+//     // debugger();
+//     //print(e);
+//   }
+// }
+//File? selectedFile;

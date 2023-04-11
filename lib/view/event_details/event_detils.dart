@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:global_student/bloc/dashboardBloc.dart';
@@ -24,7 +23,7 @@ class _EventDetailsState extends State<EventDetails> {
   List<EvenetDetailsModel> data = [];
 
   List<UniversityVisitModel> universitydetails = [];
-  List EventData = [];
+  List eventData = [];
   List universityData = [];
 
   @override
@@ -33,18 +32,14 @@ class _EventDetailsState extends State<EventDetails> {
     getEventsDetails();
     getUniversityDetails();
     _gethomeData();
-    // TODO: implement initState
     super.initState();
   }
 
   getEventsDetails() async {
-    await dashBoardBloc.getEventDetailsStream.listen((event) {
+    dashBoardBloc.getEventDetailsStream.listen((event) {
       if (event != null) {
-        // debugger();
-        // print(event);
-        EventData = event;
-
-        for (int i = 0; i < EventData.length; i++) {
+        eventData = event;
+        for (int i = 0; i < eventData.length; i++) {
           EvenetDetailsModel evenetDetailsModel =
               EvenetDetailsModel.fromJson(event[i]);
           data.add(evenetDetailsModel);
@@ -52,7 +47,6 @@ class _EventDetailsState extends State<EventDetails> {
 
         setState(() {
           loanding = false;
-          //print(location);
         });
       }
     });
@@ -86,20 +80,6 @@ class _EventDetailsState extends State<EventDetails> {
 
   TabController? _tabController;
 
-  // dynamic listImagesnotFound = [
-  //   "assets/images/evh.png",
-  // ];
-  Random? rnd;
-
-  // Widget buildImage(BuildContext context) {
-  //   int min = 0;
-  //   int max = listImagesnotFound.length - 1;
-  //   rnd = new Random();
-  //   int r = min + rnd!.nextInt(max - min);
-  //   String image_name = listImagesnotFound[r].toString();
-  //   return Image.asset(image_name);
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,15 +96,14 @@ class _EventDetailsState extends State<EventDetails> {
       body: loanding == true
           ? Center(
               child: CircularProgressIndicator(
-              color: AppColors.PrimaryMainColor,
-            ))
+                  strokeWidth: 2.w, color: AppColors.PrimaryMainColor))
           : DefaultTabController(
               length: 2,
               initialIndex: 0,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Padding(
@@ -133,7 +112,6 @@ class _EventDetailsState extends State<EventDetails> {
                       // padding: EdgeInsets.all(10),
                       height: 50,
                       decoration: BoxDecoration(
-
                           //color: AppColors.PrimaryWhiteColor,
                           borderRadius: BorderRadius.circular(20)),
                       child: TabBar(
@@ -167,6 +145,9 @@ class _EventDetailsState extends State<EventDetails> {
                       ),
                     ),
                   ),
+                  // SizedBox(
+                  //   height: 20,
+                  // ),
                   Expanded(
                     child: TabBarView(children: [
                       //tab 1
@@ -367,7 +348,8 @@ class _EventDetailsState extends State<EventDetails> {
                                                   TextSpan(
                                                     text: data[index]
                                                         .date
-                                                        .toString(),
+                                                        .toString()
+                                                        .split(" ")[0],
                                                     style: batchtext2(AppColors
                                                         .PrimaryBlackColor),
                                                   ),
@@ -414,6 +396,8 @@ class _EventDetailsState extends State<EventDetails> {
                                               }
                                             },
                                             child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Icon(
                                                   Icons.location_on_outlined,
@@ -430,7 +414,7 @@ class _EventDetailsState extends State<EventDetails> {
                                                     data[index]
                                                         .venue
                                                         .toString(),
-                                                    style: batchtext1(AppColors
+                                                    style: location(AppColors
                                                         .PrimaryMainColor),
                                                   ),
                                                 )
@@ -445,13 +429,19 @@ class _EventDetailsState extends State<EventDetails> {
                               ),
                             );
                           }),
+
                       //Tab 2
+                      // SizedBox(
+                      //   height: 20,
+                      // ),
+
                       ListView.builder(
                           itemCount: universitydetails.length,
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: EdgeInsets.all(10.r),
                               child: Container(
+                                padding: EdgeInsets.only(bottom: 10, top: 10),
                                 // height: 350.h,
                                 // width: 390.w,
                                 decoration: BoxDecoration(
@@ -469,184 +459,200 @@ class _EventDetailsState extends State<EventDetails> {
                                     ]),
                                 child: Column(
                                   children: [
-                                    Padding(
-                                      padding: EdgeInsets.all(8.r),
-                                      child: Row(
-                                        // mainAxisAlignment: MainAxisAlignment.start,
-                                        // crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Stack(
-                                            alignment: Alignment.topRight,
-                                            clipBehavior: Clip.none,
-                                            children: [
-                                              Container(
-                                                height: 120.h,
-                                                width: 320.w,
-                                                decoration: BoxDecoration(
-                                                    color: AppColors
-                                                        .PrimaryMainColor,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5.r),
-                                                    image: DecorationImage(
-                                                        fit: BoxFit.cover,
-                                                        image: AssetImage(
-                                                            "assets/images/evh.png"
-                                                                .toString()))),
-                                              ),
-                                              Positioned(
-                                                left: 175.h,
-                                                top: 5.h,
-                                                child: Container(
-                                                  constraints:
-                                                      const BoxConstraints(
-                                                    maxHeight: double.infinity,
-                                                  ),
-                                                  width: 120.w,
-                                                  decoration: BoxDecoration(
-                                                    color: AppColors
-                                                        .PrimaryWhiteColor,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20.r),
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsets.all(8.r),
-                                                    child: Text(
-                                                      universitydetails[index]
-                                                          .branchName
-                                                          .toString(),
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: FieldTextStyle(
-                                                          AppColors
-                                                              .PrimaryMainColor),
-                                                    ),
-                                                  ),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                          // Padding(
-                                          //   padding: EdgeInsets.only(left: 10.r),
-                                          //   child: Column(
-                                          //     crossAxisAlignment:
-                                          //         CrossAxisAlignment.start,
-                                          //     mainAxisAlignment: MainAxisAlignment.start,
-                                          //     children: [
-                                          //       RichText(
-                                          //         text: TextSpan(
-                                          //           text: 'Date :- ',
-                                          //           style: batchtext1(
-                                          //               AppColors.PrimaryBlackColor),
-                                          //           children: [
-                                          //             TextSpan(
-                                          //               text: '29/01/2023',
-                                          //               style: batchtext2(
-                                          //                   AppColors.PrimaryBlackColor),
-                                          //             ),
-                                          //           ],
-                                          //         ),
-                                          //       ),
-                                          //       SizedBox(
-                                          //         height: 10.h,
-                                          //       ),
-                                          //       RichText(
-                                          //         text: TextSpan(
-                                          //           text: 'Time :- ',
-                                          //           style: batchtext1(
-                                          //               AppColors.PrimaryBlackColor),
-                                          //           children: [
-                                          //             TextSpan(
-                                          //               text: '11:00 AM To 5:00 PM',
-                                          //               style: batchtext2(
-                                          //                   AppColors.PrimaryBlackColor),
-                                          //             ),
-                                          //           ],
-                                          //         ),
-                                          //       ),
-                                          //       SizedBox(
-                                          //         height: 10.h,
-                                          //       ),
-                                          //       SizedBox(
-                                          //         width: 200.w,
-                                          //         child: RichText(
-                                          //           // overflow: TextOverflow.ellipsis,
-                                          //           text: TextSpan(
-                                          //             text: 'Venue :- ',
-                                          //             style: batchtext1(
-                                          //                 AppColors.PrimaryBlackColor),
-                                          //             children: [
-                                          //               TextSpan(
-                                          //                 text:
-                                          //                     'Courtyard by Marriott Mumbai',
-                                          //                 style: batchtext2(AppColors
-                                          //                     .PrimaryBlackColor),
-                                          //               ),
-                                          //             ],
-                                          //           ),
-                                          //         ),
-                                          //       ),
-                                          //       SizedBox(
-                                          //         height: 10.h,
-                                          //       ),
-                                          //       RichText(
-                                          //         // overflow: TextOverflow.ellipsis,
-                                          //         text: TextSpan(
-                                          //           text: 'Phone :- ',
-                                          //           style: batchtext1(
-                                          //               AppColors.PrimaryBlackColor),
-                                          //           children: [
-                                          //             TextSpan(
-                                          //               text: '9090909090',
-                                          //               style: batchtext2(
-                                          //                   AppColors.PrimaryBlackColor),
-                                          //             ),
-                                          //           ],
-                                          //         ),
-                                          //       ),
-                                          //     ],
-                                          //   ),
-                                          // ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(top: 8.r),
-                                      child: Container(
-                                        height: 1.h,
-                                        width: 300.w,
-                                        color: AppColors.PrimaryGreyColor,
-                                      ),
-                                    ),
+                                    // Padding(
+                                    //   padding: EdgeInsets.all(8.r),
+                                    //   child: Row(
+                                    //     // mainAxisAlignment: MainAxisAlignment.start,
+                                    //     // crossAxisAlignment: CrossAxisAlignment.start,
+                                    //     children: [
+                                    //       // Stack(
+                                    //       //   alignment: Alignment.topRight,
+                                    //       //   clipBehavior: Clip.none,
+                                    //       //   children: [
+                                    //       //     Container(
+                                    //       //       //height: 120.h,
+                                    //       //       width: 320.w,
+                                    //       //       // decoration: BoxDecoration(
+                                    //       //       //     color: AppColors
+                                    //       //       //         .PrimaryMainColor,
+                                    //       //       //     borderRadius:
+                                    //       //       //         BorderRadius.circular(
+                                    //       //       //             5.r),
+                                    //       //       //     image: DecorationImage(
+                                    //       //       //         fit: BoxFit.cover,
+                                    //       //       //         image: AssetImage(
+                                    //       //       //             "assets/images/evh.png"
+                                    //       //       //                 .toString()))),
+                                    //       //     ),
+                                    //       //     // Positioned(
+                                    //       //     //   left: 0.h,
+                                    //       //     //   top: -25.h,
+                                    //       //     //   child: Container(
+                                    //       //     //     constraints:
+                                    //       //     //         const BoxConstraints(
+                                    //       //     //       maxHeight: double.infinity,
+                                    //       //     //     ),
+                                    //       //     //     width: 220.w,
+                                    //       //     //     decoration: BoxDecoration(
+                                    //       //     //       color: AppColors
+                                    //       //     //           .PrimaryWhiteColor,
+                                    //       //     //       borderRadius:
+                                    //       //     //           BorderRadius.circular(
+                                    //       //     //               20.r),
+                                    //       //     //     ),
+                                    //       //     //     child: Padding(
+                                    //       //     //       padding: EdgeInsets.only(
+                                    //       //     //           left: 8.r,
+                                    //       //     //           right: 8.r,
+                                    //       //     //           bottom: 8.r,
+                                    //       //     //           top: 8.r),
+                                    //       //     //       child: Text(
+                                    //       //     //         universitydetails[index]
+                                    //       //     //             .branchName
+                                    //       //     //             .toString(),
+                                    //       //     //         // textAlign:
+                                    //       //     //         //     TextAlign.center,
+                                    //       //     //         style: OtpText(AppColors
+                                    //       //     //             .PrimaryMainColor),
+                                    //       //     //       ),
+                                    //       //     //     ),
+                                    //       //     //   ),
+                                    //       //     // )
+                                    //       //   ],
+                                    //       // ),
+                                    //       // Padding(
+                                    //       //   padding: EdgeInsets.only(left: 10.r),
+                                    //       //   child: Column(
+                                    //       //     crossAxisAlignment:
+                                    //       //         CrossAxisAlignment.start,
+                                    //       //     mainAxisAlignment: MainAxisAlignment.start,
+                                    //       //     children: [
+                                    //       //       RichText(
+                                    //       //         text: TextSpan(
+                                    //       //           text: 'Date :- ',
+                                    //       //           style: batchtext1(
+                                    //       //               AppColors.PrimaryBlackColor),
+                                    //       //           children: [
+                                    //       //             TextSpan(
+                                    //       //               text: '29/01/2023',
+                                    //       //               style: batchtext2(
+                                    //       //                   AppColors.PrimaryBlackColor),
+                                    //       //             ),
+                                    //       //           ],
+                                    //       //         ),
+                                    //       //       ),
+                                    //       //       SizedBox(
+                                    //       //         height: 10.h,
+                                    //       //       ),
+                                    //       //       RichText(
+                                    //       //         text: TextSpan(
+                                    //       //           text: 'Time :- ',
+                                    //       //           style: batchtext1(
+                                    //       //               AppColors.PrimaryBlackColor),
+                                    //       //           children: [
+                                    //       //             TextSpan(
+                                    //       //               text: '11:00 AM To 5:00 PM',
+                                    //       //               style: batchtext2(
+                                    //       //                   AppColors.PrimaryBlackColor),
+                                    //       //             ),
+                                    //       //           ],
+                                    //       //         ),
+                                    //       //       ),
+                                    //       //       SizedBox(
+                                    //       //         height: 10.h,
+                                    //       //       ),
+                                    //       //       SizedBox(
+                                    //       //         width: 200.w,
+                                    //       //         child: RichText(
+                                    //       //           // overflow: TextOverflow.ellipsis,
+                                    //       //           text: TextSpan(
+                                    //       //             text: 'Venue :- ',
+                                    //       //             style: batchtext1(
+                                    //       //                 AppColors.PrimaryBlackColor),
+                                    //       //             children: [
+                                    //       //               TextSpan(
+                                    //       //                 text:
+                                    //       //                     'Courtyard by Marriott Mumbai',
+                                    //       //                 style: batchtext2(AppColors
+                                    //       //                     .PrimaryBlackColor),
+                                    //       //               ),
+                                    //       //             ],
+                                    //       //           ),
+                                    //       //         ),
+                                    //       //       ),
+                                    //       //       SizedBox(
+                                    //       //         height: 10.h,
+                                    //       //       ),
+                                    //       //       RichText(
+                                    //       //         // overflow: TextOverflow.ellipsis,
+                                    //       //         text: TextSpan(
+                                    //       //           text: 'Phone :- ',
+                                    //       //           style: batchtext1(
+                                    //       //               AppColors.PrimaryBlackColor),
+                                    //       //           children: [
+                                    //       //             TextSpan(
+                                    //       //               text: '9090909090',
+                                    //       //               style: batchtext2(
+                                    //       //                   AppColors.PrimaryBlackColor),
+                                    //       //             ),
+                                    //       //           ],
+                                    //       //         ),
+                                    //       //       ),
+                                    //       //     ],
+                                    //       //   ),
+                                    //       // ),
+                                    //     ],
+                                    //   ),
+                                    // ),
+                                    // Padding(
+                                    //   padding: EdgeInsets.only(top: 8.r),
+                                    //   child: Container(
+                                    //     height: 1.h,
+                                    //     width: 300.w,
+                                    //     color: AppColors.PrimaryGreyColor,
+                                    //   ),
+                                    // ),
                                     Padding(
                                       padding: EdgeInsets.only(
-                                          left: 8.r,
-                                          right: 8.r,
-                                          bottom: 8.r,
-                                          top: 8.r),
+                                        left: 8.r,
+                                        right: 8.r,
+                                        bottom: 8.r,
+                                      ),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         // mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
+                                          Text(
+                                            universitydetails[index]
+                                                .branchName
+                                                .toString(),
+                                            // textAlign:
+                                            //     TextAlign.center,
+                                            style: OtpText(
+                                                AppColors.PrimaryMainColor),
+                                          ),
                                           SizedBox(
-                                            width: 320.w,
+                                            height: 10.h,
+                                          ),
+                                          SizedBox(
+                                            width: 350.w,
                                             child: RichText(
-                                              // overflow: TextOverflow.ellipsis,
+                                              // softWrap: false,
+                                              //overflow: TextOverflow.ellipsis,
                                               text: TextSpan(
                                                 text: 'University :- ',
                                                 style: batchtext1(AppColors
                                                     .PrimaryBlackColor),
                                                 children: [
                                                   TextSpan(
+                                                    spellOut: false,
                                                     text:
                                                         universitydetails[index]
                                                             .university
                                                             .toString(),
                                                     style: batchtext2(AppColors
-                                                        .PrimaryMainColor),
+                                                        .PrimaryBlackColor),
                                                   ),
                                                 ],
                                               ),
@@ -658,6 +664,8 @@ class _EventDetailsState extends State<EventDetails> {
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               RichText(
                                                 // overflow: TextOverflow.ellipsis,
@@ -672,54 +680,63 @@ class _EventDetailsState extends State<EventDetails> {
                                                           .intake
                                                           .toString(),
                                                       style: batchtext2(AppColors
-                                                          .PrimaryMainColor),
+                                                          .PrimaryBlackColor),
                                                     ),
                                                   ],
                                                 ),
                                               ),
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                    right: 10.h),
-                                                child: RichText(
-                                                  // overflow: TextOverflow.ellipsis,
-                                                  text: TextSpan(
-                                                    text: 'Deligate :- ',
-                                                    style: batchtext1(AppColors
-                                                        .PrimaryBlackColor),
-                                                    children: [
-                                                      // universitydetails[index]
-                                                      //             .deligate
-                                                      //             .length >
-                                                      //         10
-                                                      //     ?
-                                                      // for (int i = 0;
-                                                      //     i <
-                                                      //         universitydetails
-                                                      //             .length;
-                                                      //     i++)
-                                                      TextSpan(
-                                                        spellOut: true,
-                                                        text: universitydetails[
-                                                                index]
-                                                            .deligate
-                                                            .split(" ")[0]
-                                                            .toString(),
-                                                        style: batchtext2(AppColors
-                                                            .PrimaryMainColor),
-                                                      )
-                                                      // : TextSpan(
-                                                      //     spellOut: true,
-                                                      //     text: universitydetails[
-                                                      //             index]
-                                                      //         .deligate
-                                                      //         .toString()
-                                                      //         .substring(
-                                                      //             0, 5),
-                                                      //     style: batchtext2(
-                                                      //         AppColors
-                                                      //             .PrimaryMainColor),
-                                                      //   )
-                                                    ],
+                                              SizedBox(
+                                                width: 25.w,
+                                              ),
+                                              SizedBox(
+                                                width: 170.w,
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(
+                                                      right: 10.h),
+                                                  child: RichText(
+                                                    // overflow:
+                                                    //     TextOverflow.ellipsis,
+                                                    text: TextSpan(
+                                                      text: 'Deligate :- ',
+                                                      style: batchtext1(AppColors
+                                                          .PrimaryBlackColor),
+                                                      children: [
+                                                        // universitydetails[index]
+                                                        //             .deligate
+                                                        //             .length >
+                                                        //         10
+                                                        //     ?
+                                                        // for (int i = 0;
+                                                        //     i <
+                                                        //         universitydetails
+                                                        //             .length;
+                                                        //     i++)
+
+                                                        TextSpan(
+                                                          spellOut: false,
+                                                          text: universitydetails[
+                                                                  index]
+                                                              .deligate
+                                                              //.substring(0, 10)
+                                                              .toString(),
+                                                          style: batchtext2(
+                                                              AppColors
+                                                                  .PrimaryBlackColor),
+                                                        )
+                                                        // : TextSpan(
+                                                        //     spellOut: true,
+                                                        //     text: universitydetails[
+                                                        //             index]
+                                                        //         .deligate
+                                                        //         .toString()
+                                                        //         .substring(
+                                                        //             0, 5),
+                                                        //     style: batchtext2(
+                                                        //         AppColors
+                                                        //             .PrimaryMainColor),
+                                                        //   )
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                               ),
@@ -729,8 +746,8 @@ class _EventDetailsState extends State<EventDetails> {
                                             height: 10.h,
                                           ),
                                           Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                            // mainAxisAlignment:
+                                            //     MainAxisAlignment.spaceBetween,
                                             children: [
                                               SizedBox(
                                                 width: 120.w,
@@ -752,6 +769,9 @@ class _EventDetailsState extends State<EventDetails> {
                                                     ],
                                                   ),
                                                 ),
+                                              ),
+                                              SizedBox(
+                                                width: 35.w,
                                               ),
                                               Padding(
                                                 padding: EdgeInsets.only(
@@ -822,6 +842,8 @@ class _EventDetailsState extends State<EventDetails> {
                                               }
                                             },
                                             child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Icon(
                                                   Icons.location_on_outlined,
@@ -833,12 +855,12 @@ class _EventDetailsState extends State<EventDetails> {
                                                   width: 10.h,
                                                 ),
                                                 SizedBox(
-                                                  width: 290,
+                                                  width: 280.w,
                                                   child: Text(
                                                     universitydetails[index]
                                                         .venue
                                                         .toString(),
-                                                    style: batchtext1(AppColors
+                                                    style: location(AppColors
                                                         .PrimaryMainColor),
                                                   ),
                                                 )

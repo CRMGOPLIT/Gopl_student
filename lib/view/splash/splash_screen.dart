@@ -230,7 +230,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       'Internet connection status: $_connectionStatus',
                     ),
                   ),
-                  Text(token.toString()),
+                  // Text(token.toString()),
                   SizedBox(
                     height: 50.h,
                   ),

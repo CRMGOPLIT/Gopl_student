@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:global_student/networking/apiProvider.dart';
 
 import '../networking/NetworkConstant.dart';
@@ -67,12 +68,29 @@ class DashBoardGet {
 
   //Qualification Dropdown get
 
-  //Application Status
-
   Future<dynamic> getQualificationlistRepo() async {
     final response = await _apiProvider
         .getAfterAuthlocal(NetworkConstant.END_POINT_QUALIFICATION_LIST);
     // print(response.body);
     return response;
+  }
+
+// Board University List get
+  Future<dynamic> getBoardlistRepo() async {
+    final response = await _apiProvider
+        .getAfterAuthlocal(NetworkConstant.END_POINT_GET_BOARD);
+    // print(response.body);
+    return response;
+  }
+
+  // post Document 10th
+
+  Future<dynamic> postDocument(Map parameter, File files) async {
+    final response = await _apiProvider.postAfterAuth(
+        parameter, NetworkConstant.END_POINT_POST_DOCUMENT, files);
+
+    // debugger();
+    // print(response);
+    return response; //GetApplicationDetailsResponse.fromJson(response);
   }
 }

@@ -5,6 +5,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:global_student/bloc/dashboardBloc.dart';
 import 'package:global_student/model/boarduniversity.dart';
 import 'package:global_student/model/monthModel.dart';
@@ -19,14 +20,14 @@ import '../../utils/routes/routes_name.dart';
 import '../../utils/text_style.dart';
 import '../helper/apiResponseHelper.dart';
 
-class HighSchool extends StatefulWidget {
-  const HighSchool({super.key});
+class InterSchool extends StatefulWidget {
+  const InterSchool({super.key});
 
   @override
-  State<HighSchool> createState() => _HighSchoolState();
+  State<InterSchool> createState() => _InterSchoolState();
 }
 
-class _HighSchoolState extends State<HighSchool> {
+class _InterSchoolState extends State<InterSchool> {
   String dropdownvalue = 'Item 1';
 
   QualificationModel? dropnqualification;
@@ -77,18 +78,22 @@ class _HighSchoolState extends State<HighSchool> {
   List qualificationdata = [];
   List boarddata = [];
 
-  bool loading = true;
+  // bool loading = true;
   bool loading1 = true;
 
   @override
   initState() {
     dashBoardBloc = DashBoardBloc();
-    //  getQualificationList();
+    // getQualificationList();
+
     getBoardUniversityList();
+
     //  callGetPromotersDetailsApi();
     _gethomeData();
     showYear();
-
+    // setState(() {
+    //   loading = false;
+    // });
     dashBoardBloc.documentuploadControllerStream.listen((event) {
       Navigator.pop(context);
 
@@ -100,7 +105,7 @@ class _HighSchoolState extends State<HighSchool> {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text("Document Submmited Succesfully"),
         ));
-        Navigator.pushNamed(context, RoutesName.interschool);
+        Navigator.pushNamed(context, RoutesName.grduation);
 
         //IF Anything going wrong
 
@@ -209,8 +214,6 @@ class _HighSchoolState extends State<HighSchool> {
   getBoardUniversityList() {
     dashBoardBloc.boarduniversityControllerStream.listen((event) {
       if (event != null) {
-        // debugger();
-        // print(event);
         boarddata = event;
         for (int i = 0; i < boarddata.length; i++) {
           BoardUniversityModel boardUniversityModel =
@@ -231,7 +234,7 @@ class _HighSchoolState extends State<HighSchool> {
   void callUploadDocumentApi() {
     NetworkDialog.showLoadingDialog(context, _keyLoader);
     Map data = {
-      NetworkConstant.qualification: "1",
+      NetworkConstant.qualification: "2",
       NetworkConstant.stream: streamEditingController.text,
       NetworkConstant.uboard: dropboard!.id,
       NetworkConstant.cstudied: streamEditingController.text,
@@ -241,17 +244,13 @@ class _HighSchoolState extends State<HighSchool> {
       NetworkConstant.pmonth: droppassmonth!.id.toString(),
       NetworkConstant.pyear: droppassyear!.toString(),
       NetworkConstant.rdistance: dropcourse,
-      NetworkConstant.dtype: NetworkConstant.documenttpye,
-      // NetworkConstant.image: file!,
+      NetworkConstant.dtype: NetworkConstant.documenttpye12,
     };
 
     dashBoardBloc.callUploadDocumentApi(
       data,
       file!,
     );
-
-    // debugger();
-    // print(data);
   }
 
   @override
@@ -259,8 +258,6 @@ class _HighSchoolState extends State<HighSchool> {
     streamEditingController.dispose();
     percentageEditingController.dispose();
     textEditingController.dispose();
-
-    // TODO: implement dispose
     super.dispose();
   }
 
@@ -300,7 +297,7 @@ class _HighSchoolState extends State<HighSchool> {
                         child: Padding(
                           padding: EdgeInsets.all(20.sp),
                           child: Text(
-                            "10th",
+                            "12th",
                             // textAlign: TextAlign.center,
                             style: batchtext2(AppColors.PrimaryMainColor),
                           ),

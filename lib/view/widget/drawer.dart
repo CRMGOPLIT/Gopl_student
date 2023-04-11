@@ -66,26 +66,36 @@ class drawer extends StatelessWidget {
               SizedBox(
                 height: 20.h,
               ),
-              const ListTile(
-                leading: Icon(
-                  CupertinoIcons.home,
-                  color: Colors.black,
-                ),
-                title: Text(
-                  "Home",
-                  textScaleFactor: 1.0,
-                  style: TextStyle(color: Colors.black),
+              InkWell(
+                onTap: () {
+                  Get.back();
+                },
+                child: const ListTile(
+                  leading: Icon(
+                    CupertinoIcons.home,
+                    color: Colors.black,
+                  ),
+                  title: Text(
+                    "Home",
+                    textScaleFactor: 1.0,
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ),
               ),
-              const ListTile(
-                leading: Icon(
-                  Icons.person,
-                  color: Colors.black,
-                ),
-                title: Text(
-                  "Profile",
-                  textScaleFactor: 1.0,
-                  style: TextStyle(color: Colors.black),
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, RoutesName.profilepage);
+                },
+                child: const ListTile(
+                  leading: Icon(
+                    Icons.person,
+                    color: Colors.black,
+                  ),
+                  title: Text(
+                    "Profile",
+                    textScaleFactor: 1.0,
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ),
               ),
               InkWell(

@@ -1,14 +1,8 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
-
 import 'package:global_student/networking/customException.dart';
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
-import 'package:async/async.dart';
-import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'NetworkConstant.dart';
 
 class ApiProvider {
@@ -107,7 +101,7 @@ class ApiProvider {
     // debugger();
     var responseJson;
     try {
-      final response = await http.post(Uri.parse(baseUrl + beforeAuth + url),
+      final response = await http.post(Uri.parse(baseUrl + url),
           headers: {"Accept": "application/json"}, body: parameter);
       // debugger();
       // print(response.body);
@@ -126,37 +120,97 @@ class ApiProvider {
       final response = await http.get(
         Uri.parse(baseUrl + url),
       );
-      // debugger();
-      // print(response.body);
+
       responseJson = _response(response);
     } on SocketException {
       throw FetchDataException('No Internet connection');
     }
     return responseJson;
   }
-//   Future<dynamic> postAfterAuth(Map parameter, String url) async {
-//     var responseJson;
-//     SharedPref box = new SharedPref();
-//     String? token = await box.getToken();
 
-//     try {
-//       final response = await http.post(Uri.parse(baseUrl + afterAuth + url),
-//           headers: {
-//             'authorization': 'Bearer ' + token,
-//             'Content-type': 'application/json'
-//           },
-//           body: json.encode(parameter));
-// // debugger();
-// // print(response.body);
-//       responseJson = _response(response);
-//     } catch (e) {
-//       //  debugger();
-//       print(e);
+  Future<dynamic> postAfterAuth(Map parameter, String url, File files) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Return String
+    token = prefs.getString('stringValue');
+    // debugger();
+    // print(files);
+    var responseJson;
+    Map<String, String> headers = {
+      'Authorization': 'Bearer $token',
+      "Accept": "application/json"
+    };
 
-//       throw FetchDataException('No Internet connection');
-//     }
-//     return responseJson;
-//   }
+    try {
+      final response =
+          http.MultipartRequest("POST", Uri.parse(baseUrllocal + url));
+      response.headers.addAll(headers);
+      for (var i = 0; i < parameter.length; i++) {
+        response.fields[parameter.keys.elementAt(i)] =
+            parameter.values.elementAt(i);
+      }
+
+      final file = await http.MultipartFile.fromPath(
+        'file',
+        files.path,
+      );
+      response.files.add(file);
+
+      // response.files.add(
+      //   http.MultipartFile(
+      //     'file',
+      //     (http.ByteStream(files.openRead())).cast(),
+      //     await files.length(),
+      //     filename: files.path,
+
+      //     // filename: basename(files.path),
+      //   ),
+      // );
+
+      await response.send().then((value) async {
+        await http.Response.fromStream(value).then((response) {
+          responseJson = _response(response);
+          // debugger();
+          // print(responseJson);
+        });
+      });
+    } catch (e) {
+      throw FetchDataException('No Internet connection');
+    }
+    return responseJson;
+  }
+
+  // Future<dynamic> postAfterAuth(Map parameter, String url) async {
+  //   var responseJson;
+
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   //Return String
+  //   token = prefs.getString('stringValue');
+
+  //   try {
+  //     Map<String, String> headers = {
+  //       'Authorization': 'Bearer $token',
+  //       // "Accept": "application/json"
+  //       //'Content-Type': 'application/json'
+  //       "Accept": "application/json",
+  //     };
+  //     final response = await http.post(Uri.parse(baseUrllocal + url),
+  //         headers: headers, body: parameter);
+
+  //     if (response.statusCode == 200) {
+  //       var data = jsonDecode(response.body.toString());
+  //     }
+  //     // debugger();
+  //     // print(response.body);
+
+  //     responseJson = _response(response);
+  //   } catch (e) {
+  //     // debugger();
+  //     print(e);
+
+  //     //   throw FetchDataException('No Internet connection');
+  //   }
+  //   return responseJson;
+  // }
 
 // Future<dynamic> postAfterAuthWithMultipart(Map parameter, String url, List<File>files) async {
 //     var responseJson;

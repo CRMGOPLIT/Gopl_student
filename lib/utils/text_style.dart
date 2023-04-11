@@ -103,6 +103,17 @@ TextStyle batchtext2(Color? color) {
       fontSize: 12.sp);
 }
 
+TextStyle location(Color? color) {
+  return TextStyle(
+      color: color ?? AppColors.TextRegularkColor,
+      fontFamily: Constant.font_poppins_bold,
+      fontWeight: FontWeight.w600,
+      decoration: TextDecoration.underline,
+      // height: 1.1,
+      //letterSpacing: 1,
+      fontSize: 12.sp);
+}
+
 Widget MediumBottonWithoutIcon(
   String title,
   bool isEnable,

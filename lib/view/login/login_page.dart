@@ -75,7 +75,7 @@ class _LginPageState extends State<LginPage> {
                       SizedBox(
                         height: 5.h,
                       ),
-                      Text("Login Faield",
+                      Text("Login Faield Register your number",
                           style: batchtext1(
                             AppColors.PrimaryWhiteColor,
                           )),

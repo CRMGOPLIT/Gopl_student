@@ -56,4 +56,9 @@ class RoutesName {
 
   //profile Page
   static const String profilepage = 'profilepage';
+
+  //
+  static const String interschool = 'interschool';
+
+    static const String grduation = 'grduation';
 }

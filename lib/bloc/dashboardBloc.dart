@@ -1,5 +1,9 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:global_student/repogetory/dashBoardGet.dart';
+
+import '../networking/response.dart';
 
 class DashBoardBloc {
   late DashBoardGet dashBoardGet;
@@ -11,6 +15,8 @@ class DashBoardBloc {
   late StreamController<dynamic> universityController;
   late StreamController<dynamic> applicationController;
   late StreamController<dynamic> qualificationController;
+  late StreamController<Response<dynamic>> documentuploadController;
+  late StreamController<dynamic> boarduniversityController;
 
 //Event Controller
   StreamSink<dynamic> get getEventDetailsSink => streamController.sink;
@@ -57,6 +63,20 @@ class DashBoardBloc {
   Stream<dynamic> get qualificationControllerStream =>
       applicationController.stream;
 
+  //Board Document
+  StreamSink<dynamic> get boarduniversityControllerSink =>
+      boarduniversityController.sink;
+
+  Stream<dynamic> get boarduniversityControllerStream =>
+      boarduniversityController.stream;
+
+  //Upload Document
+  StreamSink<Response<dynamic>> get documentuploadControllerSink =>
+      documentuploadController.sink;
+
+  Stream<Response<dynamic>> get documentuploadControllerStream =>
+      documentuploadController.stream;
+
   DashBoardBloc() {
     streamController = StreamController<dynamic>();
     branchController = StreamController<dynamic>();
@@ -66,6 +86,8 @@ class DashBoardBloc {
     universityController = StreamController<dynamic>();
     applicationController = StreamController<dynamic>();
     qualificationController = StreamController<dynamic>();
+    documentuploadController = StreamController<Response<dynamic>>();
+    boarduniversityController = StreamController<dynamic>();
     dashBoardGet = DashBoardGet();
   }
 //Get All Events Detaails
@@ -158,6 +180,29 @@ class DashBoardBloc {
       // print(e);
     }
   }
+  // Board University dropdown
+
+  callBoardListApi() async {
+    try {
+      dynamic chuckCats = await dashBoardGet.getBoardlistRepo();
+      boarduniversityControllerSink.add(chuckCats);
+    } catch (e) {
+      boarduniversityControllerSink.add('error');
+      // print(e);
+    }
+  }
+
+  //Document Upload
+
+  callUploadDocumentApi(Map parameter, File files) async {
+    try {
+      dynamic chuckCats = await dashBoardGet.postDocument(parameter, files);
+      documentuploadControllerSink.add(Response.completed(chuckCats));
+    } catch (e) {
+      documentuploadControllerSink.add(Response.error(e.toString()));
+      // print(e);
+    }
+  }
 
   dispose() {
     streamController.close();
@@ -167,5 +212,6 @@ class DashBoardBloc {
     userController.close();
     applicationController.close();
     qualificationController.close();
+    documentuploadController.close();
   }
 }

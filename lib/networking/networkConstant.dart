@@ -21,6 +21,25 @@ class NetworkConstant {
   //post otp Field
   static const String OTP_CODE = 'mobileverified_code';
 
+  // post Upload Document
+  static const String qualification = 'f_qualification';
+  static const String stream = 'f_Stream';
+  static const String uboard = 'f_university_board';
+  static const String cstudied = 'f_courses_studied';
+  static const String grade = 'f_avg_grade';
+  static const String syear = 'f_starting_year';
+  static const String smonth = 'starting_month';
+  static const String pmonth = 'passing_month';
+  static const String pyear = 'f_passing_year';
+  static const String rdistance = 'f_Regular_Distance';
+  static const String dtype = 'f_DocumentType';
+  static const String image = 'image';
+
+  //flag
+  static const String documenttpye = '10th Marksheet';
+  static const String documenttpye12 = '12th Marksheet';
+  static const String bachelor = 'Bachelor Degree';
+
 //Errors
 
   static const String SUCCESS_STATUS = 'SDF224';
@@ -55,4 +74,10 @@ class NetworkConstant {
 
   static const String END_POINT_QUALIFICATION_LIST =
       "/Registeration/GetQualification";
+
+  static const String END_POINT_POST_DOCUMENT =
+      "/Login/TokenQuallificationInfo";
+
+  static const String END_POINT_GET_BOARD =
+      "/Registeration/Getuniversity_board";
 }

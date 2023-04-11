@@ -4,7 +4,6 @@ import 'package:global_student/utils/color.dart';
 import 'package:global_student/view/helper/apierrorDialog.dart';
 import 'package:global_student/view/helper/errorHelper.dart';
 
-
 class ApiResponseHelper {
   bool handleResponse({
     required dynamic event,

@@ -49,17 +49,23 @@ class _OnbordingState extends State<Onbording> {
               // SizedBox(
               //   height: 40.h,
               // ),
-              Padding(
-                padding: EdgeInsets.all(15.sp),
-                child: Align(
-                    alignment: Alignment.topRight,
-                    child: Text(
-                      "Skip Now",
-                      style: TextStyle(
-                          color: AppColors.PrimaryMainColor,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14.sp),
-                    )),
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, RoutesName.login, (routes) => false);
+                },
+                child: Padding(
+                  padding: EdgeInsets.all(15.sp),
+                  child: Align(
+                      alignment: Alignment.topRight,
+                      child: Text(
+                        "Skip Now",
+                        style: TextStyle(
+                            color: AppColors.PrimaryMainColor,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14.sp),
+                      )),
+                ),
               ),
               Container(
                 height: 440.h,

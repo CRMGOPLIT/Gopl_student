@@ -125,9 +125,9 @@ class _BranchLocationState extends State<BranchLocation> {
                                                 borderRadius:
                                                     BorderRadius.circular(10.r),
                                                 image: const DecorationImage(
-                                                    fit: BoxFit.contain,
+                                                    fit: BoxFit.cover,
                                                     image: AssetImage(
-                                                      "assets/images/logo.png",
+                                                      "assets/images/branch1.jpg",
                                                     ))),
                                           ),
                                           Positioned(
@@ -195,21 +195,23 @@ class _BranchLocationState extends State<BranchLocation> {
                                                   child: SizedBox(
                                                     width: 180.w,
                                                     child: Text(
-                                                      data[index]
-                                                          .branchAddress
-                                                          .toString(),
-                                                      style: TextStyle(
-                                                          color: AppColors
-                                                              .PrimaryMainColor,
-                                                          decoration:
-                                                              TextDecoration
-                                                                  .underline,
-                                                          fontFamily: Constant
-                                                              .font_family_poppins,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          fontSize: 12.sp),
-                                                    ),
+                                                        data[index]
+                                                            .branchAddress
+                                                            .toString(),
+                                                        style: location(AppColors
+                                                            .PrimaryMainColor)
+                                                        // TextStyle(
+                                                        //     color: AppColors
+                                                        //         .PrimaryMainColor,
+                                                        //     decoration:
+                                                        //         TextDecoration
+                                                        //             .underline,
+                                                        //     fontFamily: Constant
+                                                        //         .font_family_poppins,
+                                                        //     fontWeight:
+                                                        //         FontWeight.w600,
+                                                        //     fontSize: 12.sp),
+                                                        ),
                                                   ),
                                                 )
                                               ],

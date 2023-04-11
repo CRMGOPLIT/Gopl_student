@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:global_student/model/applicationStatusModel.dart';
@@ -77,7 +75,11 @@ class _ApplicationStatusState extends State<ApplicationStatus> {
         ),
       ),
       body: loading == true
-          ? Center(child: CircularProgressIndicator())
+          ? Center(
+              child: CircularProgressIndicator(
+              strokeWidth: 2.w,
+              color: AppColors.PrimaryMainColor,
+            ))
           : SingleChildScrollView(
               child: Column(
                 children: [

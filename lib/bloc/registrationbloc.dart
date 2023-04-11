@@ -48,5 +48,6 @@ class HomeDataBloc {
 
   dispose() {
     streamController.close();
+    postRegistraion.close();
   }
 }

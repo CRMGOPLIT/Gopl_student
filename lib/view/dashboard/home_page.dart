@@ -13,6 +13,8 @@ import 'package:global_student/view/couse_search/course_search.dart';
 import 'package:global_student/view/dashboard/dash_grid_model.dart';
 import 'package:global_student/view/event_details/event_detils.dart';
 import 'package:global_student/view/login/otp_page.dart';
+import 'package:global_student/view/qualification/graduation.dart';
+import 'package:global_student/view/qualification/interschool.dart';
 import 'package:global_student/view/visa/visa_page.dart';
 import 'package:global_student/view/widget/drawer.dart';
 import '../qualification/highschool.dart';

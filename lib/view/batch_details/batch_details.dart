@@ -6,6 +6,7 @@ import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/utils/text_style.dart';
 import 'package:global_student/view/widget/app_bar.dart';
+import 'package:global_student/view/widget/simmereffect.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BatchDetails extends StatefulWidget {
@@ -144,10 +145,8 @@ class _ListBatchState extends State<ListBatch> {
 
   @override
   Widget build(BuildContext context) {
-    return loanding == true
-        ? const Center(
-            child: CircularProgressIndicator(),
-          )
+    return loanding
+        ? ShimmerEffect()
         : AnimatedOpacity(
             duration: const Duration(milliseconds: 1000),
             opacity: _animate ? 1 : 0,
@@ -200,8 +199,8 @@ class _ListBatchState extends State<ListBatch> {
 
                                     decoration: BoxDecoration(
                                         color: AppColors.PrimaryMainColor,
-                                        image: data[index].fFacultyImag == null
-                                            ? DecorationImage(
+                                        image: data[index].fFacultyImag.isEmpty
+                                            ? const DecorationImage(
                                                 image: AssetImage(
                                                     "assets/images/fimg.png"),
                                                 fit: BoxFit.cover,
@@ -210,14 +209,15 @@ class _ListBatchState extends State<ListBatch> {
                                                 image: NetworkImage(
                                                     data[index].fFacultyImag),
                                                 fit: BoxFit.cover,
-                                                onError:
-                                                    (exception, stackTrace) {
-                                                  data[index].fFacultyImag !=
-                                                          null
-                                                      ? Image.asset(
-                                                          "assets/images/fimg.png")
-                                                      : Text("oke;okn");
-                                                },
+                                                // onError:
+                                                //     (exception, stackTrace) {
+                                                //   data[index]
+                                                //           .fFacultyImag
+                                                //           .isEmpty
+                                                //       ? Image.asset(
+                                                //           "assets/images/fimg.png")
+                                                //       : Text("oke;okn");
+                                                // },
                                               ),
                                         borderRadius:
                                             BorderRadius.circular(10.r)),

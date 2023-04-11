@@ -61,10 +61,14 @@ class _ProfilePageState extends State<ProfilePage> {
             },
           ),
         ),
-        body: SingleChildScrollView(
-          child: loading == true
-              ? Container()
-              : Padding(
+        body: loading == true
+            ? Center(
+                child: CircularProgressIndicator(
+                strokeWidth: 2.w,
+                color: AppColors.PrimaryMainColor,
+              ))
+            : SingleChildScrollView(
+                child: Padding(
                   padding: EdgeInsets.all(0.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -184,7 +188,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           height: 6.h,
                                         ),
                                         Text(
-                                            "📍 " +
+                                            "📍  " +
                                                 userData1!.fBranceName
                                                     .toString(),
                                             style: TextRegular(
@@ -231,8 +235,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                            userData1!.counsellorName
-                                                .toString(),
+                                            "🧑  " +
+                                                userData1!.counsellorName
+                                                    .toString(),
                                             style: TextRegular(
                                                 AppColors.PrimaryBlackColor)),
                                         SizedBox(
@@ -280,6 +285,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     ],
                   ),
                 ),
-        ));
+              ));
   }
 }

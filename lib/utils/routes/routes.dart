@@ -14,7 +14,9 @@ import 'package:global_student/view/edit/edit_page.dart';
 import 'package:global_student/view/event_details/event_detils.dart';
 import 'package:global_student/view/login/login_page.dart';
 import 'package:global_student/view/notification/notification.dart';
+import 'package:global_student/view/qualification/graduation.dart';
 import 'package:global_student/view/qualification/highschool.dart';
+import 'package:global_student/view/qualification/interschool.dart';
 import 'package:global_student/view/search/search.dart';
 import 'package:global_student/view/second.dart';
 import 'package:global_student/view/splash/splash_screen.dart';
@@ -111,12 +113,22 @@ class Routes {
 
       case RoutesName.bottomnav:
         return MaterialPageRoute(builder: (BuildContext context) => Bottom());
+
       case RoutesName.notificationpage:
         return MaterialPageRoute(
             builder: (BuildContext context) => NotificationPage());
+
       case RoutesName.profilepage:
         return MaterialPageRoute(
             builder: (BuildContext context) => ProfilePage());
+
+      case RoutesName.interschool:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => InterSchool());
+
+      case RoutesName.grduation:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => Graduation());
 
       default:
         return MaterialPageRoute(builder: (_) {

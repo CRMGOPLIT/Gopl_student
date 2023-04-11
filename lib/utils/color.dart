@@ -9,4 +9,5 @@ class AppColors {
 
   static const TextRegularkColor = Color(0xFF1E1E1E);
   static const backgroungcolor = Color(0xFFEEF8FF);
+  static const hintcolor = Colors.grey;
 }
