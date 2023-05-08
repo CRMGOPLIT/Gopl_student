@@ -20,6 +20,7 @@ import 'package:global_student/view/qualification/interschool.dart';
 import 'package:global_student/view/search/search.dart';
 import 'package:global_student/view/second.dart';
 import 'package:global_student/view/splash/splash_screen.dart';
+import 'package:global_student/view/uploadmoreDocument/upload_more_document.dart';
 import 'package:global_student/view/visa/visa_page.dart';
 import 'package:global_student/view/widget/bottomnavbar.dart';
 import 'package:global_student/view/widget/common_widget.dart';
@@ -129,6 +130,10 @@ class Routes {
       case RoutesName.grduation:
         return MaterialPageRoute(
             builder: (BuildContext context) => Graduation());
+
+      case RoutesName.uploadmoredocument:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => UploadMoreDocument());
 
       default:
         return MaterialPageRoute(builder: (_) {

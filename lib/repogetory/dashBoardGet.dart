@@ -93,4 +93,33 @@ class DashBoardGet {
     // print(response);
     return response; //GetApplicationDetailsResponse.fromJson(response);
   }
+
+  //Upload More Document
+
+  Future<dynamic> getuploadmoredocument() async {
+    final response = await _apiProvider
+        .getAfterAuthlocal(NetworkConstant.END_POINT_MORE_GET_DOCUMENT);
+    // print(response.body);
+    return response;
+  }
+
+  //Get Qualification
+
+  Future<dynamic> getQualificationRepo() async {
+    final response = await _apiProvider
+        .getAfterAuth(NetworkConstant.END_POINT_GET_QUALIFICATION);
+    // print(response.body);
+    return response;
+  }
+
+  //Upload More Document
+
+  Future<dynamic> postMoreDocument(Map parameter, List<File> files) async {
+    final response = await _apiProvider.postAfterAuthWithMultipart(
+        parameter, NetworkConstant.END_POINT_UPLOAD_MORE_DOCUMENT, files);
+
+    // debugger();
+    // print(response);
+    return response; //GetApplicationDetailsResponse.fromJson(response);
+  }
 }

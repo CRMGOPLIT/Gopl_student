@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
@@ -32,52 +31,118 @@ class _AboutUsState extends State<AboutUs> {
             },
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Column(
-            children: [
-              ImageSlideshow(
-                  width: double.infinity,
-                  height: 120.h,
-                  initialPage: 0,
-                  indicatorColor: const Color(0xff5D88C6),
-                  indicatorBackgroundColor: AppColors.PrimaryGreyColor,
-                  onPageChanged: (value) {},
-                  autoPlayInterval: 3000,
-                  isLoop: true,
-                  children: List.generate(image.length, (index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.sp),
-                        image: DecorationImage(
-                            image: AssetImage(image[index]), fit: BoxFit.fill
-                            // fit: BoxFit.cover,
-                            ),
-                      ),
-                    );
-                  })),
-              SizedBox(
-                height: 20.h,
-              ),
-              Text(
-                "We are India’s pioneer education consulting group that undertakes students’ recruitment from India and Nepal for 700+ Institutions and university partners across the globe.\nWith a massive network of 21 offices in all the major cities in India and Kathmandu, Nepal, Global Opportunities has nurtured alliances in major countries, including the United Kingdom, United States of America, Canada, Australia, New Zealand, Ireland, Singapore, Dubai, Malaysia amongst other countries.",
-                style: FieldTextStyle(AppColors.PrimaryMainColor),
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
-              Text(
-                "With a massive network of 21 offices in all the major cities in India and Kathmandu, Nepal,",
-                style: FieldTextStyle(AppColors.PrimaryMainColor),
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
-              Text(
-                "Our team of seasoned counselors with our motto to enable students to ‘step out without doubt’, have created over 70,000 Global Graduates since our inception in 2001. Our students are charting their success stories across the globe, as we establish Global Opportunities as the most trusted and accessible Overseas Education Consultant in India & Nepal.",
-                style: FieldTextStyle(AppColors.PrimaryMainColor),
-              ),
-            ],
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // ImageSlideshow(
+                //     width: double.infinity,
+                //     height: 120.h,
+                //     initialPage: 0,
+                //     indicatorColor: const Color(0xff5D88C6),
+                //     indicatorBackgroundColor: AppColors.PrimaryGreyColor,
+                //     onPageChanged: (value) {},
+                //     autoPlayInterval: 3000,
+                //     isLoop: true,
+                //     children: List.generate(image.length, (index) {
+                //       return Container(
+                //         decoration: BoxDecoration(
+                //           borderRadius: BorderRadius.circular(10.sp),
+                //           image: DecorationImage(
+                //               image: AssetImage(image[index]), fit: BoxFit.fill
+                //               // fit: BoxFit.cover,
+                //               ),
+                //         ),
+                //       );
+                //     })),
+                Image.asset(
+                  "assets/images/bannerlogo.png",
+                  height: 40,
+                  width: 200,
+                  fit: BoxFit.contain,
+                ),
+                // Text(
+                //   "Global Opportunities Pvt. Ltd.",
+                //   textAlign: TextAlign.start,
+                //   style: batchtext2(AppColors.PrimaryMainColor),
+                // ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                Text(
+                  "We are India’s pioneer education consulting group that undertakes students’ recruitment from India and Nepal for 700+ Institutions and university partners across the globe.\n\nWith a massive network of 21 offices in all the major cities in India and Kathmandu, Nepal, Global Opportunities has nurtured alliances in major countries, including the United Kingdom, United States of America, Canada, Australia, New Zealand, Ireland, Singapore, Dubai, Malaysia amongst other countries.",
+                  style: batchtext1(AppColors.PrimaryBlackColor),
+                ),
+
+                SizedBox(
+                  height: 10.h,
+                ),
+                Text(
+                  "Our team of seasoned counselors with our motto to enable students to ‘step out without doubt’, have created over 70,000 Global Graduates since our inception in 2001. Our students are charting their success stories across the globe, as we establish Global Opportunities as the most trusted and accessible Overseas Education Consultant in India & Nepal.",
+                  style: batchtext1(AppColors.PrimaryBlackColor),
+                ),
+                SizedBox(
+                  height: 15.h,
+                ),
+                Text(
+                  "Global Opportunities has a guiding Mission and Vision statement that provides a beacon for our organization.",
+                  style: batchtext2(
+                    AppColors.PrimaryBlackColor,
+                  ),
+                ),
+                SizedBox(
+                  height: 15.h,
+                ),
+                Text(
+                  "Our Mission Statement",
+                  style: location(
+                    AppColors.PrimaryMainColor,
+                  ),
+                ),
+                SizedBox(
+                  height: 15.h,
+                ),
+                Text(
+                  "👉🏻 Easy access to the outside world for anybody heading forward in higher education.\n\n👉🏻 Augmenting students’ experience through expert counseling and unmatched support services.\n\n👉🏻 Facilitating the admission and visa processing, post the acceptance of the application by the partner university.\n\n👉🏻 Ensuring availability of only reputed and recognized International Education partners for aspiring students through stringent selection process.\n\n👉🏻 Assisting the youth of India and Nepal with many ways to get comfortable in a foreign and different environment.",
+                  style: batchtext1(
+                    AppColors.PrimaryBlackColor,
+                  ),
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                Text(
+                  "Our Motto :  \"Step Out without Doubt” - emphasizes the company’s proficient counseling to the seeker letting them move ahead without any doubts.\"",
+                  style: FieldTextStyle(Colors.green),
+                ),
+
+                SizedBox(
+                  height: 15.h,
+                ),
+                Text(
+                  "Our Vision",
+                  style: location(
+                    AppColors.PrimaryMainColor,
+                  ),
+                ),
+                SizedBox(
+                  height: 15.h,
+                ),
+                Text(
+                  "“To offer and provide effortlessly facilitation of fulfilling dreams of studying internationally.”",
+                  style: batchtext2(AppColors.PrimaryMainColor),
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                Text(
+                  "We support ambitions. Our goal is to make it happen for the ones aiming to pursue international education. The international education process can be chaotic, and mind-numbing. That’s where we step in and make the whole experience of the process of studying abroad simple, hassle-free and effortless.",
+                  style: batchtext1(AppColors.PrimaryBlackColor),
+                )
+              ],
+            ),
           ),
         ));
   }

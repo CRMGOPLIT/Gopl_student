@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:global_student/networking/response.dart';
 import 'package:global_student/repogetory/login.dart';
 
-import '../repogetory/registration.dart';
-
 class LoginDataBloc {
   late LoginRepo loginRepo;
 
@@ -34,7 +32,6 @@ class LoginDataBloc {
       postloginSink.add(Response.completed(chuckCats));
     } catch (e) {
       postloginSink.add(Response.error(e.toString()));
-      print(e);
     }
   }
 //post otp
@@ -45,7 +42,6 @@ class LoginDataBloc {
       postloginSink.add(Response.completed(chuckCats));
     } catch (e) {
       postloginSink.add(Response.error(e.toString()));
-      print(e);
     }
   }
 

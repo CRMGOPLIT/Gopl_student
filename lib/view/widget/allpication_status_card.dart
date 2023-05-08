@@ -36,7 +36,7 @@ class ApplicationStatusCard extends StatelessWidget {
             child: Text(
               "$title",
               textAlign: TextAlign.center,
-              style: FieldTextStyle(AppColors.PrimaryBlackColor),
+              style: batchtext2(AppColors.PrimaryBlackColor),
             ),
           ),
           Container(
@@ -52,7 +52,8 @@ class ApplicationStatusCard extends StatelessWidget {
                     //overflow: TextOverflow.ellipsis,
                     "$subtitle",
                     textAlign: TextAlign.center,
-                    style: TextRegular(AppColors.PrimaryBlackColor),
+                    maxLines: 4,
+                    style: batchtext1(AppColors.PrimaryBlackColor),
                   ),
                 )
               : SizedBox(
@@ -60,8 +61,9 @@ class ApplicationStatusCard extends StatelessWidget {
                   child: Text(
                     overflow: TextOverflow.ellipsis,
                     "$subtitle",
+                    maxLines: 4,
                     textAlign: TextAlign.center,
-                    style: TextRegular(AppColors.PrimaryBlackColor),
+                    style: batchtext1(AppColors.PrimaryBlackColor),
                   ),
                 )
         ],

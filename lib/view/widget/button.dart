@@ -24,8 +24,7 @@ class ButtonPrimary extends StatelessWidget {
               Color(0xff143C79),
               Color(0xff2A67C5),
             ],
-          )
-          ),
+          )),
       child: ElevatedButton(
         onPressed: () {
           onPressed();
@@ -46,7 +45,46 @@ class ButtonPrimary extends StatelessWidget {
   }
 }
 
+class ButtonPrimary2 extends StatelessWidget {
+  const ButtonPrimary2({Key? key, required this.title, required this.onPressed})
+      : super(key: key);
+  final Function onPressed;
+  final String title;
 
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 50.h,
+      width: 360.w,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5.r),
+          gradient: const LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: [
+              Color(0xff143C79),
+              Color(0xff2A67C5),
+            ],
+          )),
+      child: ElevatedButton(
+        onPressed: () {
+          onPressed();
+        },
+        child: Text(title,
+            style: batchtext2(
+              AppColors.PrimaryWhiteColor,
+            )),
+        style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.transparent,
+            textStyle: OtpText(AppColors.PrimaryWhiteColor),
+            // shape: RoundedRectangleBorder(
+            //     borderRadius: BorderRadius.circular(30.r)),
+            shadowColor: Colors.transparent,
+            elevation: 10),
+      ),
+    );
+  }
+}
 
   // Container(
               //   height: 60.h,

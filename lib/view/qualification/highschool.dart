@@ -880,6 +880,7 @@ class _HighSchoolState extends State<HighSchool> {
                           ),
                         ),
                       ),
+                     
                       SizedBox(
                         height: 10.h,
                       ),
@@ -1802,6 +1803,7 @@ class _HighSchoolState extends State<HighSchool> {
                                     ),
                                   )),
                       ),
+                   
                     ],
                   ),
                 ),

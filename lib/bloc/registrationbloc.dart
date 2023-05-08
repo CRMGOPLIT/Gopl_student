@@ -42,7 +42,6 @@ class HomeDataBloc {
       postRegistrationSink.add(Response.completed(chuckCats));
     } catch (e) {
       postRegistrationSink.add(Response.error(e.toString()));
-      print(e);
     }
   }
 

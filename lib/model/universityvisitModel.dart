@@ -1,8 +1,4 @@
-// To parse this JSON data, do
-//
-//     final universityVisitModel = universityVisitModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 List<UniversityVisitModel> universityVisitModelFromJson(String str) =>

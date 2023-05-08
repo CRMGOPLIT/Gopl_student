@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:file_picker/file_picker.dart';
 import 'package:global_student/repogetory/dashBoardGet.dart';
-
 import '../networking/response.dart';
 
 class DashBoardBloc {
@@ -17,6 +15,10 @@ class DashBoardBloc {
   late StreamController<dynamic> qualificationController;
   late StreamController<Response<dynamic>> documentuploadController;
   late StreamController<dynamic> boarduniversityController;
+  late StreamController<dynamic> getmoredocumentcontroller;
+  late StreamController<dynamic> uploadmoredocumentcontroller;
+
+  late StreamController<dynamic> getqualificationcontroller;
 
 //Event Controller
   StreamSink<dynamic> get getEventDetailsSink => streamController.sink;
@@ -76,6 +78,30 @@ class DashBoardBloc {
 
   Stream<Response<dynamic>> get documentuploadControllerStream =>
       documentuploadController.stream;
+  //upload more document
+
+  StreamSink<dynamic> get getmoredocumentcontrollerSink =>
+      getmoredocumentcontroller.sink;
+
+  Stream<dynamic> get getmoredocumentcontrollerStream =>
+      getmoredocumentcontroller.stream;
+
+  //Get Qualification
+
+  StreamSink<dynamic> get getqualificationcontrollerSink =>
+      getqualificationcontroller.sink;
+
+  Stream<dynamic> get getqualificationcontrollerStream =>
+      getqualificationcontroller.stream;
+  //Upload more Document
+
+  StreamSink<dynamic> get uploadmoredocumentcontrollerSink =>
+      uploadmoredocumentcontroller.sink;
+
+  Stream<dynamic> get uploadmoredocumentcontrollerStream =>
+      uploadmoredocumentcontroller.stream;
+
+  //
 
   DashBoardBloc() {
     streamController = StreamController<dynamic>();
@@ -88,6 +114,9 @@ class DashBoardBloc {
     qualificationController = StreamController<dynamic>();
     documentuploadController = StreamController<Response<dynamic>>();
     boarduniversityController = StreamController<dynamic>();
+    getmoredocumentcontroller = StreamController<dynamic>();
+    getqualificationcontroller = StreamController<dynamic>();
+    uploadmoredocumentcontroller = StreamController<dynamic>();
     dashBoardGet = DashBoardGet();
   }
 //Get All Events Detaails
@@ -158,7 +187,7 @@ class DashBoardBloc {
     }
   }
 
-//User Details
+//Get Application Status
   callApplicationstatusApi() async {
     try {
       dynamic chuckCats = await dashBoardGet.getApplicationStatusRepo();
@@ -204,6 +233,40 @@ class DashBoardBloc {
     }
   }
 
+  //Get upload more Document
+  callUploadmoreDocumentApi() async {
+    try {
+      dynamic chuckCats = await dashBoardGet.getuploadmoredocument();
+      getmoredocumentcontrollerSink.add(chuckCats);
+    } catch (e) {
+      getmoredocumentcontrollerSink.add('error');
+      // print(e);
+    }
+  }
+// Get Qualification
+
+//User Details
+  callQualificationApi() async {
+    try {
+      dynamic chuckCats = await dashBoardGet.getQualificationRepo();
+      getqualificationcontrollerSink.add(chuckCats);
+    } catch (e) {
+      getqualificationcontrollerSink.add('error');
+      // print(e);
+    }
+  }
+
+  // Upload More Document
+
+  callUploadmoredocumentApi(Map parameter, List<File> files) async {
+    try {
+      dynamic chuckCats = await dashBoardGet.postMoreDocument(parameter, files);
+      uploadmoredocumentcontrollerSink.add(Response.completed(chuckCats));
+    } catch (e) {
+      uploadmoredocumentcontrollerSink.add(Response.error(e.toString()));
+    }
+  }
+
   dispose() {
     streamController.close();
     branchController.close();
@@ -213,5 +276,7 @@ class DashBoardBloc {
     applicationController.close();
     qualificationController.close();
     documentuploadController.close();
+    getmoredocumentcontroller.close();
+    uploadmoredocumentcontroller.close();
   }
 }

@@ -376,77 +376,83 @@ class _RegisterPageState extends State<RegisterPage> {
                       style: FieldTextStyle(
                         AppColors.PrimaryBlackColor,
                       )),
-                  DropdownButtonHideUnderline(
-                    child: DropdownButtonFormField2(
-                      isDense: false,
-                      isExpanded: true,
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          // width: 0.0 produces a thin "hairline" border
-                          borderSide: BorderSide(
-                              color: AppColors.PrimaryMainColor, width: 1.0),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButtonFormField2(
+                        isDense: false,
+                        isExpanded: true,
+                        decoration: InputDecoration(
+                          // enabledBorder: OutlineInputBorder(
+                          //   borderRadius: BorderRadius.circular(10),
+                          //   // width: 0.0 produces a thin "hairline" border
+                          //   borderSide: BorderSide(
+                          //       color: AppColors.PrimaryMainColor, width: 1.0),
+                          // ),
+                          // errorBorder: new OutlineInputBorder(
+                          //   borderRadius: BorderRadius.circular(10),
+                          //   borderSide:
+                          //       new BorderSide(color: Colors.red, width: 1.0),
+                          // ),
+                          isCollapsed: true,
+                          border: InputBorder.none,
                         ),
-                        errorBorder: new OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide:
-                              new BorderSide(color: Colors.red, width: 1.0),
+                        validator: (value) {
+                          if (value == null || value.LocationName.isEmpty) {
+                            return 'Please Select Branch';
+                          }
+                          return null;
+                        },
+                        hint: Text(
+                          'Please select branch',
+                          style: batchtext2(AppColors.hintcolor),
                         ),
-                        isCollapsed: true,
-                        border: InputBorder.none,
-                      ),
-                      validator: (value) {
-                        if (value == null || value.LocationName.isEmpty) {
-                          return 'Please Select Branch';
-                        }
-                        return null;
-                      },
-                      hint: Text(
-                        'Please select',
-                        style: Text2Regular(AppColors.PrimaryMainColor),
-                      ),
-                      items: ddlLocation
-                          .map((DdlLocation item) =>
-                              DropdownMenuItem<DdlLocation>(
-                                value: item,
-                                child: Text(
-                                  item.LocationName,
-                                  style: batchtext2(AppColors.PrimaryMainColor),
-                                ),
-                              ))
-                          .toList(),
-                      value: dropvalue,
-                      onChanged: (DdlLocation? value) {
-                        setState(() {
-                          dropvalue = value;
-                          isSelected = true;
-                          //  selectedSecurity = value!;
-                          // accountTypeValidate = true;
-                        });
-                      },
-                      buttonStyleData: ButtonStyleData(
-                        height: 55,
-                        width: 450,
-                        padding: const EdgeInsets.all(10),
-                      ),
-                      dropdownStyleData: DropdownStyleData(
-                          isOverButton: true,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.sp),
-                              color: AppColors.backgroungcolor,
-                              border: Border.all()),
-                          maxHeight: 200.h,
-                          elevation: 10),
-                      menuItemStyleData: const MenuItemStyleData(
-                        padding: EdgeInsets.only(left: 10, right: 10),
-                        height: 40,
-                      ),
-                      iconStyleData: IconStyleData(
-                        icon: Icon(
-                          Icons.keyboard_arrow_down,
-                          color: AppColors.PrimaryMainColor,
+                        items: ddlLocation
+                            .map((DdlLocation item) =>
+                                DropdownMenuItem<DdlLocation>(
+                                  value: item,
+                                  child: Text(
+                                    item.LocationName,
+                                    style:
+                                        batchtext2(AppColors.PrimaryMainColor),
+                                  ),
+                                ))
+                            .toList(),
+                        value: dropvalue,
+                        onChanged: (DdlLocation? value) {
+                          setState(() {
+                            dropvalue = value;
+                            isSelected = true;
+                            //  selectedSecurity = value!;
+                            // accountTypeValidate = true;
+                          });
+                        },
+                        buttonStyleData: ButtonStyleData(
+                          height: 55,
+                          width: 450,
+                          padding: const EdgeInsets.all(10),
                         ),
-                        iconSize: 30,
+                        dropdownStyleData: DropdownStyleData(
+                            isOverButton: true,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.sp),
+                                color: AppColors.backgroungcolor,
+                                border: Border.all()),
+                            maxHeight: 200.h,
+                            elevation: 10),
+                        menuItemStyleData: const MenuItemStyleData(
+                          padding: EdgeInsets.only(left: 10, right: 10),
+                          height: 40,
+                        ),
+                        iconStyleData: IconStyleData(
+                          icon: Icon(
+                            Icons.keyboard_arrow_down,
+                            color: AppColors.PrimaryMainColor,
+                          ),
+                          iconSize: 30,
+                        ),
                       ),
                     ),
                   ),
@@ -506,97 +512,104 @@ class _RegisterPageState extends State<RegisterPage> {
                       style: FieldTextStyle(
                         AppColors.PrimaryBlackColor,
                       )),
-                  DropdownButtonHideUnderline(
-                    child: DropdownButtonFormField2(
-                      isDense: false,
-                      isExpanded: true,
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          // width: 0.0 produces a thin "hairline" border
-                          borderSide: BorderSide(
-                              color: AppColors.PrimaryMainColor, width: 1.0),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButtonFormField2(
+                        isDense: false,
+                        isExpanded: true,
+                        decoration: InputDecoration(
+                          // enabledBorder: OutlineInputBorder(
+                          //   borderRadius: BorderRadius.circular(10),
+                          //   // width: 0.0 produces a thin "hairline" border
+                          //   borderSide: BorderSide(
+                          //       color: AppColors.PrimaryMainColor, width: 1.0),
+                          // ),
+                          // errorBorder: new OutlineInputBorder(
+                          //   borderRadius: BorderRadius.circular(10),
+                          //   borderSide:
+                          //       new BorderSide(color: Colors.red, width: 1.0),
+                          // ),
+                          isCollapsed: true,
+                          border: InputBorder.none,
                         ),
-                        errorBorder: new OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide:
-                              new BorderSide(color: Colors.red, width: 1.0),
-                        ),
-                        isCollapsed: true,
-                        border: InputBorder.none,
-                      ),
-                      validator: (value) {
-                        if (value == null || value.IntakeName.isEmpty) {
-                          return 'Please Select Intake';
-                        }
-                        return null;
-                      },
-                      // customButton: Container(
-                      //   height: 50,
-                      //   width: 360,
-                      //   decoration: BoxDecoration(
-                      //       borderRadius: BorderRadius.circular(10),
-                      //       border: Border.all()
-                      //       // image: const DecorationImage(
-                      //       //   image: NetworkImage(
-                      //       //     'https://cdn.pixabay.com/photo/2020/05/11/06/20/city-5156636_960_720.jpg',
-                      //       //   ),
-                      //       //   fit: BoxFit.cover,
-                      //       // ),
-                      //       ),
-                      // ),
-                      // icon: Container(),
+                        validator: (value) {
+                          if (value == null || value.IntakeName.isEmpty) {
+                            return 'Please Select Intake';
+                          }
+                          return null;
+                        },
+                        // customButton: Container(
+                        //   height: 50,
+                        //   width: 360,
+                        //   decoration: BoxDecoration(
+                        //       borderRadius: BorderRadius.circular(10),
+                        //       border: Border.all()
+                        //       // image: const DecorationImage(
+                        //       //   image: NetworkImage(
+                        //       //     'https://cdn.pixabay.com/photo/2020/05/11/06/20/city-5156636_960_720.jpg',
+                        //       //   ),
+                        //       //   fit: BoxFit.cover,
+                        //       // ),
+                        //       ),
+                        // ),
+                        // icon: Container(),
 
-                      //iconStyleData: ,
-                      hint: Text(
-                        'Please select',
-                        style: Text2Regular(AppColors.PrimaryMainColor),
-                      ),
-                      items: ddlIntake
-                          .map((DdlIntake? item) => DropdownMenuItem<DdlIntake>(
-                                value: item,
-                                child: Text(
-                                  item!.IntakeName.toString(),
-                                  style: batchtext2(AppColors.PrimaryMainColor),
-                                ),
-                              ))
-                          .toList(),
-                      value: dropintake,
-                      onChanged: (DdlIntake? value) {
-                        setState(() {
-                          dropintake = value!;
-                          isSelected = true;
-                          //  selectedSecurity = value!;
-                          // accountTypeValidate = true;
-                        });
-                      },
-                      buttonStyleData: ButtonStyleData(
-                        height: 55,
-                        width: 450,
-                        padding: const EdgeInsets.all(10),
-                        // decoration: BoxDecoration(
-                        //     borderRadius: BorderRadius.circular(10.sp),
-                        //     border: Border.all(
-                        //         color: AppColors.PrimaryMainColor))
-                      ),
-                      dropdownStyleData: DropdownStyleData(
-                          isOverButton: true,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.sp),
-                              color: AppColors.backgroungcolor,
-                              border: Border.all()),
-                          maxHeight: 200.h,
-                          elevation: 10),
-                      menuItemStyleData: const MenuItemStyleData(
-                        padding: EdgeInsets.only(left: 10, right: 10),
-                        height: 40,
-                      ),
-                      iconStyleData: IconStyleData(
-                        icon: Icon(
-                          Icons.keyboard_arrow_down,
-                          color: AppColors.PrimaryMainColor,
+                        //iconStyleData: ,
+                        hint: Text(
+                          'Please select Intake',
+                          style: batchtext2(AppColors.hintcolor),
                         ),
-                        iconSize: 30,
+                        items: ddlIntake
+                            .map((DdlIntake? item) =>
+                                DropdownMenuItem<DdlIntake>(
+                                  value: item,
+                                  child: Text(
+                                    item!.IntakeName.toString(),
+                                    style:
+                                        batchtext2(AppColors.PrimaryMainColor),
+                                  ),
+                                ))
+                            .toList(),
+                        value: dropintake,
+                        onChanged: (DdlIntake? value) {
+                          setState(() {
+                            dropintake = value!;
+                            isSelected = true;
+                            //  selectedSecurity = value!;
+                            // accountTypeValidate = true;
+                          });
+                        },
+                        buttonStyleData: ButtonStyleData(
+                          height: 55,
+                          width: 450,
+                          padding: const EdgeInsets.all(10),
+                          // decoration: BoxDecoration(
+                          //     borderRadius: BorderRadius.circular(10.sp),
+                          //     border: Border.all(
+                          //         color: AppColors.PrimaryMainColor))
+                        ),
+                        dropdownStyleData: DropdownStyleData(
+                            isOverButton: true,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.sp),
+                                color: AppColors.backgroungcolor,
+                                border: Border.all()),
+                            maxHeight: 200.h,
+                            elevation: 10),
+                        menuItemStyleData: const MenuItemStyleData(
+                          padding: EdgeInsets.only(left: 10, right: 10),
+                          height: 40,
+                        ),
+                        iconStyleData: IconStyleData(
+                          icon: Icon(
+                            Icons.keyboard_arrow_down,
+                            color: AppColors.PrimaryMainColor,
+                          ),
+                          iconSize: 30,
+                        ),
                       ),
                     ),
                   ),
@@ -712,129 +725,135 @@ class _RegisterPageState extends State<RegisterPage> {
                       style: FieldTextStyle(
                         AppColors.PrimaryBlackColor,
                       )),
-                  DropdownButtonFormField2(
-                    isDense: false,
-                    isExpanded: true,
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        // width: 0.0 produces a thin "hairline" border
-                        borderSide: BorderSide(
-                            color: AppColors.PrimaryMainColor, width: 1.0),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: DropdownButtonFormField2(
+                      isDense: false,
+                      isExpanded: true,
+                      decoration: InputDecoration(
+                        // enabledBorder: OutlineInputBorder(
+                        //   borderRadius: BorderRadius.circular(10),
+                        //   // width: 0.0 produces a thin "hairline" border
+                        //   borderSide: BorderSide(
+                        //       color: AppColors.PrimaryMainColor, width: 1.0),
+                        // ),
+                        // errorBorder: new OutlineInputBorder(
+                        //   borderRadius: BorderRadius.circular(10),
+                        //   borderSide:
+                        //       new BorderSide(color: Colors.red, width: 1.0),
+                        // ),
+                        isCollapsed: true,
+                        border: InputBorder.none,
                       ),
-                      errorBorder: new OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                            new BorderSide(color: Colors.red, width: 1.0),
+                      validator: (value) {
+                        if (value == null ||
+                            value.IntrestedCountryName.isEmpty) {
+                          return 'Please Select Country';
+                        }
+                        return null;
+                      },
+                      // isExpanded: false,
+                      //alignment: Alignment.center,
+                      // customButton: Container(
+                      //   height: 50,
+                      //   width: 360,
+                      //   decoration: BoxDecoration(
+                      //       borderRadius: BorderRadius.circular(10),
+                      //       border: Border.all()
+                      //       // image: const DecorationImage(
+                      //       //   image: NetworkImage(
+                      //       //     'https://cdn.pixabay.com/photo/2020/05/11/06/20/city-5156636_960_720.jpg',
+                      //       //   ),
+                      //       //   fit: BoxFit.cover,
+                      //       // ),
+                      //       ),
+                      // ),
+                      // icon: Container(),
+                      // isExpanded: true,
+                      //iconStyleData: ,
+                      hint: Text(
+                        'Please select country',
+                        style: batchtext2(AppColors.hintcolor),
                       ),
-                      isCollapsed: true,
-                      border: InputBorder.none,
-                    ),
-                    validator: (value) {
-                      if (value == null || value.IntrestedCountryName.isEmpty) {
-                        return 'Please Select Country';
-                      }
-                      return null;
-                    },
-                    // isExpanded: false,
-                    //alignment: Alignment.center,
-                    // customButton: Container(
-                    //   height: 50,
-                    //   width: 360,
-                    //   decoration: BoxDecoration(
-                    //       borderRadius: BorderRadius.circular(10),
-                    //       border: Border.all()
-                    //       // image: const DecorationImage(
-                    //       //   image: NetworkImage(
-                    //       //     'https://cdn.pixabay.com/photo/2020/05/11/06/20/city-5156636_960_720.jpg',
-                    //       //   ),
-                    //       //   fit: BoxFit.cover,
-                    //       // ),
-                    //       ),
-                    // ),
-                    // icon: Container(),
-                    // isExpanded: true,
-                    //iconStyleData: ,
-                    hint: Text(
-                      'Please select',
-                      style: Text2Regular(AppColors.PrimaryMainColor),
-                    ),
-                    items: ddlCountryIntrested
-                        .map((item) => DropdownMenuItem<DdlCountryIntrested>(
-                              value: item,
-                              child: Text(
-                                item.IntrestedCountryName,
-                                style: batchtext2(AppColors.PrimaryMainColor),
-                              ),
-                            ))
-                        .toList(),
-                    value: dropcountry,
-                    onChanged: (DdlCountryIntrested? value) {
-                      setState(() {
-                        dropcountry = value;
-                        isSelected = true;
-                        //  selectedSecurity = value!;
-                        // accountTypeValidate = true;
-                      });
-                    },
-                    buttonStyleData: const ButtonStyleData(
-                      height: 55,
-                      width: 450,
-                      padding: EdgeInsets.all(10),
-                    ),
-                    dropdownStyleData: DropdownStyleData(
-                        isOverButton: true,
-                        isFullScreen: true,
-                        openInterval: const Interval(0.25, 0.5),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.sp),
-                            color: AppColors.backgroungcolor,
-                            border: Border.all()),
-                        maxHeight: 130.h,
-                        elevation: 10),
-                    menuItemStyleData: const MenuItemStyleData(
-                      padding: EdgeInsets.only(left: 10, right: 10),
-                      height: 40,
-                    ),
-                    // dropdownSearchData: DropdownSearchData(
-                    // //  searchController: textEditingController,
-                    //   searchInnerWidgetHeight: 50,
-                    //   searchInnerWidget: Container(
-                    //     height: 50,
-                    //     padding: const EdgeInsets.only(
-                    //       top: 8,
-                    //       bottom: 4,
-                    //       right: 8,
-                    //       left: 8,
-                    //     ),
-                    //     child: TextFormField(
-                    //       expands: true,
-                    //       maxLines: null,
-                    //       // controller: "",
-                    //       decoration: InputDecoration(
-                    //         isDense: true,
-                    //         contentPadding: const EdgeInsets.symmetric(
-                    //           horizontal: 10,
-                    //           vertical: 8,
-                    //         ),
-                    //         hintText: 'Search for an item...',
-                    //         hintStyle: const TextStyle(fontSize: 12),
-                    //         border: OutlineInputBorder(
-                    //           borderRadius: BorderRadius.circular(8),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    //   searchMatchFn: (item, searchValue) {
-                    //     return (items.value.toString().contains(searchValue));
-                    //   },
-                    // ),
-                    iconStyleData: IconStyleData(
-                      icon: Icon(
-                        Icons.keyboard_arrow_down,
-                        color: AppColors.PrimaryMainColor,
+                      items: ddlCountryIntrested
+                          .map((item) => DropdownMenuItem<DdlCountryIntrested>(
+                                value: item,
+                                child: Text(
+                                  item.IntrestedCountryName,
+                                  style: batchtext2(AppColors.PrimaryMainColor),
+                                ),
+                              ))
+                          .toList(),
+                      value: dropcountry,
+                      onChanged: (DdlCountryIntrested? value) {
+                        setState(() {
+                          dropcountry = value;
+                          isSelected = true;
+                          //  selectedSecurity = value!;
+                          // accountTypeValidate = true;
+                        });
+                      },
+                      buttonStyleData: const ButtonStyleData(
+                        height: 55,
+                        width: 450,
+                        padding: EdgeInsets.all(10),
                       ),
-                      iconSize: 30,
+                      dropdownStyleData: DropdownStyleData(
+                          isOverButton: true,
+                          isFullScreen: true,
+                          openInterval: const Interval(0.25, 0.5),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.sp),
+                              color: AppColors.backgroungcolor,
+                              border: Border.all()),
+                          maxHeight: 130.h,
+                          elevation: 10),
+                      menuItemStyleData: const MenuItemStyleData(
+                        padding: EdgeInsets.only(left: 10, right: 10),
+                        height: 40,
+                      ),
+                      // dropdownSearchData: DropdownSearchData(
+                      // //  searchController: textEditingController,
+                      //   searchInnerWidgetHeight: 50,
+                      //   searchInnerWidget: Container(
+                      //     height: 50,
+                      //     padding: const EdgeInsets.only(
+                      //       top: 8,
+                      //       bottom: 4,
+                      //       right: 8,
+                      //       left: 8,
+                      //     ),
+                      //     child: TextFormField(
+                      //       expands: true,
+                      //       maxLines: null,
+                      //       // controller: "",
+                      //       decoration: InputDecoration(
+                      //         isDense: true,
+                      //         contentPadding: const EdgeInsets.symmetric(
+                      //           horizontal: 10,
+                      //           vertical: 8,
+                      //         ),
+                      //         hintText: 'Search for an item...',
+                      //         hintStyle: const TextStyle(fontSize: 12),
+                      //         border: OutlineInputBorder(
+                      //           borderRadius: BorderRadius.circular(8),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      //   searchMatchFn: (item, searchValue) {
+                      //     return (items.value.toString().contains(searchValue));
+                      //   },
+                      // ),
+                      iconStyleData: IconStyleData(
+                        icon: Icon(
+                          Icons.keyboard_arrow_down,
+                          color: AppColors.PrimaryMainColor,
+                        ),
+                        iconSize: 30,
+                      ),
                     ),
                   ),
                   // Container(

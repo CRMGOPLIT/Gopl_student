@@ -1,18 +1,3 @@
-List Month = [
-  {"Id": "1", "Name": "january"},
-  {"Id": "2", "Name": "feb"},
-  {"Id": "3", "Name": "march"},
-  {"Id": "4", "Name": "April"},
-  {"Id": "5", "Name": "GNM Nursing"},
-  {"Id": "6", "Name": "MBA"},
-  {"Id": "7", "Name": "MA"},
-  {"Id": "8", "Name": "BA"},
-  {"Id": "9", "Name": "B.Ed"},
-  {"Id": "10", "Name": "B.Com"},
-  {"Id": "11", "Name": "BSc"},
-  {"Id": "12", "Name": "BCA"}
-];
-
 class MonthModel {
   String? name;
   String? id;
@@ -72,4 +57,37 @@ List<MonthModel> months = [
     id: '12',
     name: 'December',
   )
+];
+
+class DurationModel {
+  String? name;
+  String? id;
+
+  DurationModel({
+    this.name,
+    this.id,
+  });
+}
+
+List<DurationModel> duration = [
+  DurationModel(
+    id: '1',
+    name: '0 - 1 Years',
+  ),
+  DurationModel(
+    id: '2',
+    name: '1 - 2 Years',
+  ),
+  DurationModel(
+    id: '3',
+    name: '2 - 3 Years',
+  ),
+  DurationModel(
+    id: '4',
+    name: '3 - 4 Years',
+  ),
+  DurationModel(
+    id: '5',
+    name: '4 and above Years',
+  ),
 ];

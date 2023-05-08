@@ -4,6 +4,7 @@ import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/utils/text_style.dart';
 import 'package:global_student/view/dashboard/dash_grid_model.dart';
+import 'package:global_student/view/widget/app_bar.dart';
 
 class CourseSerach extends StatefulWidget {
   const CourseSerach({super.key});
@@ -17,228 +18,93 @@ class _CourseSerachState extends State<CourseSerach> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroungcolor,
-      appBar: AppBar(
-        backgroundColor: AppColors.PrimaryMainColor,
-        elevation: 0,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              bottomRight: Radius.circular(25),
-              bottomLeft: Radius.circular(25)),
-        ),
-        leading: InkWell(
-          onTap: () {
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(50.h),
+        child: AppBarCustom(
+          title: "Course Details",
+          onpress: () {
             Navigator.pushNamed(context, RoutesName.bottomnav);
           },
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: AppColors.PrimaryWhiteColor,
-            size: 20.sp,
-          ),
-        ),
-        centerTitle: true,
-        title: InkWell(
-          onTap: () {
-            Navigator.pushNamed(context, RoutesName.searchPage);
-          },
-          child: Container(
-            height: 30.h,
-            width: 230.w,
-            decoration: BoxDecoration(
-                color: AppColors.PrimaryWhiteColor,
-                borderRadius: BorderRadius.circular(10.r)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: 10.w,
-                ),
-                Icon(
-                  Icons.search,
-                  color: AppColors.PrimaryMainColor,
-                ),
-                SizedBox(
-                  width: 20.w,
-                ),
-                Text(
-                  "Search Courses/University",
-                  style: TextRegular(AppColors.PrimaryMainColor),
-                )
-              ],
-            ),
-          ),
         ),
       ),
-      // appBar: PreferredSize(
-      //   preferredSize: Size.fromHeight(50.h), // here the desired height
-      //   child: AppBarCustom(
-      //     title: "Course Search",
-      //     onpress: () {
-      //       Navigator.pushNamed(context, RoutesName.home);
-      //     },
-      //   ),
-      // ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Container(
-            //   height: 60.h,
-            //   width: 380.w,
-            //   padding: EdgeInsets.all(10.r),
-            //   decoration: BoxDecoration(color: AppColors.PrimaryMainColor),
-            //   child: Container(
-            //     height: 30.h,
-            //     width: 250.w,
-            //     decoration: BoxDecoration(
-            //         color: AppColors.PrimaryWhiteColor,
-            //         borderRadius: BorderRadius.circular(20.r)),
-            //     child: Padding(
-            //       padding: const EdgeInsets.all(10.0),
-            //       child: Row(
-            //         mainAxisAlignment: MainAxisAlignment.start,
-            //         children: [
-            //           SizedBox(
-            //             width: 10.w,
-            //           ),
-            //           Icon(
-            //             Icons.search,
-            //             color: AppColors.PrimaryMainColor,
-            //           ),
-            //           SizedBox(
-            //             width: 20.w,
-            //           ),
-            //           Text(
-            //             "Search Courses/University",
-            //             style: Text2Regular(AppColors.PrimaryMainColor),
-            //           )
-            //         ],
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            // Row(children: [
-            //   Flexible(
-            //     flex: 1,
-            //     child: TextField(
-            //       cursorColor: Colors.grey,
-            //       decoration: InputDecoration(
-            //           fillColor: Colors.white,
-            //           filled: true,
-            //           border: OutlineInputBorder(
-            //               borderRadius: BorderRadius.circular(10),
-            //               borderSide: BorderSide.none),
-            //           hintText: 'Search',
-            //           hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
-            //           prefixIcon: Container(
-            //             padding: EdgeInsets.all(15),
-            //             child: Icon(
-            //               Icons.search,
-            //               color: AppColors.PrimaryMainColor,
-            //             ),
-            //             width: 18,
-            //           )),
-            //     ),
-            //   ),
-            // ]),
-            ListTile(
-              visualDensity: VisualDensity(horizontal: 1.r, vertical: -3.r),
-              leading: Text(
-                "Country",
-                style: OtpText(
-                  AppColors.PrimaryBlackColor,
+            SizedBox(
+              height: 5.h,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                "Find Your Course",
+                style: FieldTextStyle(AppColors.PrimaryBlackColor),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, RoutesName.searchPage);
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10, right: 10),
+                child: Container(
+                  height: 40.h,
+                  width: 350.w,
+                  decoration: BoxDecoration(
+                      color: AppColors.PrimaryWhiteColor,
+                      border: Border.all(color: AppColors.hintcolor),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          const Icon(
+                            Icons.search,
+                            color: AppColors.hintcolor,
+                          ),
+                          SizedBox(
+                            width: 20.w,
+                          ),
+                          Text(
+                            "Search Courses/University",
+                            style: batchtext2(AppColors.hintcolor),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                color: AppColors.PrimaryBlackColor,
-                size: 20.sp,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10, right: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Courses",
+                    style: FieldTextStyle(
+                      AppColors.PrimaryBlackColor,
+                    ),
+                  ),
+                  Text(
+                    "View All",
+                    style: FieldTextStyle(
+                      AppColors.PrimaryMainColor,
+                    ),
+                  ),
+                ],
               ),
             ),
             SizedBox(
-              // constraints: BoxConstraints(
-              //   maxHeight: double.infinity,
-              // ),
-              height: 123.h,
-
-              // color: Colors.amber,
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: Countrycourse.length,
-                  itemBuilder: (context, index) {
-                    return Row(
-                      children: [
-                        Container(
-                          constraints: BoxConstraints(
-                            maxHeight: double.maxFinite,
-                          ),
-                          margin: EdgeInsets.only(
-                              left: 14.r, bottom: 10.h, top: 10.h, right: 14.r),
-                          // height: 100.h,
-                          width: 120.w,
-                          decoration: BoxDecoration(
-                              color: AppColors.PrimaryWhiteColor,
-                              borderRadius: BorderRadius.circular(10.r),
-                              boxShadow: const [
-                                BoxShadow(
-                                    offset: Offset(
-                                      3,
-                                      3,
-                                    ),
-                                    color: Colors.black12,
-                                    blurRadius: 1.0,
-                                    spreadRadius: 0.0),
-                                // BoxShadow(
-                                //     offset: Offset(
-                                //       -2,
-                                //       -5,
-                                //     ),
-                                //     color: Colors.black12,
-                                //     blurRadius: 2.0,
-                                //     spreadRadius: 2.0),
-                              ]),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  Countrycourse[index].image.toString(),
-                                  height: 70.h,
-                                  width: 70.w,
-                                ),
-                                SizedBox(
-                                  height: 2.h,
-                                ),
-                                Text(
-                                  Countrycourse[index].title.toString(),
-                                  style:
-                                      Text2Regular(AppColors.PrimaryBlackColor),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
-                  }),
-            ),
-            ListTile(
-              visualDensity: VisualDensity(horizontal: 1.r, vertical: -3.r),
-              leading: Text(
-                "University",
-                style: OtpText(
-                  AppColors.PrimaryBlackColor,
-                ),
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                color: AppColors.PrimaryBlackColor,
-                size: 20.sp,
-              ),
-            ),
-            SizedBox(
-              height: 175.h,
-              // color: Colors.amber,
+              height: 215.h,
               child: ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
@@ -246,8 +112,97 @@ class _CourseSerachState extends State<CourseSerach> {
                   itemBuilder: (context, index) {
                     return Container(
                       margin: EdgeInsets.only(
-                          left: 14.r, bottom: 10.h, top: 10.h, right: 14.r),
-                      // height: 100.h,
+                        left: 10.r,
+                        bottom: 10.h,
+                        top: 10.h,
+                      ),
+                      width: 220.w,
+                      decoration: BoxDecoration(
+                          color: AppColors.PrimaryWhiteColor,
+                          borderRadius: BorderRadius.circular(10.r),
+                          boxShadow: const [
+                            BoxShadow(
+                                offset: Offset(
+                                  3,
+                                  3,
+                                ),
+                                color: Colors.black12,
+                                blurRadius: 1.0,
+                                spreadRadius: 0.0),
+                          ]),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Image.asset(
+                              "assets/images/upic.png",
+                              height: 80.h,
+                              width: 300.w,
+                              fit: BoxFit.cover,
+                            ),
+                            SizedBox(
+                              height: 2.h,
+                            ),
+                            Text(
+                              "Master of Science in Computer Science with Big Data and Artificial Intelligence",
+                              maxLines: 3,
+                              style: batchtext2(AppColors.PrimaryMainColor),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              "SRH Berlin University of Applied Sciences Ranking",
+                              maxLines: 2,
+                              style: batchtext1(AppColors.PrimaryBlackColor),
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Text(
+                              "€ 6450.00/semester",
+                              style: batchtext2(AppColors.PrimaryBlackColor),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10, right: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Top University",
+                    style: FieldTextStyle(
+                      AppColors.PrimaryBlackColor,
+                    ),
+                  ),
+                  Text(
+                    "View All",
+                    style: FieldTextStyle(
+                      AppColors.PrimaryMainColor,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 120.h,
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: universitylist.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      margin: EdgeInsets.only(
+                        left: 10.r,
+                        bottom: 10.h,
+                        top: 10.h,
+                      ),
                       width: 170.w,
                       decoration: BoxDecoration(
                           color: AppColors.PrimaryWhiteColor,
@@ -261,14 +216,6 @@ class _CourseSerachState extends State<CourseSerach> {
                                 color: Colors.black12,
                                 blurRadius: 1.0,
                                 spreadRadius: 0.0),
-                            // BoxShadow(
-                            //     offset: Offset(
-                            //       -2,
-                            //       -5,
-                            //     ),
-                            //     color: Colors.black12,
-                            //     blurRadius: 2.0,
-                            //     spreadRadius: 2.0),
                           ]),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -278,24 +225,22 @@ class _CourseSerachState extends State<CourseSerach> {
                               alignment: Alignment.topLeft,
                               child: Image.asset(
                                 universitylist[index].image.toString(),
-                                height: 70.h,
-                                width: 70.w,
+                                height: 50.h,
+                                width: 50.w,
                               ),
-                            ),
-                            SizedBox(
-                              height: 2.h,
                             ),
                             universitylist[index].title!.length <= 60
                                 ? Text(
                                     universitylist[index].title.toString(),
-                                    style: Text2Regular(
-                                        AppColors.PrimaryBlackColor),
+                                    maxLines: 2,
+                                    style:
+                                        batchtext2(AppColors.PrimaryBlackColor),
                                   )
                                 : Text(
                                     universitylist[index].title.toString(),
-                                    overflow: TextOverflow.ellipsis,
-                                    style: Text2Regular(
-                                        AppColors.PrimaryBlackColor),
+                                    maxLines: 2,
+                                    style:
+                                        batchtext2(AppColors.PrimaryBlackColor),
                                   )
                           ],
                         ),
@@ -303,146 +248,65 @@ class _CourseSerachState extends State<CourseSerach> {
                     );
                   }),
             ),
-            ListTile(
-              visualDensity: VisualDensity(horizontal: 1.r, vertical: -3.r),
-              leading: Text(
-                "Courses",
-                style: OtpText(
-                  AppColors.PrimaryBlackColor,
-                ),
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                color: AppColors.PrimaryBlackColor,
-                size: 20.sp,
+            Padding(
+              padding: const EdgeInsets.only(left: 10, right: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Popular Country",
+                    style: FieldTextStyle(
+                      AppColors.PrimaryBlackColor,
+                    ),
+                  ),
+                ],
               ),
             ),
             SizedBox(
-              height: 300.h,
-              // color: Colors.amber,
+              height: 153.h,
               child: ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
-                  itemCount: universitylist.length,
+                  itemCount: Countrycourse.length,
                   itemBuilder: (context, index) {
-                    return Container(
-                      margin: EdgeInsets.only(
-                          left: 14.r, bottom: 10.h, top: 10.h, right: 14.r),
-                      //height: 100.h,
-                      width: 320.w,
-                      decoration: BoxDecoration(
-                          color: AppColors.PrimaryWhiteColor,
-                          borderRadius: BorderRadius.circular(10.r),
-                          boxShadow: const [
-                            BoxShadow(
-                                offset: Offset(
-                                  3,
-                                  3,
+                    return Row(
+                      children: [
+                        Container(
+                          constraints: const BoxConstraints(
+                            maxHeight: double.maxFinite,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                CircleAvatar(
+                                  backgroundColor: Colors.transparent,
+                                  backgroundImage: AssetImage(
+                                    Countrycourse[index].image.toString(),
+                                  ),
+                                  radius: 40,
                                 ),
-                                color: Colors.black12,
-                                blurRadius: 1.0,
-                                spreadRadius: 0.0),
-                            // BoxShadow(
-                            //     offset: Offset(
-                            //       -2,
-                            //       -5,
-                            //     ),
-                            //     color: Colors.black12,
-                            //     blurRadius: 2.0,
-                            //     spreadRadius: 2.0),
-                          ]),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              "assets/images/upic.png",
-                              height: 120.h,
-                              width: 300.w,
-                              fit: BoxFit.cover,
+                                SizedBox(
+                                  height: 2.h,
+                                ),
+                                Text(
+                                  Countrycourse[index].title.toString(),
+                                  style:
+                                      batchtext2(AppColors.PrimaryBlackColor),
+                                ),
+                                Text(
+                                  "8 University",
+                                  style:
+                                      batchtext1(AppColors.PrimaryBlackColor),
+                                )
+                              ],
                             ),
-                            SizedBox(
-                              height: 2.h,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left: 8.r, right: 8.r, bottom: 8.r, top: 8.r),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "University Name -",
-                                    style: Text2Regular(
-                                        AppColors.PrimaryBlackColor),
-                                  ),
-                                  SizedBox(
-                                    width: 140.w,
-                                    child: Text(
-                                      "SRH Berlin University of Applied Sciences Ranking",
-                                      style: TextRegular(
-                                          AppColors.PrimaryBlackColor),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left: 8.r, right: 8.r, bottom: 8.r, top: 8.r),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Course Name -",
-                                    style: Text2Regular(
-                                        AppColors.PrimaryBlackColor),
-                                  ),
-                                  SizedBox(
-                                    width: 140.w,
-                                    child: Text(
-                                      "Master of Science in Computer Science with Big Data and Artificial Intelligence",
-                                      style: TextRegular(
-                                          AppColors.PrimaryBlackColor),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left: 8.r, right: 8.r, bottom: 8.r, top: 8.r),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Tuition Fees -",
-                                    style: Text2Regular(
-                                        AppColors.PrimaryBlackColor),
-                                  ),
-                                  SizedBox(
-                                    width: 140.w,
-                                    child: Text(
-                                      "€ 6450.00/semester",
-                                      style: TextRegular(
-                                          AppColors.PrimaryBlackColor),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
+                      ],
                     );
                   }),
             ),
-            SizedBox(
-              height: 10.h,
-            )
           ],
         ),
       ),

@@ -8,17 +8,46 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/routes/routes_name.dart';
 
-class drawer extends StatelessWidget {
+class drawer extends StatefulWidget {
   drawer({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<drawer> createState() => _drawerState();
+}
+
+class _drawerState extends State<drawer> {
   String? token;
+
+  String? email;
+
+  String? name;
+
+  setdata() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    name = prefs.getString("Name");
+    email = prefs.getString("Email");
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    setdata();
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final imageurl =
         "https://cdn.siasat.com/wp-content/uploads/2021/05/tiger-shroff.jpg";
     return Container(
-      width: 250.w,
+      // decoration: BoxDecoration(color: AppColors.PrimaryBlackColor
+      //     // border: Border.all(),
+      //     // borderRadius: BorderRadius.circular(40)
+      //     ),
+      width: 230.w,
       child: ClipRRect(
         clipBehavior: Clip.antiAlias,
         borderRadius: BorderRadius.only(
@@ -31,21 +60,34 @@ class drawer extends StatelessWidget {
             padding: EdgeInsets.all(0.0),
             children: [
               UserAccountsDrawerHeader(
-                accountName: Text('Gautam Sir'),
-                accountEmail: Text('example@gmail.com'),
-                currentAccountPicture: CircleAvatar(
-                  child: ClipOval(
-                    child: Image.network(
-                      'https://oflutter.com/wp-content/uploads/2021/02/girl-profile.png',
-                      width: 90,
-                      height: 90,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
+                //decoration: BoxDecoration(color: AppColors.PrimaryMainColor),
+                accountName: Text(name.toString(),
+                    style: batchtext2(
+                      AppColors.PrimaryWhiteColor,
+                    )),
+                // Column(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     Text(name.toString(),
+                //         style: batchtext2(
+                //           AppColors.PrimaryWhiteColor,
+                //         )),
+                //     Text(email.toString(),
+                //         maxLines: 1,
+                //         style: batchtext1(
+                //           AppColors.PrimaryWhiteColor,
+                //         )),
+                //   ],
+                // ),
+                accountEmail: Text(email.toString(),
+                    maxLines: 1,
+                    style: batchtext1(
+                      AppColors.PrimaryWhiteColor,
+                    )),
                 decoration: BoxDecoration(
-                  color: AppColors.PrimaryMainColor,
-                  image: const DecorationImage(
+                  // color: AppColors.PrimaryMainColor,
+                  image: DecorationImage(
                     image: NetworkImage(
                       'https://insidemusicschools.com/wp-content/uploads/2020/03/pexels-pixabay-267885-scaled.jpg',
                     ),
@@ -53,15 +95,11 @@ class drawer extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                height: 30.h,
-                width: 100.w,
-                child: ListTile(
-                    // leading: const Icon(
-                    //   Icons.phone,
-                    //   color: Colors.black,
-                    // ),
-                    leading: Image.asset("assets/images/bannerlogo.png")),
+              Image.asset(
+                "assets/images/bannerlogo.png",
+                height: 30,
+                width: 100,
+                fit: BoxFit.contain,
               ),
               SizedBox(
                 height: 20.h,
@@ -70,48 +108,42 @@ class drawer extends StatelessWidget {
                 onTap: () {
                   Get.back();
                 },
-                child: const ListTile(
+                child: ListTile(
                   leading: Icon(
                     CupertinoIcons.home,
                     color: Colors.black,
                   ),
-                  title: Text(
-                    "Home",
-                    textScaleFactor: 1.0,
-                    style: TextStyle(color: Colors.black),
-                  ),
+                  title: Text("Home",
+                      textScaleFactor: 1.0,
+                      style: batchtext2(AppColors.PrimaryBlackColor)),
                 ),
               ),
               InkWell(
                 onTap: () {
                   Navigator.pushNamed(context, RoutesName.profilepage);
                 },
-                child: const ListTile(
+                child: ListTile(
                   leading: Icon(
                     Icons.person,
                     color: Colors.black,
                   ),
-                  title: Text(
-                    "Profile",
-                    textScaleFactor: 1.0,
-                    style: TextStyle(color: Colors.black),
-                  ),
+                  title: Text("Profile",
+                      textScaleFactor: 1.0,
+                      style: batchtext2(AppColors.PrimaryBlackColor)),
                 ),
               ),
               InkWell(
                 onTap: () {
                   Navigator.pushNamed(context, RoutesName.aboutpage);
                 },
-                child: const ListTile(
+                child: ListTile(
                   leading: Icon(
                     Icons.school,
                     color: Colors.black,
                   ),
-                  title: Text(
-                    "About Us",
-                    textScaleFactor: 1.0,
-                    style: TextStyle(color: Colors.black),
-                  ),
+                  title: Text("About Us",
+                      textScaleFactor: 1.0,
+                      style: batchtext2(AppColors.PrimaryBlackColor)),
                 ),
               ),
               ListTile(
@@ -123,11 +155,9 @@ class drawer extends StatelessWidget {
                   onTap: () {
                     Navigator.pushNamed(context, RoutesName.contactpage);
                   },
-                  child: const Text(
-                    "Contact Us",
-                    textScaleFactor: 1.0,
-                    style: TextStyle(color: Colors.black),
-                  ),
+                  child: Text("Contact Us",
+                      textScaleFactor: 1.0,
+                      style: batchtext2(AppColors.PrimaryBlackColor)),
                 ),
               ),
               ListTile(
@@ -158,11 +188,8 @@ class drawer extends StatelessWidget {
                         },
                         content: Container());
                   },
-                  child: const Text(
-                    "Log Out",
-                    textScaleFactor: 1.0,
-                    style: TextStyle(color: Colors.red),
-                  ),
+                  child: Text("Log Out",
+                      textScaleFactor: 1.0, style: batchtext2(Colors.red)),
                 ),
               ),
               ListTile(
@@ -170,11 +197,9 @@ class drawer extends StatelessWidget {
                 //   Icons.phone,
                 //   color: Colors.black,
                 // ),
-                title: Text(
-                  "Version 1.0.0",
-                  textScaleFactor: 1.0,
-                  style: TextRegular(AppColors.PrimaryBlackColor),
-                ),
+                title: Text("Version 1.0.0",
+                    textScaleFactor: 1.0,
+                    style: batchtext2(AppColors.PrimaryBlackColor)),
               ),
             ],
           ),

@@ -14,9 +14,10 @@ import 'package:global_student/view/dashboard/dash_grid_model.dart';
 import 'package:global_student/view/event_details/event_detils.dart';
 import 'package:global_student/view/login/otp_page.dart';
 import 'package:global_student/view/qualification/graduation.dart';
-import 'package:global_student/view/qualification/interschool.dart';
+import 'package:global_student/view/uploadmoreDocument/upload_more_document.dart';
 import 'package:global_student/view/visa/visa_page.dart';
 import 'package:global_student/view/widget/drawer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../qualification/highschool.dart';
 
 class HomePage extends StatefulWidget {
@@ -46,8 +47,8 @@ class _HomePageState extends State<HomePage> {
   ];
 
   List page = [
-    const HighSchool(),
-    const OtpPage(),
+    Graduation(),
+    const UploadMoreDocument(),
     const CourseSerach(),
     const ApplicationStatus(),
     const BatchDetails(),
@@ -69,11 +70,32 @@ class _HomePageState extends State<HomePage> {
     dashBoardBloc = DashBoardBloc();
     getBannersDetails();
     _gethomeData();
-    getUserDetails();
+    setState(() {
+      getUserDetails();
+    });
+
     // SaveName();
     super.initState();
   }
 
+//     SharedPreferences prefs = await SharedPreferences.getInstance();
+  //     bool _seen = (prefs.getBool('seen') ?? false);
+
+  //     if (_seen) {
+  //       Future.delayed(const Duration(seconds: 3), () {
+  //         Navigator.pushNamed(context, RoutesName.home);
+
+  //         print("if $check");
+  //         // getConnectivity();
+  //       });
+  //     } else {
+  //       await prefs.setBool('seen', true);
+  //       Future.delayed(const Duration(seconds: 3), () {
+  //         Navigator.pushNamed(context, RoutesName.onbording);
+  //         //  getConnectivity();
+  //       });
+  //     }
+  String? name;
   getUserDetails() async {
     await dashBoardBloc.userControllerStream.listen((event) async {
       if (event != null) {
@@ -81,11 +103,15 @@ class _HomePageState extends State<HomePage> {
         // print(event);
         userData1 = UsersDetailsModel.fromJson(event[0]);
 
-        // SharedPreferences prefs = await SharedPreferences.getInstance();
-        // prefs.setString('Name', userData1.name.toString());
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('Name', userData1.fFirstName.toString());
+        prefs.setString('Email', userData1.fStudentEmail.toString());
+        prefs.setString(
+            'counsellorcall', userData1.fCounsellorMobile.toString());
 
         // userData1.add(userData);
         setState(() {
+          name = prefs.getString('Name');
           loanding1 = false;
         });
       }
@@ -141,13 +167,20 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         title: loanding1 == true
-            ? const Text(
-                "",
-              )
-            : Text(userData1.fFirstName.toString(),
+            ? Text("")
+            : Text(name.toString(),
                 style: btntext(
                   AppColors.PrimaryBlackColor,
                 )),
+        // loanding1 == true
+        //     ? const Text(
+        //         "",
+        //       )
+        //     : Text(userData1.fFirstName.toString(),
+        //         style: btntext(
+        //           AppColors.PrimaryBlackColor,
+        //         )
+        // ),
         actions: [
           InkWell(
             onTap: () {
@@ -283,7 +316,7 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     Text(dashgrid[index].title!,
                                         textAlign: TextAlign.center,
-                                        style: hometext(
+                                        style: batchtext2(
                                           AppColors.PrimaryBlackColor,
                                         )),
                                   ]),

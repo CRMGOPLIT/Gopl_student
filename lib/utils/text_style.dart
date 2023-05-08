@@ -23,7 +23,7 @@ TextStyle H2TextStyle(Color? color) {
 TextStyle FieldTextStyle(Color? color) {
   return TextStyle(
       color: color ?? AppColors.PrimaryBlackColor,
-      fontFamily: Constant.font_family_poppins,
+      fontFamily: "Outfit",
       fontWeight: FontWeight.w600,
       fontSize: 12.sp);
 }
@@ -40,10 +40,10 @@ TextStyle FieldTextStyle(Color? color) {
 TextStyle TextRegular(Color? color) {
   return TextStyle(
       color: color ?? AppColors.TextRegularkColor,
-      fontFamily: Constant.font_poppins_bold,
-      fontWeight: FontWeight.w500,
+      fontFamily: "Outfit",
+      fontWeight: FontWeight.w800,
       height: 1.1,
-      fontSize: 12.sp);
+      fontSize: 13.sp);
 }
 
 TextStyle Text2Regular(Color? color) {
@@ -86,31 +86,31 @@ TextStyle hometext(Color? color) {
 TextStyle batchtext1(Color? color) {
   return TextStyle(
       color: color ?? AppColors.TextRegularkColor,
-      fontFamily: Constant.font_poppins_bold,
+      fontFamily: "Outfit",
       fontWeight: FontWeight.w500,
-      height: 1.1,
-      letterSpacing: 1,
+      // height: 1,
+      letterSpacing: 0.6,
       fontSize: 12.sp);
 }
 
 TextStyle batchtext2(Color? color) {
   return TextStyle(
       color: color ?? AppColors.TextRegularkColor,
-      fontFamily: Constant.font_poppins_bold,
+      fontFamily: "Outfit",
       fontWeight: FontWeight.w600,
-      height: 1.1,
-      letterSpacing: 1,
+      // height: 1.1,
+      letterSpacing: 0.6,
       fontSize: 12.sp);
 }
 
 TextStyle location(Color? color) {
   return TextStyle(
       color: color ?? AppColors.TextRegularkColor,
-      fontFamily: Constant.font_poppins_bold,
+      fontFamily: "Outfit",
       fontWeight: FontWeight.w600,
       decoration: TextDecoration.underline,
       // height: 1.1,
-      //letterSpacing: 1,
+      letterSpacing: 0.6,
       fontSize: 12.sp);
 }
 

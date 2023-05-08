@@ -1,12 +1,3 @@
-import 'dart:convert';
-
-// List<EvenetDetailsModel> evenetDetailsModelFromJson(String str) =>
-//     List<EvenetDetailsModel>.from(
-//         json.decode(str).map((x) => EvenetDetailsModel.fromJson(x)));
-
-// evenetDetailsModelToJson(List<EvenetDetailsModel> data) =>
-//     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
-
 class EvenetDetailsModel {
   EvenetDetailsModel({
     required this.event,

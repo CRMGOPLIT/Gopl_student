@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:global_student/utils/routes/routes.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
-import 'package:global_student/view/drawerpage/contactus.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 int? isViewed;
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          // home: ContactUs(),
+          // home: SearchPage(),
           initialRoute: RoutesName.splash,
           onGenerateRoute: Routes.generateRoute,
         );

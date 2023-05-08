@@ -35,10 +35,51 @@ class NetworkConstant {
   static const String dtype = 'f_DocumentType';
   static const String image = 'image';
 
+  //Filter Search
+
+  static const String filterType = 'FilterType';
+  static const String pageNumber = 'PageNumber';
+  static const String sortBy = 'SortBy';
+  static const String courseName = 'CourseName';
+  static const String year = 'Year';
+  static const String intake = 'Intake';
+  static const String countryId = 'CountryId';
+  static const String scholarship = 'Scholarship';
+  static const String studyArea = 'StudyArea';
+
+  static const String disciplineArea = 'DisciplineArea';
+  static const String flocation = 'f_Location';
+  static const String duration = 'Duration';
+  static const String isIELTS = 'Is_IELTS';
+  static const String istOEFL = 'Is_TOEFL';
+  static const String placement = 'Placement';
+  //
+  static const String ispte = 'Is_PTE';
+  static const String issat = 'Is_SAT';
+  static const String isACT = 'Is_ACT';
+  static const String isGRE = 'Is_GRE';
+  static const String isGMAT = 'Is_GMAT';
+  static const String deadlineAvailable = 'DeadlineAvailable';
+  static const String fifteenYearsOfEd = 'FifteenYearsOfEd';
+  static const String eslElp = 'EslElp';
+  static const String conditionalOffer = 'ConditionalOffer';
+  static const String programLevel = 'ProgramLevel';
+  static const String universityId = 'UniversityId';
+  static const String fRequest = 'f_Request';
+  static const String crmAccessRequest = 'Crm_AccessRequest';
+
   //flag
   static const String documenttpye = '10th Marksheet';
   static const String documenttpye12 = '12th Marksheet';
   static const String bachelor = 'Bachelor Degree';
+
+//upload more Document
+
+  static const String studentid = "studentid";
+  static const String documentname = "documentname";
+  static const String Applicationid = "Applicationid";
+  static const String Universityid = "Universityid";
+  static const String appstage = "appstage";
 
 //Errors
 
@@ -80,4 +121,34 @@ class NetworkConstant {
 
   static const String END_POINT_GET_BOARD =
       "/Registeration/Getuniversity_board";
+
+  static const String END_POINT_MORE_GET_DOCUMENT =
+      "/Login/Getstudent_DocDetails";
+
+  static const String END_POINT_GET_QUALIFICATION =
+      "/Login/GetstudentQuallification";
+
+  //course Search
+
+  static const String END_POINT_SEARCH_COUNTRY =
+      "/SearchCourseMaster/GetCountry";
+
+  static const String END_POINT_SEARCH_UNIVERSITY =
+      "/SearchCourseMaster/CountryWiseUniversityList";
+
+  static const String END_POINT_SEARCH_LOCATION =
+      "/SearchCourseMaster/GetForeignLocationList";
+
+  static const String END_POINT_SEARCH_STUDY_AREA =
+      "/SearchCourseMaster/GetAllStudyList";
+
+  static const String END_POINT_SEARCH_DISCIPLINE_AREA =
+      "/SearchCourseMaster/GetDisciplineAreaList";
+
+  static const String END_POINT_SEARCH_FILTER_LIST =
+      "/SearchCourseMaster/CourseSearchList";
+
+  //uploadmore Document
+  static const String END_POINT_UPLOAD_MORE_DOCUMENT =
+      "/DocumentUpload/UploadMoreDocmentbyApp";
 }

@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final BatchDetailsModel = BatchDetailsModelFromJson(jsonString);
-
 import 'dart:convert';
 
 List<BatchDetailsModel> BatchDetailsModelFromJson(String str) =>
@@ -44,16 +40,16 @@ class BatchDetailsModel {
 
   factory BatchDetailsModel.fromJson(Map<String, dynamic> json) =>
       BatchDetailsModel(
-        fFacultyName: json["f_FacultyName"],
-        fFacultyGrade: json["f_FacultyGrade"],
-        fBatchName: json["f_BatchName"],
-        fBatchTiming: json["f_BatchTiming"],
-        fBatchStartDate: json["f_BatchStartDate"],
-        fBatchEndDate: json["f_BatchEndDate"],
-        fBatchSize: json["f_BatchSize"],
-        fBranchName: json["f_BranchName"],
-        fIsOffline: json["f_IsOffline"],
-        fIsLaunchBatch: json["f_IsLaunchBatch"],
+        fFacultyName: json["f_FacultyName"].toString(),
+        fFacultyGrade: json["f_FacultyGrade"].toString(),
+        fBatchName: json["f_BatchName"].toString(),
+        fBatchTiming: json["f_BatchTiming"].toString(),
+        fBatchStartDate: json["f_BatchStartDate"].toString(),
+        fBatchEndDate: json["f_BatchEndDate"].toString(),
+        fBatchSize: json["f_BatchSize"].toString(),
+        fBranchName: json["f_BranchName"].toString(),
+        fIsOffline: json["f_IsOffline"].toString(),
+        fIsLaunchBatch: json["f_IsLaunchBatch"].toString(),
         confirmedWithFullPayment: json["ConfirmedWithFullPayment"],
         confirmedWithPartialPayment: json["ConfirmedWithPartialPayment"],
         fFacultyImag: json["f_FacultyImag"],

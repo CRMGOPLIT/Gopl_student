@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:global_student/bloc/dashboardBloc.dart';
 import 'package:global_student/model/EventDetailsModel.dart';
 import 'package:global_student/model/universityvisitModel.dart';
@@ -155,7 +156,8 @@ class _EventDetailsState extends State<EventDetails> {
                           itemCount: data.length,
                           itemBuilder: (context, index) {
                             return Padding(
-                              padding: EdgeInsets.all(10.r),
+                              padding: EdgeInsets.only(
+                                  left: 10, right: 10, bottom: 5, top: 5),
                               child: Container(
                                 // height: 350.h,
                                 // width: 390.w,
@@ -342,7 +344,7 @@ class _EventDetailsState extends State<EventDetails> {
                                               // overflow: TextOverflow.ellipsis,
                                               text: TextSpan(
                                                 text: 'Date :- ',
-                                                style: batchtext1(AppColors
+                                                style: batchtext2(AppColors
                                                     .PrimaryBlackColor),
                                                 children: [
                                                   TextSpan(
@@ -350,7 +352,7 @@ class _EventDetailsState extends State<EventDetails> {
                                                         .date
                                                         .toString()
                                                         .split(" ")[0],
-                                                    style: batchtext2(AppColors
+                                                    style: batchtext1(AppColors
                                                         .PrimaryBlackColor),
                                                   ),
                                                 ],
@@ -365,8 +367,10 @@ class _EventDetailsState extends State<EventDetails> {
                                                 CrossAxisAlignment.center,
                                             children: [
                                               Icon(
-                                                Icons.watch_later_outlined,
+                                                Icons.watch_later,
                                                 size: 20.sp,
+                                                color:
+                                                    AppColors.PrimaryMainColor,
                                               ),
                                               SizedBox(
                                                 width: 10.h,
@@ -379,7 +383,7 @@ class _EventDetailsState extends State<EventDetails> {
                                             ],
                                           ),
                                           SizedBox(
-                                            height: 8.h,
+                                            height: 5.h,
                                           ),
                                           InkWell(
                                             onTap: () async {
@@ -400,7 +404,7 @@ class _EventDetailsState extends State<EventDetails> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Icon(
-                                                  Icons.location_on_outlined,
+                                                  Icons.location_on,
                                                   size: 20.sp,
                                                   color: AppColors
                                                       .PrimaryMainColor,
@@ -439,7 +443,8 @@ class _EventDetailsState extends State<EventDetails> {
                           itemCount: universitydetails.length,
                           itemBuilder: (context, index) {
                             return Padding(
-                              padding: EdgeInsets.all(10.r),
+                              padding: EdgeInsets.only(
+                                  left: 10, right: 10, bottom: 5, top: 5),
                               child: Container(
                                 padding: EdgeInsets.only(bottom: 10, top: 10),
                                 // height: 350.h,
@@ -633,180 +638,244 @@ class _EventDetailsState extends State<EventDetails> {
                                                 AppColors.PrimaryMainColor),
                                           ),
                                           SizedBox(
-                                            height: 10.h,
-                                          ),
-                                          SizedBox(
-                                            width: 350.w,
-                                            child: RichText(
-                                              // softWrap: false,
-                                              //overflow: TextOverflow.ellipsis,
-                                              text: TextSpan(
-                                                text: 'University :- ',
-                                                style: batchtext1(AppColors
-                                                    .PrimaryBlackColor),
-                                                children: [
-                                                  TextSpan(
-                                                    spellOut: false,
-                                                    text:
-                                                        universitydetails[index]
-                                                            .university
-                                                            .toString(),
-                                                    style: batchtext2(AppColors
-                                                        .PrimaryBlackColor),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 10.h,
+                                            height: 5.h,
                                           ),
                                           Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
                                             children: [
-                                              RichText(
-                                                // overflow: TextOverflow.ellipsis,
-                                                text: TextSpan(
-                                                  text: 'Intake :- ',
+                                              Text(
+                                                "University :- ",
+                                                style: batchtext2(AppColors
+                                                    .PrimaryBlackColor),
+                                              ),
+                                              Flexible(
+                                                //width: 240,
+                                                child: Text(
+                                                  universitydetails[index]
+                                                      .university
+                                                      .toString(),
+                                                  //softWrap: false,
+                                                  // overflow: TextOverflow.clip,
                                                   style: batchtext1(AppColors
-                                                      .PrimaryBlackColor),
+                                                      .PrimaryMainColor),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          // SizedBox(
+                                          //   width: 350.w,
+                                          //   child: RichText(
+                                          //     // softWrap: false,
+                                          //     //overflow: TextOverflow.ellipsis,
+                                          //     text: TextSpan(
+                                          //       text: 'University :- ',
+                                          //       style: batchtext2(AppColors
+                                          //           .PrimaryBlackColor),
+                                          //       children: [
+                                          //         TextSpan(
+
+                                          //           spellOut: false,
+                                          //           text:
+                                          //               universitydetails[index]
+                                          //                   .university
+                                          //                   .toString(),
+                                          //           style: batchtext1(AppColors
+                                          //               .PrimaryMainColor),
+                                          //         ),
+                                          //       ],
+                                          //     ),
+                                          //   ),
+                                          // ),
+                                          SizedBox(
+                                            height: 5.h,
+                                          ),
+                                          Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              SizedBox(
+                                                width: 135.w,
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
                                                   children: [
-                                                    TextSpan(
-                                                      text: universitydetails[
-                                                              index]
+                                                    Text(
+                                                      "Intake :- ",
+                                                      style: batchtext2(AppColors
+                                                          .PrimaryBlackColor),
+                                                    ),
+                                                    Text(
+                                                      universitydetails[index]
                                                           .intake
                                                           .toString(),
-                                                      style: batchtext2(AppColors
+                                                      style: batchtext1(AppColors
                                                           .PrimaryBlackColor),
                                                     ),
                                                   ],
                                                 ),
                                               ),
                                               SizedBox(
-                                                width: 25.w,
-                                              ),
-                                              SizedBox(
-                                                width: 170.w,
-                                                child: Padding(
-                                                  padding: EdgeInsets.only(
-                                                      right: 10.h),
-                                                  child: RichText(
-                                                    // overflow:
-                                                    //     TextOverflow.ellipsis,
-                                                    text: TextSpan(
-                                                      text: 'Deligate :- ',
-                                                      style: batchtext1(AppColors
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      "Delegate :- ",
+                                                      style: batchtext2(AppColors
                                                           .PrimaryBlackColor),
-                                                      children: [
-                                                        // universitydetails[index]
-                                                        //             .deligate
-                                                        //             .length >
-                                                        //         10
-                                                        //     ?
-                                                        // for (int i = 0;
-                                                        //     i <
-                                                        //         universitydetails
-                                                        //             .length;
-                                                        //     i++)
-
-                                                        TextSpan(
-                                                          spellOut: false,
-                                                          text: universitydetails[
-                                                                  index]
-                                                              .deligate
-                                                              //.substring(0, 10)
-                                                              .toString(),
-                                                          style: batchtext2(
-                                                              AppColors
-                                                                  .PrimaryBlackColor),
-                                                        )
-                                                        // : TextSpan(
-                                                        //     spellOut: true,
-                                                        //     text: universitydetails[
-                                                        //             index]
-                                                        //         .deligate
-                                                        //         .toString()
-                                                        //         .substring(
-                                                        //             0, 5),
-                                                        //     style: batchtext2(
-                                                        //         AppColors
-                                                        //             .PrimaryMainColor),
-                                                        //   )
-                                                      ],
                                                     ),
-                                                  ),
+                                                    SizedBox(
+                                                      width: 115.w,
+                                                      child: Text(
+                                                        universitydetails[index]
+                                                            .deligate
+                                                            .toString(),
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        style: batchtext1(AppColors
+                                                            .PrimaryBlackColor),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
                                             ],
                                           ),
                                           SizedBox(
-                                            height: 10.h,
+                                            height: 5.h,
                                           ),
+
                                           Row(
-                                            // mainAxisAlignment:
-                                            //     MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
                                             children: [
                                               SizedBox(
-                                                width: 120.w,
-                                                child: RichText(
-                                                  // overflow: TextOverflow.ellipsis,
-                                                  text: TextSpan(
-                                                    text: 'Date :- ',
-                                                    style: batchtext1(AppColors
-                                                        .PrimaryBlackColor),
-                                                    children: [
-                                                      TextSpan(
-                                                        text: universitydetails[
-                                                                index]
-                                                            .dateOfVisit
-                                                            .toString(),
-                                                        style: batchtext2(AppColors
-                                                            .PrimaryBlackColor),
-                                                      ),
-                                                    ],
-                                                  ),
+                                                width: 135.w,
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      "Date :- ",
+                                                      style: batchtext2(AppColors
+                                                          .PrimaryBlackColor),
+                                                    ),
+                                                    Text(
+                                                      universitydetails[index]
+                                                          .dateOfVisit
+                                                          .toString(),
+                                                      style: batchtext1(AppColors
+                                                          .PrimaryBlackColor),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
                                               SizedBox(
-                                                width: 35.w,
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                    right: 10.r),
-                                                child: RichText(
-                                                  // overflow: TextOverflow.ellipsis,
-                                                  text: TextSpan(
-                                                    text: 'Country :- ',
-                                                    style: batchtext1(AppColors
-                                                        .PrimaryBlackColor),
-                                                    children: [
-                                                      TextSpan(
-                                                        text: universitydetails[
-                                                                index]
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      "Country :- ",
+                                                      style: batchtext2(AppColors
+                                                          .PrimaryBlackColor),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 115.w,
+                                                      child: Text(
+                                                        universitydetails[index]
                                                             .country
                                                             .toString(),
-                                                        style: batchtext2(AppColors
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        style: batchtext1(AppColors
                                                             .PrimaryBlackColor),
                                                       ),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
                                             ],
                                           ),
+                                          // Row(
+                                          //   // mainAxisAlignment:
+                                          //   //     MainAxisAlignment.spaceBetween,
+                                          //   children: [
+                                          //     SizedBox(
+                                          //       width: 120.w,
+                                          //       child: RichText(
+                                          //         // overflow: TextOverflow.ellipsis,
+                                          //         text: TextSpan(
+                                          //           text: 'Date :- ',
+                                          //           style: batchtext2(AppColors
+                                          //               .PrimaryBlackColor),
+                                          //           children: [
+                                          //             TextSpan(
+                                          //               text: universitydetails[
+                                          //                       index]
+                                          //                   .dateOfVisit
+                                          //                   .toString(),
+                                          //               style: batchtext1(AppColors
+                                          //                   .PrimaryBlackColor),
+                                          //             ),
+                                          //           ],
+                                          //         ),
+                                          //       ),
+                                          //     ),
+                                          //     SizedBox(
+                                          //       width: 30.w,
+                                          //     ),
+                                          //     Padding(
+                                          //       padding: EdgeInsets.only(
+                                          //           right: 10.r),
+                                          //       child: RichText(
+                                          //         // overflow: TextOverflow.ellipsis,
+                                          //         text: TextSpan(
+                                          //           text: 'Country :- ',
+                                          //           style: batchtext2(AppColors
+                                          //               .PrimaryBlackColor),
+                                          //           children: [
+                                          //             TextSpan(
+                                          //               text: universitydetails[
+                                          //                       index]
+                                          //                   .country
+                                          //                   .toString(),
+                                          //               style: batchtext1(AppColors
+                                          //                   .PrimaryBlackColor),
+                                          //             ),
+                                          //           ],
+                                          //         ),
+                                          //       ),
+                                          //     ),
+                                          //   ],
+                                          // ),
                                           SizedBox(
-                                            height: 8.h,
+                                            height: 5.h,
                                           ),
                                           Row(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             children: [
                                               Icon(
-                                                Icons.watch_later_outlined,
+                                                Icons.watch_later,
                                                 size: 20.sp,
+                                                color:
+                                                    AppColors.PrimaryMainColor,
                                               ),
                                               SizedBox(
                                                 width: 10.h,
@@ -819,13 +888,13 @@ class _EventDetailsState extends State<EventDetails> {
                                                     universitydetails[index]
                                                         .timeTo
                                                         .toString(),
-                                                style: batchtext1(AppColors
+                                                style: batchtext2(AppColors
                                                     .PrimaryBlackColor),
                                               )
                                             ],
                                           ),
                                           SizedBox(
-                                            height: 8.h,
+                                            height: 5.h,
                                           ),
                                           InkWell(
                                             onTap: () async {
@@ -846,7 +915,7 @@ class _EventDetailsState extends State<EventDetails> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Icon(
-                                                  Icons.location_on_outlined,
+                                                  Icons.location_on,
                                                   size: 20.sp,
                                                   color: AppColors
                                                       .PrimaryMainColor,

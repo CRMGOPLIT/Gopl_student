@@ -5,6 +5,7 @@ import 'package:global_student/model/usersModel.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/utils/text_style.dart';
+import 'package:global_student/view/login/otp_page.dart';
 import 'package:global_student/view/widget/app_bar.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -78,44 +79,66 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       Center(
                         child: Image.asset(
-                          "assets/images/account.png",
-                          height: 60,
-                          width: 60,
+                          "assets/images/proimg.png",
+                          height: 70,
+                          width: 70,
                         ),
                       ),
                       SizedBox(
                         height: 10.h,
                       ),
                       Center(
-                        child: Text(
-                          userData1!.fFirstName.toString().toUpperCase(),
-                          style: OtpText(AppColors.PrimaryMainColor),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5.h,
-                      ),
-                      Center(
-                        child: Text(
-                          "Student Id :- " + userData1!.fStudentId.toString(),
-                          style: batchtext2(AppColors.PrimaryBlackColor),
+                        child: Container(
+                          height: 50.h,
+                          width: 200.w,
+                          decoration: BoxDecoration(
+                              color: AppColors.PrimaryWhiteColor,
+                              border: Border.all(color: AppColors.hintcolor),
+                              borderRadius: BorderRadius.circular(40)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: Text(
+                                  userData1!.fFirstName
+                                      .toString()
+                                      .toUpperCase(),
+                                  style: FieldTextStyle(
+                                      AppColors.PrimaryMainColor),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5.h,
+                              ),
+                              Center(
+                                child: Text(
+                                  "Student ID :- " +
+                                      userData1!.fStudentId.toString(),
+                                  style:
+                                      batchtext1(AppColors.PrimaryBlackColor),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       Container(
                         // height: 400.h,
-                        padding: const EdgeInsets.all(15),
-                        decoration: const BoxDecoration(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
                             //color: AppColors.PrimaryMainColor,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(40),
-                                topRight: Radius.circular(40))),
+                            borderRadius: BorderRadius.circular(50)),
                         child: Column(
                           children: [
                             SizedBox(
-                              height: 20,
+                              height: 10,
                             ),
                             Card(
-                              elevation: 10,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              elevation: 2,
                               child: Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
@@ -153,7 +176,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           height: 6.h,
                                         ),
                                         Text("Email",
-                                            style: FieldTextStyle(
+                                            style: batchtext2(
                                                 AppColors.PrimaryBlackColor)),
                                         SizedBox(
                                           height: 6.h,
@@ -162,13 +185,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                             "📩  " +
                                                 userData1!.fStudentEmail
                                                     .toString(),
-                                            style: TextRegular(
+                                            style: batchtext1(
                                                 AppColors.PrimaryBlackColor)),
                                         SizedBox(
-                                          height: 6.h,
+                                          height: 10.h,
                                         ),
                                         Text("Mobile",
-                                            style: FieldTextStyle(
+                                            style: batchtext2(
                                                 AppColors.PrimaryBlackColor)),
                                         SizedBox(
                                           height: 6.h,
@@ -176,13 +199,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                         Text(
                                             "📱 " +
                                                 userData1!.fMobile.toString(),
-                                            style: TextRegular(
+                                            style: batchtext1(
                                                 AppColors.PrimaryBlackColor)),
                                         SizedBox(
-                                          height: 6.h,
+                                          height: 10.h,
                                         ),
                                         Text("Branch",
-                                            style: FieldTextStyle(
+                                            style: batchtext2(
                                                 AppColors.PrimaryBlackColor)),
                                         SizedBox(
                                           height: 6.h,
@@ -191,7 +214,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                             "📍  " +
                                                 userData1!.fBranceName
                                                     .toString(),
-                                            style: TextRegular(
+                                            style: batchtext1(
                                                 AppColors.PrimaryBlackColor)),
                                       ],
                                     ),
@@ -200,10 +223,13 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ),
                             SizedBox(
-                              height: 10,
+                              height: 5,
                             ),
                             Card(
-                              elevation: 10,
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
                               child: Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
@@ -223,7 +249,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                         bottom: 1.sp, top: 5.sp),
                                     child: Text(
                                       "Counsellor  Name",
-                                      style: FieldTextStyle(
+                                      style: batchtext2(
                                           AppColors.PrimaryBlackColor),
                                     ),
                                   ),
@@ -238,13 +264,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                             "🧑  " +
                                                 userData1!.counsellorName
                                                     .toString(),
-                                            style: TextRegular(
+                                            style: batchtext1(
                                                 AppColors.PrimaryBlackColor)),
                                         SizedBox(
-                                          height: 6.h,
+                                          height: 10.h,
                                         ),
                                         Text("Counsellor  Email",
-                                            style: FieldTextStyle(
+                                            style: batchtext2(
                                                 AppColors.PrimaryBlackColor)),
                                         SizedBox(
                                           height: 6.h,
@@ -253,13 +279,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                             "📩  " +
                                                 userData1!.fCounsellorEmail
                                                     .toString(),
-                                            style: TextRegular(
+                                            style: batchtext1(
                                                 AppColors.PrimaryBlackColor)),
                                         SizedBox(
-                                          height: 6.h,
+                                          height: 10.h,
                                         ),
                                         Text("Counsellor Mobile",
-                                            style: FieldTextStyle(
+                                            style: batchtext2(
                                                 AppColors.PrimaryBlackColor)),
                                         SizedBox(
                                           height: 6.h,
@@ -268,7 +294,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                             "☎️  " +
                                                 userData1!.fCounsellorMobile
                                                     .toString(),
-                                            style: TextRegular(
+                                            style: batchtext1(
                                                 AppColors.PrimaryBlackColor)),
                                         SizedBox(
                                           height: 6.h,

@@ -160,7 +160,8 @@ class _ListBatchState extends State<ListBatch> {
                   itemCount: data.length,
                   itemBuilder: ((context, index) {
                     return Padding(
-                      padding: EdgeInsets.all(10.r),
+                      padding: EdgeInsets.only(
+                          left: 10, right: 10, bottom: 5, top: 5),
                       child: Container(
                         // height: 350.h,
                         // width: 390.w,
@@ -194,8 +195,8 @@ class _ListBatchState extends State<ListBatch> {
                                 // crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    height: 80.h,
-                                    width: 100.w,
+                                    height: 60.h,
+                                    width: 80.w,
 
                                     decoration: BoxDecoration(
                                         color: AppColors.PrimaryMainColor,
@@ -253,52 +254,52 @@ class _ListBatchState extends State<ListBatch> {
                                         RichText(
                                           text: TextSpan(
                                             text: 'Name :- ',
-                                            style: batchtext1(
+                                            style: batchtext2(
                                                 AppColors.PrimaryBlackColor),
                                             children: [
                                               TextSpan(
                                                 text: data[index]
                                                     .fFacultyName
                                                     .toString(),
-                                                style: batchtext2(AppColors
+                                                style: batchtext1(AppColors
                                                     .PrimaryBlackColor),
                                               ),
                                             ],
                                           ),
                                         ),
                                         SizedBox(
-                                          height: 10.h,
+                                          height: 5.h,
                                         ),
                                         RichText(
                                           text: TextSpan(
                                             text: 'Faculty Grade :- ',
-                                            style: batchtext1(
+                                            style: batchtext2(
                                                 AppColors.PrimaryBlackColor),
                                             children: [
                                               TextSpan(
                                                 text: data[index]
                                                     .fFacultyGrade
                                                     .toString(),
-                                                style: batchtext2(AppColors
+                                                style: batchtext1(AppColors
                                                     .PrimaryBlackColor),
                                               ),
                                             ],
                                           ),
                                         ),
                                         SizedBox(
-                                          height: 10.h,
+                                          height: 5.h,
                                         ),
                                         RichText(
                                           text: TextSpan(
                                             text: 'Batch Type :- ',
-                                            style: batchtext1(
+                                            style: batchtext2(
                                                 AppColors.PrimaryBlackColor),
                                             children: [
                                               TextSpan(
                                                 text: data[index]
                                                     .fIsOffline
                                                     .toString(),
-                                                style: batchtext2(AppColors
+                                                style: batchtext1(AppColors
                                                     .PrimaryBlackColor),
                                               ),
                                             ],
@@ -311,27 +312,27 @@ class _ListBatchState extends State<ListBatch> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.only(left: 8, right: 8),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   RichText(
                                     text: TextSpan(
                                       text: 'Batch Name :- ',
-                                      style: batchtext1(
+                                      style: batchtext2(
                                           AppColors.PrimaryBlackColor),
                                       children: [
                                         TextSpan(
                                           text:
                                               data[index].fBatchName.toString(),
-                                          style: batchtext2(
+                                          style: batchtext1(
                                               AppColors.PrimaryBlackColor),
                                         ),
                                       ],
                                     ),
                                   ),
                                   SizedBox(
-                                    height: 10,
+                                    height: 5.h,
                                   ),
                                   Row(
                                     mainAxisAlignment:
@@ -343,14 +344,14 @@ class _ListBatchState extends State<ListBatch> {
                                           overflow: TextOverflow.ellipsis,
                                           text: TextSpan(
                                             text: 'Start Date :- ',
-                                            style: batchtext1(
+                                            style: batchtext2(
                                                 AppColors.PrimaryBlackColor),
                                             children: [
                                               TextSpan(
                                                 text: data[index]
                                                     .fBatchStartDate
                                                     .toString(),
-                                                style: batchtext2(AppColors
+                                                style: batchtext1(AppColors
                                                     .PrimaryBlackColor),
                                               ),
                                             ],
@@ -363,14 +364,14 @@ class _ListBatchState extends State<ListBatch> {
                                           overflow: TextOverflow.ellipsis,
                                           text: TextSpan(
                                             text: 'End Date :- ',
-                                            style: batchtext1(
+                                            style: batchtext2(
                                                 AppColors.PrimaryBlackColor),
                                             children: [
                                               TextSpan(
                                                 text: data[index]
                                                     .fBatchEndDate
                                                     .toString(),
-                                                style: batchtext2(AppColors
+                                                style: batchtext1(AppColors
                                                     .PrimaryBlackColor),
                                               ),
                                             ],
@@ -380,7 +381,7 @@ class _ListBatchState extends State<ListBatch> {
                                     ],
                                   ),
                                   SizedBox(
-                                    height: 10.h,
+                                    height: 5.h,
                                   ),
                                   Container(
                                     width: 300,
@@ -393,7 +394,7 @@ class _ListBatchState extends State<ListBatch> {
                             Padding(
                               padding: EdgeInsets.all(8.r),
                               child: Container(
-                                height: 60.h,
+                                height: 50.h,
                                 width: 390.w,
                                 decoration: BoxDecoration(
                                     color: AppColors.PrimaryMainColor,
@@ -409,16 +410,16 @@ class _ListBatchState extends State<ListBatch> {
                                         children: [
                                           Text(
                                             "Batch Size",
-                                            style: batchtext1(
+                                            style: batchtext2(
                                                 AppColors.PrimaryWhiteColor),
                                           ),
                                           SizedBox(
-                                            height: 10.h,
+                                            height: 5.h,
                                           ),
                                           Text(
                                             data[index].fBatchSize.toString(),
                                             textAlign: TextAlign.center,
-                                            style: batchtext2(
+                                            style: batchtext1(
                                                 AppColors.PrimaryWhiteColor),
                                           ),
                                         ],
@@ -436,16 +437,16 @@ class _ListBatchState extends State<ListBatch> {
                                         children: [
                                           Text(
                                             "Time",
-                                            style: batchtext1(
+                                            style: batchtext2(
                                                 AppColors.PrimaryWhiteColor),
                                           ),
                                           SizedBox(
-                                            height: 10.h,
+                                            height: 5.h,
                                           ),
                                           Text(
                                             data[index].fBatchTiming.toString(),
                                             textAlign: TextAlign.center,
-                                            style: batchtext2(
+                                            style: batchtext1(
                                                 AppColors.PrimaryWhiteColor),
                                           ),
                                         ],
@@ -463,11 +464,11 @@ class _ListBatchState extends State<ListBatch> {
                                         children: [
                                           Text(
                                             "Available",
-                                            style: batchtext1(
+                                            style: batchtext2(
                                                 AppColors.PrimaryWhiteColor),
                                           ),
                                           SizedBox(
-                                            height: 10.h,
+                                            height: 5.h,
                                           ),
                                           //                             cf = data[index].confirmedWithFullPayment;
                                           // int cp = data[i].confirmedWithPartialPayment;
@@ -479,7 +480,7 @@ class _ListBatchState extends State<ListBatch> {
                                             //         .confirmedWithPartialPayment,
 
                                             textAlign: TextAlign.center,
-                                            style: batchtext2(
+                                            style: batchtext1(
                                                 AppColors.PrimaryWhiteColor),
                                           ),
                                         ],
@@ -497,11 +498,11 @@ class _ListBatchState extends State<ListBatch> {
                                         children: [
                                           Text(
                                             "Enrolled",
-                                            style: batchtext1(
+                                            style: batchtext2(
                                                 AppColors.PrimaryWhiteColor),
                                           ),
                                           SizedBox(
-                                            height: 10.h,
+                                            height: 5.h,
                                           ),
                                           InkWell(
                                             onTap: () {
@@ -518,7 +519,7 @@ class _ListBatchState extends State<ListBatch> {
                                                   .confirmedWithFullPayment
                                                   .toString(),
                                               textAlign: TextAlign.center,
-                                              style: batchtext2(
+                                              style: batchtext1(
                                                   AppColors.PrimaryWhiteColor),
                                             ),
                                           ),

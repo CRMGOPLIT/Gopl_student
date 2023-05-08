@@ -60,5 +60,7 @@ class RoutesName {
   //
   static const String interschool = 'interschool';
 
-    static const String grduation = 'grduation';
+  static const String grduation = 'grduation';
+
+  static const String uploadmoredocument = 'uploadmoredocument';
 }

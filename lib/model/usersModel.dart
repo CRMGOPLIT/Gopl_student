@@ -1,8 +1,3 @@
-// To parse this JSON data, do
-//
-//     final usersDetailsModel = usersDetailsModelFromJson(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 List<UsersDetailsModel> usersDetailsModelFromJson(String str) =>
