@@ -6,6 +6,7 @@ import 'package:global_student/view/branch_location/branch_location.dart';
 import 'package:global_student/view/comapre.dart';
 import 'package:global_student/view/course_details/course_details.dart';
 import 'package:global_student/view/couse_search/course_search.dart';
+import 'package:global_student/view/couse_search/universitylistpage.dart';
 import 'package:global_student/view/dashboard/home_page.dart';
 import 'package:global_student/view/drawerpage/aboutus.dart';
 import 'package:global_student/view/drawerpage/contactus.dart';
@@ -134,6 +135,10 @@ class Routes {
       case RoutesName.uploadmoredocument:
         return MaterialPageRoute(
             builder: (BuildContext context) => UploadMoreDocument());
+
+      case RoutesName.universitylist:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => UniversityListPage());
 
       default:
         return MaterialPageRoute(builder: (_) {

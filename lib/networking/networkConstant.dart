@@ -146,7 +146,10 @@ class NetworkConstant {
       "/SearchCourseMaster/GetDisciplineAreaList";
 
   static const String END_POINT_SEARCH_FILTER_LIST =
-      "/SearchCourseMaster/CourseSearchList";
+      "/gopandroid/AndroidCourseSearchList";
+
+  static const String END_POINT_DASH_SEARCH =
+      "/gopandroid/CourseRelatedDetails";
 
   //uploadmore Document
   static const String END_POINT_UPLOAD_MORE_DOCUMENT =

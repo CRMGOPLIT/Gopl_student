@@ -19,7 +19,7 @@ class ApiProvider {
     var responseJson;
     try {
       final response = await http.get(
-        Uri.parse(baseUrl + url),
+        Uri.parse(baseUrllocal + url),
       );
 
       responseJson = _response(response);
@@ -100,13 +100,15 @@ class ApiProvider {
   Future<dynamic> postWithToken(Map parameter, String url) async {
     var responseJson;
     try {
-      final response = await http.post(Uri.parse(baseUrl + url),
+      final response = await http.post(Uri.parse(baseUrllocal + url),
           headers: {
             'Authorization': 'Bearer $token',
             "Accept": "application/json"
           },
           body: parameter);
 
+      // debugger();
+      // print(response);
       responseJson = _response(response);
     } catch (e) {
       throw FetchDataException('No Internet connection');
@@ -233,6 +235,29 @@ class ApiProvider {
       });
     } catch (e) {
       throw FetchDataException('No Internet connection');
+    }
+    return responseJson;
+  }
+
+  Future<dynamic> getDropdownPagenation(
+      parameter, String url, int _page, int _limit) async {
+    var responseJson;
+
+    try {
+      final response = await http.get(
+        // $_baseUrl?_page=$_page&_limit=$_limit
+        Uri.parse("$baseUrl$url?_page=$_page&_limit=$_limit")
+            .replace(queryParameters: parameter),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      );
+      debugger();
+      print(response);
+      responseJson = jsonDecode(response.body.toString());
+    } catch (e) {
+      // debugger();
+      // print(e);
     }
     return responseJson;
   }

@@ -64,4 +64,20 @@ class CourseRepo {
     // print(response.body);
     return response; //GetApplicationDetailsResponse.fromJson(response);
   }
+
+  Future<dynamic> getUniversityPagenation(
+      Map<String, dynamic> parameter, int page, int limit) async {
+    final response = await _apiProvider.getDropdownPagenation(
+        parameter, NetworkConstant.END_POINT_SEARCH_UNIVERSITY, page, limit);
+
+    // print(response.body);
+    return response; //GetApplicationDetailsResponse.fromJson(response);
+  }
+
+  Future<dynamic> getSearchhomeApi() async {
+    final response =
+        await _apiProvider.get(NetworkConstant.END_POINT_DASH_SEARCH);
+    // print(response.body);
+    return response; //GetApplicationDetailsResponse.fromJson(response);
+  }
 }

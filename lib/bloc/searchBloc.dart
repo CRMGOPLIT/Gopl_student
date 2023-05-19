@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:global_student/networking/response.dart';
 import 'package:global_student/repogetory/courseSearch.dart';
 
 class SearchBloc {
@@ -9,8 +10,10 @@ class SearchBloc {
   late StreamController<dynamic> getlocationsearch;
   late StreamController<dynamic> getstudyareasearch;
   late StreamController<dynamic> getdisciplineareasearch;
+  late StreamController<dynamic> getuniversitypagenation;
+  late StreamController<dynamic> getdashboardsearch;
 
-  late StreamController<dynamic> getfiltersearch;
+  late StreamController<Response<dynamic>> getfiltersearch;
 
   //late StreamController<Response<dynamic>> postRegistraion;
 
@@ -42,10 +45,21 @@ class SearchBloc {
       getdisciplineareasearch.stream;
 
   //Discipline Area
+  StreamSink<Response<dynamic>> get getfiltersearchSink => getfiltersearch.sink;
 
-  StreamSink<dynamic> get getfiltersearchSink => getfiltersearch.sink;
+  Stream<Response<dynamic>> get getfiltersearchStream => getfiltersearch.stream;
 
-  Stream<dynamic> get getfiltersearchStream => getfiltersearch.stream;
+//Pagenation
+
+  StreamSink<dynamic> get getuniversitypagenationSink =>
+      getuniversitypagenation.sink;
+
+  Stream<dynamic> get getuniversitypagenationStream =>
+      getuniversitypagenation.stream;
+
+  StreamSink<dynamic> get getdashboardsearchSink => getdashboardsearch.sink;
+
+  Stream<dynamic> get getdashboardsearchStream => getdashboardsearch.stream;
 
   // StreamSink<Response<dynamic>> get postRegistrationSink =>
   //     postRegistraion.sink;
@@ -59,7 +73,10 @@ class SearchBloc {
     getlocationsearch = StreamController<dynamic>();
     getstudyareasearch = StreamController<dynamic>();
     getdisciplineareasearch = StreamController<dynamic>();
-    getfiltersearch = StreamController<dynamic>();
+    getfiltersearch = StreamController<Response<dynamic>>();
+    getuniversitypagenation = StreamController<dynamic>();
+    getdashboardsearch = StreamController<dynamic>();
+
     courseRepo = CourseRepo();
   }
 //Get All drop Fields
@@ -122,9 +139,31 @@ class SearchBloc {
   callGetFilterSearch(Map<String, dynamic> parameter) async {
     try {
       dynamic chuckCats = await courseRepo.postFilterSearchApi(parameter);
-      getfiltersearchSink.add(chuckCats);
+      getfiltersearchSink.add(Response.completed(chuckCats));
     } catch (e) {
-      getfiltersearchSink.add('error');
+      getfiltersearchSink.add(Response.error(e.toString()));
+      // print(e);
+    }
+  }
+
+  callGetUniversitySearchApiPagenation(
+      Map<String, dynamic> parameter, int page, int limit) async {
+    try {
+      dynamic chuckCats =
+          await courseRepo.getUniversityPagenation(parameter, page, limit);
+      getuniversitypagenationSink.add(chuckCats);
+    } catch (e) {
+      getuniversitypagenationSink.add('error');
+      // print(e);
+    }
+  }
+
+  callSearchDashSearchApi() async {
+    try {
+      dynamic chuckCats = await courseRepo.getSearchhomeApi();
+      getdashboardsearch.add(chuckCats);
+    } catch (e) {
+      getdashboardsearch.add('error');
       // print(e);
     }
   }
@@ -136,5 +175,7 @@ class SearchBloc {
     getstudyareasearch.close();
     getdisciplineareasearch.close();
     getfiltersearch.close();
+    getuniversitypagenation.close();
+    getdashboardsearch.close();
   }
 }

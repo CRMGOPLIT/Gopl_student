@@ -651,8 +651,8 @@ class _UploadmoreDialogState extends State<UploadmoreDialog> {
       data,
       selectedFile,
     );
-    debugger();
-    print(data);
+    // debugger();
+    // print(data);
     // }
   }
 

@@ -63,4 +63,9 @@ class RoutesName {
   static const String grduation = 'grduation';
 
   static const String uploadmoredocument = 'uploadmoredocument';
+
+  //
+
+
+  static const String universitylist = 'universitylist';
 }

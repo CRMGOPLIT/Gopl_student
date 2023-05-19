@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/text_style.dart';
 
@@ -100,6 +101,28 @@ class NetworkDialog {
                   )
                 ],
               ));
+        });
+  }
+}
+
+class NetworkDialogLoading {
+  static Future<void> showLoadingDialog(
+      BuildContext context, GlobalKey key) async {
+    return showDialog<void>(
+        context: context,
+        barrierColor: Colors.black.withOpacity(0.1),
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return WillPopScope(
+              onWillPop: () async => false,
+              child: Center(
+                  child: Lottie.asset("assets/images/loader.json",
+                      height: 320.h, width: 250.w)
+                  // CircularProgressIndicator(
+                  //   color: AppColors.PrimaryMainColor,
+                  //   strokeWidth: 3.w,
+                  // ),
+                  ));
         });
   }
 }
