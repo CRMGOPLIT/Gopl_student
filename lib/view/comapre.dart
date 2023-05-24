@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:global_student/utils/routes/routes_name.dart';
+
 import 'package:global_student/view/onborarding/onboarding_model.dart';
-import 'package:global_student/view/second.dart';
+
 
 class Compare extends StatefulWidget {
   const Compare({super.key});

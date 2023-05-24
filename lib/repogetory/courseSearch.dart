@@ -1,6 +1,3 @@
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:global_student/networking/apiProvider.dart';
 
 import '../networking/NetworkConstant.dart';
@@ -77,6 +74,16 @@ class CourseRepo {
   Future<dynamic> getSearchhomeApi() async {
     final response =
         await _apiProvider.get(NetworkConstant.END_POINT_DASH_SEARCH);
+    // print(response.body);
+    return response; //GetApplicationDetailsResponse.fromJson(response);
+  }
+
+  Future<dynamic> getcourseDetails(
+    Map<String, dynamic> parameter,
+  ) async {
+    final response = await _apiProvider.getDropdownParams(
+        parameter, NetworkConstant.END_POINT_COURSE_DETAILS);
+
     // print(response.body);
     return response; //GetApplicationDetailsResponse.fromJson(response);
   }

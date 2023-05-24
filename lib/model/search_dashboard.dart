@@ -1,8 +1,4 @@
-// To parse this JSON data, do
-//
-//     final searchDashBoard = searchDashBoardFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 SearchDashBoard searchDashBoardFromJson(String str) =>
@@ -48,21 +44,25 @@ class SearchDashBoard {
 class DashboardCountryDetail {
   String country;
   String universityCount;
+  String countryId;
 
   DashboardCountryDetail({
     required this.country,
     required this.universityCount,
+    required this.countryId,
   });
 
   factory DashboardCountryDetail.fromJson(Map<String, dynamic> json) =>
       DashboardCountryDetail(
         country: json["Country"],
         universityCount: json["UniversityCount"],
+        countryId: json["CountryId"],
       );
 
   Map<String, dynamic> toJson() => {
         "Country": country,
         "UniversityCount": universityCount,
+        "CountryId": countryId,
       };
 }
 
@@ -71,12 +71,14 @@ class DashboardCourseDetail {
   String course;
   String university;
   String fees;
+  String courseId;
 
   DashboardCourseDetail({
     required this.universityImage,
     required this.course,
     required this.university,
     required this.fees,
+    required this.courseId,
   });
 
   factory DashboardCourseDetail.fromJson(Map<String, dynamic> json) =>
@@ -85,6 +87,7 @@ class DashboardCourseDetail {
         course: json["Course"],
         university: json["University"],
         fees: json["Fees"],
+        courseId: json["CourseId"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -92,6 +95,7 @@ class DashboardCourseDetail {
         "Course": course,
         "University": university,
         "Fees": fees,
+        "CourseId": courseId,
       };
 }
 
@@ -99,11 +103,15 @@ class DashboardUniversityDetail {
   String universityImage;
   String country;
   String university;
+  String universityId;
+  String countryId;
 
   DashboardUniversityDetail({
     required this.universityImage,
     required this.country,
     required this.university,
+    required this.universityId,
+    required this.countryId,
   });
 
   factory DashboardUniversityDetail.fromJson(Map<String, dynamic> json) =>
@@ -111,11 +119,15 @@ class DashboardUniversityDetail {
         universityImage: json["UniversityImage"],
         country: json["Country"],
         university: json["University"],
+        universityId: json["UniversityId"],
+        countryId: json["CountryId"],
       );
 
   Map<String, dynamic> toJson() => {
         "UniversityImage": universityImage,
         "Country": country,
         "University": university,
+        "UniversityId": universityId,
+        "CountryId": countryId,
       };
 }

@@ -1,8 +1,9 @@
 import 'dart:developer';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_fadein/flutter_fadein.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:global_student/bloc/searchBloc.dart';
 import 'package:global_student/model/countrySearchModel.dart';
 import 'package:global_student/model/disciplinearea.dart';
@@ -14,6 +15,7 @@ import 'package:global_student/networking/networkConstant.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/utils/text_style.dart';
+import 'package:global_student/view/course_details/course_details.dart';
 import 'package:global_student/view/helper/apiResponseHelper.dart';
 import 'package:global_student/view/widget/loader.dart';
 import '../../model/universitySearchModel.dart';
@@ -26,12 +28,11 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
-  TabController? _tabController;
   late SearchBloc searchBloc;
   bool _isShow = true;
-  bool _issearch = true;
   List<ObjCourse> objCourse = [];
   bool isloadingmore = false;
+  bool showloader = true;
   int page = 1;
   bool loading = true;
   bool hasmore = true;
@@ -57,7 +58,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
 
   getBranchDetails() async {
     await searchBloc.getfiltersearchStream.listen((event) {
-      Navigator.pop(context);
+      showloader ? Navigator.pop(context) : "";
       bool response =
           ApiResponseHelper().handleResponse(event: event, context: context);
 
@@ -82,6 +83,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
 
       setState(() {
         loading = false;
+        showloader = false;
       });
     });
   }
@@ -1958,6 +1960,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                                             _isShow = !_isShow;
                                             hasmore = true;
                                             objCourse.clear();
+                                            //  showloader = true;
 
                                             //_issearch = !_issearch;
                                           },
@@ -1991,7 +1994,15 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                   if (index < objCourse.length) {
                     return InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, RoutesName.courseDetails);
+                        Get.to(
+                          CourseDetails(),
+                          arguments: [
+                            objCourse[index].fCourseDetailId,
+
+                            // dashboardCountryDetail[index].country
+                          ],
+                          // countrySearchdata[index].name
+                        );
                       },
                       child: Padding(
                         padding: const EdgeInsets.only(left: 10, right: 10),
@@ -2165,36 +2176,51 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                       ),
                     );
                   } else {
-                    return objCourse.isEmpty
-                        ? Column(
-                            children: [
-                              SizedBox(
-                                height: 100,
-                              ),
-                              Image.asset(
-                                "assets/images/universities.png",
-                                height: 200.h,
-                                width: 300.w,
-                                fit: BoxFit.fill,
-                              ),
-                              SizedBox(
-                                height: 10.h,
-                              ),
-                              Text("Oppss.. University Not Found",
-                                  style: FieldTextStyle(
-                                      AppColors.PrimaryMainColor)),
-                            ],
-                          )
-                        : Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Center(
-                              child: hasmore
-                                  ? Container()
-                                  : Text("No more data",
-                                      style: batchtext2(
-                                          AppColors.PrimaryBlackColor)),
-                            ),
-                          );
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: hasmore
+                          ? Center(
+                              child: CircularProgressIndicator(
+                              color: AppColors.PrimaryMainColor,
+                              strokeWidth: 2.w,
+                            ))
+                          : Center(
+                              child: Text(
+                              "No Data Found",
+                              style: batchtext2(AppColors.PrimaryMainColor),
+                            )),
+                    );
+
+                    // objCourse.isEmpty
+                    //     ? Column(
+                    //         children: [
+                    //           SizedBox(
+                    //             height: 100,
+                    //           ),
+                    //           Image.asset(
+                    //             "assets/images/universities.png",
+                    //             height: 200.h,
+                    //             width: 300.w,
+                    //             fit: BoxFit.fill,
+                    //           ),
+                    //           SizedBox(
+                    //             height: 10.h,
+                    //           ),
+                    //           Text("Oppss.. University Not Found",
+                    //               style: FieldTextStyle(
+                    //                   AppColors.PrimaryMainColor)),
+                    //         ],
+                    //       )
+                    //     : Padding(
+                    //         padding: const EdgeInsets.all(15.0),
+                    //         child: Center(
+                    //           child: hasmore
+                    //               ? Container()
+                    //               : Text("No more data",
+                    //                   style: batchtext2(
+                    //                       AppColors.PrimaryBlackColor)),
+                    //         ),
+                    //       );
                   }
                 }),
           ),
@@ -2563,7 +2589,9 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
   final GlobalKey<State> _keyLoader = new GlobalKey<State>();
 
   searchFilter() {
-    NetworkDialogLoading.showLoadingDialog(context, _keyLoader);
+    if (showloader) {
+      NetworkDialogLoading.showLoadingDialog(context, _keyLoader);
+    }
     String spselcected = selectedItems.join(",");
     String uniselected = selecteduniversity.join(",");
     String spdispline = selecteddisciplinearea.join(",");

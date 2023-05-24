@@ -6,7 +6,7 @@ import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/utils/text_style.dart';
 import 'package:global_student/view/applicationStatus/according_widget.dart';
 import 'package:global_student/view/widget/app_bar.dart';
-import 'package:global_student/view/widget/button.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 

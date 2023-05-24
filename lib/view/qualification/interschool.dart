@@ -1,11 +1,8 @@
-import 'dart:developer';
 import 'dart:io';
-
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:global_student/bloc/dashboardBloc.dart';
 import 'package:global_student/model/boarduniversity.dart';
 import 'package:global_student/model/monthModel.dart';

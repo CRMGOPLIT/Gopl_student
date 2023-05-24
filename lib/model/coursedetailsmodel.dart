@@ -1,29 +1,13 @@
-
 import 'dart:convert';
 
-FilterSeach filterSeachFromJson(String str) =>
-    FilterSeach.fromJson(json.decode(str));
+List<CourseMoreDetails> courseDetailsFromJson(String str) =>
+    List<CourseMoreDetails>.from(
+        json.decode(str).map((x) => CourseMoreDetails.fromJson(x)));
 
-String filterSeachToJson(FilterSeach data) => json.encode(data.toJson());
+String courseDetailsToJson(List<CourseMoreDetails> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class FilterSeach {
-  List<ObjCourse> objCourse;
-
-  FilterSeach({
-    required this.objCourse,
-  });
-
-  factory FilterSeach.fromJson(Map<String, dynamic> json) => FilterSeach(
-        objCourse: List<ObjCourse>.from(
-            json["objCourse"].map((x) => ObjCourse.fromJson(x))),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "objCourse": List<dynamic>.from(objCourse.map((x) => x.toJson())),
-      };
-}
-
-class ObjCourse {
+class CourseMoreDetails {
   int fCourseDetailId;
   String fAccess;
   int fCountryId;
@@ -46,28 +30,28 @@ class ObjCourse {
   String fCourseUrl;
   String fCampus;
   String fRemark;
-  String fIelts;
+  double fIelts;
   String fIsRequirdIelts;
-  String fToeflIbt;
+  double fToeflIbt;
   String fIsRequirdToeflIbt;
-  String fPte;
+  double fPte;
   String fPteLessThan;
   String fIsRequirdPte;
-  String fSat;
-  String fDat;
-  String fIeltsMore;
-  String fToeflMore;
+  double fSat;
+  double fDat;
+  double fIeltsMore;
+  double fToeflMore;
   String fIsRequirdSat;
-  String fAct;
+  double fAct;
   String fIsRequirdAct;
   String fWith15YearsOfEducation;
-  String fGre;
+  double fGre;
   String fIsRequirdGre;
-  String fBacklogs;
+  double fBacklogs;
   String fIsRequirdBacklogs;
-  String fGmat;
+  double fGmat;
   String fIsRequirdGmat;
-  String fIsScholarshipAvailable;
+  bool fIsScholarshipAvailable;
   String fScholarshipDetails;
   String fEslElpAvailable;
   String fDisplayOrder;
@@ -85,7 +69,7 @@ class ObjCourse {
   int fProgramId;
   String fAddress;
   String fUniversityLogo;
-  FGlobalOpsRanking fGlobalOpsRanking;
+  String fGlobalOpsRanking;
   String fNationalRank;
   String fUniversityUrl;
   String fUniversityRemarks;
@@ -96,7 +80,7 @@ class ObjCourse {
   String fDet;
   int fStudentId;
   String fFristName;
-  String fIsPlacement;
+  bool fIsPlacement;
   String fCurrency;
   double fMoreThanApplicationFee;
   String fTermTuitionFee;
@@ -108,10 +92,9 @@ class ObjCourse {
   String fLocation;
   String expectableBoard;
   String rejectedComment;
-  String fConditionalStatus;
-  String logo;
+  bool fConditionalStatus;
 
-  ObjCourse({
+  CourseMoreDetails({
     required this.fCourseDetailId,
     required this.fAccess,
     required this.fCountryId,
@@ -197,19 +180,19 @@ class ObjCourse {
     required this.expectableBoard,
     required this.rejectedComment,
     required this.fConditionalStatus,
-    required this.logo,
   });
 
-  factory ObjCourse.fromJson(Map<String, dynamic> json) => ObjCourse(
+  factory CourseMoreDetails.fromJson(Map<String, dynamic> json) =>
+      CourseMoreDetails(
         fCourseDetailId: json["f_Course_Detail_Id"],
         fAccess: json["f_access"].toString(),
         fCountryId: json["f_CountryId"],
-        fCountryName: json["f_Country_Name"]!,
+        fCountryName: json["f_Country_Name"].toString(),
         fUniversityId: json["f_UniversityId"],
         fUniversity: json["f_University"].toString(),
         fProgram: json["f_Program"].toString(),
         fDuration: json["f_Duration"],
-        fDurationName: json["f_Duration_Name"],
+        fDurationName: json["f_Duration_Name"].toString(),
         fStartYear: json["f_Start_Year"].toString(),
         fEndYear: json["f_End_Year"].toString(),
         fIntake: json["f_Intake"].toString(),
@@ -223,29 +206,29 @@ class ObjCourse {
         fCourseUrl: json["f_Course_URL"].toString(),
         fCampus: json["f_Campus"].toString(),
         fRemark: json["f_Remark"].toString(),
-        fIelts: json["f_IELTS"].toString(),
+        fIelts: json["f_IELTS"],
         fIsRequirdIelts: json["f_Is_Requird_IELTS"].toString(),
-        fToeflIbt: json["f_TOEFL_IBT"].toString(),
+        fToeflIbt: json["f_TOEFL_IBT"],
         fIsRequirdToeflIbt: json["f_Is_Requird_TOEFL_IBT"].toString(),
-        fPte: json["f_PTE"].toString(),
+        fPte: json["f_PTE"],
         fPteLessThan: json["f_PTE_Less_Than"].toString(),
         fIsRequirdPte: json["f_Is_Requird_PTE"].toString(),
-        fSat: json["f_SAT"].toString(),
-        fDat: json["f_Dat"].toString(),
-        fIeltsMore: json["f_IELTS_More"].toString(),
-        fToeflMore: json["f_TOEFL_More"].toString(),
+        fSat: json["f_SAT"],
+        fDat: json["f_Dat"],
+        fIeltsMore: json["f_IELTS_More"],
+        fToeflMore: json["f_TOEFL_More"],
         fIsRequirdSat: json["f_Is_Requird_SAT"].toString(),
-        fAct: json["f_ACT"].toString(),
+        fAct: json["f_ACT"],
         fIsRequirdAct: json["f_Is_Requird_ACT"].toString(),
         fWith15YearsOfEducation:
             json["f_With_15_Years_of_Education"].toString(),
-        fGre: json["f_GRE"].toString(),
+        fGre: json["f_GRE"],
         fIsRequirdGre: json["f_Is_Requird_GRE"].toString(),
-        fBacklogs: json["f_BACKLOGS"].toString(),
+        fBacklogs: json["f_BACKLOGS"],
         fIsRequirdBacklogs: json["f_Is_Requird_BACKLOGS"].toString(),
-        fGmat: json["f_GMAT"].toString(),
+        fGmat: json["f_GMAT"],
         fIsRequirdGmat: json["f_Is_Requird_GMAT"].toString(),
-        fIsScholarshipAvailable: json["f_Is_Scholarship_Available"].toString(),
+        fIsScholarshipAvailable: json["f_Is_Scholarship_Available"],
         fScholarshipDetails: json["f_Scholarship_Details"].toString(),
         fEslElpAvailable: json["f_ESL_ELP_Available"].toString(),
         fDisplayOrder: json["f_Display_Order"].toString(),
@@ -263,8 +246,7 @@ class ObjCourse {
         fProgramId: json["f_Program_Id"],
         fAddress: json["f_address"].toString(),
         fUniversityLogo: json["f_university_Logo"].toString(),
-        fGlobalOpsRanking:
-            fGlobalOpsRankingValues.map[json["f_Global_OPS_Ranking"]]!,
+        fGlobalOpsRanking: json["f_Global_OPS_Ranking"].toString(),
         fNationalRank: json["f_National_Rank"].toString(),
         fUniversityUrl: json["f_University_URL"].toString(),
         fUniversityRemarks: json["f_University_Remarks"].toString(),
@@ -275,32 +257,31 @@ class ObjCourse {
         fDet: json["f_DET"].toString(),
         fStudentId: json["f_Student_Id"],
         fFristName: json["f_FristName"].toString(),
-        fIsPlacement: json["f_Is_Placement"].toString(),
-        fCurrency: json["f_Currency"],
+        fIsPlacement: json["f_Is_Placement"],
+        fCurrency: json["f_Currency"].toString(),
         fMoreThanApplicationFee: json["f_More_Than_Application_Fee"],
-        fTermTuitionFee: json["f_Term_Tuition_Fee"],
+        fTermTuitionFee: json["f_Term_Tuition_Fee"].toString(),
         fApplicationLink: json["f_Application_Link"].toString(),
         fIncentive: json["f_Incentive"].toString(),
         fExpenditureFee: json["f_Expenditure_fee"].toString(),
         lastUpdatedBy: json["LastUpdated_By"].toString(),
         approveBy: json["ApproveBy"].toString(),
-        fLocation: fLocationValues.map[json["f_Location"]].toString(),
+        fLocation: json["f_Location"].toString(),
         expectableBoard: json["ExpectableBoard"].toString(),
         rejectedComment: json["RejectedComment"].toString(),
-        fConditionalStatus: json["f_ConditionalStatus"].toString(),
-        logo: json["Logo"].toString(),
+        fConditionalStatus: json["f_ConditionalStatus"],
       );
 
   Map<String, dynamic> toJson() => {
         "f_Course_Detail_Id": fCourseDetailId,
         "f_access": fAccess,
         "f_CountryId": fCountryId,
-        "f_Country_Name": fCountryNameValues.reverse[fCountryName],
+        "f_Country_Name": fCountryName,
         "f_UniversityId": fUniversityId,
         "f_University": fUniversity,
         "f_Program": fProgram,
         "f_Duration": fDuration,
-        "f_Duration_Name": fDurationNameValues.reverse[fDurationName],
+        "f_Duration_Name": fDurationName,
         "f_Start_Year": fStartYear,
         "f_End_Year": fEndYear,
         "f_Intake": fIntake,
@@ -353,8 +334,7 @@ class ObjCourse {
         "f_Program_Id": fProgramId,
         "f_address": fAddress,
         "f_university_Logo": fUniversityLogo,
-        "f_Global_OPS_Ranking":
-            fGlobalOpsRankingValues.reverse[fGlobalOpsRanking],
+        "f_Global_OPS_Ranking": fGlobalOpsRanking,
         "f_National_Rank": fNationalRank,
         "f_University_URL": fUniversityUrl,
         "f_University_Remarks": fUniversityRemarks,
@@ -366,66 +346,17 @@ class ObjCourse {
         "f_Student_Id": fStudentId,
         "f_FristName": fFristName,
         "f_Is_Placement": fIsPlacement,
-        "f_Currency": fCurrencyValues.reverse[fCurrency],
+        "f_Currency": fCurrency,
         "f_More_Than_Application_Fee": fMoreThanApplicationFee,
-        "f_Term_Tuition_Fee": fTermTuitionFeeValues.reverse[fTermTuitionFee],
+        "f_Term_Tuition_Fee": fTermTuitionFee,
         "f_Application_Link": fApplicationLink,
         "f_Incentive": fIncentive,
         "f_Expenditure_fee": fExpenditureFee,
         "LastUpdated_By": lastUpdatedBy,
         "ApproveBy": approveBy,
-        "f_Location": fLocationValues.reverse[fLocation],
+        "f_Location": fLocation,
         "ExpectableBoard": expectableBoard,
         "RejectedComment": rejectedComment,
         "f_ConditionalStatus": fConditionalStatus,
-        "Logo": logo,
       };
-}
-
-enum FCountryName { AUSTRALIA }
-
-final fCountryNameValues = EnumValues({"Australia": FCountryName.AUSTRALIA});
-
-enum FCurrency { AUD }
-
-final fCurrencyValues = EnumValues({"AUD\u0024": FCurrency.AUD});
-
-enum FDurationName { THE_4_YEAR, THE_5_YEAR, THE_3_YEAR }
-
-final fDurationNameValues = EnumValues({
-  "3 Year": FDurationName.THE_3_YEAR,
-  "4 Year": FDurationName.THE_4_YEAR,
-  "5 Year": FDurationName.THE_5_YEAR
-});
-
-enum FGlobalOpsRanking { C, B, A }
-
-final fGlobalOpsRankingValues = EnumValues({
-  "A": FGlobalOpsRanking.A,
-  "B": FGlobalOpsRanking.B,
-  "C": FGlobalOpsRanking.C
-});
-
-enum FLocation { QUEENSLAND, MELBOURNE, SYDNEY }
-
-final fLocationValues = EnumValues({
-  "Melbourne": FLocation.MELBOURNE,
-  "Queensland": FLocation.QUEENSLAND,
-  "Sydney": FLocation.SYDNEY
-});
-
-enum FTermTuitionFee { YEAR }
-
-final fTermTuitionFeeValues = EnumValues({"year": FTermTuitionFee.YEAR});
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
 }

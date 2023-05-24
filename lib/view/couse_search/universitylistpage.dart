@@ -30,8 +30,6 @@ class _UniversityListPageState extends State<UniversityListPage> {
   bool hasmore = true;
 
   List<String> _items = [];
-  int _currentPage = 1;
-  bool _isLoading = false;
 
   final int _pageSize = 10;
 
@@ -48,14 +46,7 @@ class _UniversityListPageState extends State<UniversityListPage> {
     scrollController.addListener(() async {
       if (scrollController.offset ==
           scrollController.position.maxScrollExtent) {
-        // page = page + 1;
-        // setState(() {
-        //   isloadingmore = false;
-        // });
         GetUniversity();
-        // setState(() {
-        //   isloadingmore = true;
-        // });
       }
     });
   }
@@ -123,7 +114,8 @@ class _UniversityListPageState extends State<UniversityListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return 
+    Scaffold(
       backgroundColor: AppColors.backgroungcolor,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(50.h),
@@ -229,5 +221,6 @@ class _UniversityListPageState extends State<UniversityListPage> {
               ),
       ),
     );
+ 
   }
 }

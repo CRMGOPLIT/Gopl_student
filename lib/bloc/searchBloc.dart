@@ -12,6 +12,7 @@ class SearchBloc {
   late StreamController<dynamic> getdisciplineareasearch;
   late StreamController<dynamic> getuniversitypagenation;
   late StreamController<dynamic> getdashboardsearch;
+  late StreamController<dynamic> coursemoredetails;
 
   late StreamController<Response<dynamic>> getfiltersearch;
 
@@ -61,6 +62,10 @@ class SearchBloc {
 
   Stream<dynamic> get getdashboardsearchStream => getdashboardsearch.stream;
 
+  StreamSink<dynamic> get coursemoredetailsSink => coursemoredetails.sink;
+
+  Stream<dynamic> get coursemoredetailsStream => coursemoredetails.stream;
+
   // StreamSink<Response<dynamic>> get postRegistrationSink =>
   //     postRegistraion.sink;
 
@@ -76,7 +81,7 @@ class SearchBloc {
     getfiltersearch = StreamController<Response<dynamic>>();
     getuniversitypagenation = StreamController<dynamic>();
     getdashboardsearch = StreamController<dynamic>();
-
+    coursemoredetails = StreamController<dynamic>();
     courseRepo = CourseRepo();
   }
 //Get All drop Fields
@@ -168,7 +173,17 @@ class SearchBloc {
     }
   }
 
-  dispose() {
+  callGetCourseDetails(Map<String, dynamic> parameter) async {
+    try {
+      dynamic chuckCats = await courseRepo.getcourseDetails(parameter);
+      coursemoredetailsSink.add(chuckCats);
+    } catch (e) {
+      coursemoredetailsSink.add('error');
+      // print(e);
+    }
+  }
+
+  void dispose() {
     getcountrysearch.close();
     getuniversitysearch.close();
     getlocationsearch.close();
@@ -177,5 +192,6 @@ class SearchBloc {
     getfiltersearch.close();
     getuniversitypagenation.close();
     getdashboardsearch.close();
+    coursemoredetails.close();
   }
 }

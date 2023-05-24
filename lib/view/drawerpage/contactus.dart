@@ -85,6 +85,7 @@ class _ContactUsState extends State<ContactUs> {
                   ),
                 ),
               ),
+              
               Card(
                 elevation: 3,
                 child: ListTile(
@@ -230,7 +231,7 @@ class _ContactUsState extends State<ContactUs> {
           alignment: Alignment.bottomRight,
           child: FloatingActionButton(
             child: Icon(
-              Icons.whatsapp,
+              Icons.wechat_sharp,
               size: 35.sp,
             ),
             backgroundColor: Colors.green,

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+
 
 class NetworkConstant {
   static const String DEFAULT_USER_IMAGE = "default image url here";
@@ -150,6 +150,12 @@ class NetworkConstant {
 
   static const String END_POINT_DASH_SEARCH =
       "/gopandroid/CourseRelatedDetails";
+
+
+
+  static const String END_POINT_COURSE_DETAILS =
+      "/SearchCourseMaster/GetSearchCourseDetails";
+     
 
   //uploadmore Document
   static const String END_POINT_UPLOAD_MORE_DOCUMENT =

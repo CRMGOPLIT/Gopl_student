@@ -116,13 +116,14 @@ class NetworkDialogLoading {
           return WillPopScope(
               onWillPop: () async => false,
               child: Center(
-                  child: Lottie.asset("assets/images/loader.json",
-                      height: 320.h, width: 250.w)
-                  // CircularProgressIndicator(
-                  //   color: AppColors.PrimaryMainColor,
-                  //   strokeWidth: 3.w,
-                  // ),
-                  ));
+                child:
+                    // Lottie.asset("assets/images/loader.json",
+                    //     height: 320.h, width: 250.w)
+                    CircularProgressIndicator(
+                  color: AppColors.PrimaryMainColor,
+                  strokeWidth: 3.w,
+                ),
+              ));
         });
   }
 }

@@ -59,10 +59,10 @@ TextStyle Text2Regular(Color? color) {
 TextStyle OtpText(Color? color) {
   return TextStyle(
       color: color ?? AppColors.TextRegularkColor,
-      fontFamily: Constant.font_poppins_bold,
+      fontFamily: "Outfit",
       fontWeight: FontWeight.w600,
       height: 1,
-      fontSize: 20.sp);
+      fontSize: 17.sp);
 }
 
 TextStyle btntext(Color? color) {

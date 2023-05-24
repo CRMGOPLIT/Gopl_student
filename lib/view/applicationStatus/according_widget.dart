@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_fadein/flutter_fadein.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:global_student/bloc/dashboardBloc.dart';
-import 'package:global_student/model/applicationStatusModel.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/text_style.dart';
-import 'package:global_student/view/applicationStatus/according_model.dart';
 import 'package:global_student/view/widget/allpication_status_card.dart';
 
 class AccordingWidget extends StatefulWidget {
@@ -46,7 +43,6 @@ class AccordingWidget extends StatefulWidget {
 }
 
 class _AccordingWidgetState extends State<AccordingWidget> {
-  final _controller = FadeInController();
 
   // AccordingLModel accordingData;
   String? country;
