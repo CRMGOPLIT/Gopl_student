@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/text_style.dart';
 
+// ignore: must_be_immutable
 class ApplicationStatusCard extends StatelessWidget {
   String? title;
   String? subtitle;
@@ -17,7 +18,7 @@ class ApplicationStatusCard extends StatelessWidget {
           EdgeInsets.only(left: 25.r, right: 25.r, top: 20.r, bottom: 20.r),
       margin: EdgeInsets.all(10.r),
       decoration: BoxDecoration(
-          color: AppColors.PrimaryGreyColor,
+          color: AppColors.backgroungcolor,
           boxShadow: const [
             BoxShadow(
                 offset: Offset(

@@ -31,7 +31,7 @@ class Error extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextRegular(Colors.black),
               ),
-              SizedBox(height: 8),
+              SizedBox(height: 8.h),
               // RaisedButton(
               //   color: AppColors.PrimaryColor,
               //   child: Text('Retry', style: textStyle()),
@@ -50,7 +50,7 @@ class Error extends StatelessWidget {
 class Loading extends StatelessWidget {
   final String loadingMessage;
 
-  const Loading({required this.loadingMessage});
+  const Loading({super.key, required this.loadingMessage});
 
   @override
   Widget build(BuildContext context) {

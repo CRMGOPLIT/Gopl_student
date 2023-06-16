@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:global_student/bloc/dashboardBloc.dart';
+import 'package:global_student/model/bannermodel.dart';
 import 'package:global_student/model/usersModel.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
@@ -12,13 +14,11 @@ import 'package:global_student/view/branch_location/branch_location.dart';
 import 'package:global_student/view/couse_search/course_search.dart';
 import 'package:global_student/view/dashboard/dash_grid_model.dart';
 import 'package:global_student/view/event_details/event_detils.dart';
-import 'package:global_student/view/login/otp_page.dart';
 import 'package:global_student/view/qualification/graduation.dart';
 import 'package:global_student/view/uploadmoreDocument/upload_more_document.dart';
 import 'package:global_student/view/visa/visa_page.dart';
 import 'package:global_student/view/widget/drawer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../qualification/highschool.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -45,17 +45,22 @@ class _HomePageState extends State<HomePage> {
     const Color(0xffCEA279),
     const Color(0xff6DACC0),
   ];
+  Bannermodel? bannermodeldata;
 
   List page = [
-    Graduation(),
+    const Graduation(),
     const UploadMoreDocument(),
     const CourseSerach(),
     const ApplicationStatus(),
     const BatchDetails(),
     const EventDetails(),
     const BranchLocation(),
-    const VisaPage(),
+    // Container(),
+    // VisaPage(arguments:[] ),
+    //VisaPage(countryId: bannermodeldata!.isVisaApplicable.toString(), isVisaApplicable: , ),
   ];
+
+// List myList = List.from(page1);
 
   bool loanding = true;
   bool loanding1 = true;
@@ -64,6 +69,8 @@ class _HomePageState extends State<HomePage> {
   List dataUser = [];
   List BranchData = [];
   late UsersDetailsModel userData1;
+
+  List<String> bannerimages = [];
 
   @override
   void initState() {
@@ -127,11 +134,21 @@ class _HomePageState extends State<HomePage> {
 
   getBannersDetails() async {
     await dashBoardBloc.bannersControllerStream.listen((event) {
+      // debugger();
+      // print(event);
       if (event != null) {
-        BranchData = event;
-        for (int i = 0; i < BranchData.length; i++) {
-          data.add(event[i]);
-        }
+        Bannermodel bannermodel = Bannermodel.fromJson(event);
+
+        bannerimages.addAll(bannermodel.images);
+
+        bannermodeldata = bannermodel;
+
+        // BranchData = event;
+        // for (int i = 0; i < BranchData.length; i++) {
+        //   Bannermodel bannermodel1 = Bannermodel.fromJson(event[i]);
+
+        //   data.add(bannermodel1);
+        // }
         setState(() {
           loanding = false;
         });
@@ -217,12 +234,12 @@ class _HomePageState extends State<HomePage> {
                       onPageChanged: (value) {},
                       autoPlayInterval: 3000,
                       isLoop: true,
-                      children: List.generate(data.length, (index) {
+                      children: List.generate(bannerimages.length, (index) {
                         return Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.sp),
                             image: DecorationImage(
-                                image: NetworkImage(data[index]),
+                                image: NetworkImage(bannerimages[index]),
                                 fit: BoxFit.fill
                                 // fit: BoxFit.cover,
                                 ),
@@ -232,7 +249,10 @@ class _HomePageState extends State<HomePage> {
           // SizedBox(
           //   height: 10.h,
           // ),
-
+          // Text(
+          //   bannermodeldata!.isVisaApplicable.toString(),
+          //   style: TextStyle(color: AppColors.PrimaryBlackColor),
+          // ),
           Expanded(
             child: Container(
               decoration: BoxDecoration(
@@ -263,10 +283,25 @@ class _HomePageState extends State<HomePage> {
                         itemBuilder: (BuildContext context, int index) {
                           return InkWell(
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => page[index]));
+                              if (index == 7) {
+                                Get.to(
+                                  VisaPage(),
+                                  arguments: [
+                                    bannermodeldata!.countryId,
+                                    bannermodeldata!.countryName,
+                                    bannermodeldata!.isVisaApplicable,
+                                    bannermodeldata!.courseId,
+                                    bannermodeldata!.studentId,
+                                    // dashboardCountryDetail[index].country
+                                  ],
+                                );
+                              } else {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => page[index]));
+                              }
+
                               // Navigator.pushNamed(
                               //     context, page[index].toString());
                             },
@@ -333,7 +368,6 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-       
         ],
       ),
     );

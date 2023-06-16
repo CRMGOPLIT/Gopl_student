@@ -4,6 +4,8 @@ import 'package:global_student/view/edit/form_model.dart';
 import 'package:global_student/view/edit/form_widget.dart';
 
 class MultiContactFormWidget extends StatefulWidget {
+  const MultiContactFormWidget({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return _MultiContactFormWidgetState();
@@ -17,7 +19,7 @@ class _MultiContactFormWidgetState extends State<MultiContactFormWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Create Multi Contacts"),
+        title: const Text("Create Multi Contacts"),
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -26,12 +28,12 @@ class _MultiContactFormWidgetState extends State<MultiContactFormWidget> {
           onPressed: () {
             onSave();
           },
-          child: Text("Save"),
+          child: const Text("Save"),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.orange,
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () {
           onAdd();
         },
@@ -42,7 +44,7 @@ class _MultiContactFormWidgetState extends State<MultiContactFormWidget> {
               itemBuilder: (_, index) {
                 return contactForms[index];
               })
-          : Center(child: Text("Tap on + to Add Contact")),
+          : const Center(child: Text("Tap on + to Add Contact")),
     );
   }
 
@@ -74,18 +76,18 @@ class _MultiContactFormWidgetState extends State<MultiContactFormWidget> {
       int index = contactForms
           .indexWhere((element) => element.contactModel.id == contact.id);
 
-      if (contactForms != null) contactForms.removeAt(index);
+ contactForms.removeAt(index);
     });
   }
 
   //Add New Form
   onAdd() {
     setState(() {
-      ContactModel _contactModel = ContactModel(id: contactForms.length);
+      ContactModel contactModel = ContactModel(id: contactForms.length);
       contactForms.add(ContactFormItemWidget(
         index: contactForms.length,
-        contactModel: _contactModel,
-        onRemove: () => onRemove(_contactModel),
+        contactModel: contactModel,
+        onRemove: () => onRemove(contactModel),
       ));
     });
   }

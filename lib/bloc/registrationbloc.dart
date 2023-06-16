@@ -31,7 +31,6 @@ class HomeDataBloc {
       getRegistrationDetailsSink.add(chuckCats);
     } catch (e) {
       getRegistrationDetailsSink.add('error');
-      // print(e);
     }
   }
 

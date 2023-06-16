@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,7 +7,6 @@ import 'package:global_student/model/registrationdetailsmodel.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/view/helper/apiResponseHelper.dart';
-import 'package:global_student/view/helper/apierrorDialog.dart';
 import 'package:global_student/view/widget/app_bar.dart';
 import 'package:global_student/view/widget/loader.dart';
 import 'package:global_student/view/widget/text_field.dart';
@@ -27,10 +24,10 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   String? dropdownvalue;
 
-  TextEditingController _nameController = new TextEditingController();
-  TextEditingController _emailController = new TextEditingController();
-  TextEditingController _mobileController = new TextEditingController();
-  final GlobalKey<State> _keyLoader = new GlobalKey<State>();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _mobileController = TextEditingController();
+  final GlobalKey<State> _keyLoader = GlobalKey<State>();
 
   // List of items in our dropdown menu
   var items = [
@@ -54,7 +51,7 @@ class _RegisterPageState extends State<RegisterPage> {
   DdlIntake? dropintake;
   DdlCountryIntrested? dropcountry;
 
-  var _registerkey = GlobalKey<FormState>();
+  final _registerkey = GlobalKey<FormState>();
 
   late HomeDataBloc homeDataBloc;
 
@@ -65,7 +62,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   initState() {
     homeDataBloc = HomeDataBloc();
-    GetRegistrationDetails();
+    getRegistrationDetails();
     _gethomeData();
 
     homeDataBloc.postRegistrationStream.listen((event) {
@@ -74,7 +71,7 @@ class _RegisterPageState extends State<RegisterPage> {
           ApiResponseHelper().handleResponse(event: event, context: context);
 
       if (response == true && event.data['success'] == '1') {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text("Registration Successfully"),
         ));
         Navigator.pushNamed(context, RoutesName.login);
@@ -171,8 +168,8 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
 //Calling Data
-  GetRegistrationDetails() async {
-    await homeDataBloc.getRegistrationDetailsStream.listen((event) {
+  getRegistrationDetails() async {
+    homeDataBloc.getRegistrationDetailsStream.listen((event) {
       if (event != null) {
         // debugger();
         // print(event);
@@ -206,9 +203,6 @@ class _RegisterPageState extends State<RegisterPage> {
       NetworkConstant.COUNTRY: dropcountry!.IntrestedCountryId,
     };
     homeDataBloc.callPostRegistration(data);
-
-    //debugger();
-    print(data);
   }
 
   @override
@@ -216,7 +210,7 @@ class _RegisterPageState extends State<RegisterPage> {
     _nameController.dispose();
     _emailController.dispose();
     _mobileController.dispose();
-    // TODO: implement dispose
+
     super.dispose();
   }
 
@@ -384,7 +378,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       child: DropdownButtonFormField2(
                         isDense: false,
                         isExpanded: true,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           // enabledBorder: OutlineInputBorder(
                           //   borderRadius: BorderRadius.circular(10),
                           //   // width: 0.0 produces a thin "hairline" border
@@ -429,10 +423,10 @@ class _RegisterPageState extends State<RegisterPage> {
                             // accountTypeValidate = true;
                           });
                         },
-                        buttonStyleData: ButtonStyleData(
+                        buttonStyleData: const ButtonStyleData(
                           height: 55,
                           width: 450,
-                          padding: const EdgeInsets.all(10),
+                          padding: EdgeInsets.all(10),
                         ),
                         dropdownStyleData: DropdownStyleData(
                             isOverButton: true,
@@ -446,7 +440,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           padding: EdgeInsets.only(left: 10, right: 10),
                           height: 40,
                         ),
-                        iconStyleData: IconStyleData(
+                        iconStyleData: const IconStyleData(
                           icon: Icon(
                             Icons.keyboard_arrow_down,
                             color: AppColors.PrimaryMainColor,
@@ -520,7 +514,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       child: DropdownButtonFormField2(
                         isDense: false,
                         isExpanded: true,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           // enabledBorder: OutlineInputBorder(
                           //   borderRadius: BorderRadius.circular(10),
                           //   // width: 0.0 produces a thin "hairline" border
@@ -582,10 +576,10 @@ class _RegisterPageState extends State<RegisterPage> {
                             // accountTypeValidate = true;
                           });
                         },
-                        buttonStyleData: ButtonStyleData(
+                        buttonStyleData: const ButtonStyleData(
                           height: 55,
                           width: 450,
-                          padding: const EdgeInsets.all(10),
+                          padding: EdgeInsets.all(10),
                           // decoration: BoxDecoration(
                           //     borderRadius: BorderRadius.circular(10.sp),
                           //     border: Border.all(
@@ -603,7 +597,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           padding: EdgeInsets.only(left: 10, right: 10),
                           height: 40,
                         ),
-                        iconStyleData: IconStyleData(
+                        iconStyleData: const IconStyleData(
                           icon: Icon(
                             Icons.keyboard_arrow_down,
                             color: AppColors.PrimaryMainColor,
@@ -732,7 +726,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: DropdownButtonFormField2(
                       isDense: false,
                       isExpanded: true,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         // enabledBorder: OutlineInputBorder(
                         //   borderRadius: BorderRadius.circular(10),
                         //   // width: 0.0 produces a thin "hairline" border
@@ -847,7 +841,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       //     return (items.value.toString().contains(searchValue));
                       //   },
                       // ),
-                      iconStyleData: IconStyleData(
+                      iconStyleData: const IconStyleData(
                         icon: Icon(
                           Icons.keyboard_arrow_down,
                           color: AppColors.PrimaryMainColor,

@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -69,14 +68,11 @@ class _HighSchoolState extends State<HighSchool> {
   // List<File> selectedBankStatements = [];
   File? file;
   var _registerkey = GlobalKey<FormState>();
-
   late DashBoardBloc dashBoardBloc;
   List<QualificationModel> qualificationlist = [];
   List<BoardUniversityModel> boarduniversity = [];
-
   List qualificationdata = [];
   List boarddata = [];
-
   bool loading = true;
   bool loading1 = true;
 
@@ -91,7 +87,6 @@ class _HighSchoolState extends State<HighSchool> {
 
     dashBoardBloc.documentuploadControllerStream.listen((event) {
       Navigator.pop(context);
-
       bool response =
           ApiResponseHelper().handleResponse(event: event, context: context);
       // debugger();
@@ -288,7 +283,7 @@ class _HighSchoolState extends State<HighSchool> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text("Qualification",
-                          style: FieldTextStyle(
+                          style: batchtext2(
                             AppColors.PrimaryBlackColor,
                           )),
                       Container(
@@ -880,7 +875,7 @@ class _HighSchoolState extends State<HighSchool> {
                           ),
                         ),
                       ),
-                     
+
                       SizedBox(
                         height: 10.h,
                       ),
@@ -1803,7 +1798,6 @@ class _HighSchoolState extends State<HighSchool> {
                                     ),
                                   )),
                       ),
-                   
                     ],
                   ),
                 ),

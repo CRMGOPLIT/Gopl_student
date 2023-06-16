@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/text_style.dart';
 
@@ -8,13 +9,12 @@ class ApiErrorDialog extends StatelessWidget {
   final String image;
   final String? btnText;
 
-  ApiErrorDialog(
-      {required this.image,
+  const ApiErrorDialog(
+      {super.key,
+      required this.image,
       required this.description,
       required this.onPressed,
       this.btnText});
-
-  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class ApiErrorDialog extends StatelessWidget {
         return Future.value(false);
       },
       child: SimpleDialog(
-        insetPadding: EdgeInsets.all(15),
+        insetPadding: const EdgeInsets.all(15).w,
         contentPadding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -42,7 +42,7 @@ class ApiErrorDialog extends StatelessWidget {
                 // mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   SizedBox(
-                    height: 16,
+                    height: 16.h,
                   ),
                   Image.asset(
                     image,
@@ -51,7 +51,7 @@ class ApiErrorDialog extends StatelessWidget {
                   ),
 
                   SizedBox(
-                    height: 16,
+                    height: 16.h,
                   ),
                   Text(description,
                       textAlign: TextAlign.center,
@@ -61,7 +61,7 @@ class ApiErrorDialog extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(
                         top: 24, left: 24, right: 24, bottom: 8),
-                    child: Container(
+                    child: SizedBox(
                       width: 300,
                       child:
                           MediumBottonWithoutIcon(btnText ?? 'Okay', true, () {

@@ -17,7 +17,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  @override
   String? _connectionStatus;
   String? check;
 
@@ -67,7 +66,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   // @override
   // void initState() {
-  //   // TODO: implement initState
+
   //   startStreaming();
   //   super.initState();
   // }
@@ -217,7 +216,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return check == "Not connected"
-        ? ConnectionChecker()
+        ? const ConnectionChecker()
         : Scaffold(
             backgroundColor: AppColors.PrimaryMainColor,
             body: FadeIn(
@@ -306,3 +305,5 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       );
 }
+
+

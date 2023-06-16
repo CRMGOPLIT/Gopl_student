@@ -13,10 +13,7 @@ class SearchBloc {
   late StreamController<dynamic> getuniversitypagenation;
   late StreamController<dynamic> getdashboardsearch;
   late StreamController<dynamic> coursemoredetails;
-
   late StreamController<Response<dynamic>> getfiltersearch;
-
-  //late StreamController<Response<dynamic>> postRegistraion;
 
   StreamSink<dynamic> get getcountrysearchSink => getcountrysearch.sink;
 
@@ -66,12 +63,6 @@ class SearchBloc {
 
   Stream<dynamic> get coursemoredetailsStream => coursemoredetails.stream;
 
-  // StreamSink<Response<dynamic>> get postRegistrationSink =>
-  //     postRegistraion.sink;
-
-  // Stream<Response<dynamic>> get postRegistrationStream =>
-  //     postRegistraion.stream;
-
   SearchBloc() {
     getcountrysearch = StreamController<dynamic>();
     getuniversitysearch = StreamController<dynamic>();
@@ -84,6 +75,7 @@ class SearchBloc {
     coursemoredetails = StreamController<dynamic>();
     courseRepo = CourseRepo();
   }
+
 //Get All drop Fields
   callGetCountrySearchApi() async {
     try {
@@ -91,7 +83,6 @@ class SearchBloc {
       getcountrysearchSink.add(chuckCats);
     } catch (e) {
       getcountrysearchSink.add('error');
-      // print(e);
     }
   }
 
@@ -102,7 +93,6 @@ class SearchBloc {
       getuniversitysearchSink.add(chuckCats);
     } catch (e) {
       getuniversitysearchSink.add('error');
-      // print(e);
     }
   }
 
@@ -113,7 +103,6 @@ class SearchBloc {
       getlocationsearchSink.add(chuckCats);
     } catch (e) {
       getlocationsearchSink.add('error');
-      // print(e);
     }
   }
 
@@ -124,7 +113,6 @@ class SearchBloc {
       getstudyareasearchSink.add(chuckCats);
     } catch (e) {
       getstudyareasearchSink.add('error');
-      // print(e);
     }
   }
 
@@ -136,7 +124,6 @@ class SearchBloc {
       getdisciplineareasearchSink.add(chuckCats);
     } catch (e) {
       getdisciplineareasearchSink.add('error');
-      // print(e);
     }
   }
 
@@ -147,7 +134,6 @@ class SearchBloc {
       getfiltersearchSink.add(Response.completed(chuckCats));
     } catch (e) {
       getfiltersearchSink.add(Response.error(e.toString()));
-      // print(e);
     }
   }
 
@@ -159,7 +145,6 @@ class SearchBloc {
       getuniversitypagenationSink.add(chuckCats);
     } catch (e) {
       getuniversitypagenationSink.add('error');
-      // print(e);
     }
   }
 
@@ -169,7 +154,6 @@ class SearchBloc {
       getdashboardsearch.add(chuckCats);
     } catch (e) {
       getdashboardsearch.add('error');
-      // print(e);
     }
   }
 
@@ -179,7 +163,6 @@ class SearchBloc {
       coursemoredetailsSink.add(chuckCats);
     } catch (e) {
       coursemoredetailsSink.add('error');
-      // print(e);
     }
   }
 

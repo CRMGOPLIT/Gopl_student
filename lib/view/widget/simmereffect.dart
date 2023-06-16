@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:shimmer/shimmer.dart';
-
 import '../../utils/text_style.dart';
 
 ShimmerEffect() {

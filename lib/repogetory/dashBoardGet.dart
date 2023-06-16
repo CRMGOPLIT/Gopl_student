@@ -1,9 +1,5 @@
-import 'dart:developer';
 import 'dart:io';
-
-import 'package:file_picker/file_picker.dart';
 import 'package:global_student/networking/apiProvider.dart';
-
 import '../networking/NetworkConstant.dart';
 
 class DashBoardGet {
@@ -12,7 +8,7 @@ class DashBoardGet {
   Future<dynamic> getEventDetailsRepo() async {
     final response =
         await _apiProvider.getLocal(NetworkConstant.END_POINT_GET_EVENT);
-    // print(response.body);
+
     return response; //GetApplicationDetailsResponse.fromJson(response);
   }
 
@@ -20,14 +16,14 @@ class DashBoardGet {
   Future<dynamic> getUniversityDetailsRepo() async {
     final response =
         await _apiProvider.getLocal(NetworkConstant.END_POINT_GET_UNIVERSITY);
-    // print(response.body);
+
     return response; //GetApplicationDetailsResponse.fromJson(response);
   }
 
   Future<dynamic> getBranchDetailsRepo() async {
     final response =
         await _apiProvider.getLocal(NetworkConstant.END_POINT_GET_BRANCH);
-    // print(response.body);
+
     return response; //GetApplicationDetailsResponse.fromJson(response);
   }
 
@@ -35,7 +31,7 @@ class DashBoardGet {
   Future<dynamic> getBatchDetailsRepo() async {
     final response =
         await _apiProvider.getLocal(NetworkConstant.END_POINT_GET_BATCH);
-    // print(response.body);
+
     return response; //GetApplicationDetailsResponse.fromJson(response);
   }
 
@@ -43,8 +39,8 @@ class DashBoardGet {
 
   Future<dynamic> getBannersDetailsRepo() async {
     final response =
-        await _apiProvider.getLocal(NetworkConstant.END_POINT_GET_BANNERS);
-    // print(response.body);
+        await _apiProvider.getAfterAuth(NetworkConstant.END_POINT_GET_BANNERS);
+
     return response; //GetApplicationDetailsResponse.fromJson(response);
   }
 
@@ -53,7 +49,7 @@ class DashBoardGet {
   Future<dynamic> getUsersDetailsRepo() async {
     final response =
         await _apiProvider.getAfterAuth(NetworkConstant.END_POINT_GET_USER);
-    // print(response.body);
+
     return response;
   }
 
@@ -62,7 +58,7 @@ class DashBoardGet {
   Future<dynamic> getApplicationStatusRepo() async {
     final response = await _apiProvider
         .getAfterAuthlocal(NetworkConstant.END_POINT_APPLICATION_STATUS);
-    // print(response.body);
+
     return response;
   }
 
@@ -71,7 +67,7 @@ class DashBoardGet {
   Future<dynamic> getQualificationlistRepo() async {
     final response = await _apiProvider
         .getAfterAuthlocal(NetworkConstant.END_POINT_QUALIFICATION_LIST);
-    // print(response.body);
+
     return response;
   }
 
@@ -79,7 +75,7 @@ class DashBoardGet {
   Future<dynamic> getBoardlistRepo() async {
     final response = await _apiProvider
         .getAfterAuthlocal(NetworkConstant.END_POINT_GET_BOARD);
-    // print(response.body);
+
     return response;
   }
 
@@ -89,8 +85,6 @@ class DashBoardGet {
     final response = await _apiProvider.postAfterAuth(
         parameter, NetworkConstant.END_POINT_POST_DOCUMENT, files);
 
-    // debugger();
-    // print(response);
     return response; //GetApplicationDetailsResponse.fromJson(response);
   }
 
@@ -99,7 +93,7 @@ class DashBoardGet {
   Future<dynamic> getuploadmoredocument() async {
     final response = await _apiProvider
         .getAfterAuthlocal(NetworkConstant.END_POINT_MORE_GET_DOCUMENT);
-    // print(response.body);
+
     return response;
   }
 
@@ -108,7 +102,7 @@ class DashBoardGet {
   Future<dynamic> getQualificationRepo() async {
     final response = await _apiProvider
         .getAfterAuth(NetworkConstant.END_POINT_GET_QUALIFICATION);
-    // print(response.body);
+
     return response;
   }
 
@@ -118,8 +112,41 @@ class DashBoardGet {
     final response = await _apiProvider.postAfterAuthWithMultipart(
         parameter, NetworkConstant.END_POINT_UPLOAD_MORE_DOCUMENT, files);
 
-    // debugger();
-    // print(response);
+    return response; //GetApplicationDetailsResponse.fromJson(response);
+  }
+
+  //GetVisa Module
+
+  Future<dynamic> getvisadeatails(
+    Map<String, dynamic> parameter,
+  ) async {
+    final response = await _apiProvider.getDropdownParams(
+        parameter, NetworkConstant.END_POINT_VISA_GET);
+
+    return response; //GetApplicationDetailsResponse.fromJson(response);
+  }
+
+//Upload More Document
+
+  Future<dynamic> UploadVisaDocument(Map parameter, File files) async {
+    final response = await _apiProvider.postAfterAuth(
+        parameter, NetworkConstant.END_POINT_UPLOAD_VISA, files);
+
+    return response; //GetApplicationDetailsResponse.fromJson(response);
+  }
+
+//final submit visa
+  Future<dynamic> finalvisasubmit(
+    Map<String, dynamic> parameter,
+  ) async {
+    final response = await _apiProvider.getDropdownParams(
+        parameter, NetworkConstant.END_POINT_FINAL_VISA_SUBMIT);
+
     return response; //GetApplicationDetailsResponse.fromJson(response);
   }
 }
+
+
+//final submit visa
+
+

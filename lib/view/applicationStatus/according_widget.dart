@@ -5,6 +5,7 @@ import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/text_style.dart';
 import 'package:global_student/view/widget/allpication_status_card.dart';
 
+// ignore: must_be_immutable
 class AccordingWidget extends StatefulWidget {
   //AccordingLModel accordingData;
   String? country;
@@ -18,6 +19,7 @@ class AccordingWidget extends StatefulWidget {
   String? apinumber;
 
   AccordingWidget({
+    super.key,
     required this.country,
     required this.institution,
     required this.ug,
@@ -30,6 +32,7 @@ class AccordingWidget extends StatefulWidget {
   });
 
   @override
+  // ignore: no_logic_in_create_state
   State<AccordingWidget> createState() => _AccordingWidgetState(
       country: country,
       institution: institution,
@@ -43,7 +46,6 @@ class AccordingWidget extends StatefulWidget {
 }
 
 class _AccordingWidgetState extends State<AccordingWidget> {
-
   // AccordingLModel accordingData;
   String? country;
   String? institution;
@@ -197,7 +199,7 @@ class _AccordingWidgetState extends State<AccordingWidget> {
                                         bottom: 20.r),
                                     margin: EdgeInsets.all(10.r),
                                     decoration: BoxDecoration(
-                                        color: AppColors.PrimaryGreyColor,
+                                        color: AppColors.backgroungcolor,
                                         boxShadow: const [
                                           BoxShadow(
                                               offset: Offset(
@@ -233,8 +235,7 @@ class _AccordingWidgetState extends State<AccordingWidget> {
                                             "$apistatus",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                color:
-                                                    AppColors.PrimaryMainColor,
+                                                color: Colors.green,
                                                 // fontFamily: Constant.font_poppins_bold,
                                                 fontWeight: FontWeight.w500,
                                                 height: 1.1,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/text_style.dart';
-import 'package:global_student/view/login/otp_page.dart';
+
 
 class ButtonPrimary extends StatelessWidget {
   const ButtonPrimary({Key? key, required this.title, required this.onPressed})

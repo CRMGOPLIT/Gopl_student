@@ -382,10 +382,12 @@ class ObjCourse {
       };
 }
 
+// ignore: constant_identifier_names
 enum FCountryName { AUSTRALIA }
 
 final fCountryNameValues = EnumValues({"Australia": FCountryName.AUSTRALIA});
 
+// ignore: constant_identifier_names
 enum FCurrency { AUD }
 
 final fCurrencyValues = EnumValues({"AUD\u0024": FCurrency.AUD});
@@ -414,6 +416,7 @@ final fLocationValues = EnumValues({
   "Sydney": FLocation.SYDNEY
 });
 
+// ignore: constant_identifier_names
 enum FTermTuitionFee { YEAR }
 
 final fTermTuitionFeeValues = EnumValues({"year": FTermTuitionFee.YEAR});

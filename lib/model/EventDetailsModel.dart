@@ -1,3 +1,4 @@
+// ignore: file_names
 class EvenetDetailsModel {
   EvenetDetailsModel({
     required this.event,

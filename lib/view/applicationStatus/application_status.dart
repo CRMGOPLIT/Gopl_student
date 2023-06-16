@@ -64,13 +64,6 @@ class _ApplicationStatusState extends State<ApplicationStatus> {
   }
 
   @override
-  void dispose() {
-    // TODO: implement dispose
-
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroungcolor,
@@ -92,16 +85,6 @@ class _ApplicationStatusState extends State<ApplicationStatus> {
           : SingleChildScrollView(
               child: Column(
                 children: [
-                  // ListTile(
-                  //   leading: Text("Application",
-                  //       style: Text2Regular(
-                  //         AppColors.PrimaryBlackColor,
-                  //       )),
-                  //   trailing: Text("View All",
-                  //       style: Text2Regular(
-                  //         AppColors.PrimaryBlackColor,
-                  //       )),
-                  // ),
                   SizedBox(
                     height: 15.h,
                   ),
@@ -110,7 +93,7 @@ class _ApplicationStatusState extends State<ApplicationStatus> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             SizedBox(
-                              height: 50,
+                              height: 50.h,
                             ),
                             Center(
                                 child: Image.asset(

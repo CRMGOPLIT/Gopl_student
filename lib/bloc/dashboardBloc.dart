@@ -20,6 +20,12 @@ class DashBoardBloc {
 
   late StreamController<dynamic> getqualificationcontroller;
 
+  late StreamController<dynamic> getvisadetailscontroller;
+
+  late StreamController<Response<dynamic>> uploadviscontroller;
+
+  late StreamController<Response<dynamic>> finalvisasubmitcontroller;
+
 //Event Controller
   StreamSink<dynamic> get getEventDetailsSink => streamController.sink;
 
@@ -103,6 +109,26 @@ class DashBoardBloc {
 
   //
 
+  StreamSink<dynamic> get getvisadetailscontrollerSink =>
+      getvisadetailscontroller.sink;
+
+  Stream<dynamic> get getvisadetailscontrollerStream =>
+      getvisadetailscontroller.stream;
+
+  //Uploadvisa
+  StreamSink<Response<dynamic>> get uploadviscontrollerSink =>
+      uploadviscontroller.sink;
+
+  Stream<Response<dynamic>> get uploadviscontrollerStream =>
+      uploadviscontroller.stream;
+
+//final visa submit
+  StreamSink<Response<dynamic>> get finalvisasubmitcontrollerSink =>
+      finalvisasubmitcontroller.sink;
+
+  Stream<Response<dynamic>> get finalvisasubmitcontrollerStream =>
+      finalvisasubmitcontroller.stream;
+
   DashBoardBloc() {
     streamController = StreamController<dynamic>();
     branchController = StreamController<dynamic>();
@@ -117,6 +143,9 @@ class DashBoardBloc {
     getmoredocumentcontroller = StreamController<dynamic>();
     getqualificationcontroller = StreamController<dynamic>();
     uploadmoredocumentcontroller = StreamController<dynamic>();
+    getvisadetailscontroller = StreamController<dynamic>();
+    uploadviscontroller = StreamController<Response<dynamic>>();
+    finalvisasubmitcontroller = StreamController<Response<dynamic>>();
     dashBoardGet = DashBoardGet();
   }
 //Get All Events Detaails
@@ -126,7 +155,6 @@ class DashBoardBloc {
       getEventDetailsSink.add(chuckCats);
     } catch (e) {
       getEventDetailsSink.add('error');
-      // print(e);
     }
   }
 
@@ -137,7 +165,6 @@ class DashBoardBloc {
       universityControllerSink.add(chuckCats);
     } catch (e) {
       universityControllerSink.add('error');
-      // print(e);
     }
   }
 
@@ -149,7 +176,6 @@ class DashBoardBloc {
       branchControllerSink.add(chuckCats);
     } catch (e) {
       branchControllerSink.add('error');
-      // print(e);
     }
   }
 
@@ -161,7 +187,6 @@ class DashBoardBloc {
       batchControllerSink.add(chuckCats);
     } catch (e) {
       batchControllerSink.add('error');
-      // print(e);
     }
   }
 
@@ -172,7 +197,6 @@ class DashBoardBloc {
       bannersControllerSink.add(chuckCats);
     } catch (e) {
       bannersControllerSink.add('error');
-      // print(e);
     }
   }
 
@@ -183,7 +207,6 @@ class DashBoardBloc {
       userControllerSink.add(chuckCats);
     } catch (e) {
       userControllerSink.add('error');
-      // print(e);
     }
   }
 
@@ -194,7 +217,6 @@ class DashBoardBloc {
       applicationControllerSink.add(chuckCats);
     } catch (e) {
       applicationControllerSink.add('error');
-      // print(e);
     }
   }
 
@@ -206,7 +228,6 @@ class DashBoardBloc {
       qualificationControllerSink.add(chuckCats);
     } catch (e) {
       qualificationControllerSink.add('error');
-      // print(e);
     }
   }
   // Board University dropdown
@@ -217,7 +238,6 @@ class DashBoardBloc {
       boarduniversityControllerSink.add(chuckCats);
     } catch (e) {
       boarduniversityControllerSink.add('error');
-      // print(e);
     }
   }
 
@@ -229,7 +249,6 @@ class DashBoardBloc {
       documentuploadControllerSink.add(Response.completed(chuckCats));
     } catch (e) {
       documentuploadControllerSink.add(Response.error(e.toString()));
-      // print(e);
     }
   }
 
@@ -240,19 +259,16 @@ class DashBoardBloc {
       getmoredocumentcontrollerSink.add(chuckCats);
     } catch (e) {
       getmoredocumentcontrollerSink.add('error');
-      // print(e);
     }
   }
 // Get Qualification
 
-//User Details
   callQualificationApi() async {
     try {
       dynamic chuckCats = await dashBoardGet.getQualificationRepo();
       getqualificationcontrollerSink.add(chuckCats);
     } catch (e) {
       getqualificationcontrollerSink.add('error');
-      // print(e);
     }
   }
 
@@ -267,16 +283,52 @@ class DashBoardBloc {
     }
   }
 
+//visa get
+  callGetvisadetails(Map<String, dynamic> parameter) async {
+    try {
+      dynamic chuckCats = await dashBoardGet.getvisadeatails(parameter);
+      getvisadetailscontrollerSink.add(chuckCats);
+    } catch (e) {
+      getvisadetailscontrollerSink.add(e.toString());
+    }
+  }
+
+//Visa Upload
+
+  VisaUploadApi(Map parameter, File files) async {
+    try {
+      dynamic chuckCats =
+          await dashBoardGet.UploadVisaDocument(parameter, files);
+      uploadviscontrollerSink.add(Response.completed(chuckCats));
+    } catch (e) {
+      uploadviscontrollerSink.add(Response.error(e.toString()));
+    }
+  }
+
+//final submit visa
+  callFianlvisasubmit(Map<String, dynamic> parameter) async {
+    try {
+      dynamic chuckCats = await dashBoardGet.finalvisasubmit(parameter);
+      finalvisasubmitcontrollerSink.add(Response.completed(chuckCats));
+    } catch (e) {
+      finalvisasubmitcontrollerSink.add(Response.error(e.toString()));
+    }
+  }
+
   dispose() {
     streamController.close();
     branchController.close();
     batchController.close();
     bannersController.close();
     userController.close();
+    universityController.close();
     applicationController.close();
     qualificationController.close();
     documentuploadController.close();
     getmoredocumentcontroller.close();
     uploadmoredocumentcontroller.close();
+    getvisadetailscontroller.close();
+    uploadviscontroller.close();
+    finalvisasubmitcontroller.close();
   }
 }

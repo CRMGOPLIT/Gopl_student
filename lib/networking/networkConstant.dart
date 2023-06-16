@@ -1,12 +1,6 @@
-
-
 class NetworkConstant {
-  static const String DEFAULT_USER_IMAGE = "default image url here";
-
-  static const String BASE_URL_SOCKET = "your url will be here";
   static const String BASE_URL = "http://crmapi.global-opportunities.co.in/Api";
   static const String BASE_URL_LOCAl = "http://192.168.1.151:8080/Api";
-  static const String AFTER_AUTH = '/ias/ubi/v1/user/';
 
   //post field Register
   static const String NAME = 'NAME';
@@ -81,10 +75,6 @@ class NetworkConstant {
   static const String Universityid = "Universityid";
   static const String appstage = "appstage";
 
-//Errors
-
-  static const String SUCCESS_STATUS = 'SDF224';
-
 //Registration Api
 
   static const String END_POINT_Get_REGISTRATIONDETAILS =
@@ -151,13 +141,22 @@ class NetworkConstant {
   static const String END_POINT_DASH_SEARCH =
       "/gopandroid/CourseRelatedDetails";
 
-
-
   static const String END_POINT_COURSE_DETAILS =
       "/SearchCourseMaster/GetSearchCourseDetails";
-     
 
   //uploadmore Document
   static const String END_POINT_UPLOAD_MORE_DOCUMENT =
       "/DocumentUpload/UploadMoreDocmentbyApp";
+
+  //visa get details
+  static const String END_POINT_VISA_GET =
+      "/GopAndroid/AndroidVisaFileRequiredDocuments";
+//Visa Upload
+  static const String END_POINT_UPLOAD_VISA =
+      "/DocumentUpload/studentVisaApplied";
+
+//final submit
+
+  static const String END_POINT_FINAL_VISA_SUBMIT =
+      "/DocumentUpload/VisaSubmit";
 }

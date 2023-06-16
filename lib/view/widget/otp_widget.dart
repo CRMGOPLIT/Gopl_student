@@ -4,12 +4,14 @@ import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/text_style.dart';
 import 'package:pinput/pinput.dart';
 
+// ignore: must_be_immutable
 class PinInput extends StatefulWidget {
   PinInput({Key? key, required this.controller}) : super(key: key);
 
   TextEditingController controller;
 
   @override
+  // ignore: no_logic_in_create_state
   State<PinInput> createState() => _PinInputState(controller);
 }
 
@@ -31,7 +33,7 @@ class _PinInputState extends State<PinInput> {
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
       //padding: EdgeInsets.all(30),
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       width: 60.w,
       height: 60.h,
       textStyle: OtpText(AppColors.PrimaryBlackColor),

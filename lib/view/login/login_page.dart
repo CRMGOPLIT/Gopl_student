@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -23,8 +21,8 @@ class LginPage extends StatefulWidget {
 }
 
 class _LginPageState extends State<LginPage> {
-  final GlobalKey<State> _keyLoader = new GlobalKey<State>();
-  TextEditingController _mobileNumber = new TextEditingController();
+  final GlobalKey<State> _keyLoader = GlobalKey<State>();
+  final TextEditingController _mobileNumber = TextEditingController();
 
   late LoginDataBloc loginDataBloc;
 
@@ -38,10 +36,10 @@ class _LginPageState extends State<LginPage> {
           ApiResponseHelper().handleResponse(event: event, context: context);
 
       if (response == true && event.data['success'] == '1') {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text("Otp send your Mobile Number"),
         ));
-        Get.to(OtpPage(), arguments: _mobileNumber.text);
+        Get.to(const OtpPage(), arguments: _mobileNumber.text);
         // Get.to(OtpPage(), arguments: _mobileNumber.text);
         // Navigator.pushNamedAndRemoveUntil(
         //     context, RoutesName.otp, (routes) => false,
@@ -92,7 +90,7 @@ class _LginPageState extends State<LginPage> {
         ));
       }
     });
-    // TODO: implement initState
+
     super.initState();
   }
 
@@ -104,7 +102,6 @@ class _LginPageState extends State<LginPage> {
     loginDataBloc.callPostLogin(data);
 
     // debugger();
-    print(data);
   }
 
   @override
@@ -183,7 +180,6 @@ class _LginPageState extends State<LginPage> {
                   onChanged: (phone) {
                     if (phone.completeNumber.length >= 13) {
                       FocusScope.of(context).unfocus();
-                      print(phone.completeNumber);
                     }
                   },
                 ),

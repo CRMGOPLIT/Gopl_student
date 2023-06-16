@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+// ignore: non_constant_identifier_names
 List<BatchDetailsModel> BatchDetailsModelFromJson(String str) =>
     List<BatchDetailsModel>.from(
         json.decode(str).map((x) => BatchDetailsModel.fromJson(x)));
 
+// ignore: non_constant_identifier_names
 String BatchDetailsModelToJson(List<BatchDetailsModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 

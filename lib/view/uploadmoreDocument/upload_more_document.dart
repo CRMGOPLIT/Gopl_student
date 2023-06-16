@@ -1,11 +1,7 @@
-import 'dart:developer';
 import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:global_student/bloc/dashboardBloc.dart';
 import 'package:global_student/model/uploadmoredocument.dart';
 import 'package:global_student/networking/NetworkConstant.dart';
@@ -14,8 +10,6 @@ import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/utils/text_style.dart';
 import 'package:global_student/view/widget/app_bar.dart';
 import 'package:global_student/view/widget/button.dart';
-
-import '../widget/loader.dart';
 
 class UploadMoreDocument extends StatefulWidget {
   const UploadMoreDocument({super.key});
@@ -83,7 +77,7 @@ class _UploadMoreDocumentState extends State<UploadMoreDocument> {
         ),
       ),
       body: loading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : Padding(
               padding: const EdgeInsets.all(10.0),
               child: documentdata.isEmpty
@@ -91,7 +85,7 @@ class _UploadMoreDocumentState extends State<UploadMoreDocument> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: 50,
+                          height: 50.h,
                         ),
                         Center(
                             child: Image.asset(
@@ -153,7 +147,7 @@ class _UploadMoreDocumentState extends State<UploadMoreDocument> {
                                       //   ],
                                       // ),
                                       SizedBox(
-                                        height: 5,
+                                        height: 5.h,
                                       ),
                                       // Row(
                                       //   mainAxisAlignment:
@@ -214,7 +208,7 @@ class _UploadMoreDocumentState extends State<UploadMoreDocument> {
 
                                       Container(
                                         alignment: Alignment.center,
-                                        padding: EdgeInsets.all(10),
+                                        padding: const EdgeInsets.all(10),
                                         width: 360.w,
                                         decoration: BoxDecoration(
                                             color: AppColors.PrimaryGreyColor,
@@ -229,7 +223,7 @@ class _UploadMoreDocumentState extends State<UploadMoreDocument> {
                                         ),
                                       ),
                                       SizedBox(
-                                        height: 5,
+                                        height: 5.h,
                                       ),
                                       // Row(
                                       //   mainAxisAlignment:
@@ -443,12 +437,12 @@ class _UploadMoreDocumentState extends State<UploadMoreDocument> {
                                             AppColors.PrimaryMainColor),
                                       ),
                                       SizedBox(
-                                        height: 5,
+                                        height: 5.h,
                                       ),
 
                                       ListView.builder(
                                           physics:
-                                              NeverScrollableScrollPhysics(),
+                                              const NeverScrollableScrollPhysics(),
                                           shrinkWrap: true,
                                           itemCount: documentdata[index]
                                               .studentMorDocument
@@ -461,8 +455,10 @@ class _UploadMoreDocumentState extends State<UploadMoreDocument> {
                                                   MainAxisAlignment.start,
                                               children: [
                                                 Container(
-                                                  margin: EdgeInsets.all(5),
-                                                  padding: EdgeInsets.all(5),
+                                                  margin:
+                                                      const EdgeInsets.all(5),
+                                                  padding:
+                                                      const EdgeInsets.all(5),
                                                   decoration: BoxDecoration(
                                                       border: Border.all(),
                                                       borderRadius:
@@ -479,23 +475,19 @@ class _UploadMoreDocumentState extends State<UploadMoreDocument> {
                                                       children: [
                                                         Container(
                                                           padding:
-                                                              EdgeInsets.only(
+                                                              const EdgeInsets
+                                                                      .only(
                                                                   bottom: 10),
                                                           width: 200,
                                                           child: Text(
-                                                              "${index1 + 1}." +
-                                                                  documentdata[
-                                                                          index]
-                                                                      .studentMorDocument[
-                                                                          index1]
-                                                                      .fDocumentName,
+                                                              "${index1 + 1}.${documentdata[index].studentMorDocument[index1].fDocumentName}",
                                                               maxLines: 3,
                                                               style: batchtext1(
                                                                   AppColors
                                                                       .PrimaryBlackColor)),
                                                         ),
                                                         SizedBox(
-                                                          height: 10,
+                                                          height: 10.h,
                                                         ),
                                                         check1 == true
                                                             ? Container()
@@ -556,7 +548,7 @@ class _UploadMoreDocumentState extends State<UploadMoreDocument> {
                                           })),
 
                                       SizedBox(
-                                        height: 10,
+                                        height: 10.h,
                                       ),
 
                                       //     style: TextRegular(AppColors.PrimaryBlackColor)),
@@ -572,18 +564,21 @@ class _UploadMoreDocumentState extends State<UploadMoreDocument> {
   }
 }
 
+// ignore: must_be_immutable
 class UploadmoreDialog extends StatefulWidget {
   String? documentname;
   String? applicationid;
   bool? check;
 
   UploadmoreDialog({
+    super.key,
     this.applicationid,
     this.documentname,
     this.check,
   });
 
   @override
+  // ignore: library_private_types_in_public_api, no_logic_in_create_state
   _UploadmoreDialogState createState() => _UploadmoreDialogState(
       applicationid: applicationid, documentname: documentname, check: check);
 }
@@ -656,7 +651,7 @@ class _UploadmoreDialogState extends State<UploadmoreDialog> {
     // }
   }
 
-  var _registerkey = GlobalKey<FormState>();
+  final _registerkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -687,7 +682,7 @@ class _UploadmoreDialogState extends State<UploadmoreDialog> {
           selectedFile.length > 0
               ? Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Container(
+                  child: SizedBox(
                     width: 240,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -697,7 +692,7 @@ class _UploadmoreDialogState extends State<UploadmoreDialog> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              selectedFile.length.toString() + " File ADDED",
+                              "${selectedFile.length} File ADDED",
                               style: batchtext2(AppColors.PrimaryBlackColor),
                             ),
                             InkWell(
@@ -801,8 +796,8 @@ class _UploadmoreDialogState extends State<UploadmoreDialog> {
                     },
                     child: Container(
                       color: Colors.white,
-                      padding: EdgeInsets.all(16),
-                      child: Container(
+                      padding: const EdgeInsets.all(16),
+                      child: SizedBox(
                         width: 200,
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
@@ -821,7 +816,7 @@ class _UploadmoreDialogState extends State<UploadmoreDialog> {
                                 style: batchtext1(AppColors.hintcolor),
                               ),
                               SizedBox(
-                                height: 10,
+                                height: 10.h,
                               ),
 
                               // Icon(
@@ -865,7 +860,7 @@ class _UploadmoreDialogState extends State<UploadmoreDialog> {
 
           selectedFile.length < 1
               ? Container()
-              : Container(
+              : SizedBox(
                   // margin: EdgeInsets.all(10),
                   height: 35,
                   width: 130,
@@ -1244,11 +1239,13 @@ class _UploadmoreDialogState extends State<UploadmoreDialog> {
             isFileSelected = true;
           });
           for (int i = 0; i < selectedFile.length; i++) {
-            TextEditingController controller = new TextEditingController();
+            TextEditingController controller = TextEditingController();
             selectedfiledata.add(controller);
           }
         }
       } else {
+        //user cancle here
+
         // User canceled the picker
       }
     }
@@ -1268,7 +1265,7 @@ class _UploadmoreDialogState extends State<UploadmoreDialog> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
-              width: 4,
+              width: 4.w,
             ),
             Flexible(
               child: Text(

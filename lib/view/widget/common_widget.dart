@@ -57,33 +57,30 @@
 // }
 
 import 'dart:io';
-
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyFormWidget extends StatefulWidget {
+  const MyFormWidget({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _MyFormWidgetState createState() => _MyFormWidgetState();
 }
 
 class _MyFormWidgetState extends State<MyFormWidget> {
-  List<FormFieldData> _formFields = [];
   List<String> _selectedFruits = [];
-
-  List<String> _fruitsList = [
-    'Apple',
-    'Banana',
-    'Grapes',
-    'Mango',
-    'Orange',
-    'Pineapple',
-  ];
 
   // List<String> _selectedOptions = [];
   String? _selectedDropdownOption;
 
-  List<String> _options = ['Option 1', 'Option 2', 'Option 3', "dfwe", "eq1vq"];
-  List<String> _selectedOptions = [];
+  final List<String> _options = [
+    'Option 1',
+    'Option 2',
+    'Option 3',
+    "dfwe",
+    "eq1vq"
+  ];
 
   // List<String> _options = [
   //   'Option 1',
@@ -93,16 +90,8 @@ class _MyFormWidgetState extends State<MyFormWidget> {
   //   'Option 5',
   // ];
 
-  void _addFormField() {
-    setState(() {
-      _formFields.add(FormFieldData());
-    });
-  }
-
   @override
   void initState() {
-    // TODO: implement initState
-
     super.initState();
   }
 
@@ -222,13 +211,13 @@ class _MyFormWidgetState extends State<MyFormWidget> {
           //   ),
           // ),
           SizedBox(
-            height: 90,
+            height: 90.h,
           ),
-          Container(
+          SizedBox(
             height: 50,
             width: 300,
             child: DropdownButton(
-              hint: Text('Select options'),
+              hint: const Text('Select options'),
               value: null,
               onChanged: (newValue) {
                 setState(() {
@@ -239,7 +228,7 @@ class _MyFormWidgetState extends State<MyFormWidget> {
                 return DropdownMenuItem(
                   value: option,
                   child: Center(
-                    child: Container(
+                    child: SizedBox(
                       height: 50,
                       width: 200,
                       child: StatefulBuilder(
@@ -255,7 +244,7 @@ class _MyFormWidgetState extends State<MyFormWidget> {
                                       ? _selectedFruits.remove(option)
                                       : _selectedFruits.add(option);
 
-                                  print(_selectedFruits);
+                                  // print(_selectedFruits);
                                 });
                               });
                             },
@@ -283,7 +272,7 @@ class _MyFormWidgetState extends State<MyFormWidget> {
           Text(_selectedFruits.toString()),
 
           DropdownButton(
-            hint: Text('Select an option'),
+            hint: const Text('Select an option'),
             value: _selectedDropdownOption,
             items: _options.map((String option) {
               return DropdownMenuItem(

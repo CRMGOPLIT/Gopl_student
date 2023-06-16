@@ -1,19 +1,14 @@
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:global_student/networking/apiProvider.dart';
-
 import '../networking/NetworkConstant.dart';
 
 class LoginRepo {
-  ApiProvider _apiProvider = ApiProvider();
+  final ApiProvider _apiProvider = ApiProvider();
 
   Future<dynamic> postLoginRepo(Map<String, String> parameter) async {
     final response = await _apiProvider.postlogin(
         parameter, NetworkConstant.END_POINT_POST_LOGIN);
     return response; //GetApplicationDetailsResponse.fromJson(response);
   }
-
 
   Future<dynamic> postOtpRepo(Map<String, String> parameter) async {
     final response = await _apiProvider.postlogin(

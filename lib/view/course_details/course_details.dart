@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -23,15 +22,16 @@ class _CourseDetailsState extends State<CourseDetails> {
   List<CourseMoreDetails> coursemoredetails = [];
 
   List colordata = [
-    Color(0xffc3ddd6),
-    Color(0xffefc5b5),
-    Color(0xfffbdd7e),
-    Color(0xffeeaaff),
-    Color(0xffBEFE9D),
-    Color(0xff99FFEB),
-    Color(0xffAD6AEB),
-    Color(0xffF79DAA),
-    Color(0xffF3AB6F),
+    const Color(0xffc3ddd6),
+    const Color(0xffefc5b5),
+    const Color(0xfffbdd7e),
+    const Color(0xffeeaaff),
+    const Color(0xffBEFE9D),
+    const Color(0xff99FFEB),
+    const Color(0xffAD6AEB),
+    const Color(0xffF79DAA),
+    const Color(0xffF3AB6F),
+    const Color(0xffefc5b5),
   ];
 
   List coursedata = [];
@@ -60,16 +60,16 @@ class _CourseDetailsState extends State<CourseDetails> {
     searchBloc = SearchBloc();
     // scrollController.addListener(_scrollListener);
     super.initState();
-    GetCourseData();
+    getCourseData();
     callcourseDetails();
   }
 
-  void GetCourseData() async {
+  void getCourseData() async {
     if (!isloadingmore && hasmore) {
       isloadingmore = true;
       setState(() {});
 
-      await searchBloc.coursemoredetailsStream.listen((event) async {
+      searchBloc.coursemoredetailsStream.listen((event) async {
         if (event != null) {
           // debugger();
           // print(event);
@@ -79,7 +79,7 @@ class _CourseDetailsState extends State<CourseDetails> {
             CourseMoreDetails courseDetails =
                 CourseMoreDetails.fromJson(event[i]);
             coursemoredetails.add(courseDetails);
-            log("dbnkjn" + coursedata.toString());
+            //  log("dbnkjn" + coursedata.toString());
 
             setState(() {
               loanding = false;
@@ -96,6 +96,7 @@ class _CourseDetailsState extends State<CourseDetails> {
     searchBloc.callGetCourseDetails(data);
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroungcolor,
@@ -109,7 +110,12 @@ class _CourseDetailsState extends State<CourseDetails> {
         ),
       ),
       body: loanding
-          ? Center(child: Center(child: CircularProgressIndicator()))
+          ? Center(
+              child: Center(
+                  child: CircularProgressIndicator(
+              color: AppColors.PrimaryMainColor,
+              strokeWidth: 3.w,
+            )))
           : SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -139,7 +145,9 @@ class _CourseDetailsState extends State<CourseDetails> {
                                               .toString() ==
                                           "")
                                   ? child
-                                  : CircularProgressIndicator(),
+                                  : const CircularProgressIndicator(
+                                      color: AppColors.PrimaryMainColor,
+                                    ),
                           errorBuilder: (context, error, stackTrace) =>
                               Container(
                             height: 120.h,
@@ -164,22 +172,22 @@ class _CourseDetailsState extends State<CourseDetails> {
                     SizedBox(
                       height: 10.h,
                     ),
-                    for (int i = 0; i < coursemoredetails.length; i++)
-                      Center(
-                        child: Text(
-                          coursemoredetails[i].fUniversity,
-                          style: OtpText(AppColors.PrimaryMainColor),
-                        ),
+
+                    Center(
+                      child: Text(
+                        coursemoredetails[0].fUniversity,
+                        style: OtpText(AppColors.PrimaryMainColor),
                       ),
+                    ),
                     SizedBox(
                       height: 10.h,
                     ),
-                    for (int i = 0; i < coursemoredetails.length; i++)
-                      Text(
-                        coursemoredetails[i].fAddress.toString().trim(),
-                        //textAlign: TextAlign.center,
-                        style: Text2Regular(AppColors.PrimaryBlackColor),
-                      ),
+
+                    Text(
+                      coursemoredetails[0].fAddress.toString().trim(),
+                      //textAlign: TextAlign.center,
+                      style: Text2Regular(AppColors.PrimaryBlackColor),
+                    ),
                     SizedBox(
                       height: 10.h,
                     ),
@@ -187,61 +195,59 @@ class _CourseDetailsState extends State<CourseDetails> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        for (int i = 0; i < coursemoredetails.length; i++)
-                          Container(
-                            height: 40.h,
-                            width: 160.w,
-                            decoration: BoxDecoration(
-                                color: AppColors.PrimaryMainColor,
-                                borderRadius: BorderRadius.circular(5.sp)),
-                            child: ListTile(
-                              leading: Text(
-                                "QS Ranking :-  " +
-                                    coursemoredetails[i].fNationalRank,
-                                textAlign: TextAlign.center,
-                                style: batchtext1(AppColors.PrimaryWhiteColor),
-                              ),
-                              // Image.asset(
-                              //   "assets/images/ranklogo.png",
-                              //   height: 30.h,
-                              //   width: 30.w,
-                              //   fit: BoxFit.cover,
-                              // ),
-                              // trailing: Text(
-                              //   "QS Ranking" + coursemoredetails[i].fNationalRank,
-                              //   style: TextRegular(AppColors.PrimaryWhiteColor),
-                              // ),
+                        Container(
+                          height: 40.h,
+                          width: 160.w,
+                          decoration: BoxDecoration(
+                              color: AppColors.PrimaryMainColor,
+                              borderRadius: BorderRadius.circular(5.sp)),
+                          child:
+                              //  coursemoredetails[i].fNationalRank == null
+                              //     ? Text("")
+                              //     :
+                              Center(
+                            child: Text(
+                              "QS Ranking :-  ${coursemoredetails[0].fNationalRank}",
+                              textAlign: TextAlign.center,
+                              style: batchtext1(AppColors.PrimaryWhiteColor),
                             ),
                           ),
-                        for (int i = 0; i < coursemoredetails.length; i++)
-                          Container(
-                            height: 40.h,
-                            width: 160.w,
-                            decoration: BoxDecoration(
-                                color: AppColors.PrimaryMainColor,
-                                borderRadius: BorderRadius.circular(5.sp)),
-                            child: ListTile(
-                              leading: Text(
-                                "GOPL Ranking :- " +
-                                    coursemoredetails[i]
-                                        .fGlobalOpsRanking
-                                        .toString(),
-                                style: batchtext1(AppColors.PrimaryWhiteColor),
-                              ),
-                              // Image.asset(
-                              //   "assets/images/ranklogo.png",
-                              //   height: 30.h,
-                              //   width: 30.w,
-                              //   fit: BoxFit.cover,
-                              //   alignment: Alignment.center,
-                              // ),
-                              // trailing: Text(
-                              //   "GOPL Ranking " +
-                              //       coursemoredetails[i].ranking.toString(),
-                              //   style: TextRegular(AppColors.PrimaryBlackColor),
-                              // ),
+                          // Image.asset(
+                          //   "assets/images/ranklogo.png",
+                          //   height: 30.h,
+                          //   width: 30.w,
+                          //   fit: BoxFit.cover,
+                          // ),
+                          // trailing: Text(
+                          //   "QS Ranking" + coursemoredetails[i].fNationalRank,
+                          //   style: TextRegular(AppColors.PrimaryWhiteColor),
+                          // ),
+                        ),
+                        Container(
+                          height: 40.h,
+                          width: 160.w,
+                          decoration: BoxDecoration(
+                              color: AppColors.PrimaryMainColor,
+                              borderRadius: BorderRadius.circular(5.sp)),
+                          child: ListTile(
+                            leading: Text(
+                              "GOPL Ranking :- ${coursemoredetails[0].fGlobalOpsRanking}",
+                              style: batchtext1(AppColors.PrimaryWhiteColor),
                             ),
+                            // Image.asset(
+                            //   "assets/images/ranklogo.png",
+                            //   height: 30.h,
+                            //   width: 30.w,
+                            //   fit: BoxFit.cover,
+                            //   alignment: Alignment.center,
+                            // ),
+                            // trailing: Text(
+                            //   "GOPL Ranking " +
+                            //       coursemoredetails[i].ranking.toString(),
+                            //   style: TextRegular(AppColors.PrimaryBlackColor),
+                            // ),
                           ),
+                        ),
                       ],
                     ),
                     SizedBox(
@@ -256,37 +262,37 @@ class _CourseDetailsState extends State<CourseDetails> {
                     SizedBox(
                       height: 10.h,
                     ),
-                    for (int i = 0; i < coursemoredetails.length; i++)
-                      InkWell(
-                        onTap: () async {
-                          // const url = "${coursemoredetails[i].fUniversityUrl}";
-                          if (await canLaunch(
-                              coursemoredetails[i].fUniversityUrl)) {
-                            await launch(coursemoredetails[i].fUniversityUrl);
-                          } else {
-                            throw 'Could not launch ${coursemoredetails[i].fUniversityUrl}';
-                          }
-                        },
-                        child: Center(
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: 45.h,
-                            width: 300.w,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: AppColors.PrimaryBlackColor),
-                                borderRadius: BorderRadius.circular(10.sp)),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                coursemoredetails[i].fUniversityUrl,
-                                maxLines: 1,
-                                style: location(AppColors.PrimaryMainColor),
-                              ),
+
+                    InkWell(
+                      onTap: () async {
+                        // const url = "${coursemoredetails[i].fUniversityUrl}";
+                        if (await canLaunch(
+                            coursemoredetails[0].fUniversityUrl)) {
+                          await launch(coursemoredetails[0].fUniversityUrl);
+                        } else {
+                          throw 'Could not launch ${coursemoredetails[0].fUniversityUrl}';
+                        }
+                      },
+                      child: Center(
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: 45.h,
+                          width: 300.w,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: AppColors.PrimaryBlackColor),
+                              borderRadius: BorderRadius.circular(10.sp)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              coursemoredetails[0].fUniversityUrl,
+                              maxLines: 1,
+                              style: location(AppColors.PrimaryMainColor),
                             ),
                           ),
                         ),
                       ),
+                    ),
                     SizedBox(
                       height: 10.h,
                     ),
@@ -346,12 +352,12 @@ class _CourseDetailsState extends State<CourseDetails> {
                                 height: 5.h,
                               ),
 
-                              coursefield(
+                              Coursefield(
                                 title: "Intakes :-  ",
                                 subtitle: coursemoredetails[0].fIntake,
                               ),
 
-                              coursefield(
+                              Coursefield(
                                 title: "Duration :- ",
                                 subtitle: coursemoredetails[0].fDurationName,
                               ),
@@ -389,12 +395,12 @@ class _CourseDetailsState extends State<CourseDetails> {
                               //   ],
                               // ),
 
-                              coursefield(
+                              Coursefield(
                                 title: "Location :- ",
                                 subtitle: coursemoredetails[0].fLocation,
                               ),
 
-                              coursefield(
+                              Coursefield(
                                 title: "Campus :- ",
                                 subtitle: coursemoredetails[0].fCampus,
                               ),
@@ -404,23 +410,20 @@ class _CourseDetailsState extends State<CourseDetails> {
                               //   ),
                               // for (int i = 0; i < coursemoredetails.length; i++)
                               //   Container(
-                              //     child: coursefield(
+                              //     child: Coursefield(
                               //       title: "Majors -",
                               //       subtitle: "",
                               //     ),
                               //   ),
 
-                              coursefield(
+                              Coursefield(
                                 title: "Application Fee :- ",
-                                subtitle: coursemoredetails[0].fCurrency +
-                                    " " +
-                                    coursemoredetails[0]
-                                        .fApplicationFee
-                                        .toString(),
+                                subtitle:
+                                    "${coursemoredetails[0].fCurrency} ${coursemoredetails[0].fApplicationFee}",
                               ),
 
                               coursemoredetails[0].fMoreThanApplicationFee > 0
-                                  ? coursefield(
+                                  ? Coursefield(
                                       title:
                                           "Multiple Course Application Fee :- ",
                                       subtitle: coursemoredetails[0]
@@ -429,14 +432,13 @@ class _CourseDetailsState extends State<CourseDetails> {
                                     )
                                   : Container(),
 
-                              coursefield(
+                              Coursefield(
                                 title: "Tuition Fee :- ",
-                                subtitle: coursemoredetails[0].fCurrency +
-                                    " " +
-                                    coursemoredetails[0].fTuitionFee.toString(),
+                                subtitle:
+                                    "${coursemoredetails[0].fCurrency} ${coursemoredetails[0].fTuitionFee}",
                               ),
 
-                              coursefield(
+                              Coursefield(
                                 title: "Scholarship :- ",
                                 subtitle: coursemoredetails[0]
                                             .fIsScholarshipAvailable ==
@@ -445,7 +447,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                                     : "Yes",
                               ),
 
-                              coursefield(
+                              Coursefield(
                                 title: "Placement :-",
                                 subtitle:
                                     coursemoredetails[0].fIsPlacement == true
@@ -453,14 +455,14 @@ class _CourseDetailsState extends State<CourseDetails> {
                                         : "Yes",
                               ),
 
-                              coursefield(
+                              Coursefield(
                                 title: "Living expensive :- ",
                                 subtitle: coursemoredetails[0]
                                     .fExpenditureFee
                                     .toString(),
                               ),
 
-                              // coursefield(
+                              // Coursefield(
                               //   title: "Conditional Offer -",
                               //   subtitle: "...",
                               // ),
@@ -531,43 +533,43 @@ class _CourseDetailsState extends State<CourseDetails> {
                     //           style: Text2Regular(AppColors.PrimaryMainColor),
                     //         ),
                     //       ),
-                    //       coursefield(
+                    //       Coursefield(
                     //         title: "Location -",
                     //         subtitle: "Southampton",
                     //       ),
-                    //       coursefield(
+                    //       Coursefield(
                     //         title: "Campus -",
                     //         subtitle: "Southampton City Campus",
                     //       ),
-                    //       coursefield(
+                    //       Coursefield(
                     //         title: "Majors -",
                     //         subtitle: "Sports Science, Sports, Sports Management",
                     //       ),
-                    //       coursefield(
+                    //       Coursefield(
                     //         title: "Application Fee -",
                     //         subtitle: "GBP 22.00",
                     //       ),
-                    //       coursefield(
+                    //       Coursefield(
                     //         title: "Multiple Course\nApplication Fee  -",
                     //         subtitle: "GBP 26.50",
                     //       ),
-                    //       coursefield(
+                    //       Coursefield(
                     //         title: "Tuition Fee -",
                     //         subtitle: "GBP 15000.00/year",
                     //       ),
-                    //       coursefield(
+                    //       Coursefield(
                     //         title: "Scholarship -",
                     //         subtitle: "No",
                     //       ),
-                    //       coursefield(
+                    //       Coursefield(
                     //         title: "Placement -",
                     //         subtitle: "GBP 22.00",
                     //       ),
-                    //       coursefield(
+                    //       Coursefield(
                     //         title: "Living expensive -",
                     //         subtitle: "",
                     //       ),
-                    //       coursefield(
+                    //       Coursefield(
                     //         title: "Conditional Offer -",
                     //         subtitle: "No",
                     //       ),
@@ -592,266 +594,280 @@ class _CourseDetailsState extends State<CourseDetails> {
                         ],
                       ),
                     ),
-                    Container(
-                      height: 130.h,
-                      child: ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: coursemoredetails.length,
-                          itemBuilder: (context, index) {
-                            // final randomIndex =
-                            //     Random().nextInt(Countrycourse.length);
-                            // final imageUrl = Countrycourse[randomIndex].image;
-                            return Row(
-                              children: [
-                                Container(
-                                  constraints: const BoxConstraints(
-                                    maxHeight: double.maxFinite,
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: [
-                                        SizedBox(
-                                          height: 2.h,
+                    coursemoredetails[0].fIelts <= 0 &&
+                            coursemoredetails[0].fIeltsMore <= 0 &&
+                            coursemoredetails[0].fToeflIbt <= 0 &&
+                            coursemoredetails[0].fToeflMore <= 0 &&
+                            coursemoredetails[0].fPte <= 0 &&
+                            coursemoredetails[0].fAct <= 0 &&
+                            coursemoredetails[0].fDat <= 0 &&
+                            coursemoredetails[0].fGre <= 0 &&
+                            coursemoredetails[0].fGmat <= 0 &&
+                            coursemoredetails[0].fSat <= 0
+                        ? Container()
+                        : SizedBox(
+                            height: 135.h,
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: coursemoredetails.length,
+                                itemBuilder: (context, index) {
+                                  // final randomIndex =
+                                  //     Random().nextInt(Countrycourse.length);
+                                  // final imageUrl = Countrycourse[randomIndex].image;
+                                  return Row(
+                                    children: [
+                                      Container(
+                                        constraints: const BoxConstraints(
+                                          maxHeight: double.maxFinite,
                                         ),
-                                        coursemoredetails[0].fIelts > 0
-                                            ? StanderedTest(
-                                                colordata: colordata[0],
-                                                coursemoredetails:
-                                                    coursemoredetails[0]
-                                                        .fIelts
-                                                        .toString(),
-                                                title: "IELTS Overall",
-                                              )
-                                            : Container(),
-                                        // SizedBox(
-                                        //   width: 10,
-                                        // ),
-                                        coursemoredetails[0].fIeltsMore > 0
-                                            ? StanderedTest(
-                                                colordata: colordata[1],
-                                                coursemoredetails:
-                                                    coursemoredetails[0]
-                                                        .fIeltsMore
-                                                        .toString(),
-                                                title:
-                                                    "IELTS No Band Less Than ",
-                                              )
-                                            : Container(),
-                                        // SizedBox(
-                                        //   width: 10,
-                                        // ),
-                                        coursemoredetails[0].fToeflIbt > 0
-                                            ? StanderedTest(
-                                                colordata: colordata[2],
-                                                coursemoredetails:
-                                                    coursemoredetails[0]
-                                                        .fToeflIbt
-                                                        .toString(),
-                                                title: "TOEFL IBT Overall",
-                                              )
-                                            : Container(),
-                                        // SizedBox(
-                                        //   width: 10,
-                                        // ),
-                                        coursemoredetails[0].fToeflMore > 0
-                                            ? StanderedTest(
-                                                colordata: colordata[3],
-                                                coursemoredetails:
-                                                    coursemoredetails[0]
-                                                        .fToeflMore
-                                                        .toString(),
-                                                title:
-                                                    "TOEFL IBT No Bands Less Than ",
-                                              )
-                                            : Container(),
-                                        // SizedBox(
-                                        //   width: 10,
-                                        // ),
-                                        coursemoredetails[0].fPte > 0
-                                            ? StanderedTest(
-                                                colordata: colordata[4],
-                                                coursemoredetails:
-                                                    coursemoredetails[0]
-                                                        .fPte
-                                                        .toString(),
-                                                title: "PTE Score ",
-                                              )
-                                            : Container(),
-                                        // SizedBox(
-                                        //   width: 10,
-                                        // ),
-                                        coursemoredetails[0].fAct > 0
-                                            ? StanderedTest(
-                                                colordata: colordata[5],
-                                                coursemoredetails:
-                                                    coursemoredetails[0]
-                                                        .fAct
-                                                        .toString(),
-                                                title: "ACT Score",
-                                              )
-                                            : Container(),
-                                        // SizedBox(
-                                        //   width: 10,
-                                        // ),
-                                        coursemoredetails[0].fDat > 0
-                                            ? StanderedTest(
-                                                colordata: colordata[6],
-                                                coursemoredetails:
-                                                    coursemoredetails[0]
-                                                        .fDat
-                                                        .toString(),
-                                                title: "Dat Score ",
-                                              )
-                                            : Container(),
-                                        // SizedBox(
-                                        //   width: 10,
-                                        // ),
-                                        coursemoredetails[0].fGre > 0
-                                            ? StanderedTest(
-                                                colordata: colordata[7],
-                                                coursemoredetails:
-                                                    coursemoredetails[0]
-                                                        .fGre
-                                                        .toString(),
-                                                title: "GRE Score",
-                                              )
-                                            : Container(),
-                                        // SizedBox(
-                                        //   width: 10,
-                                        // ),
-                                        coursemoredetails[0].fGmat > 0
-                                            ? StanderedTest(
-                                                colordata: colordata[8],
-                                                coursemoredetails:
-                                                    coursemoredetails[0]
-                                                        .fGmat
-                                                        .toString(),
-                                                title: "GMAT Score",
-                                              )
-                                            : Container(),
-                                        // SizedBox(
-                                        //   width: 10,
-                                        // ),
-                                        coursemoredetails[0].fSat > 0
-                                            ? StanderedTest(
-                                                colordata: colordata[9],
-                                                coursemoredetails:
-                                                    coursemoredetails[0]
-                                                        .fSat
-                                                        .toString(),
-                                                title: "SAT Score",
-                                              )
-                                            : Container(),
-                                        // Container(
-                                        //   height: 110.h,
-                                        //   width: 150.w,
-                                        //   decoration: BoxDecoration(
-                                        //       color: colordata[2],
-                                        //       borderRadius:
-                                        //           BorderRadius.circular(10)),
-                                        //   child: Column(
-                                        //     crossAxisAlignment:
-                                        //         CrossAxisAlignment.start,
-                                        //     children: [
-                                        //       Container(
-                                        //         padding: EdgeInsets.only(
-                                        //             top: 25, left: 25),
-                                        //         child: CircularPercentIndicator(
-                                        //           animation: true,
-                                        //           animationDuration: 3600,
-                                        //           radius: 25.0,
-                                        //           lineWidth: 3.0,
-                                        //           percent:
-                                        //               coursemoredetails[0].fIelts /
-                                        //                   10,
-                                        //           // header: new Text("Icon header"),
-                                        //           center: Text(
-                                        //             coursemoredetails[0]
-                                        //                 .fIelts
-                                        //                 .toString(),
-                                        //             style: batchtext2(
-                                        //                 AppColors.PrimaryBlackColor),
-                                        //           ),
-                                        //           backgroundColor: Colors.green,
-                                        //           progressColor: Colors.green,
-                                        //         ),
-                                        //       ),
-                                        //       SizedBox(
-                                        //         height: 10,
-                                        //       ),
-                                        //       Padding(
-                                        //         padding: const EdgeInsets.all(8.0),
-                                        //         child: Text(
-                                        //           "IELTS Overall",
-                                        //           style: batchtext2(
-                                        //               AppColors.PrimaryBlackColor),
-                                        //         ),
-                                        //       ),
-                                        //     ],
-                                        //   ),
-                                        // ),
-                                        // SizedBox(
-                                        //   width: 10,
-                                        // ),
-                                        // Container(
-                                        //   height: 110.h,
-                                        //   width: 150.w,
-                                        //   decoration: BoxDecoration(
-                                        //       color: colordata[3],
-                                        //       borderRadius:
-                                        //           BorderRadius.circular(10)),
-                                        //   child: Column(
-                                        //     crossAxisAlignment:
-                                        //         CrossAxisAlignment.start,
-                                        //     children: [
-                                        //       Container(
-                                        //         padding: EdgeInsets.only(
-                                        //             top: 25, left: 25),
-                                        //         child: CircularPercentIndicator(
-                                        //           animation: true,
-                                        //           animationDuration: 3600,
-                                        //           radius: 25.0,
-                                        //           lineWidth: 3.0,
-                                        //           percent:
-                                        //               coursemoredetails[0].fToeflIbt /
-                                        //                   100,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            children: [
+                                              SizedBox(
+                                                height: 2.h,
+                                              ),
+                                              coursemoredetails[0].fIelts > 0
+                                                  ? StanderedTest(
+                                                      colordata: colordata[0],
+                                                      coursemoredetails:
+                                                          coursemoredetails[0]
+                                                              .fIelts
+                                                              .toString(),
+                                                      title: "IELTS Overall",
+                                                    )
+                                                  : Container(),
+                                              // SizedBox(
+                                              //   width: 10,
+                                              // ),
+                                              coursemoredetails[0].fIeltsMore >
+                                                      0
+                                                  ? StanderedTest(
+                                                      colordata: colordata[1],
+                                                      coursemoredetails:
+                                                          coursemoredetails[0]
+                                                              .fIeltsMore
+                                                              .toString(),
+                                                      title:
+                                                          "IELTS No Band Less Than ",
+                                                    )
+                                                  : Container(),
+                                              // SizedBox(
+                                              //   width: 10,
+                                              // ),
+                                              coursemoredetails[0].fToeflIbt > 0
+                                                  ? StanderedTest(
+                                                      colordata: colordata[2],
+                                                      coursemoredetails:
+                                                          coursemoredetails[0]
+                                                              .fToeflIbt
+                                                              .toString(),
+                                                      title:
+                                                          "TOEFL IBT Overall",
+                                                    )
+                                                  : Container(),
+                                              // SizedBox(
+                                              //   width: 10,
+                                              // ),
+                                              coursemoredetails[0].fToeflMore >
+                                                      0
+                                                  ? StanderedTest(
+                                                      colordata: colordata[3],
+                                                      coursemoredetails:
+                                                          coursemoredetails[0]
+                                                              .fToeflMore
+                                                              .toString(),
+                                                      title:
+                                                          "TOEFL IBT No Bands Less Than ",
+                                                    )
+                                                  : Container(),
+                                              // SizedBox(
+                                              //   width: 10,
+                                              // ),
+                                              coursemoredetails[0].fPte > 0
+                                                  ? StanderedTest(
+                                                      colordata: colordata[4],
+                                                      coursemoredetails:
+                                                          coursemoredetails[0]
+                                                              .fPte
+                                                              .toString(),
+                                                      title: "PTE Score ",
+                                                    )
+                                                  : Container(),
+                                              // SizedBox(
+                                              //   width: 10,
+                                              // ),
+                                              coursemoredetails[0].fAct > 0
+                                                  ? StanderedTest(
+                                                      colordata: colordata[5],
+                                                      coursemoredetails:
+                                                          coursemoredetails[0]
+                                                              .fAct
+                                                              .toString(),
+                                                      title: "ACT Score",
+                                                    )
+                                                  : Container(),
+                                              // SizedBox(
+                                              //   width: 10,
+                                              // ),
+                                              coursemoredetails[0].fDat > 0
+                                                  ? StanderedTest(
+                                                      colordata: colordata[6],
+                                                      coursemoredetails:
+                                                          coursemoredetails[0]
+                                                              .fDat
+                                                              .toString(),
+                                                      title: "Dat Score ",
+                                                    )
+                                                  : Container(),
+                                              // SizedBox(
+                                              //   width: 10,
+                                              // ),
+                                              coursemoredetails[0].fGre > 0
+                                                  ? StanderedTest(
+                                                      colordata: colordata[7],
+                                                      coursemoredetails:
+                                                          coursemoredetails[0]
+                                                              .fGre
+                                                              .toString(),
+                                                      title: "GRE Score",
+                                                    )
+                                                  : Container(),
+                                              // SizedBox(
+                                              //   width: 10,
+                                              // ),
+                                              coursemoredetails[0].fGmat > 0
+                                                  ? StanderedTest(
+                                                      colordata: colordata[8],
+                                                      coursemoredetails:
+                                                          coursemoredetails[0]
+                                                              .fGmat
+                                                              .toString(),
+                                                      title: "GMAT Score",
+                                                    )
+                                                  : Container(),
+                                              // SizedBox(
+                                              //   width: 10,
+                                              // ),
+                                              coursemoredetails[0].fSat > 0
+                                                  ? StanderedTest(
+                                                      colordata: colordata[9],
+                                                      coursemoredetails:
+                                                          coursemoredetails[0]
+                                                              .fSat
+                                                              .toString(),
+                                                      title: "SAT Score",
+                                                    )
+                                                  : Container(),
+                                              // Container(
+                                              //   height: 110.h,
+                                              //   width: 150.w,
+                                              //   decoration: BoxDecoration(
+                                              //       color: colordata[2],
+                                              //       borderRadius:
+                                              //           BorderRadius.circular(10)),
+                                              //   child: Column(
+                                              //     crossAxisAlignment:
+                                              //         CrossAxisAlignment.start,
+                                              //     children: [
+                                              //       Container(
+                                              //         padding: EdgeInsets.only(
+                                              //             top: 25, left: 25),
+                                              //         child: CircularPercentIndicator(
+                                              //           animation: true,
+                                              //           animationDuration: 3600,
+                                              //           radius: 25.0,
+                                              //           lineWidth: 3.0,
+                                              //           percent:
+                                              //               coursemoredetails[0].fIelts /
+                                              //                   10,
+                                              //           // header: new Text("Icon header"),
+                                              //           center: Text(
+                                              //             coursemoredetails[0]
+                                              //                 .fIelts
+                                              //                 .toString(),
+                                              //             style: batchtext2(
+                                              //                 AppColors.PrimaryBlackColor),
+                                              //           ),
+                                              //           backgroundColor: Colors.green,
+                                              //           progressColor: Colors.green,
+                                              //         ),
+                                              //       ),
+                                              //       SizedBox(
+                                              //         height: 10,
+                                              //       ),
+                                              //       Padding(
+                                              //         padding: const EdgeInsets.all(8.0),
+                                              //         child: Text(
+                                              //           "IELTS Overall",
+                                              //           style: batchtext2(
+                                              //               AppColors.PrimaryBlackColor),
+                                              //         ),
+                                              //       ),
+                                              //     ],
+                                              //   ),
+                                              // ),
+                                              // SizedBox(
+                                              //   width: 10,
+                                              // ),
+                                              // Container(
+                                              //   height: 110.h,
+                                              //   width: 150.w,
+                                              //   decoration: BoxDecoration(
+                                              //       color: colordata[3],
+                                              //       borderRadius:
+                                              //           BorderRadius.circular(10)),
+                                              //   child: Column(
+                                              //     crossAxisAlignment:
+                                              //         CrossAxisAlignment.start,
+                                              //     children: [
+                                              //       Container(
+                                              //         padding: EdgeInsets.only(
+                                              //             top: 25, left: 25),
+                                              //         child: CircularPercentIndicator(
+                                              //           animation: true,
+                                              //           animationDuration: 3600,
+                                              //           radius: 25.0,
+                                              //           lineWidth: 3.0,
+                                              //           percent:
+                                              //               coursemoredetails[0].fToeflIbt /
+                                              //                   100,
 
-                                        //           // header: new Text("Icon header"),
-                                        //           center: Text(
-                                        //             coursemoredetails[0]
-                                        //                 .fToeflIbt
-                                        //                 .toString(),
-                                        //             style: batchtext1(
-                                        //                 AppColors.PrimaryBlackColor),
-                                        //           ),
-                                        //           backgroundColor: Colors.white,
-                                        //           progressColor: Colors.green,
-                                        //         ),
-                                        //       ),
-                                        //       SizedBox(
-                                        //         height: 10,
-                                        //       ),
-                                        //       Padding(
-                                        //         padding: const EdgeInsets.all(8.0),
-                                        //         child: Text(
-                                        //           "TOEFL IBT Overall ",
-                                        //           style: batchtext2(
-                                        //               AppColors.PrimaryBlackColor),
-                                        //         ),
-                                        //       ),
-                                        //     ],
-                                        //   ),
-                                        // )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          }),
-                    ),
+                                              //           // header: new Text("Icon header"),
+                                              //           center: Text(
+                                              //             coursemoredetails[0]
+                                              //                 .fToeflIbt
+                                              //                 .toString(),
+                                              //             style: batchtext1(
+                                              //                 AppColors.PrimaryBlackColor),
+                                              //           ),
+                                              //           backgroundColor: Colors.white,
+                                              //           progressColor: Colors.green,
+                                              //         ),
+                                              //       ),
+                                              //       SizedBox(
+                                              //         height: 10,
+                                              //       ),
+                                              //       Padding(
+                                              //         padding: const EdgeInsets.all(8.0),
+                                              //         child: Text(
+                                              //           "TOEFL IBT Overall ",
+                                              //           style: batchtext2(
+                                              //               AppColors.PrimaryBlackColor),
+                                              //         ),
+                                              //       ),
+                                              //     ],
+                                              //   ),
+                                              // )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }),
+                          ),
 
                     // Text(
                     //   "Standardized Test Requirement",
@@ -879,7 +895,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                     //             crossAxisAlignment: CrossAxisAlignment.start,
                     //             children: [
                     //               for (int i = 0; i < coursemoredetails.length; i++)
-                    //                 coursefield(
+                    //                 Coursefield(
                     //                   title: "IELTS Overall :- ",
                     //                   subtitle:
                     //                       coursemoredetails[i].fIelts.toString(),
@@ -888,7 +904,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                     //                 height: 5,
                     //               ),
                     //               for (int i = 0; i < coursemoredetails.length; i++)
-                    //                 coursefield(
+                    //                 Coursefield(
                     //                   title: "CIELTS no Band Less Than :- ",
                     //                   subtitle: coursemoredetails[i].count.toString(),
                     //                 ),
@@ -896,7 +912,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                     //                 height: 5,
                     //               ),
                     //               for (int i = 0; i < coursemoredetails.length; i++)
-                    //                 coursefield(
+                    //                 Coursefield(
                     //                   title: "TOEFL iBT Overall :- ",
                     //                   subtitle:
                     //                       coursemoredetails[i].fToeflIbt.toString(),
@@ -904,7 +920,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                     //               SizedBox(
                     //                 height: 5,
                     //               ),
-                    //               coursefield(
+                    //               Coursefield(
                     //                 title: "TOEFL iBT No Bands Less Than :- ",
                     //                 subtitle: "  20.0",
                     //               ),
@@ -912,7 +928,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                     //                 height: 5,
                     //               ),
                     //               for (int i = 0; i < coursemoredetails.length; i++)
-                    //                 coursefield(
+                    //                 Coursefield(
                     //                   title: "Dat Score :- ",
                     //                   subtitle: coursemoredetails[i].fDat.toString(),
                     //                 ),
@@ -934,7 +950,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                     // ),
 
                     coursemoredetails[0].expectableBoard == ""
-                        ? Text("")
+                        ? const Text("")
                         : Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -967,7 +983,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                     //   height: 10.h,
                     // ),
                     coursemoredetails[0].fEntryRequirements == "null"
-                        ? Text("")
+                        ? const Text("")
                         : Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -1050,7 +1066,7 @@ class StanderedTest extends StatelessWidget {
         right: 10,
       ),
       child: Container(
-        height: 115.h,
+        height: 120.h,
         width: 150.w,
         decoration: BoxDecoration(
             color: colordata, borderRadius: BorderRadius.circular(10)),
@@ -1058,7 +1074,7 @@ class StanderedTest extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: EdgeInsets.only(top: 25, left: 25),
+              padding: const EdgeInsets.only(top: 25, left: 25).r,
               child: CircularPercentIndicator(
                 animation: true,
                 animationDuration: 3600,
@@ -1075,7 +1091,7 @@ class StanderedTest extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 5,
+              height: 5.h,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -1092,10 +1108,11 @@ class StanderedTest extends StatelessWidget {
   }
 }
 
-class coursefield extends StatelessWidget {
+// ignore: must_be_immutable
+class Coursefield extends StatelessWidget {
   String title;
   String subtitle;
-  coursefield({Key? key, required this.title, required this.subtitle})
+  Coursefield({Key? key, required this.title, required this.subtitle})
       : super(key: key);
 
   @override

@@ -5,7 +5,7 @@ import 'package:global_student/model/usersModel.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/utils/text_style.dart';
-import 'package:global_student/view/login/otp_page.dart';
+
 import 'package:global_student/view/widget/app_bar.dart';
 
 class ProfilePage extends StatefulWidget {

@@ -98,8 +98,7 @@ class Routes {
             builder: (BuildContext context) => const CourseDetails());
 
       case RoutesName.visaPage:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => const VisaPage());
+        return MaterialPageRoute(builder: (BuildContext context) => VisaPage());
 
       case RoutesName.myform:
         return MaterialPageRoute(

@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -46,7 +45,7 @@ class _GraduationState extends State<Graduation> {
   //   TextEditingController textEditingController = TextEditingController();
   //     TextEditingController textEditingController = TextEditingController();
 
-  final GlobalKey<State> _keyLoader = new GlobalKey<State>();
+  final GlobalKey<State> _keyLoader = GlobalKey<State>();
 
   // List of items in our dropdown menu
   var course = [
@@ -70,7 +69,7 @@ class _GraduationState extends State<Graduation> {
   bool done = true;
   // List<File> selectedBankStatements = [];
   File? file;
-  var _registerkey = GlobalKey<FormState>();
+  final _registerkey = GlobalKey<FormState>();
 
   late DashBoardBloc dashBoardBloc;
   List<QualificationModel> qualificationlist = [];
@@ -335,7 +334,7 @@ class _GraduationState extends State<Graduation> {
                 child: Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: qualificationdatasubmit.isNotEmpty
-                        ? Container(
+                        ? SizedBox(
                             height: 550.h,
                             child: ListView.builder(
                                 itemCount: qualificationdatasubmit.length,
@@ -410,7 +409,7 @@ class _GraduationState extends State<Graduation> {
                                     child: DropdownButtonFormField2(
                                       isDense: false,
                                       isExpanded: true,
-                                      decoration: InputDecoration(
+                                      decoration: const InputDecoration(
                                         // enabledBorder: OutlineInputBorder(
                                         //   borderRadius: BorderRadius.circular(10),
                                         //   // width: 0.0 produces a thin "hairline" border
@@ -526,7 +525,7 @@ class _GraduationState extends State<Graduation> {
                                           textEditingController.clear();
                                         }
                                       },
-                                      iconStyleData: IconStyleData(
+                                      iconStyleData: const IconStyleData(
                                         icon: Icon(
                                           Icons.keyboard_arrow_down,
                                           color: AppColors.PrimaryMainColor,
@@ -628,7 +627,7 @@ class _GraduationState extends State<Graduation> {
                                     child: DropdownButtonFormField2(
                                       isDense: false,
                                       isExpanded: true,
-                                      decoration: InputDecoration(
+                                      decoration: const InputDecoration(
                                         // enabledBorder: OutlineInputBorder(
                                         //   borderRadius: BorderRadius.circular(10),
                                         //   // width: 0.0 produces a thin "hairline" border
@@ -673,10 +672,10 @@ class _GraduationState extends State<Graduation> {
                                           // accountTypeValidate = true;
                                         });
                                       },
-                                      buttonStyleData: ButtonStyleData(
+                                      buttonStyleData: const ButtonStyleData(
                                         height: 55,
                                         width: 450,
-                                        padding: const EdgeInsets.all(10),
+                                        padding: EdgeInsets.all(10),
                                       ),
                                       dropdownStyleData: DropdownStyleData(
                                           isOverButton: true,
@@ -693,7 +692,7 @@ class _GraduationState extends State<Graduation> {
                                             left: 10, right: 10),
                                         height: 40,
                                       ),
-                                      iconStyleData: IconStyleData(
+                                      iconStyleData: const IconStyleData(
                                         icon: Icon(
                                           Icons.keyboard_arrow_down,
                                           color: AppColors.PrimaryMainColor,
@@ -725,10 +724,10 @@ class _GraduationState extends State<Graduation> {
                                         //   borderSide: BorderSide(
                                         //       color: AppColors.PrimaryMainColor, width: 1.0),
                                         // ),
-                                        errorBorder: new OutlineInputBorder(
+                                        errorBorder: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(10),
-                                          borderSide: new BorderSide(
+                                          borderSide: const BorderSide(
                                               color: Colors.red, width: 1.0),
                                         ),
                                         isCollapsed: true,
@@ -834,7 +833,7 @@ class _GraduationState extends State<Graduation> {
                                           textEditingController.clear();
                                         }
                                       },
-                                      iconStyleData: IconStyleData(
+                                      iconStyleData: const IconStyleData(
                                         icon: Icon(
                                           Icons.keyboard_arrow_down,
                                           color: AppColors.PrimaryMainColor,
@@ -881,10 +880,10 @@ class _GraduationState extends State<Graduation> {
                                         //   borderSide: BorderSide(
                                         //       color: AppColors.PrimaryMainColor, width: 1.0),
                                         // ),
-                                        errorBorder: new OutlineInputBorder(
+                                        errorBorder: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(10),
-                                          borderSide: new BorderSide(
+                                          borderSide: const BorderSide(
                                               color: Colors.red, width: 1.0),
                                         ),
                                         isCollapsed: true,
@@ -988,7 +987,7 @@ class _GraduationState extends State<Graduation> {
                                           textEditingController.clear();
                                         }
                                       },
-                                      iconStyleData: IconStyleData(
+                                      iconStyleData: const IconStyleData(
                                         icon: Icon(
                                           Icons.keyboard_arrow_down,
                                           color: AppColors.PrimaryMainColor,
@@ -1020,10 +1019,10 @@ class _GraduationState extends State<Graduation> {
                                         //   borderSide: BorderSide(
                                         //       color: AppColors.PrimaryMainColor, width: 1.0),
                                         // ),
-                                        errorBorder: new OutlineInputBorder(
+                                        errorBorder: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(10),
-                                          borderSide: new BorderSide(
+                                          borderSide: const BorderSide(
                                               color: Colors.red, width: 1.0),
                                         ),
                                         isCollapsed: true,
@@ -1128,7 +1127,7 @@ class _GraduationState extends State<Graduation> {
                                           textEditingController.clear();
                                         }
                                       },
-                                      iconStyleData: IconStyleData(
+                                      iconStyleData: const IconStyleData(
                                         icon: Icon(
                                           Icons.keyboard_arrow_down,
                                           color: AppColors.PrimaryMainColor,
@@ -1139,7 +1138,7 @@ class _GraduationState extends State<Graduation> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 10,
+                                  height: 10.h,
                                 ),
                                 Text("Passing Year",
                                     style: FieldTextStyle(
@@ -1160,10 +1159,10 @@ class _GraduationState extends State<Graduation> {
                                         //   borderSide: BorderSide(
                                         //       color: AppColors.PrimaryMainColor, width: 1.0),
                                         // ),
-                                        errorBorder: new OutlineInputBorder(
+                                        errorBorder: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(10),
-                                          borderSide: new BorderSide(
+                                          borderSide: const BorderSide(
                                               color: Colors.red, width: 1.0),
                                         ),
                                         isCollapsed: true,
@@ -1267,7 +1266,7 @@ class _GraduationState extends State<Graduation> {
                                           textEditingController.clear();
                                         }
                                       },
-                                      iconStyleData: IconStyleData(
+                                      iconStyleData: const IconStyleData(
                                         icon: Icon(
                                           Icons.keyboard_arrow_down,
                                           color: AppColors.PrimaryMainColor,
@@ -1299,21 +1298,15 @@ class _GraduationState extends State<Graduation> {
                                         //   borderSide: BorderSide(
                                         //       color: AppColors.PrimaryMainColor, width: 1.0),
                                         // ),
-                                        errorBorder: new OutlineInputBorder(
+                                        errorBorder: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(10),
-                                          borderSide: new BorderSide(
+                                          borderSide: const BorderSide(
                                               color: Colors.red, width: 1.0),
                                         ),
                                         isCollapsed: true,
                                         border: InputBorder.none,
                                       ),
-                                      // validator: (value) {
-                                      //   if (value == null || value.name.isEmpty) {
-                                      //     return 'Please Select Qualification';
-                                      //   }
-                                      //   return null;
-                                      // },
                                       hint: Text(
                                         'Passing Month',
                                         style: batchtext2(AppColors.hintcolor),
@@ -1331,10 +1324,8 @@ class _GraduationState extends State<Graduation> {
                                       value: droppassmonth,
                                       onChanged: (value) {
                                         setState(() {
-                                          droppassmonth = value as MonthModel?;
+                                          droppassmonth = value;
                                           isSelected = true;
-
-                                          // accountTypeValidate = true;
                                         });
                                       },
                                       buttonStyleData: ButtonStyleData(
@@ -1343,7 +1334,6 @@ class _GraduationState extends State<Graduation> {
                                         padding: EdgeInsets.all(10.r),
                                       ),
                                       dropdownStyleData: DropdownStyleData(
-                                          // isOverButton: true,
                                           decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(10.sp),
@@ -1407,7 +1397,7 @@ class _GraduationState extends State<Graduation> {
                                           textEditingController.clear();
                                         }
                                       },
-                                      iconStyleData: IconStyleData(
+                                      iconStyleData: const IconStyleData(
                                         icon: Icon(
                                           Icons.keyboard_arrow_down,
                                           color: AppColors.PrimaryMainColor,
@@ -1417,354 +1407,7 @@ class _GraduationState extends State<Graduation> {
                                     ),
                                   ),
                                 ),
-                                // Text("Regular/Distance",
-                                //     style: FieldTextStyle(
-                                //       AppColors.PrimaryBlackColor,
-                                //     )),
-                                // Container(
-                                //   height: 50.h,
-                                //   width: 480.w,
-                                //   decoration:
-                                //       BoxDecoration(borderRadius: BorderRadius.circular(10.r)),
-                                //   child: DropdownButtonFormField(
-                                //     style: TextStyle(
-                                //         color: AppColors.PrimaryMainColor,
-                                //         fontWeight: FontWeight.w600),
-                                //     decoration: InputDecoration(
-                                //       enabledBorder: OutlineInputBorder(
-                                //         borderRadius: BorderRadius.circular(10.r),
-                                //         borderSide: const BorderSide(
-                                //             color: AppColors.PrimaryGreyColor, width: 1),
-                                //       ),
-                                //       focusedBorder: OutlineInputBorder(
-                                //         borderRadius: BorderRadius.circular(10.r),
-                                //         borderSide: const BorderSide(
-                                //           color: AppColors.PrimaryBlackColor,
-                                //           width: 1,
-                                //         ),
-                                //       ),
-                                //     ),
-                                //     value: dropdownvalue,
-                                //     isExpanded: true,
-                                //     icon: Padding(
-                                //       padding: EdgeInsets.only(right: 10.r),
-                                //       child: Icon(
-                                //         Icons.keyboard_arrow_down,
-                                //         size: 30.sp,
-                                //         color: AppColors.PrimaryMainColor,
-                                //       ),
-                                //     ),
-                                //     items: items.map((String items) {
-                                //       return DropdownMenuItem(
-                                //         value: items,
-                                //         child: Padding(
-                                //           padding: EdgeInsets.only(left: 10.r),
-                                //           child: Text(items),
-                                //         ),
-                                //       );
-                                //     }).toList(),
-                                //     onChanged: (String? newValue) {
-                                //       setState(() {
-                                //         isSelected = true;
-                                //       });
-                                //     },
-                                //   ),
-                                // ),
-                                // SizedBox(
-                                //   height: 10.h,
-                                // ),
-                                // Text("Percentage/CGPA",
-                                //     style: FieldTextStyle(
-                                //       AppColors.PrimaryBlackColor,
-                                //     )),
-                                // Container(
-                                //   height: 50.h,
-                                //   width: 480.w,
-                                //   decoration:
-                                //       BoxDecoration(borderRadius: BorderRadius.circular(10.r)),
-                                //   child: DropdownButtonFormField(
-                                //     style: TextStyle(
-                                //         color: AppColors.PrimaryMainColor,
-                                //         fontWeight: FontWeight.w600),
-                                //     decoration: InputDecoration(
-                                //       enabledBorder: OutlineInputBorder(
-                                //         borderRadius: BorderRadius.circular(10.r),
-                                //         borderSide: const BorderSide(
-                                //             color: AppColors.PrimaryGreyColor, width: 1),
-                                //       ),
-                                //       focusedBorder: OutlineInputBorder(
-                                //         borderRadius: BorderRadius.circular(10.r),
-                                //         borderSide: const BorderSide(
-                                //           color: AppColors.PrimaryBlackColor,
-                                //           width: 1,
-                                //         ),
-                                //       ),
-                                //     ),
-                                //     value: dropdownvalue,
-                                //     isExpanded: true,
-                                //     icon: Padding(
-                                //       padding: EdgeInsets.only(right: 10.r),
-                                //       child: Icon(
-                                //         Icons.keyboard_arrow_down,
-                                //         size: 30.sp,
-                                //         color: AppColors.PrimaryMainColor,
-                                //       ),
-                                //     ),
-                                //     items: items.map((String items) {
-                                //       return DropdownMenuItem(
-                                //         value: items,
-                                //         child: Padding(
-                                //           padding: EdgeInsets.only(left: 10.r),
-                                //           child: Text(items),
-                                //         ),
-                                //       );
-                                //     }).toList(),
-                                //     onChanged: (String? newValue) {
-                                //       setState(() {
-                                //         isSelected = true;
-                                //       });
-                                //     },
-                                //   ),
-                                // ),
-                                // SizedBox(
-                                //   height: 10.h,
-                                // ),
-                                // Text("Degree start Year",
-                                //     style: FieldTextStyle(
-                                //       AppColors.PrimaryBlackColor,
-                                //     )),
-                                // DropdownButtonHideUnderline(
-                                //   child: DropdownButtonFormField2(
-                                //     isDense: false,
-                                //     isExpanded: true,
-                                //     decoration: InputDecoration(
-                                //       enabledBorder: OutlineInputBorder(
-                                //         borderRadius: BorderRadius.circular(10),
-                                //         // width: 0.0 produces a thin "hairline" border
-                                //         borderSide: BorderSide(
-                                //             color: AppColors.PrimaryMainColor, width: 1.0),
-                                //       ),
-                                //       errorBorder: new OutlineInputBorder(
-                                //         borderRadius: BorderRadius.circular(10),
-                                //         borderSide:
-                                //             new BorderSide(color: Colors.red, width: 1.0),
-                                //       ),
-                                //       isCollapsed: true,
-                                //       border: InputBorder.none,
-                                //     ),
-                                //     // validator: (value) {
-                                //     //   if (value == null || value.yearlis.isEmpty) {
-                                //     //     return 'Please Select Qualification';
-                                //     //   }
-                                //     //   return null;
-                                //     // },
-                                //     hint: Text(
-                                //       'Please select Degree Start Year',
-                                //       style: Text2Regular(AppColors.PrimaryMainColor),
-                                //     ),
-                                //     items: yearList
-                                //         .map((item) => DropdownMenuItem(
-                                //               value: item,
-                                //               child: Text(
-                                //                 item.toString(),
-                                //                 style: batchtext2(AppColors.PrimaryMainColor),
-                                //               ),
-                                //             ))
-                                //         .toList(growable: false),
-                                //     value: yeardrop,
-                                //     onChanged: (value) {
-                                //       setState(() {
-                                //         //yeardrop = value as String?;
-                                //         isSelected = true;
-                                //         //  selectedSecurity = value!;
-                                //         // accountTypeValidate = true;
-                                //       });
-                                //     },
-                                //     buttonStyleData: ButtonStyleData(
-                                //       height: 55,
-                                //       // width: 450,
-                                //       padding: const EdgeInsets.all(10),
-                                //     ),
-                                //     dropdownStyleData: DropdownStyleData(
-                                //         isOverButton: true,
-                                //         decoration: BoxDecoration(
-                                //             borderRadius: BorderRadius.circular(10.sp),
-                                //             color: AppColors.backgroungcolor,
-                                //             border: Border.all()),
-                                //         maxHeight: 200.h,
-                                //         // width: 500.w,
-                                //         elevation: 10),
-                                //     menuItemStyleData: const MenuItemStyleData(
-                                //       padding: EdgeInsets.only(left: 10, right: 10),
-                                //       height: 40,
-                                //     ),
-                                //     dropdownSearchData: DropdownSearchData(
-                                //       searchController: textEditingController,
-                                //       searchInnerWidgetHeight: 200.h,
-                                //       searchInnerWidget: Container(
-                                //         height: 50,
-                                //         padding: const EdgeInsets.only(
-                                //           top: 8,
-                                //           bottom: 4,
-                                //           right: 8,
-                                //           left: 8,
-                                //         ),
-                                //         child: TextFormField(
-                                //           style: batchtext2(AppColors.PrimaryMainColor),
-                                //           //expands: true,
-                                //           maxLines: 1,
-                                //           controller: textEditingController,
-                                //           decoration: InputDecoration(
-                                //             isDense: true,
-                                //             contentPadding: const EdgeInsets.symmetric(
-                                //               horizontal: 15,
-                                //               vertical: 15,
-                                //             ),
-                                //             hintText: 'Search here...',
-                                //             hintStyle: TextStyle(
-                                //                 fontSize: 12,
-                                //                 color: AppColors.PrimaryMainColor),
-                                //             border: OutlineInputBorder(
-                                //               borderRadius: BorderRadius.circular(8.sp),
-                                //             ),
-                                //           ),
-                                //         ),
-                                //       ),
-                                //       searchMatchFn: (item, searchValue) {
-                                //         // final myItem = qualificationlist.firstWhere((element) =>
-                                //         //     element.name.toString() == item.value.toString());
-                                //         return item.value
-                                //             .toString()
-                                //             .toLowerCase()
-                                //             .contains(searchValue);
-                                //       },
-                                //     ),
-                                //     onMenuStateChange: (isOpen) {
-                                //       if (isOpen) {
-                                //         textEditingController.clear();
-                                //       }
-                                //     },
-                                //     iconStyleData: IconStyleData(
-                                //       icon: Icon(
-                                //         Icons.keyboard_arrow_down,
-                                //         color: AppColors.PrimaryMainColor,
-                                //       ),
-                                //       iconSize: 30,
-                                //     ),
-                                //   ),
-                                // ),
-                                // SizedBox(
-                                //   height: 10.h,
-                                // ),
-                                // Text("Degree end Year",
-                                //     style: FieldTextStyle(
-                                //       AppColors.PrimaryBlackColor,
-                                //     )),
-                                // Container(
-                                //   height: 50.h,
-                                //   width: 480.w,
-                                //   decoration:
-                                //       BoxDecoration(borderRadius: BorderRadius.circular(10.r)),
-                                //   child: DropdownButtonFormField(
-                                //     style: TextStyle(
-                                //         color: AppColors.PrimaryMainColor,
-                                //         fontWeight: FontWeight.w600),
-                                //     decoration: InputDecoration(
-                                //       enabledBorder: OutlineInputBorder(
-                                //         borderRadius: BorderRadius.circular(10.r),
-                                //         borderSide: const BorderSide(
-                                //             color: AppColors.PrimaryGreyColor, width: 1),
-                                //       ),
-                                //       focusedBorder: OutlineInputBorder(
-                                //         borderRadius: BorderRadius.circular(10.r),
-                                //         borderSide: const BorderSide(
-                                //           color: AppColors.PrimaryBlackColor,
-                                //           width: 1,
-                                //         ),
-                                //       ),
-                                //     ),
-                                //     value: dropdownvalue,
-                                //     isExpanded: true,
-                                //     icon: Padding(
-                                //       padding: EdgeInsets.only(right: 10.r),
-                                //       child: Icon(
-                                //         Icons.keyboard_arrow_down,
-                                //         size: 30.sp,
-                                //         color: AppColors.PrimaryMainColor,
-                                //       ),
-                                //     ),
-                                //     items: items.map((String items) {
-                                //       return DropdownMenuItem(
-                                //         value: items,
-                                //         child: Padding(
-                                //           padding: EdgeInsets.only(left: 10.r),
-                                //           child: Text(items),
-                                //         ),
-                                //       );
-                                //     }).toList(),
-                                //     onChanged: (String? newValue) {
-                                //       setState(() {
-                                //         isSelected = true;
-                                //       });
-                                //     },
-                                //   ),
-                                // ),
-                                // SizedBox(
-                                //   height: 10.h,
-                                // ),
-                                // Text("Upload 10th Marks",
-                                //     style: FieldTextStyle(
-                                //       AppColors.PrimaryBlackColor,
-                                //     )),
-                                // Container(
-                                //   height: 50.h,
-                                //   width: 480.w,
-                                //   decoration:
-                                //       BoxDecoration(borderRadius: BorderRadius.circular(10.r)),
-                                //   child: DropdownButtonFormField(
-                                //     style: TextStyle(
-                                //         color: AppColors.PrimaryMainColor,
-                                //         fontWeight: FontWeight.w600),
-                                //     decoration: InputDecoration(
-                                //       enabledBorder: OutlineInputBorder(
-                                //         borderRadius: BorderRadius.circular(10.r),
-                                //         borderSide: const BorderSide(
-                                //             color: AppColors.PrimaryGreyColor, width: 1),
-                                //       ),
-                                //       focusedBorder: OutlineInputBorder(
-                                //         borderRadius: BorderRadius.circular(10.r),
-                                //         borderSide: const BorderSide(
-                                //           color: AppColors.PrimaryBlackColor,
-                                //           width: 1,
-                                //         ),
-                                //       ),
-                                //     ),
-                                //     value: dropdownvalue,
-                                //     isExpanded: true,
-                                //     icon: Padding(
-                                //       padding: EdgeInsets.only(right: 10.r),
-                                //       child: Icon(
-                                //         Icons.keyboard_arrow_down,
-                                //         size: 30.sp,
-                                //         color: AppColors.PrimaryMainColor,
-                                //       ),
-                                //     ),
-                                //     items: items.map((String items) {
-                                //       return DropdownMenuItem(
-                                //         value: items,
-                                //         child: Padding(
-                                //           padding: EdgeInsets.only(left: 10.r),
-                                //           child: Text(items),
-                                //         ),
-                                //       );
-                                //     }).toList(),
-                                //     onChanged: (String? newValue) {
-                                //       setState(() {
-                                //         isSelected = true;
-                                //       });
-                                //     },
-                                //   ),
-                                // ),
+
                                 SizedBox(
                                   height: 10.h,
                                 ),
@@ -1800,98 +1443,65 @@ class _GraduationState extends State<Graduation> {
                                                   Padding(
                                                       padding: EdgeInsets.only(
                                                           left: 20.r, right: 0),
-                                                      child: Row(
-                                                          // mainAxisAlignment:
-                                                          //     MainAxisAlignment.end,
+                                                      child: Row(children: [
+                                                        const Text(
+                                                            "Upload File"),
+                                                        Center(
+                                                            child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .end,
                                                           children: [
-                                                            Text("Upload File"),
-                                                            Center(
-                                                                child: Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .end,
-                                                              children: [
-                                                                Container(
-                                                                    color: Colors
-                                                                        .transparent,
-                                                                    margin: EdgeInsets.only(
+                                                            Container(
+                                                                color: Colors
+                                                                    .transparent,
+                                                                margin: EdgeInsets
+                                                                    .only(
                                                                         left: 10
                                                                             .r),
-                                                                    width:
-                                                                        220.w,
-                                                                    child: Row(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .end,
-                                                                      children: [
-                                                                        Container(
-                                                                          height:
-                                                                              50,
-                                                                          width:
-                                                                              2,
-                                                                          color:
-                                                                              AppColors.PrimaryGreyColor,
-                                                                        ),
-                                                                        Container(
-                                                                          height:
-                                                                              50.h,
-                                                                          width:
-                                                                              100.w,
-                                                                          decoration: BoxDecoration(
-                                                                              color: Colors.white
-                                                                              // color: AppColors
-                                                                              //     .PrimaryGreyColor,
-                                                                              // border: Border.all(
-                                                                              //     color: AppColors
-                                                                              //         .PrimaryGreyColor),
-                                                                              // borderRadius:
-                                                                              //     const BorderRadius
-                                                                              //             .only(
-                                                                              //         topRight: Radius
-                                                                              //             .circular(
-                                                                              //                 10),
-                                                                              //         bottomRight: Radius
-                                                                              //             .circular(
-                                                                              //                 10))
-                                                                              ),
-                                                                          child:
-                                                                              Row(
-                                                                            mainAxisAlignment:
-                                                                                MainAxisAlignment.center,
-                                                                            children: [
-                                                                              Icon(Icons.attach_file),
-                                                                              Text(
-                                                                                "Attach",
-                                                                                style: btntext(AppColors.PrimaryBlackColor),
-                                                                              )
-                                                                            ],
-                                                                          ),
-                                                                        )
-                                                                      ],
-                                                                    )
-                                                                    //Text(file!.path!.split('/').last),
+                                                                width: 220.w,
+                                                                child: Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .end,
+                                                                  children: [
+                                                                    Container(
+                                                                      height:
+                                                                          50,
+                                                                      width: 2,
+                                                                      color: AppColors
+                                                                          .PrimaryGreyColor,
                                                                     ),
-                                                              ],
-                                                            )),
-                                                          ])
-                                                      // : Row(
-                                                      //     children: [
-                                                      //       Image.asset(
-                                                      //         "assets/images/docx.png",
-                                                      //         height: 20.h,
-                                                      //       ),
-                                                      //       Center(
-                                                      //           child: Container(
-                                                      //         margin: EdgeInsets.only(
-                                                      //             left: 10.r),
-                                                      //         width: 250.w,
-                                                      //         child: Text(file!.path!
-                                                      //             .split('/')
-                                                      //             .last),
-                                                      //       )),
-                                                      //     ],
-                                                      //   )
-                                                      ),
+                                                                    Container(
+                                                                      height:
+                                                                          50.h,
+                                                                      width:
+                                                                          100.w,
+                                                                      decoration:
+                                                                          const BoxDecoration(
+                                                                              color: Colors.white),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: [
+                                                                          const Icon(
+                                                                              Icons.attach_file),
+                                                                          Text(
+                                                                            "Attach",
+                                                                            style:
+                                                                                btntext(AppColors.PrimaryBlackColor),
+                                                                          )
+                                                                        ],
+                                                                      ),
+                                                                    )
+                                                                  ],
+                                                                )
+                                                                //Text(file!.path!.split('/').last),
+                                                                ),
+                                                          ],
+                                                        )),
+                                                      ])),
                                                 ],
                                               ),
                                             )
@@ -1929,7 +1539,7 @@ class _GraduationState extends State<Graduation> {
                                                           //       ])
                                                           Row(
                                                         children: [
-                                                          Icon(
+                                                          const Icon(
                                                             Icons.file_copy,
                                                             color: AppColors
                                                                 .PrimaryMainColor,
@@ -1960,7 +1570,7 @@ class _GraduationState extends State<Graduation> {
                           )),
               ),
         bottomNavigationBar: done || qualificationdatasubmit.isNotEmpty
-            ? Text("")
+            ? const Text("")
             : Container(
                 decoration: const BoxDecoration(
                     image: DecorationImage(
@@ -1989,39 +1599,6 @@ class _GraduationState extends State<Graduation> {
               ));
   }
 
-  // void selectFiles() async {
-  //   FilePickerResult? result = await FilePicker.platform.pickFiles(
-  //     allowMultiple: false,
-  //     type: FileType.custom,
-  //     allowedExtensions: ['docx', 'pdf'],
-  //   );
-  //   if (result == null) return;
-
-  //   file = result.files
-
-  //   setState(() {});
-  // }
-
-  // void selectFiles() async {
-  //   try {
-  //     FilePickerResult? result = await FilePicker.platform.pickFiles(
-  //       allowedExtensions: ['pdf'],
-  //       type: FileType.custom,
-  //     );
-
-  //     if (result != null) {
-  //       setState(() {
-  //         file = File(result.files.single.path!);
-  //       });
-  //     } else {
-  //       // User canceled the picker
-  //     }
-  //   } catch (e) {
-  //     // debugger();
-  //     //print(e);
-  //   }
-  // }
-
   void selectFiles() async {
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -2044,6 +1621,7 @@ class _GraduationState extends State<Graduation> {
   }
 }
 
+// ignore: must_be_immutable
 class DonePage extends StatefulWidget {
   String? stream;
   String? coursetype;
@@ -2058,7 +1636,8 @@ class DonePage extends StatefulWidget {
   int? count;
   int? index;
   DonePage(
-      {this.stream,
+      {super.key,
+      this.stream,
       this.course,
       this.coursetype,
       this.passmonth,
@@ -2072,6 +1651,7 @@ class DonePage extends StatefulWidget {
       this.index});
 
   @override
+  // ignore: no_logic_in_create_state
   State<DonePage> createState() => _DonePageState(
       course: course,
       coursetype: coursetype,
@@ -2120,36 +1700,16 @@ class _DonePageState extends State<DonePage> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          // Text(
-          //   "Your Education Details",
-          //   style: FieldTextStyle(AppColors.PrimaryMainColor),
-          // ),
           SizedBox(
             height: 10.h,
           ),
           Card(
-            elevation: 5,
+            elevation: 2,
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                // gradient: LinearGradient(
-                //   colors: [
-                //     AppColors.PrimaryMainColor,
-                //     // Color(0xff72DAF7),
-                //     Color(0xff6538A8),
-                //   ],
-                //   begin: Alignment.topLeft,
-                //   end: Alignment.bottomRight,
-                // ),
               ),
               child: ListTile(
-                // title: Padding(
-                //   padding: EdgeInsets.only(bottom: 1.sp, top: 10.sp),
-                //   child: Text(
-                //     "Name",
-                //     style: FieldTextStyle(AppColors.PrimaryBlackColor),
-                //   ),
-                // ),
                 subtitle: Padding(
                   padding: EdgeInsets.only(bottom: 5.sp, top: 5.sp),
                   child: Column(
@@ -2161,20 +1721,18 @@ class _DonePageState extends State<DonePage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("Qualification:- ",
-                              style:
-                                  FieldTextStyle(AppColors.PrimaryMainColor)),
+                          Text("Qualification :- ",
+                              style: batchtext2(AppColors.PrimaryMainColor)),
                           SizedBox(
                             height: 5.h,
                           ),
                           Text("$qualification",
-                              style:
-                                  FieldTextStyle(AppColors.PrimaryMainColor)),
+                              style: batchtext1(AppColors.PrimaryMainColor)),
                         ],
                       ),
                       Row(
                         children: [
-                          Text("Stream:-",
+                          Text("Stream :-",
                               style: batchtext2(AppColors.PrimaryBlackColor)),
                           SizedBox(
                             height: 5.h,
@@ -2188,7 +1746,7 @@ class _DonePageState extends State<DonePage> {
                       ),
                       Row(
                         children: [
-                          Text("Course Type:-",
+                          Text("Course Type :-",
                               style: batchtext2(AppColors.PrimaryBlackColor)),
                           SizedBox(
                             height: 5.h,
@@ -2241,7 +1799,7 @@ class _DonePageState extends State<DonePage> {
                             ],
                           ),
                           SizedBox(
-                            width: 5,
+                            width: 5.h,
                           ),
                           Row(
                             children: [
@@ -2256,7 +1814,7 @@ class _DonePageState extends State<DonePage> {
                         ],
                       ),
                       SizedBox(
-                        height: 5,
+                        height: 5.h,
                       ),
                       Row(
                         children: [
@@ -2271,7 +1829,7 @@ class _DonePageState extends State<DonePage> {
                             ],
                           ),
                           SizedBox(
-                            width: 5,
+                            width: 5.h,
                           ),
                           Row(
                             children: [
@@ -2291,17 +1849,6 @@ class _DonePageState extends State<DonePage> {
               ),
             ),
           ),
-
-          // SizedBox(
-          //   height: 550.h,
-          //   child: ListView.builder(
-          //       itemCount: count,
-          //       shrinkWrap: true,
-          //       itemBuilder: ((context, index) {
-          //         return
-
-          //       })),
-          // ),
         ],
       ),
     );

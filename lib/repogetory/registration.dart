@@ -1,12 +1,8 @@
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:global_student/networking/apiProvider.dart';
-
 import '../networking/NetworkConstant.dart';
 
 class Registrationget {
-  ApiProvider _apiProvider = ApiProvider();
+  final ApiProvider _apiProvider = ApiProvider();
 
   Future<dynamic> getRegistraionDetailsApi() async {
     final response = await _apiProvider

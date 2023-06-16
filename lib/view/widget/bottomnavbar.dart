@@ -7,6 +7,7 @@ import 'package:global_student/view/drawerpage/contactus.dart';
 import 'package:global_student/view/drawerpage/profile_page.dart';
 
 
+// ignore: must_be_immutable
 class Bottom extends StatefulWidget {
   int? index;
   Bottom({Key? key, this.index}) : super(key: key);

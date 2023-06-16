@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:global_student/utils/routes/routes.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
-
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 int? isViewed;
@@ -12,6 +11,9 @@ int? isViewed;
 bool? screenboard;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   SharedPreferences prefs = await SharedPreferences.getInstance();
   screenboard = prefs.getBool('screenboard') ?? false;
   // isViewed = prefs.getInt('onBoard');
@@ -34,7 +36,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          //  home: HomePageData(),
+          // home: DialogDemo(),
           initialRoute: RoutesName.splash,
           onGenerateRoute: Routes.generateRoute,
         );

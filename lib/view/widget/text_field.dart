@@ -6,6 +6,7 @@ import 'package:global_student/utils/constant.dart';
 
 import '../../utils/text_style.dart';
 
+// ignore: must_be_immutable
 class TextFormWidget extends StatelessWidget {
   String? title;
   String? hint;
@@ -67,7 +68,7 @@ class TextFormWidget extends StatelessWidget {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.r),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   color: AppColors.PrimaryMainColor,
                   width: 1,
                 ),

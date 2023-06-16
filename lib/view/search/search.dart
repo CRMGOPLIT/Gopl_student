@@ -2035,11 +2035,41 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
                                           children: [
-                                            Image.asset(
-                                              "assets/images/uicon1.png",
-                                              height: 40.h,
-                                              width: 40.w,
-                                              fit: BoxFit.cover,
+                                            Padding(
+                                              padding: const EdgeInsets.all(2),
+                                              child: Image.network(
+                                                objCourse[index]
+                                                    .logo
+                                                    .toString(),
+                                                loadingBuilder: (context, child,
+                                                        loadingProgress) =>
+                                                    (loadingProgress == null ||
+                                                            objCourse[index]
+                                                                    .logo
+                                                                    .toString() ==
+                                                                "")
+                                                        ? child
+                                                        : CircularProgressIndicator(),
+                                                errorBuilder: (context, error,
+                                                        stackTrace) =>
+                                                    Container(
+                                                  height: 40.h,
+                                                  width: 40.w,
+                                                  color: AppColors
+                                                      .PrimaryWhiteColor,
+                                                  child: Center(
+                                                    child: Image.asset(
+                                                      "assets/images/uicon1.png",
+                                                      height: 40.h,
+                                                      width: 40.w,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ),
+                                                height: 40.h,
+                                                width: 40.w,
+                                                fit: BoxFit.fill,
+                                              ),
                                             ),
                                             SizedBox(
                                               width: 5.w,

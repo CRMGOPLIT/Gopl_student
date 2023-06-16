@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/text_style.dart';
 
+// ignore: must_be_immutable
 class AppBarCustom extends StatelessWidget {
   String? title;
   Function? onpress;

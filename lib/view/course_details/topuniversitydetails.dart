@@ -10,7 +10,7 @@ import 'package:global_student/utils/text_style.dart';
 import 'package:global_student/view/course_details/course_details.dart';
 import 'package:global_student/view/helper/apiResponseHelper.dart';
 import 'package:global_student/view/widget/app_bar.dart';
-   
+
 class TopUniversityList extends StatefulWidget {
   const TopUniversityList({super.key});
 
@@ -37,7 +37,6 @@ class _TopUniversityListState extends State<TopUniversityList> {
     // scrollController.addListener(_scrollListener);
     super.initState();
     getListofuniversity();
-
     searchFilter();
     // GetCourseData();
     // callcourseDetails();
@@ -134,9 +133,6 @@ class _TopUniversityListState extends State<TopUniversityList> {
       NetworkConstant.crmAccessRequest: "Country Manager",
     };
     searchBloc.callGetFilterSearch(filterdata);
-
-    // debugger();
-    // print(filterdata);
   }
 
   Widget build(BuildContext context) {
@@ -210,7 +206,7 @@ class _TopUniversityListState extends State<TopUniversityList> {
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.all(
-                                                              5),
+                                                              2),
                                                       child: Image.network(
                                                         objCourse[index]
                                                             .logo

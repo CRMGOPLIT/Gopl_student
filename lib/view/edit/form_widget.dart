@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:global_student/view/edit/form_model.dart';
 
+// ignore: must_be_immutable
 class ContactFormItemWidget extends StatefulWidget {
   ContactFormItemWidget(
       {Key? key,
@@ -9,6 +11,7 @@ class ContactFormItemWidget extends StatefulWidget {
       this.index})
       : super(key: key);
 
+  // ignore: prefer_typing_uninitialized_variables
   final index;
   ContactModel contactModel;
   final Function onRemove;
@@ -16,12 +19,13 @@ class ContactFormItemWidget extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
+    // ignore: no_logic_in_create_state
     return state;
   }
 
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _contactController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _contactController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 }
 
 class _ContactFormItemWidgetState extends State<ContactFormItemWidget> {
@@ -38,13 +42,13 @@ class _ContactFormItemWidgetState extends State<ContactFormItemWidget> {
             padding: const EdgeInsets.only(left: 12, right: 12, bottom: 12),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(12)),
+              borderRadius: const BorderRadius.all(Radius.circular(12)).w,
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey.withOpacity(0.2),
                   spreadRadius: 2,
                   blurRadius: 10,
-                  offset: Offset(0, 3), // changes position of shadow
+                  offset: const Offset(0, 3), // changes position of shadow
                 ),
               ],
             ),
@@ -59,7 +63,7 @@ class _ContactFormItemWidgetState extends State<ContactFormItemWidget> {
                       "Contact - ${widget.index}",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 16,
+                          fontSize: 16.sp,
                           color: Colors.orange),
                     ),
                     Row(
@@ -77,13 +81,13 @@ class _ContactFormItemWidgetState extends State<ContactFormItemWidget> {
                                 widget._emailController.clear();
                               });
                             },
-                            child: Text(
+                            child: const Text(
                               "Clear",
                               style: TextStyle(color: Colors.blue),
                             )),
                         TextButton(
                             onPressed: () => widget.onRemove(),
-                            child: Text(
+                            child: const Text(
                               "Remove",
                               style: TextStyle(color: Colors.blue),
                             )),
@@ -96,7 +100,7 @@ class _ContactFormItemWidgetState extends State<ContactFormItemWidget> {
                   // initialValue: widget.contactModel.name,
                   onChanged: (value) => widget.contactModel.name = value,
                   onSaved: (value) => widget.contactModel.name = value,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     contentPadding: EdgeInsets.symmetric(horizontal: 12),
                     border: OutlineInputBorder(),
                     hintText: "Enter Name",
@@ -104,13 +108,13 @@ class _ContactFormItemWidgetState extends State<ContactFormItemWidget> {
                   ),
                 ),
                 SizedBox(
-                  height: 8,
+                  height: 8.h,
                 ),
                 TextFormField(
                   controller: widget._contactController,
                   onChanged: (value) => widget.contactModel.number = value,
                   onSaved: (value) => widget.contactModel.name = value,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     contentPadding: EdgeInsets.symmetric(horizontal: 12),
                     border: OutlineInputBorder(),
                     hintText: "Enter Number",
@@ -118,13 +122,13 @@ class _ContactFormItemWidgetState extends State<ContactFormItemWidget> {
                   ),
                 ),
                 SizedBox(
-                  height: 8,
+                  height: 8.h,
                 ),
                 TextFormField(
                   controller: widget._emailController,
                   onChanged: (value) => widget.contactModel.email = value,
                   onSaved: (value) => widget.contactModel.email = value,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     contentPadding: EdgeInsets.symmetric(horizontal: 12),
                     border: OutlineInputBorder(),
                     hintText: "Enter Email",

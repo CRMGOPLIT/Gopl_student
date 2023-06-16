@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/text_style.dart';
 
@@ -7,13 +8,12 @@ class ErrorDialog extends StatelessWidget {
   final String title;
   final String image;
 
-  ErrorDialog({
+  const ErrorDialog({super.key, 
     required this.image,
     required this.title,
     required this.onPressed,
   });
 
-  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class ErrorDialog extends StatelessWidget {
         return Future.value(false);
       },
       child: SimpleDialog(
-        insetPadding: EdgeInsets.all(15),
+        insetPadding: const EdgeInsets.all(15),
         contentPadding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -41,7 +41,7 @@ class ErrorDialog extends StatelessWidget {
                 // mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   SizedBox(
-                    height: 16,
+                    height: 16.h,
                   ),
                   Image.asset(
                     image,
@@ -50,7 +50,7 @@ class ErrorDialog extends StatelessWidget {
                   ),
 
                   SizedBox(
-                    height: 16,
+                    height: 16.h,
                   ),
                   Text(
                     title,
@@ -62,7 +62,7 @@ class ErrorDialog extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(
                         top: 24, left: 24, right: 24, bottom: 8),
-                    child: Container(
+                    child: SizedBox(
                       width: 300,
                       child: onPressed('Okay', true, () {
                         onPressed();

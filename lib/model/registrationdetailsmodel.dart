@@ -45,6 +45,7 @@ class RegistrationDetails {
 
 class DdlCourseIntrested {
   DdlCourseIntrested({
+
     required this.CourseIntrestedId,
     required this.CourseIntrestedName,
   });

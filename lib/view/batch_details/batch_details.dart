@@ -20,7 +20,7 @@ class _BatchDetailsState extends State<BatchDetails> {
   bool loanding = true;
   late DashBoardBloc dashBoardBloc;
   List<BatchDetailsModel> data = [];
-  List BatchData = [];
+  List batchData = [];
 
   // @override
   // void initState() {
@@ -33,8 +33,8 @@ class _BatchDetailsState extends State<BatchDetails> {
   // getBranchDetails() async {
   //   await dashBoardBloc.batchControllerStream.listen((event) {
   //     if (event != null) {
-  //       BatchData = event;
-  //       for (int i = 0; i < BatchData.length; i++) {
+  //       batchData = event;
+  //       for (int i = 0; i < batchData.length; i++) {
   //         BatchDetailsModel branchDetailsModel =
   //             BatchDetailsModel.fromJson(event[i]);
   //         data.add(branchDetailsModel);
@@ -91,7 +91,7 @@ class _ListBatchState extends State<ListBatch> {
     dashBoardBloc = DashBoardBloc();
     getBranchDetails();
     _gethomeData();
-    SaveName();
+    saveName();
     if (_isStart) {
       Future.delayed(Duration(milliseconds: widget.index * 1000), () {
         setState(() {
@@ -107,14 +107,14 @@ class _ListBatchState extends State<ListBatch> {
   bool loanding = true;
   late DashBoardBloc dashBoardBloc;
   List<BatchDetailsModel> data = [];
-  List BatchData = [];
+  List batchData = [];
   int? avl;
 
   getBranchDetails() async {
-    await dashBoardBloc.batchControllerStream.listen((event) {
+    dashBoardBloc.batchControllerStream.listen((event) {
       if (event != null) {
-        BatchData = event;
-        for (int i = 0; i < BatchData.length; i++) {
+        batchData = event;
+        for (int i = 0; i < batchData.length; i++) {
           BatchDetailsModel branchDetailsModel =
               BatchDetailsModel.fromJson(event[i]);
 
@@ -137,7 +137,7 @@ class _ListBatchState extends State<ListBatch> {
   }
 
   String? sName;
-  SaveName() async {
+  saveName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     //Return String
     sName = prefs.getString('Name');
@@ -160,11 +160,10 @@ class _ListBatchState extends State<ListBatch> {
                   itemCount: data.length,
                   itemBuilder: ((context, index) {
                     return Padding(
-                      padding: EdgeInsets.only(
-                          left: 10, right: 10, bottom: 5, top: 5),
+                      padding: const EdgeInsets.only(
+                              left: 10, right: 10, bottom: 5, top: 5)
+                          .r,
                       child: Container(
-                        // height: 350.h,
-                        // width: 390.w,
                         decoration: BoxDecoration(
                             color: AppColors.PrimaryWhiteColor,
                             borderRadius: BorderRadius.circular(10.r),

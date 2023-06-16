@@ -8,8 +8,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/routes/routes_name.dart';
 
+// ignore: camel_case_types
 class drawer extends StatefulWidget {
-  drawer({
+  const drawer({
     Key? key,
   }) : super(key: key);
 
@@ -17,6 +18,7 @@ class drawer extends StatefulWidget {
   State<drawer> createState() => _drawerState();
 }
 
+// ignore: camel_case_types
 class _drawerState extends State<drawer> {
   String? token;
 
@@ -34,15 +36,13 @@ class _drawerState extends State<drawer> {
   @override
   void initState() {
     setdata();
-    // TODO: implement initState
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final imageurl =
-        "https://cdn.siasat.com/wp-content/uploads/2021/05/tiger-shroff.jpg";
-    return Container(
+    return SizedBox(
       // decoration: BoxDecoration(color: AppColors.PrimaryBlackColor
       //     // border: Border.all(),
       //     // borderRadius: BorderRadius.circular(40)
@@ -51,13 +51,14 @@ class _drawerState extends State<drawer> {
       child: ClipRRect(
         clipBehavior: Clip.antiAlias,
         borderRadius: BorderRadius.only(
-            topRight: Radius.circular(35), bottomRight: Radius.circular(50.r)),
+            topRight: const Radius.circular(35),
+            bottomRight: Radius.circular(50.r)),
         child: Drawer(
           // shape: borders,
           //backgroundColor: AppColors.PrimaryWhiteColor,
           child: ListView(
             //  clipBehavior: Clip.hardEdge,
-            padding: EdgeInsets.all(0.0),
+            padding: const EdgeInsets.all(0.0),
             children: [
               UserAccountsDrawerHeader(
                 //decoration: BoxDecoration(color: AppColors.PrimaryMainColor),
@@ -85,7 +86,7 @@ class _drawerState extends State<drawer> {
                     style: batchtext1(
                       AppColors.PrimaryWhiteColor,
                     )),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   // color: AppColors.PrimaryMainColor,
                   image: DecorationImage(
                     image: NetworkImage(
@@ -109,7 +110,7 @@ class _drawerState extends State<drawer> {
                   Get.back();
                 },
                 child: ListTile(
-                  leading: Icon(
+                  leading: const Icon(
                     CupertinoIcons.home,
                     color: Colors.black,
                   ),
@@ -123,7 +124,7 @@ class _drawerState extends State<drawer> {
                   Navigator.pushNamed(context, RoutesName.profilepage);
                 },
                 child: ListTile(
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.person,
                     color: Colors.black,
                   ),
@@ -137,7 +138,7 @@ class _drawerState extends State<drawer> {
                   Navigator.pushNamed(context, RoutesName.aboutpage);
                 },
                 child: ListTile(
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.school,
                     color: Colors.black,
                   ),

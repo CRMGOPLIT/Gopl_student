@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:global_student/bloc/dashboardBloc.dart';
 import 'package:global_student/model/EventDetailsModel.dart';
 import 'package:global_student/model/universityvisitModel.dart';
@@ -54,7 +53,7 @@ class _EventDetailsState extends State<EventDetails> {
   }
 
   getUniversityDetails() async {
-    await dashBoardBloc.universityControllerStream.listen((event) {
+    dashBoardBloc.universityControllerStream.listen((event) {
       if (event != null) {
         // debugger();
         // print(event);
@@ -79,14 +78,12 @@ class _EventDetailsState extends State<EventDetails> {
     dashBoardBloc.callGetUniversityDetailsApi();
   }
 
-  TabController? _tabController;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroungcolor,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(50.h), // here the desired height
+        preferredSize: Size.fromHeight(50.h),
         child: AppBarCustom(
           title: "Event Details",
           onpress: () {
@@ -110,10 +107,8 @@ class _EventDetailsState extends State<EventDetails> {
                   Padding(
                     padding: const EdgeInsets.only(left: 10, right: 10),
                     child: Container(
-                      // padding: EdgeInsets.all(10),
                       height: 50,
                       decoration: BoxDecoration(
-                          //color: AppColors.PrimaryWhiteColor,
                           borderRadius: BorderRadius.circular(20)),
                       child: TabBar(
                         // controller: _tabController,
@@ -125,825 +120,572 @@ class _EventDetailsState extends State<EventDetails> {
 
                         indicator: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
-                            color: AppColors.PrimaryMainColor
-
-                            // border: Border.all(color: AppColors.PrimaryMainColor)
-                            ),
+                            color: AppColors.PrimaryMainColor),
                         tabs: const [
                           Tab(
                             child: Text(
                               "Upcoming Events",
-                              // style: Text2Regular(AppColors.PrimaryWhiteColor),
                             ),
                           ),
                           Tab(
                             child: Text(
                               "University Visit",
-                              //  style: Text2Regular(AppColors.PrimaryMainColor),
                             ),
                           ),
                         ],
                       ),
                     ),
                   ),
-                  // SizedBox(
-                  //   height: 20,
-                  // ),
                   Expanded(
                     child: TabBarView(children: [
-                      //tab 1
-                      ListView.builder(
-                          itemCount: data.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: EdgeInsets.only(
-                                  left: 10, right: 10, bottom: 5, top: 5),
-                              child: Container(
-                                // height: 350.h,
-                                // width: 390.w,
-                                decoration: BoxDecoration(
-                                    color: AppColors.PrimaryWhiteColor,
-                                    borderRadius: BorderRadius.circular(10.r),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                          offset: Offset(
-                                            3,
-                                            3,
-                                          ),
-                                          color: Colors.black12,
-                                          blurRadius: 1.0,
-                                          spreadRadius: 0.0),
-                                    ]),
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.all(8.r),
-                                      child: Row(
-                                        // mainAxisAlignment: MainAxisAlignment.start,
-                                        // crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Stack(
-                                            alignment: Alignment.topRight,
-                                            clipBehavior: Clip.none,
-                                            children: [
-                                              Container(
-                                                height: 120.h,
-                                                width: 320.w,
-                                                decoration: BoxDecoration(
-                                                    color: AppColors
-                                                        .PrimaryMainColor,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5.r),
-                                                    image: DecorationImage(
-                                                        fit: BoxFit.cover,
-                                                        image: AssetImage(
-                                                            "assets/images/evh.png"
-                                                                .toString()))),
+                      data.isEmpty
+                          ? Column(
+                              children: [
+                                SizedBox(
+                                  height: 100.h,
+                                ),
+                                Center(
+                                    child: Image.asset(
+                                  "assets/images/noevent.png",
+                                  height: 230.h,
+                                  width: 250.w,
+                                  fit: BoxFit.contain,
+                                )),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                Text("Event Coming soon...👨‍💻",
+                                    style: H2TextStyle(
+                                        AppColors.PrimaryMainColor)),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                              ],
+                            )
+                          : ListView.builder(
+                              itemCount: data.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(
+                                          left: 10,
+                                          right: 10,
+                                          bottom: 5,
+                                          top: 5)
+                                      .r,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        color: AppColors.PrimaryWhiteColor,
+                                        borderRadius:
+                                            BorderRadius.circular(10.r),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                              offset: Offset(
+                                                3,
+                                                3,
                                               ),
-                                              Positioned(
-                                                left: 175.h,
-                                                top: 5.h,
-                                                child: Container(
-                                                  constraints:
-                                                      const BoxConstraints(
-                                                    maxHeight: double.infinity,
-                                                  ),
-                                                  width: 120.w,
-                                                  decoration: BoxDecoration(
-                                                    color: AppColors
-                                                        .PrimaryWhiteColor,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20.r),
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsets.all(8.r),
-                                                    child: Text(
-                                                      data[index]
-                                                          .branch
-                                                          .toString(),
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: FieldTextStyle(
-                                                          AppColors
-                                                              .PrimaryMainColor),
-                                                    ),
-                                                  ),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                          // Padding(
-                                          //   padding: EdgeInsets.only(left: 10.r),
-                                          //   child: Column(
-                                          //     crossAxisAlignment:
-                                          //         CrossAxisAlignment.start,
-                                          //     mainAxisAlignment: MainAxisAlignment.start,
-                                          //     children: [
-                                          //       RichText(
-                                          //         text: TextSpan(
-                                          //           text: 'Date :- ',
-                                          //           style: batchtext1(
-                                          //               AppColors.PrimaryBlackColor),
-                                          //           children: [
-                                          //             TextSpan(
-                                          //               text: '29/01/2023',
-                                          //               style: batchtext2(
-                                          //                   AppColors.PrimaryBlackColor),
-                                          //             ),
-                                          //           ],
-                                          //         ),
-                                          //       ),
-                                          //       SizedBox(
-                                          //         height: 10.h,
-                                          //       ),
-                                          //       RichText(
-                                          //         text: TextSpan(
-                                          //           text: 'Time :- ',
-                                          //           style: batchtext1(
-                                          //               AppColors.PrimaryBlackColor),
-                                          //           children: [
-                                          //             TextSpan(
-                                          //               text: '11:00 AM To 5:00 PM',
-                                          //               style: batchtext2(
-                                          //                   AppColors.PrimaryBlackColor),
-                                          //             ),
-                                          //           ],
-                                          //         ),
-                                          //       ),
-                                          //       SizedBox(
-                                          //         height: 10.h,
-                                          //       ),
-                                          //       SizedBox(
-                                          //         width: 200.w,
-                                          //         child: RichText(
-                                          //           // overflow: TextOverflow.ellipsis,
-                                          //           text: TextSpan(
-                                          //             text: 'Venue :- ',
-                                          //             style: batchtext1(
-                                          //                 AppColors.PrimaryBlackColor),
-                                          //             children: [
-                                          //               TextSpan(
-                                          //                 text:
-                                          //                     'Courtyard by Marriott Mumbai',
-                                          //                 style: batchtext2(AppColors
-                                          //                     .PrimaryBlackColor),
-                                          //               ),
-                                          //             ],
-                                          //           ),
-                                          //         ),
-                                          //       ),
-                                          //       SizedBox(
-                                          //         height: 10.h,
-                                          //       ),
-                                          //       RichText(
-                                          //         // overflow: TextOverflow.ellipsis,
-                                          //         text: TextSpan(
-                                          //           text: 'Phone :- ',
-                                          //           style: batchtext1(
-                                          //               AppColors.PrimaryBlackColor),
-                                          //           children: [
-                                          //             TextSpan(
-                                          //               text: '9090909090',
-                                          //               style: batchtext2(
-                                          //                   AppColors.PrimaryBlackColor),
-                                          //             ),
-                                          //           ],
-                                          //         ),
-                                          //       ),
-                                          //     ],
-                                          //   ),
-                                          // ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(top: 8.r),
-                                      child: Container(
-                                        height: 1.h,
-                                        width: 300.w,
-                                        color: AppColors.PrimaryGreyColor,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 8.r,
-                                          right: 8.r,
-                                          bottom: 8.r,
-                                          top: 8.r),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        // mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            width: 320.w,
-                                            child: RichText(
-                                              // overflow: TextOverflow.ellipsis,
-                                              text: TextSpan(
-                                                text: 'Date :- ',
-                                                style: batchtext2(AppColors
-                                                    .PrimaryBlackColor),
+                                              color: Colors.black12,
+                                              blurRadius: 1.0,
+                                              spreadRadius: 0.0),
+                                        ]),
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.all(8.r),
+                                          child: Row(
+                                            children: [
+                                              Stack(
+                                                alignment: Alignment.topRight,
+                                                clipBehavior: Clip.none,
                                                 children: [
-                                                  TextSpan(
-                                                    text: data[index]
-                                                        .date
-                                                        .toString()
-                                                        .split(" ")[0],
-                                                    style: batchtext1(AppColors
-                                                        .PrimaryBlackColor),
+                                                  Container(
+                                                    height: 120.h,
+                                                    width: 320.w,
+                                                    decoration: BoxDecoration(
+                                                        color: AppColors
+                                                            .PrimaryMainColor,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5.r),
+                                                        image: DecorationImage(
+                                                            fit: BoxFit.cover,
+                                                            image: AssetImage(
+                                                                "assets/images/evh.png"
+                                                                    .toString()))),
                                                   ),
+                                                  Positioned(
+                                                    left: 175.h,
+                                                    top: 5.h,
+                                                    child: Container(
+                                                      constraints:
+                                                          const BoxConstraints(
+                                                        maxHeight:
+                                                            double.infinity,
+                                                      ),
+                                                      width: 120.w,
+                                                      decoration: BoxDecoration(
+                                                        color: AppColors
+                                                            .PrimaryWhiteColor,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20.r),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsets.all(8.r),
+                                                        child: Text(
+                                                          data[index]
+                                                              .branch
+                                                              .toString(),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: FieldTextStyle(
+                                                              AppColors
+                                                                  .PrimaryMainColor),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  )
                                                 ],
                                               ),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 8.h,
-                                          ),
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                Icons.watch_later,
-                                                size: 20.sp,
-                                                color:
-                                                    AppColors.PrimaryMainColor,
-                                              ),
-                                              SizedBox(
-                                                width: 10.h,
-                                              ),
-                                              Text(
-                                                data[index].time.toString(),
-                                                style: batchtext1(AppColors
-                                                    .PrimaryBlackColor),
-                                              )
                                             ],
                                           ),
-                                          SizedBox(
-                                            height: 5.h,
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 8.r),
+                                          child: Container(
+                                            height: 1.h,
+                                            width: 300.w,
+                                            color: AppColors.PrimaryGreyColor,
                                           ),
-                                          InkWell(
-                                            onTap: () async {
-                                              const url =
-                                                  'https://www.google.com/maps/d/viewer?mid=1T1ZLcwz23FD9CGb7GnBTTtiXfxw&hl=en_US&ll=28.684263000000033%2C77.18702299999997&z=17';
-                                              if (await canLaunch(data[index]
-                                                  .venueLocation
-                                                  .toString())) {
-                                                await launch(data[index]
-                                                    .venueLocation
-                                                    .toString());
-                                              } else {
-                                                throw 'Could not launch $url';
-                                              }
-                                            },
-                                            child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Icon(
-                                                  Icons.location_on,
-                                                  size: 20.sp,
-                                                  color: AppColors
-                                                      .PrimaryMainColor,
-                                                ),
-                                                SizedBox(
-                                                  width: 10.h,
-                                                ),
-                                                SizedBox(
-                                                  width: 290,
-                                                  child: Text(
-                                                    data[index]
-                                                        .venue
-                                                        .toString(),
-                                                    style: location(AppColors
-                                                        .PrimaryMainColor),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              left: 8.r,
+                                              right: 8.r,
+                                              bottom: 8.r,
+                                              top: 8.r),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              SizedBox(
+                                                width: 320.w,
+                                                child: RichText(
+                                                  text: TextSpan(
+                                                    text: 'Date :- ',
+                                                    style: batchtext2(AppColors
+                                                        .PrimaryBlackColor),
+                                                    children: [
+                                                      TextSpan(
+                                                        text: data[index]
+                                                            .date
+                                                            .toString()
+                                                            .split(" ")[0],
+                                                        style: batchtext1(AppColors
+                                                            .PrimaryBlackColor),
+                                                      ),
+                                                    ],
                                                   ),
-                                                )
-                                              ],
-                                            ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 8.h,
+                                              ),
+                                              Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Icon(
+                                                    Icons.watch_later,
+                                                    size: 20.sp,
+                                                    color: AppColors
+                                                        .PrimaryMainColor,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 10.h,
+                                                  ),
+                                                  Text(
+                                                    data[index].time.toString(),
+                                                    style: batchtext1(AppColors
+                                                        .PrimaryBlackColor),
+                                                  )
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: 5.h,
+                                              ),
+                                              InkWell(
+                                                onTap: () async {
+                                                  const url =
+                                                      'https://www.google.com/maps/d/viewer?mid=1T1ZLcwz23FD9CGb7GnBTTtiXfxw&hl=en_US&ll=28.684263000000033%2C77.18702299999997&z=17';
+                                                  if (await canLaunch(
+                                                      data[index]
+                                                          .venueLocation
+                                                          .toString())) {
+                                                    await launch(data[index]
+                                                        .venueLocation
+                                                        .toString());
+                                                  } else {
+                                                    throw 'Could not launch $url';
+                                                  }
+                                                },
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.location_on,
+                                                      size: 20.sp,
+                                                      color: AppColors
+                                                          .PrimaryMainColor,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 10.h,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 290,
+                                                      child: Text(
+                                                        data[index]
+                                                            .venue
+                                                            .toString(),
+                                                        style: location(AppColors
+                                                            .PrimaryMainColor),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          }),
+                                  ),
+                                );
+                              }),
 
                       //Tab 2
                       // SizedBox(
                       //   height: 20,
                       // ),
-
-                      ListView.builder(
-                          itemCount: universitydetails.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: EdgeInsets.only(
-                                  left: 10, right: 10, bottom: 5, top: 5),
-                              child: Container(
-                                padding: EdgeInsets.only(bottom: 10, top: 10),
-                                // height: 350.h,
-                                // width: 390.w,
-                                decoration: BoxDecoration(
-                                    color: AppColors.PrimaryWhiteColor,
-                                    borderRadius: BorderRadius.circular(10.r),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                          offset: Offset(
-                                            3,
-                                            3,
+                      universitydetails.isEmpty
+                          ? Column(
+                              children: [
+                                SizedBox(
+                                  height: 100.h,
+                                ),
+                                Center(
+                                    child: Image.asset(
+                                  "assets/images/noevent.png",
+                                  height: 230.h,
+                                  width: 250.w,
+                                  fit: BoxFit.contain,
+                                )),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                Text("Event Coming soon...👨‍💻",
+                                    style: H2TextStyle(
+                                        AppColors.PrimaryMainColor)),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                              ],
+                            )
+                          : ListView.builder(
+                              itemCount: universitydetails.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(
+                                          left: 10,
+                                          right: 10,
+                                          bottom: 5,
+                                          top: 5)
+                                      .r,
+                                  child: Container(
+                                    padding: const EdgeInsets.only(
+                                            bottom: 10, top: 10)
+                                        .r,
+                                    decoration: BoxDecoration(
+                                        color: AppColors.PrimaryWhiteColor,
+                                        borderRadius:
+                                            BorderRadius.circular(10.r),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                              offset: Offset(
+                                                3,
+                                                3,
+                                              ),
+                                              color: Colors.black12,
+                                              blurRadius: 1.0,
+                                              spreadRadius: 0.0),
+                                        ]),
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                            left: 8.r,
+                                            right: 8.r,
+                                            bottom: 8.r,
                                           ),
-                                          color: Colors.black12,
-                                          blurRadius: 1.0,
-                                          spreadRadius: 0.0),
-                                    ]),
-                                child: Column(
-                                  children: [
-                                    // Padding(
-                                    //   padding: EdgeInsets.all(8.r),
-                                    //   child: Row(
-                                    //     // mainAxisAlignment: MainAxisAlignment.start,
-                                    //     // crossAxisAlignment: CrossAxisAlignment.start,
-                                    //     children: [
-                                    //       // Stack(
-                                    //       //   alignment: Alignment.topRight,
-                                    //       //   clipBehavior: Clip.none,
-                                    //       //   children: [
-                                    //       //     Container(
-                                    //       //       //height: 120.h,
-                                    //       //       width: 320.w,
-                                    //       //       // decoration: BoxDecoration(
-                                    //       //       //     color: AppColors
-                                    //       //       //         .PrimaryMainColor,
-                                    //       //       //     borderRadius:
-                                    //       //       //         BorderRadius.circular(
-                                    //       //       //             5.r),
-                                    //       //       //     image: DecorationImage(
-                                    //       //       //         fit: BoxFit.cover,
-                                    //       //       //         image: AssetImage(
-                                    //       //       //             "assets/images/evh.png"
-                                    //       //       //                 .toString()))),
-                                    //       //     ),
-                                    //       //     // Positioned(
-                                    //       //     //   left: 0.h,
-                                    //       //     //   top: -25.h,
-                                    //       //     //   child: Container(
-                                    //       //     //     constraints:
-                                    //       //     //         const BoxConstraints(
-                                    //       //     //       maxHeight: double.infinity,
-                                    //       //     //     ),
-                                    //       //     //     width: 220.w,
-                                    //       //     //     decoration: BoxDecoration(
-                                    //       //     //       color: AppColors
-                                    //       //     //           .PrimaryWhiteColor,
-                                    //       //     //       borderRadius:
-                                    //       //     //           BorderRadius.circular(
-                                    //       //     //               20.r),
-                                    //       //     //     ),
-                                    //       //     //     child: Padding(
-                                    //       //     //       padding: EdgeInsets.only(
-                                    //       //     //           left: 8.r,
-                                    //       //     //           right: 8.r,
-                                    //       //     //           bottom: 8.r,
-                                    //       //     //           top: 8.r),
-                                    //       //     //       child: Text(
-                                    //       //     //         universitydetails[index]
-                                    //       //     //             .branchName
-                                    //       //     //             .toString(),
-                                    //       //     //         // textAlign:
-                                    //       //     //         //     TextAlign.center,
-                                    //       //     //         style: OtpText(AppColors
-                                    //       //     //             .PrimaryMainColor),
-                                    //       //     //       ),
-                                    //       //     //     ),
-                                    //       //     //   ),
-                                    //       //     // )
-                                    //       //   ],
-                                    //       // ),
-                                    //       // Padding(
-                                    //       //   padding: EdgeInsets.only(left: 10.r),
-                                    //       //   child: Column(
-                                    //       //     crossAxisAlignment:
-                                    //       //         CrossAxisAlignment.start,
-                                    //       //     mainAxisAlignment: MainAxisAlignment.start,
-                                    //       //     children: [
-                                    //       //       RichText(
-                                    //       //         text: TextSpan(
-                                    //       //           text: 'Date :- ',
-                                    //       //           style: batchtext1(
-                                    //       //               AppColors.PrimaryBlackColor),
-                                    //       //           children: [
-                                    //       //             TextSpan(
-                                    //       //               text: '29/01/2023',
-                                    //       //               style: batchtext2(
-                                    //       //                   AppColors.PrimaryBlackColor),
-                                    //       //             ),
-                                    //       //           ],
-                                    //       //         ),
-                                    //       //       ),
-                                    //       //       SizedBox(
-                                    //       //         height: 10.h,
-                                    //       //       ),
-                                    //       //       RichText(
-                                    //       //         text: TextSpan(
-                                    //       //           text: 'Time :- ',
-                                    //       //           style: batchtext1(
-                                    //       //               AppColors.PrimaryBlackColor),
-                                    //       //           children: [
-                                    //       //             TextSpan(
-                                    //       //               text: '11:00 AM To 5:00 PM',
-                                    //       //               style: batchtext2(
-                                    //       //                   AppColors.PrimaryBlackColor),
-                                    //       //             ),
-                                    //       //           ],
-                                    //       //         ),
-                                    //       //       ),
-                                    //       //       SizedBox(
-                                    //       //         height: 10.h,
-                                    //       //       ),
-                                    //       //       SizedBox(
-                                    //       //         width: 200.w,
-                                    //       //         child: RichText(
-                                    //       //           // overflow: TextOverflow.ellipsis,
-                                    //       //           text: TextSpan(
-                                    //       //             text: 'Venue :- ',
-                                    //       //             style: batchtext1(
-                                    //       //                 AppColors.PrimaryBlackColor),
-                                    //       //             children: [
-                                    //       //               TextSpan(
-                                    //       //                 text:
-                                    //       //                     'Courtyard by Marriott Mumbai',
-                                    //       //                 style: batchtext2(AppColors
-                                    //       //                     .PrimaryBlackColor),
-                                    //       //               ),
-                                    //       //             ],
-                                    //       //           ),
-                                    //       //         ),
-                                    //       //       ),
-                                    //       //       SizedBox(
-                                    //       //         height: 10.h,
-                                    //       //       ),
-                                    //       //       RichText(
-                                    //       //         // overflow: TextOverflow.ellipsis,
-                                    //       //         text: TextSpan(
-                                    //       //           text: 'Phone :- ',
-                                    //       //           style: batchtext1(
-                                    //       //               AppColors.PrimaryBlackColor),
-                                    //       //           children: [
-                                    //       //             TextSpan(
-                                    //       //               text: '9090909090',
-                                    //       //               style: batchtext2(
-                                    //       //                   AppColors.PrimaryBlackColor),
-                                    //       //             ),
-                                    //       //           ],
-                                    //       //         ),
-                                    //       //       ),
-                                    //       //     ],
-                                    //       //   ),
-                                    //       // ),
-                                    //     ],
-                                    //   ),
-                                    // ),
-                                    // Padding(
-                                    //   padding: EdgeInsets.only(top: 8.r),
-                                    //   child: Container(
-                                    //     height: 1.h,
-                                    //     width: 300.w,
-                                    //     color: AppColors.PrimaryGreyColor,
-                                    //   ),
-                                    // ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                        left: 8.r,
-                                        right: 8.r,
-                                        bottom: 8.r,
-                                      ),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        // mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            universitydetails[index]
-                                                .branchName
-                                                .toString(),
-                                            // textAlign:
-                                            //     TextAlign.center,
-                                            style: OtpText(
-                                                AppColors.PrimaryMainColor),
-                                          ),
-                                          SizedBox(
-                                            height: 5.h,
-                                          ),
-                                          Row(
+                                          child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
                                             children: [
-                                              Text(
-                                                "University :- ",
-                                                style: batchtext2(AppColors
-                                                    .PrimaryBlackColor),
-                                              ),
-                                              Flexible(
-                                                //width: 240,
-                                                child: Text(
-                                                  universitydetails[index]
-                                                      .university
-                                                      .toString(),
-                                                  //softWrap: false,
-                                                  // overflow: TextOverflow.clip,
-                                                  style: batchtext1(AppColors
-                                                      .PrimaryMainColor),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          // SizedBox(
-                                          //   width: 350.w,
-                                          //   child: RichText(
-                                          //     // softWrap: false,
-                                          //     //overflow: TextOverflow.ellipsis,
-                                          //     text: TextSpan(
-                                          //       text: 'University :- ',
-                                          //       style: batchtext2(AppColors
-                                          //           .PrimaryBlackColor),
-                                          //       children: [
-                                          //         TextSpan(
-
-                                          //           spellOut: false,
-                                          //           text:
-                                          //               universitydetails[index]
-                                          //                   .university
-                                          //                   .toString(),
-                                          //           style: batchtext1(AppColors
-                                          //               .PrimaryMainColor),
-                                          //         ),
-                                          //       ],
-                                          //     ),
-                                          //   ),
-                                          // ),
-                                          SizedBox(
-                                            height: 5.h,
-                                          ),
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              SizedBox(
-                                                width: 135.w,
-                                                child: Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "Intake :- ",
-                                                      style: batchtext2(AppColors
-                                                          .PrimaryBlackColor),
-                                                    ),
-                                                    Text(
-                                                      universitydetails[index]
-                                                          .intake
-                                                          .toString(),
-                                                      style: batchtext1(AppColors
-                                                          .PrimaryBlackColor),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                child: Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "Delegate :- ",
-                                                      style: batchtext2(AppColors
-                                                          .PrimaryBlackColor),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 115.w,
-                                                      child: Text(
-                                                        universitydetails[index]
-                                                            .deligate
-                                                            .toString(),
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: batchtext1(AppColors
-                                                            .PrimaryBlackColor),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 5.h,
-                                          ),
-
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              SizedBox(
-                                                width: 135.w,
-                                                child: Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "Date :- ",
-                                                      style: batchtext2(AppColors
-                                                          .PrimaryBlackColor),
-                                                    ),
-                                                    Text(
-                                                      universitydetails[index]
-                                                          .dateOfVisit
-                                                          .toString(),
-                                                      style: batchtext1(AppColors
-                                                          .PrimaryBlackColor),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                child: Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "Country :- ",
-                                                      style: batchtext2(AppColors
-                                                          .PrimaryBlackColor),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 115.w,
-                                                      child: Text(
-                                                        universitydetails[index]
-                                                            .country
-                                                            .toString(),
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: batchtext1(AppColors
-                                                            .PrimaryBlackColor),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          // Row(
-                                          //   // mainAxisAlignment:
-                                          //   //     MainAxisAlignment.spaceBetween,
-                                          //   children: [
-                                          //     SizedBox(
-                                          //       width: 120.w,
-                                          //       child: RichText(
-                                          //         // overflow: TextOverflow.ellipsis,
-                                          //         text: TextSpan(
-                                          //           text: 'Date :- ',
-                                          //           style: batchtext2(AppColors
-                                          //               .PrimaryBlackColor),
-                                          //           children: [
-                                          //             TextSpan(
-                                          //               text: universitydetails[
-                                          //                       index]
-                                          //                   .dateOfVisit
-                                          //                   .toString(),
-                                          //               style: batchtext1(AppColors
-                                          //                   .PrimaryBlackColor),
-                                          //             ),
-                                          //           ],
-                                          //         ),
-                                          //       ),
-                                          //     ),
-                                          //     SizedBox(
-                                          //       width: 30.w,
-                                          //     ),
-                                          //     Padding(
-                                          //       padding: EdgeInsets.only(
-                                          //           right: 10.r),
-                                          //       child: RichText(
-                                          //         // overflow: TextOverflow.ellipsis,
-                                          //         text: TextSpan(
-                                          //           text: 'Country :- ',
-                                          //           style: batchtext2(AppColors
-                                          //               .PrimaryBlackColor),
-                                          //           children: [
-                                          //             TextSpan(
-                                          //               text: universitydetails[
-                                          //                       index]
-                                          //                   .country
-                                          //                   .toString(),
-                                          //               style: batchtext1(AppColors
-                                          //                   .PrimaryBlackColor),
-                                          //             ),
-                                          //           ],
-                                          //         ),
-                                          //       ),
-                                          //     ),
-                                          //   ],
-                                          // ),
-                                          SizedBox(
-                                            height: 5.h,
-                                          ),
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                Icons.watch_later,
-                                                size: 20.sp,
-                                                color:
-                                                    AppColors.PrimaryMainColor,
-                                              ),
-                                              SizedBox(
-                                                width: 10.h,
-                                              ),
                                               Text(
                                                 universitydetails[index]
-                                                        .timeFrom
-                                                        .toString() +
-                                                    " To " +
-                                                    universitydetails[index]
-                                                        .timeTo
-                                                        .toString(),
-                                                style: batchtext2(AppColors
-                                                    .PrimaryBlackColor),
-                                              )
+                                                    .branchName
+                                                    .toString(),
+                                                style: OtpText(
+                                                    AppColors.PrimaryMainColor),
+                                              ),
+                                              SizedBox(
+                                                height: 5.h,
+                                              ),
+                                              Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "University :- ",
+                                                    style: batchtext2(AppColors
+                                                        .PrimaryBlackColor),
+                                                  ),
+                                                  Flexible(
+                                                    child: Text(
+                                                      universitydetails[index]
+                                                          .university
+                                                          .toString(),
+                                                      style: batchtext1(AppColors
+                                                          .PrimaryMainColor),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+
+                                              SizedBox(
+                                                height: 5.h,
+                                              ),
+                                              Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  SizedBox(
+                                                    width: 135.w,
+                                                    child: Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          "Intake :- ",
+                                                          style: batchtext2(
+                                                              AppColors
+                                                                  .PrimaryBlackColor),
+                                                        ),
+                                                        Text(
+                                                          universitydetails[
+                                                                  index]
+                                                              .intake
+                                                              .toString(),
+                                                          style: batchtext1(
+                                                              AppColors
+                                                                  .PrimaryBlackColor),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    child: Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          "Delegate :- ",
+                                                          style: batchtext2(
+                                                              AppColors
+                                                                  .PrimaryBlackColor),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 115.w,
+                                                          child: Text(
+                                                            universitydetails[
+                                                                    index]
+                                                                .deligate
+                                                                .toString(),
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            style: batchtext1(
+                                                                AppColors
+                                                                    .PrimaryBlackColor),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: 5.h,
+                                              ),
+
+                                              Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  SizedBox(
+                                                    width: 135.w,
+                                                    child: Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          "Date :- ",
+                                                          style: batchtext2(
+                                                              AppColors
+                                                                  .PrimaryBlackColor),
+                                                        ),
+                                                        Text(
+                                                          universitydetails[
+                                                                  index]
+                                                              .dateOfVisit
+                                                              .toString(),
+                                                          style: batchtext1(
+                                                              AppColors
+                                                                  .PrimaryBlackColor),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    child: Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          "Country :- ",
+                                                          style: batchtext2(
+                                                              AppColors
+                                                                  .PrimaryBlackColor),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 115.w,
+                                                          child: Text(
+                                                            universitydetails[
+                                                                    index]
+                                                                .country
+                                                                .toString(),
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            style: batchtext1(
+                                                                AppColors
+                                                                    .PrimaryBlackColor),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              
+                                              SizedBox(
+                                                height: 5.h,
+                                              ),
+                                              Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Icon(
+                                                    Icons.watch_later,
+                                                    size: 20.sp,
+                                                    color: AppColors
+                                                        .PrimaryMainColor,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 10.h,
+                                                  ),
+                                                  Text(
+                                                    "${universitydetails[index].timeFrom} To ${universitydetails[index].timeTo}",
+                                                    style: batchtext2(AppColors
+                                                        .PrimaryBlackColor),
+                                                  )
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: 5.h,
+                                              ),
+                                              InkWell(
+                                                onTap: () async {
+                                                  const url =
+                                                      'https://www.google.com/maps/d/viewer?mid=1T1ZLcwz23FD9CGb7GnBTTtiXfxw&hl=en_US&ll=28.684263000000033%2C77.18702299999997&z=17';
+                                                  if (await canLaunch(
+                                                      data[index]
+                                                          .venueLocation
+                                                          .toString())) {
+                                                    await launch(data[index]
+                                                        .venueLocation
+                                                        .toString());
+                                                  } else {
+                                                    throw 'Could not launch $url';
+                                                  }
+                                                },
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.location_on,
+                                                      size: 20.sp,
+                                                      color: AppColors
+                                                          .PrimaryMainColor,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 10.h,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 280.w,
+                                                      child: Text(
+                                                        universitydetails[index]
+                                                            .venue
+                                                            .toString(),
+                                                        style: location(AppColors
+                                                            .PrimaryMainColor),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
                                             ],
                                           ),
-                                          SizedBox(
-                                            height: 5.h,
-                                          ),
-                                          InkWell(
-                                            onTap: () async {
-                                              const url =
-                                                  'https://www.google.com/maps/d/viewer?mid=1T1ZLcwz23FD9CGb7GnBTTtiXfxw&hl=en_US&ll=28.684263000000033%2C77.18702299999997&z=17';
-                                              if (await canLaunch(data[index]
-                                                  .venueLocation
-                                                  .toString())) {
-                                                await launch(data[index]
-                                                    .venueLocation
-                                                    .toString());
-                                              } else {
-                                                throw 'Could not launch $url';
-                                              }
-                                            },
-                                            child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Icon(
-                                                  Icons.location_on,
-                                                  size: 20.sp,
-                                                  color: AppColors
-                                                      .PrimaryMainColor,
-                                                ),
-                                                SizedBox(
-                                                  width: 10.h,
-                                                ),
-                                                SizedBox(
-                                                  width: 280.w,
-                                                  child: Text(
-                                                    universitydetails[index]
-                                                        .venue
-                                                        .toString(),
-                                                    style: location(AppColors
-                                                        .PrimaryMainColor),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          }),
+                                  ),
+                                );
+                              }),
                     ]),
                   )
                 ],

@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,8 +23,8 @@ class OtpPage extends StatefulWidget {
 }
 
 class _OtpPageState extends State<OtpPage> {
-  final GlobalKey<State> _keyLoader = new GlobalKey<State>();
-  TextEditingController _otpController = new TextEditingController();
+  final GlobalKey<State> _keyLoader = GlobalKey<State>();
+  final TextEditingController _otpController = TextEditingController();
 
   late LoginDataBloc loginDataBloc;
   var data2 = Get.arguments;
@@ -40,12 +40,13 @@ class _OtpPageState extends State<OtpPage> {
       //log("ehbjhbe" + event.data[success[]]);
 
       if (response == true && event.data['success'] == 1) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text("Otp Verify Successfully"),
         ));
         // print(event.data['Token'].toString());
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('stringValue', event.data['Token'].toString());
+        // ignore: use_build_context_synchronously
         Navigator.pushNamedAndRemoveUntil(
           context,
           RoutesName.bottomnav,
@@ -97,7 +98,7 @@ class _OtpPageState extends State<OtpPage> {
         ));
       }
     });
-    // TODO: implement initState
+   
     super.initState();
   }
 
@@ -110,7 +111,7 @@ class _OtpPageState extends State<OtpPage> {
     loginDataBloc.callPostOtp(data);
 
     // debugger();
-    print(data);
+  
   }
 
   @override
@@ -147,7 +148,7 @@ class _OtpPageState extends State<OtpPage> {
               ),
               Text('$data2'),
               SizedBox(
-                height: 60,
+                height: 60.h,
               ),
               Text("Verification code",
                   style: H2TextStyle(AppColors.PrimaryBlackColor)),
