@@ -45,7 +45,7 @@ class _ApplicationStatusState extends State<ApplicationStatus> {
               ApplicationStatusModel.fromJson(event[i]);
           application.add(applicationStatusModel);
         }
-        // Application.add(userData1);
+
         setState(() {
           loading = false;
         });
@@ -53,12 +53,6 @@ class _ApplicationStatusState extends State<ApplicationStatus> {
     });
   }
 
-// getBoolValuesSF() async {
-//     SharedPreferences prefs = await SharedPreferences.getInstance();
-//     //Return bool
-//     bool? boolValue = prefs.getBool('boolValue');
-//     return boolValue;
-//   }
   _gethomeData() {
     dashBoardBloc.callApplicationstatusApi();
   }
@@ -130,8 +124,6 @@ class _ApplicationStatusState extends State<ApplicationStatus> {
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.transparent,
                                     textStyle: OtpText(Colors.green),
-                                    // shape: RoundedRectangleBorder(
-                                    //     borderRadius: BorderRadius.circular(30.r)),
                                     shadowColor: Colors.transparent,
                                     elevation: 10),
                                 child: Row(
@@ -194,10 +186,10 @@ class _ApplicationStatusState extends State<ApplicationStatus> {
   }
 
   _makingPhoneCall() async {
-    String? Phonenumber;
+    String? phonenumber;
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    Phonenumber = prefs.getString('counsellorcall');
-    var url = Uri.parse("tel:${Phonenumber.toString()}");
+    phonenumber = prefs.getString('counsellorcall');
+    var url = Uri.parse("tel:${phonenumber.toString()}");
     if (await canLaunchUrl(url)) {
       await launchUrl(url);
     } else {

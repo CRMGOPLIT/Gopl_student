@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:global_student/utils/color.dart';
-import 'package:global_student/utils/constant.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/utils/text_style.dart';
 import 'package:global_student/view/widget/app_bar.dart';
@@ -26,7 +25,11 @@ class _ContactUsState extends State<ContactUs> {
         child: AppBarCustom(
           title: "Contact Us",
           onpress: () {
-            Navigator.pushNamed(context, RoutesName.bottomnav);
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              RoutesName.bottomnav,
+              (routes) => false,
+            );
           },
         ),
       ),
@@ -38,13 +41,6 @@ class _ContactUsState extends State<ContactUs> {
             children: [
               Center(
                 child: Container(
-                    height: 150,
-                    width: 150,
-                    child: Lottie.asset("assets/images/contactus.json",
-                        fit: BoxFit.fill)),
-              ),
-              Center(
-                child: Container(
                   height: 40.h,
                   width: 300.w,
                   decoration: BoxDecoration(
@@ -53,39 +49,40 @@ class _ContactUsState extends State<ContactUs> {
                           image: AssetImage("assets/images/bannerlogo.png"))),
                 ),
               ),
-              SizedBox(
-                height: 20.h,
+              Center(
+                child: SizedBox(
+                    height: 150,
+                    width: 150,
+                    child: Lottie.asset("assets/images/contactus.json",
+                        fit: BoxFit.fill)),
               ),
-              Card(
-                elevation: 3,
-                child: ListTile(
-                  title: Padding(
-                    padding: EdgeInsets.only(bottom: 1.sp, top: 10.sp),
-                    child: Text(
-                      "Visit Our Website",
-                      style: FieldTextStyle(AppColors.PrimaryBlackColor),
+              InkWell(
+                onTap: _launchUrl,
+                child: Card(
+                  elevation: 3,
+                  child: ListTile(
+                    title: Padding(
+                      padding: EdgeInsets.only(bottom: 1.sp, top: 10.sp),
+                      child: Text(
+                        "Visit Our Website",
+                        style: batchtext2(AppColors.PrimaryBlackColor),
+                      ),
                     ),
-                  ),
-                  subtitle: Padding(
-                    padding: EdgeInsets.only(bottom: 10.sp, top: 5.sp),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "https://www.global-opportunities.net",
-                          style: TextStyle(
-                              color: AppColors.PrimaryMainColor,
-                              decoration: TextDecoration.underline,
-                              fontFamily: Constant.font_family_poppins,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 12.sp),
-                        ),
-                      ],
+                    subtitle: Padding(
+                      padding: EdgeInsets.only(bottom: 10.sp, top: 5.sp),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "https://www.global-opportunities.net",
+                            style: location(AppColors.PrimaryMainColor),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-              
               Card(
                 elevation: 3,
                 child: ListTile(
@@ -93,7 +90,7 @@ class _ContactUsState extends State<ContactUs> {
                     padding: EdgeInsets.only(bottom: 1.sp, top: 10.sp),
                     child: Text(
                       "Corporate Office",
-                      style: FieldTextStyle(AppColors.PrimaryBlackColor),
+                      style: batchtext2(AppColors.PrimaryBlackColor),
                     ),
                   ),
                   subtitle: Padding(
@@ -103,7 +100,7 @@ class _ContactUsState extends State<ContactUs> {
                       children: [
                         Text(
                             "HS-27, Kailash Colony Market, New Delhi - 110048.",
-                            style: TextRegular(AppColors.PrimaryBlackColor)),
+                            style: batchtext1(AppColors.PrimaryBlackColor)),
                       ],
                     ),
                   ),
@@ -116,7 +113,7 @@ class _ContactUsState extends State<ContactUs> {
                     padding: EdgeInsets.only(bottom: 1.sp, top: 10.sp),
                     child: Text(
                       "Call US",
-                      style: FieldTextStyle(AppColors.PrimaryBlackColor),
+                      style: batchtext2(AppColors.PrimaryBlackColor),
                     ),
                   ),
                   subtitle: Padding(
@@ -125,7 +122,7 @@ class _ContactUsState extends State<ContactUs> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(" +91 11 47141414, +91 8282828215,   1800111119",
-                            style: TextRegular(AppColors.PrimaryBlackColor)),
+                            style: batchtext1(AppColors.PrimaryBlackColor)),
                       ],
                     ),
                   ),
@@ -138,7 +135,7 @@ class _ContactUsState extends State<ContactUs> {
                     padding: EdgeInsets.only(bottom: 1.sp, top: 10.sp),
                     child: Text(
                       "Email  US",
-                      style: FieldTextStyle(AppColors.PrimaryBlackColor),
+                      style: batchtext2(AppColors.PrimaryBlackColor),
                     ),
                   ),
                   subtitle: Padding(
@@ -147,107 +144,61 @@ class _ContactUsState extends State<ContactUs> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text("info@global-opportunities.net",
-                            style: TextRegular(AppColors.PrimaryBlackColor)),
+                            style: batchtext1(AppColors.PrimaryBlackColor)),
                       ],
                     ),
                   ),
                 ),
               ),
-              // Row(
-              //   children: [
-              //     Text(
-              //       "Website :-",
-              //       style: btntext(AppColors.PrimaryBlackColor),
-              //     ),
-              //     Container(
-              //       width: 250.w,
-              //       child: Text(
-              //         "https://www.global-opportunities.net",
-              //         style: TextStyle(
-              //             color: AppColors.PrimaryMainColor,
-              //             decoration: TextDecoration.underline,
-              //             fontFamily: Constant.font_family_poppins,
-              //             fontWeight: FontWeight.w600,
-              //             fontSize: 12.sp),
-              //       ),
-              //     ),
-              //   ],
-              // ),
-
-              // SizedBox(
-              //   height: 20.h,
-              // ),
-              // Row(
-              //   children: [
-              //     Text(
-              //       "Corporate Office :-",
-              //       style: btntext(AppColors.PrimaryBlackColor),
-              //     ),
-              //     Container(
-              //       width: 180.w,
-              //       child: Text(
-              //         "HS-27, Kailash Colony Market, New Delhi - 110048.",
-              //         style: TextStyle(
-              //             color: AppColors.PrimaryMainColor,
-              //             decoration: TextDecoration.underline,
-              //             fontFamily: Constant.font_family_poppins,
-              //             fontWeight: FontWeight.w600,
-              //             fontSize: 12.sp),
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              // SizedBox(
-              //   height: 20.h,
-              // ),
-              // Row(
-              //   children: [
-              //     Text(
-              //       "Phone no :-",
-              //       style: btntext(AppColors.PrimaryBlackColor),
-              //     ),
-              //     Container(
-              //       width: 240.w,
-              //       child: Text(
-              //         "+91 11 47141414, +91 8282828215, 1800111119",
-              //         style: TextStyle(
-              //             color: AppColors.PrimaryMainColor,
-              //             decoration: TextDecoration.underline,
-              //             fontFamily: Constant.font_family_poppins,
-              //             fontWeight: FontWeight.w600,
-              //             fontSize: 12.sp),
-              //       ),
-              //     ),
-              //   ],
-              // ),
             ],
           ),
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Align(
-          alignment: Alignment.bottomRight,
-          child: FloatingActionButton(
-            child: Icon(
-              Icons.wechat_sharp,
-              size: 35.sp,
-            ),
-            backgroundColor: Colors.green,
-            onPressed: () {
-              whatsapp();
-            },
-          ),
-        ),
-      ),
+      //floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // floatingActionButton: Align(
+      //   alignment: Alignment.bottomRight,
+      //   child: FloatingActionButton(
+      //       backgroundColor: Colors.white,
+      //       onPressed: () {
+      //         whatsapp();
+      //       },
+      //       child: Column(
+      //         children: [
+      //           Image.asset("assets/images/whatsapp.png"),
+      //           Text("fjknkj")
+      //         ],
+      //       )),
+      // ),
+      floatingActionButton: FloatingActionButton.extended(
+          backgroundColor: Colors.transparent,
+          highlightElevation: 0.0,
+          elevation: 0.0,
+          onPressed: () {
+            whatsapp();
+          },
+          label: Column(
+            children: [
+              Image.asset(
+                "assets/images/whatsapp.png",
+                height: 50.h,
+                width: 50.w,
+              ),
+              Text(
+                "Chat with us",
+                style: batchtext1(AppColors.PrimaryMainColor),
+              ),
+              SizedBox(
+                height: 20.h,
+              )
+            ],
+          )),
     );
   }
 
   whatsapp() async {
     var contact = "9155201859";
-    var android_url =
-        "whatsapp://send?phone=" + contact + "&text= Hi, I need some help";
+    var androidUrl =
+        "whatsapp://send?phone=$contact&text= Hi, I need some help";
     var iosUrl =
         "https://wa.me/$contact?text=${Uri.parse('Hi, I need some help')}";
 
@@ -256,14 +207,20 @@ class _ContactUsState extends State<ContactUs> {
         await launch(
           (iosUrl),
         );
-      } else {
+      } else { 
         await launch(
-          (android_url),
+          (androidUrl),
         );
       }
     } on Exception {
-      print("Whatapps not installed");
       //EasyLoading.showError('WhatsApp is not installed.');
+    }
+  }
+
+  Future<void> _launchUrl() async {
+    final Uri url = Uri.parse('https://www.global-opportunities.net');
+    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+      throw Exception('Could not launch $url');
     }
   }
 }

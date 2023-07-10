@@ -1,6 +1,4 @@
-
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -23,8 +21,6 @@ class CourseSerach extends StatefulWidget {
   State<CourseSerach> createState() => _CourseSerachState();
 }
 
-// final randomIndex = Random().nextInt(Countrycourse[i].image);
-// final imageUrl = images[randomIndex];
 class _CourseSerachState extends State<CourseSerach> {
   late SearchBloc searchBloc;
   List<CountrySearchModel> countrySearchdata = [];
@@ -39,46 +35,16 @@ class _CourseSerachState extends State<CourseSerach> {
   @override
   void initState() {
     searchBloc = SearchBloc();
-    // TODO: implement initState
+
     getdata();
-    // getSearchCountry();
+
     getsearchDashboard();
     super.initState();
   }
 
-  // getSearchCountry() async {
-  //   searchBloc.getcountrysearchStream.listen((event) {
-  //     if (event != null) {
-  //       // debugger();
-  //       // print(event);
-
-  //       cuntrydata = event;
-
-  //       for (int i = 0; i < cuntrydata.length; i++) {
-  //         CountrySearchModel countrySearchModel =
-  //             CountrySearchModel.fromJson(event[i]);
-
-  //         countrySearchdata.add(countrySearchModel);
-
-  //         setState(() {
-  //           loading = false;
-
-  //           //print(location);
-  //         });
-  //       }
-  //     }
-  //   });
-  // }
-
   getsearchDashboard() async {
     searchBloc.getdashboardsearchStream.listen((event) {
       if (event != null) {
-        // debugger();
-        // print(event);
-
-        //searchdashdata = event;
-
-        // for (int i = 0; i < cuntrydata.length; i++) {
         SearchDashBoard searchDashBoard = SearchDashBoard.fromJson(event);
 
         dashboardCourseDetail.addAll(searchDashBoard.dashboardCourseDetail);
@@ -88,16 +54,12 @@ class _CourseSerachState extends State<CourseSerach> {
 
         setState(() {
           loading = false;
-
-          //print(location);
         });
       }
-      // }
     });
   }
 
   getdata() {
-    // searchBloc.callGetCountrySearchApi();
     searchBloc.callSearchDashSearchApi();
   }
 
@@ -110,12 +72,20 @@ class _CourseSerachState extends State<CourseSerach> {
         child: AppBarCustom(
           title: "Course Details",
           onpress: () {
-            Navigator.pushNamed(context, RoutesName.bottomnav);
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              RoutesName.bottomnav,
+              (routes) => false,
+            );
           },
         ),
       ),
       body: loading
-          ? Center(child: CircularProgressIndicator())
+          ? Center(
+              child: CircularProgressIndicator(
+              strokeWidth: 2.w,
+              color: AppColors.PrimaryMainColor,
+            ))
           : SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -183,12 +153,6 @@ class _CourseSerachState extends State<CourseSerach> {
                             AppColors.PrimaryBlackColor,
                           ),
                         ),
-                        // Text(
-                        //   "View All",
-                        //   style: FieldTextStyle(
-                        //     AppColors.PrimaryMainColor,
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),
@@ -202,12 +166,10 @@ class _CourseSerachState extends State<CourseSerach> {
                           return InkWell(
                             onTap: () {
                               Get.to(
-                                CourseDetails(),
+                                const CourseDetails(),
                                 arguments: [
                                   dashboardCourseDetail[index].courseId,
-                                  // dashboardCountryDetail[index].country
                                 ],
-                                // countrySearchdata[index].name
                               );
                             },
                             child: Container(
@@ -245,7 +207,7 @@ class _CourseSerachState extends State<CourseSerach> {
                                                           .universityImage ==
                                                       "")
                                               ? child
-                                              : CircularProgressIndicator(),
+                                              : const CircularProgressIndicator(),
                                       errorBuilder:
                                           (context, error, stackTrace) =>
                                               Container(
@@ -277,7 +239,6 @@ class _CourseSerachState extends State<CourseSerach> {
                                       dashboardCourseDetail[index]
                                           .course
                                           .toString(),
-                                      //"Master of Science in Computer Science with Big Data and Artificial Intelligence",
                                       maxLines: 3,
                                       style: batchtext2(
                                           AppColors.PrimaryMainColor),
@@ -321,12 +282,6 @@ class _CourseSerachState extends State<CourseSerach> {
                             AppColors.PrimaryBlackColor,
                           ),
                         ),
-                        // Text(
-                        //   "View All",
-                        //   style: FieldTextStyle(
-                        //     AppColors.PrimaryMainColor,
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),
@@ -340,14 +295,11 @@ class _CourseSerachState extends State<CourseSerach> {
                           return InkWell(
                             onTap: () {
                               Get.to(
-                                TopUniversityList(),
+                                const TopUniversityList(),
                                 arguments: [
                                   dashboardUniversityDetail[index].countryId,
                                   dashboardUniversityDetail[index].universityId,
-
-                                  // dashboardCountryDetail[index].country
                                 ],
-                                // countrySearchdata[index].name
                               );
                             },
                             child: Container(
@@ -398,14 +350,6 @@ class _CourseSerachState extends State<CourseSerach> {
                                       style: batchtext2(
                                           AppColors.PrimaryBlackColor),
                                     )
-                                    // : Text(
-                                    //     dashboardUniversityDetail[index]
-                                    //         .university
-                                    //         .toString(),
-                                    //     maxLines: 2,
-                                    //     style: batchtext2(
-                                    //         AppColors.PrimaryBlackColor),
-                                    //   )
                                   ],
                                 ),
                               ),
@@ -419,7 +363,7 @@ class _CourseSerachState extends State<CourseSerach> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Popular Country",
+                          "Popular Country Courses",
                           style: FieldTextStyle(
                             AppColors.PrimaryBlackColor,
                           ),
@@ -442,12 +386,11 @@ class _CourseSerachState extends State<CourseSerach> {
                               InkWell(
                                 onTap: () {
                                   Get.to(
-                                    UniversityListPage(),
+                                    const UniversityListPage(),
                                     arguments: [
                                       dashboardCountryDetail[index].countryId,
                                       dashboardCountryDetail[index].country
                                     ],
-                                    // countrySearchdata[index].name
                                   );
                                 },
                                 child: Container(
@@ -461,7 +404,6 @@ class _CourseSerachState extends State<CourseSerach> {
                                         CircleAvatar(
                                           backgroundColor: Colors.transparent,
                                           backgroundImage: AssetImage(
-                                            //   "https://source.unsplash.com/random/"
                                             imageUrl.toString(),
                                           ),
                                           radius: 40,
@@ -477,10 +419,7 @@ class _CourseSerachState extends State<CourseSerach> {
                                               AppColors.PrimaryBlackColor),
                                         ),
                                         Text(
-                                          "Courses " +
-                                              dashboardCountryDetail[index]
-                                                  .universityCount
-                                                  .toString(),
+                                          "Courses ${dashboardCountryDetail[index].universityCount}",
                                           style: batchtext1(
                                               AppColors.PrimaryBlackColor),
                                         )

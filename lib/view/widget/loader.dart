@@ -10,7 +10,7 @@ class Error extends StatelessWidget {
 
   final Function onRetryPressed;
 
-  const Error({required this.errorMessage, required this.onRetryPressed});
+  const Error({super.key, required this.errorMessage, required this.onRetryPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -86,13 +86,13 @@ class NetworkDialog {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left: 0),
-                          child: Container(
+                          child: SizedBox(
                               height: 50,
                               width: 50,
                               child: Lottie.asset("assets/images/loder.json")),
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 10.h,
                         ),
                         Text("Loading please wait...",
                             style: TextRegular(AppColors.PrimaryMainColor)),

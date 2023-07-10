@@ -3,7 +3,6 @@ import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/view/applicationStatus/application_status.dart';
 import 'package:global_student/view/batch_details/batch_details.dart';
 import 'package:global_student/view/branch_location/branch_location.dart';
-import 'package:global_student/view/comapre.dart';
 import 'package:global_student/view/course_details/course_details.dart';
 import 'package:global_student/view/couse_search/course_search.dart';
 import 'package:global_student/view/couse_search/universitylistpage.dart';
@@ -15,6 +14,7 @@ import 'package:global_student/view/edit/edit_page.dart';
 import 'package:global_student/view/event_details/event_detils.dart';
 import 'package:global_student/view/login/login_page.dart';
 import 'package:global_student/view/notification/notification.dart';
+import 'package:global_student/view/qualification/completeeducation.dart';
 import 'package:global_student/view/qualification/graduation.dart';
 import 'package:global_student/view/qualification/highschool.dart';
 import 'package:global_student/view/qualification/interschool.dart';
@@ -25,6 +25,7 @@ import 'package:global_student/view/uploadmoreDocument/upload_more_document.dart
 import 'package:global_student/view/visa/visa_page.dart';
 import 'package:global_student/view/widget/bottomnavbar.dart';
 import 'package:global_student/view/widget/common_widget.dart';
+import 'package:global_student/view/widget/visanotapplicalble.dart';
 import '../../view/login/otp_page.dart';
 import '../../view/onborarding/onboarding_screen.dart';
 import '../../view/register/register.dart';
@@ -36,7 +37,7 @@ class Routes {
     switch (settings.name) {
       case RoutesName.splash:
         return MaterialPageRoute(
-            builder: (BuildContext context) => SplashScreen());
+            builder: (BuildContext context) => const SplashScreen());
 
       case RoutesName.onbording:
         return MaterialPageRoute(
@@ -79,12 +80,12 @@ class Routes {
       case RoutesName.branchLocation:
         return MaterialPageRoute(
             builder: (BuildContext context) => const BranchLocation());
-      case RoutesName.cpmpare:
-        return MaterialPageRoute(builder: (BuildContext context) => Compare());
+      // case RoutesName.cpmpare:
+      //   return MaterialPageRoute(builder: (BuildContext context) => Compare());
 
       case RoutesName.multiple:
         return MaterialPageRoute(
-            builder: (BuildContext context) => MyHomePage());
+            builder: (BuildContext context) => const MyHomePage());
 
       case RoutesName.courseSearch:
         return MaterialPageRoute(
@@ -98,11 +99,12 @@ class Routes {
             builder: (BuildContext context) => const CourseDetails());
 
       case RoutesName.visaPage:
-        return MaterialPageRoute(builder: (BuildContext context) => VisaPage());
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const VisaPage());
 
       case RoutesName.myform:
         return MaterialPageRoute(
-            builder: (BuildContext context) => MyFormWidget());
+            builder: (BuildContext context) => const MyFormWidget());
 
       case RoutesName.aboutpage:
         return MaterialPageRoute(
@@ -117,27 +119,35 @@ class Routes {
 
       case RoutesName.notificationpage:
         return MaterialPageRoute(
-            builder: (BuildContext context) => NotificationPage());
+            builder: (BuildContext context) => const NotificationPage());
 
       case RoutesName.profilepage:
         return MaterialPageRoute(
-            builder: (BuildContext context) => ProfilePage());
+            builder: (BuildContext context) => const ProfilePage());
 
       case RoutesName.interschool:
         return MaterialPageRoute(
-            builder: (BuildContext context) => InterSchool());
+            builder: (BuildContext context) => const InterSchool());
 
       case RoutesName.grduation:
         return MaterialPageRoute(
-            builder: (BuildContext context) => Graduation());
+            builder: (BuildContext context) => const Graduation());
 
       case RoutesName.uploadmoredocument:
         return MaterialPageRoute(
-            builder: (BuildContext context) => UploadMoreDocument());
+            builder: (BuildContext context) => const UploadMoreDocument());
 
       case RoutesName.universitylist:
         return MaterialPageRoute(
-            builder: (BuildContext context) => UniversityListPage());
+            builder: (BuildContext context) => const UniversityListPage());
+
+      case RoutesName.donepage:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const DonePage());
+
+      case RoutesName.visanotapplicable:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const VisaNotApplicable());
 
       default:
         return MaterialPageRoute(builder: (_) {

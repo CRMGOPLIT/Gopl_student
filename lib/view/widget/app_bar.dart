@@ -36,3 +36,31 @@ class AppBarCustom extends StatelessWidget {
     );
   }
 }
+
+// ignore: must_be_immutable
+class AppBarCustomlead extends StatelessWidget {
+  String? title;
+
+  AppBarCustomlead({
+    Key? key,
+    this.title,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      backgroundColor: AppColors.PrimaryMainColor,
+      elevation: 0,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            bottomRight: Radius.circular(20), bottomLeft: Radius.circular(20)),
+      ),
+      centerTitle: true,
+      leading: const Text(""),
+      title: Text(
+        title!,
+        style: btntext(AppColors.PrimaryWhiteColor),
+      ),
+    );
+  }
+}

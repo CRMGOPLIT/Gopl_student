@@ -28,7 +28,7 @@ class _NotificationPageState extends State<NotificationPage> {
   text1(int index) {
     var output;
 
-    if (notice.length > 0) {
+    if (notice.isNotEmpty) {
       output = notice[index];
     }
     return output[0];
@@ -43,12 +43,16 @@ class _NotificationPageState extends State<NotificationPage> {
           child: AppBarCustom(
             title: "Notification",
             onpress: () {
-              Navigator.pushNamed(context, RoutesName.bottomnav);
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                RoutesName.bottomnav,
+                (routes) => false,
+              );
             },
           ),
         ),
         body: Padding(
-          padding: EdgeInsets.all(15.0),
+          padding: const EdgeInsets.all(15).w,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -104,7 +108,7 @@ class _NotificationPageState extends State<NotificationPage> {
                         ),
                       );
                     })),
-              )
+              ),
 
               // Container(
               //   height: 160,

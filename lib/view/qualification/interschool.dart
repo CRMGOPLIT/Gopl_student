@@ -43,7 +43,7 @@ class _InterSchoolState extends State<InterSchool> {
   //   TextEditingController textEditingController = TextEditingController();
   //     TextEditingController textEditingController = TextEditingController();
 
-  final GlobalKey<State> _keyLoader = new GlobalKey<State>();
+  final GlobalKey<State> _keyLoader = GlobalKey<State>();
 
   // List of items in our dropdown menu
   var course = [
@@ -66,7 +66,7 @@ class _InterSchoolState extends State<InterSchool> {
   bool isFileSelected = false;
   // List<File> selectedBankStatements = [];
   File? file;
-  var _registerkey = GlobalKey<FormState>();
+  final _registerkey = GlobalKey<FormState>();
 
   late DashBoardBloc dashBoardBloc;
   List<QualificationModel> qualificationlist = [];
@@ -97,7 +97,7 @@ class _InterSchoolState extends State<InterSchool> {
       bool response =
           ApiResponseHelper().handleResponse(event: event, context: context);
       // debugger();
-      // print(event);
+
       if (response == true && event.data["success"] == 1) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text("Document Submmited Succesfully"),
@@ -216,10 +216,10 @@ class _InterSchoolState extends State<InterSchool> {
           BoardUniversityModel boardUniversityModel =
               BoardUniversityModel.fromJson(event[i]);
           boarduniversity.add(boardUniversityModel);
+          setState(() {
+            loading1 = false;
+          });
         }
-        setState(() {
-          loading1 = false;
-        });
       }
     });
   }
@@ -264,15 +264,12 @@ class _InterSchoolState extends State<InterSchool> {
       backgroundColor: AppColors.backgroungcolor,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(50.h), // here the desired height
-        child: AppBarCustom(
+        child: AppBarCustomlead(
           title: "Qualification",
-          onpress: () {
-            Navigator.pushNamed(context, RoutesName.bottomnav);
-          },
         ),
       ),
       body: loading1 == true
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child:  CircularProgressIndicator())
           : Padding(
               padding: const EdgeInsets.all(15.0),
               child: SingleChildScrollView(
@@ -292,7 +289,7 @@ class _InterSchoolState extends State<InterSchool> {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10)),
                         child: Padding(
-                          padding: EdgeInsets.all(20.sp),
+                          padding: EdgeInsets.all(15.sp),
                           child: Text(
                             "12th",
                             // textAlign: TextAlign.center,
@@ -300,184 +297,7 @@ class _InterSchoolState extends State<InterSchool> {
                           ),
                         ),
                       ),
-                      //  Text(li_year[i].toString()),
-                      // Text("Qualification",
-                      //     style: FieldTextStyle(
-                      //       AppColors.PrimaryBlackColor,
-                      //     )),
-                      // Container(
-                      //   decoration: BoxDecoration(
-                      //       color: Colors.white,
-                      //       borderRadius: BorderRadius.circular(10)),
-                      //   child: DropdownButtonHideUnderline(
-                      //     child: DropdownButtonFormField2(
-                      //       isDense: false,
-                      //       isExpanded: true,
-                      //       decoration: InputDecoration(
-                      //         // enabledBorder: OutlineInputBorder(
-                      //         //   borderRadius: BorderRadius.circular(10),
-                      //         //   // width: 0.0 produces a thin "hairline" border
-                      //         //   borderSide: BorderSide(
-                      //         //       color: AppColors.PrimaryMainColor, width: 1.0),
-                      //         // ),
-                      //         // errorBorder: new OutlineInputBorder(
-                      //         //   borderRadius: BorderRadius.circular(10),
-                      //         //   borderSide:
-                      //         //       new BorderSide(color: Colors.red, width: 1.0),
-                      //         // ),
-                      //         isCollapsed: true,
-                      //         border: InputBorder.none,
-                      //       ),
-                      //       validator: (value) {
-                      //         if (value == null || value.name.isEmpty) {
-                      //           return 'Please Select Qualification';
-                      //         }
-                      //         return null;
-                      //       },
-                      //       hint: Text(
-                      //         'Please select Qualification',
-                      //         style: batchtext2(AppColors.hintcolor),
-                      //       ),
-                      //       items: qualificationlist
-                      //           .map((QualificationModel item) => DropdownMenuItem(
-                      //                 value: item,
-                      //                 child: Text(
-                      //                   item.name.toString(),
-                      //                   style: batchtext2(AppColors.PrimaryMainColor),
-                      //                 ),
-                      //               ))
-                      //           .toList(growable: false),
-                      //       value: dropnqualification,
-                      //       onChanged: (QualificationModel? value) {
-                      //         setState(() {
-                      //           dropnqualification = value;
-                      //           isSelected = true;
-                      //           //  selectedSecurity = value!;
-                      //           // accountTypeValidate = true;
-                      //         });
-                      //       },
-                      //       buttonStyleData: ButtonStyleData(
-                      //         height: 55,
-                      //         // width: 450,
-                      //         padding: EdgeInsets.all(10.r),
-                      //       ),
-                      //       dropdownStyleData: DropdownStyleData(
-                      //           // isOverButton: true,
-                      //           decoration: BoxDecoration(
-                      //               borderRadius: BorderRadius.circular(10.sp),
-                      //               color: AppColors.backgroungcolor,
-                      //               border: Border.all()),
-                      //           maxHeight: 300.h,
-                      //           // width: 500.w,
-                      //           elevation: 10),
-                      //       menuItemStyleData: const MenuItemStyleData(
-                      //         padding: EdgeInsets.only(left: 10, right: 10),
-                      //         height: 40,
-                      //       ),
-                      //       dropdownSearchData:
-                      //           DropdownSearchData<QualificationModel>(
-                      //         searchController: textEditingController,
-                      //         searchInnerWidgetHeight: 200.h,
-                      //         searchInnerWidget: Container(
-                      //           height: 50,
-                      //           padding: const EdgeInsets.only(
-                      //             top: 8,
-                      //             bottom: 4,
-                      //             right: 8,
-                      //             left: 8,
-                      //           ),
-                      //           child: TextFormField(
-                      //             style: batchtext2(AppColors.PrimaryMainColor),
-                      //             //expands: true,
-                      //             maxLines: 1,
-                      //             controller: textEditingController,
-                      //             decoration: InputDecoration(
-                      //               isDense: true,
-                      //               contentPadding: const EdgeInsets.symmetric(
-                      //                 horizontal: 15,
-                      //                 vertical: 15,
-                      //               ),
-                      //               hintText: 'Search here...',
-                      //               hintStyle: batchtext2(AppColors.PrimaryMainColor),
-                      //               border: OutlineInputBorder(
-                      //                 borderRadius: BorderRadius.circular(8),
-                      //               ),
-                      //             ),
-                      //           ),
-                      //         ),
-                      //         searchMatchFn: (item, searchValue) {
-                      //           // final myItem = qualificationlist.firstWhere((element) =>
-                      //           //     element.name.toString() == item.value.toString());
-                      //           return item.value!.name
-                      //               .toString()
-                      //               .toLowerCase()
-                      //               .contains(searchValue);
-                      //         },
-                      //       ),
-                      //       onMenuStateChange: (isOpen) {
-                      //         if (isOpen) {
-                      //           textEditingController.clear();
-                      //         }
-                      //       },
-                      //       iconStyleData: IconStyleData(
-                      //         icon: Icon(
-                      //           Icons.keyboard_arrow_down,
-                      //           color: AppColors.PrimaryMainColor,
-                      //         ),
-                      //         iconSize: 30,
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-                      // Container(
-                      //   height: 50.h,
-                      //   width: 480.w,
-                      //   decoration: BoxDecoration(
-                      //       borderRadius: BorderRadius.circular(10.r)),
-                      //   child: DropdownButtonFormField(
-                      //     dropdownColor: AppColors.PrimaryGreyColor,
-                      //     elevation: 5,
-                      //     style: TextStyle(
-                      //         color: AppColors.PrimaryMainColor,
-                      //         fontWeight: FontWeight.w600),
-                      //     decoration: InputDecoration(
-                      //       enabledBorder: OutlineInputBorder(
-                      //         borderRadius: BorderRadius.circular(10.r),
-                      //         borderSide: const BorderSide(
-                      //             color: AppColors.PrimaryGreyColor, width: 1),
-                      //       ),
-                      //       focusedBorder: OutlineInputBorder(
-                      //         borderRadius: BorderRadius.circular(10.r),
-                      //         borderSide: const BorderSide(
-                      //           color: AppColors.PrimaryBlackColor,
-                      //           width: 1,
-                      //         ),
-                      //       ),
-                      //     ),
-                      //     value: dropdownvalue,
-                      //     isExpanded: false,
-                      //     icon: Padding(
-                      //       padding: EdgeInsets.only(right: 10.r),
-                      //       child: Icon(
-                      //         Icons.keyboard_arrow_down,
-                      //         size: 30.sp,
-                      //         color: AppColors.PrimaryMainColor,
-                      //       ),
-                      //     ),
-                      //     items: items.map((String items) {
-                      //       return DropdownMenuItem(
-                      //         alignment: AlignmentDirectional.centerStart,
-                      //         value: items,
-                      //         child: Text(items),
-                      //       );
-                      //     }).toList(),
-                      //     onChanged: (String? newValue) {
-                      //       setState(() {
-                      //         isSelected = true;
-                      //       });
-                      //     },
-                      //   ),
-                      // ),
+
                       SizedBox(
                         height: 10.h,
                       ),
@@ -488,7 +308,7 @@ class _InterSchoolState extends State<InterSchool> {
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter Your email';
+                            return 'Please enter Your Stream';
                           }
                           return null;
                         },
@@ -521,7 +341,7 @@ class _InterSchoolState extends State<InterSchool> {
                           child: DropdownButtonFormField2(
                             isDense: false,
                             isExpanded: true,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               // enabledBorder: OutlineInputBorder(
                               //   borderRadius: BorderRadius.circular(10),
                               //   // width: 0.0 produces a thin "hairline" border
@@ -537,12 +357,12 @@ class _InterSchoolState extends State<InterSchool> {
                               isCollapsed: true,
                               border: InputBorder.none,
                             ),
-                            // validator: (value) {
-                            //   if (value == null || value.LocationName.isEmpty) {
-                            //     return 'Please Select Branch';
-                            //   }
-                            //   return null;
-                            // },
+                            validator: (value) {
+                              if (value == null) {
+                                return 'Please Select Course Type';
+                              }
+                              return null;
+                            },
                             hint: Text(
                               'Please select',
                               style: batchtext2(AppColors.hintcolor),
@@ -566,10 +386,10 @@ class _InterSchoolState extends State<InterSchool> {
                                 // accountTypeValidate = true;
                               });
                             },
-                            buttonStyleData: ButtonStyleData(
+                            buttonStyleData: const ButtonStyleData(
                               height: 55,
                               width: 450,
-                              padding: const EdgeInsets.all(10),
+                              padding: EdgeInsets.all(10),
                             ),
                             dropdownStyleData: DropdownStyleData(
                                 isOverButton: true,
@@ -583,7 +403,7 @@ class _InterSchoolState extends State<InterSchool> {
                               padding: EdgeInsets.only(left: 10, right: 10),
                               height: 40,
                             ),
-                            iconStyleData: IconStyleData(
+                            iconStyleData: const IconStyleData(
                               icon: Icon(
                                 Icons.keyboard_arrow_down,
                                 color: AppColors.PrimaryMainColor,
@@ -615,22 +435,22 @@ class _InterSchoolState extends State<InterSchool> {
                               //   borderSide: BorderSide(
                               //       color: AppColors.PrimaryMainColor, width: 1.0),
                               // ),
-                              errorBorder: new OutlineInputBorder(
+                              errorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide: new BorderSide(
+                                borderSide: const BorderSide(
                                     color: Colors.red, width: 1.0),
                               ),
                               isCollapsed: true,
                               border: InputBorder.none,
                             ),
-                            // validator: (value) {
-                            //   if (value == null || value.name.isEmpty) {
-                            //     return 'Please Select Qualification';
-                            //   }
-                            //   return null;
-                            // },
+                            validator: (value) {
+                              if (value == null || value.name.isEmpty) {
+                                return 'Please Select University/Board';
+                              }
+                              return null;
+                            },
                             hint: Text(
-                              'Please select Qualification',
+                              'Please select University/Board',
                               style: batchtext2(AppColors.hintcolor),
                             ),
                             items: boarduniversity
@@ -717,7 +537,7 @@ class _InterSchoolState extends State<InterSchool> {
                                 textEditingController.clear();
                               }
                             },
-                            iconStyleData: IconStyleData(
+                            iconStyleData: const IconStyleData(
                               icon: Icon(
                                 Icons.keyboard_arrow_down,
                                 color: AppColors.PrimaryMainColor,
@@ -739,7 +559,7 @@ class _InterSchoolState extends State<InterSchool> {
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter Your email';
+                            return 'Please enter Your percentage';
                           }
                           return null;
                         },
@@ -764,20 +584,20 @@ class _InterSchoolState extends State<InterSchool> {
                               //   borderSide: BorderSide(
                               //       color: AppColors.PrimaryMainColor, width: 1.0),
                               // ),
-                              errorBorder: new OutlineInputBorder(
+                              errorBorder:  OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide: new BorderSide(
+                                borderSide:const BorderSide(
                                     color: Colors.red, width: 1.0),
                               ),
                               isCollapsed: true,
                               border: InputBorder.none,
                             ),
-                            // validator: (value) {
-                            //   if (value == null || value.name.isEmpty) {
-                            //     return 'Please Select Qualification';
-                            //   }
-                            //   return null;
-                            // },
+                            validator: (value) {
+                              if (value == null) {
+                                return 'Please Select Starting Year';
+                              }
+                              return null;
+                            },
                             hint: Text(
                               'Starting Year',
                               style: batchtext2(AppColors.hintcolor),
@@ -864,7 +684,7 @@ class _InterSchoolState extends State<InterSchool> {
                                 textEditingController.clear();
                               }
                             },
-                            iconStyleData: IconStyleData(
+                            iconStyleData: const IconStyleData(
                               icon: Icon(
                                 Icons.keyboard_arrow_down,
                                 color: AppColors.PrimaryMainColor,
@@ -896,20 +716,20 @@ class _InterSchoolState extends State<InterSchool> {
                               //   borderSide: BorderSide(
                               //       color: AppColors.PrimaryMainColor, width: 1.0),
                               // ),
-                              errorBorder: new OutlineInputBorder(
+                              errorBorder:  OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide: new BorderSide(
+                                borderSide:  const BorderSide(
                                     color: Colors.red, width: 1.0),
                               ),
                               isCollapsed: true,
                               border: InputBorder.none,
                             ),
-                            // validator: (value) {
-                            //   if (value == null || value.name.isEmpty) {
-                            //     return 'Please Select Qualification';
-                            //   }
-                            //   return null;
-                            // },
+                            validator: (value) {
+                              if (value == null) {
+                                return 'Please Select Starting Month';
+                              }
+                              return null;
+                            },
                             hint: Text(
                               'Starting Month',
                               style: batchtext2(AppColors.hintcolor),
@@ -927,7 +747,7 @@ class _InterSchoolState extends State<InterSchool> {
                             value: dropmonth,
                             onChanged: (value) {
                               setState(() {
-                                dropmonth = value as MonthModel?;
+                                dropmonth = value;
                                 isSelected = true;
                                 //  selectedSecurity = value!;
                                 // accountTypeValidate = true;
@@ -996,7 +816,7 @@ class _InterSchoolState extends State<InterSchool> {
                                 textEditingController.clear();
                               }
                             },
-                            iconStyleData: IconStyleData(
+                            iconStyleData: const IconStyleData(
                               icon: Icon(
                                 Icons.keyboard_arrow_down,
                                 color: AppColors.PrimaryMainColor,
@@ -1007,7 +827,7 @@ class _InterSchoolState extends State<InterSchool> {
                         ),
                       ),
                       SizedBox(
-                        height: 10,
+                        height: 10.h,
                       ),
                       Text("Passing Year",
                           style: FieldTextStyle(
@@ -1028,20 +848,20 @@ class _InterSchoolState extends State<InterSchool> {
                               //   borderSide: BorderSide(
                               //       color: AppColors.PrimaryMainColor, width: 1.0),
                               // ),
-                              errorBorder: new OutlineInputBorder(
+                              errorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide: new BorderSide(
+                                borderSide:  const BorderSide(
                                     color: Colors.red, width: 1.0),
                               ),
                               isCollapsed: true,
                               border: InputBorder.none,
                             ),
-                            // validator: (value) {
-                            //   if (value == null || value.name.isEmpty) {
-                            //     return 'Please Select Qualification';
-                            //   }
-                            //   return null;
-                            // },
+                            validator: (value) {
+                              if (value == null) {
+                                return 'Please Select Passing Year';
+                              }
+                              return null;
+                            },
                             hint: Text(
                               'Passing Year',
                               style: batchtext2(AppColors.hintcolor),
@@ -1128,7 +948,7 @@ class _InterSchoolState extends State<InterSchool> {
                                 textEditingController.clear();
                               }
                             },
-                            iconStyleData: IconStyleData(
+                            iconStyleData: const IconStyleData(
                               icon: Icon(
                                 Icons.keyboard_arrow_down,
                                 color: AppColors.PrimaryMainColor,
@@ -1160,20 +980,20 @@ class _InterSchoolState extends State<InterSchool> {
                               //   borderSide: BorderSide(
                               //       color: AppColors.PrimaryMainColor, width: 1.0),
                               // ),
-                              errorBorder: new OutlineInputBorder(
+                              errorBorder:  OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide: new BorderSide(
+                                borderSide:  const BorderSide(
                                     color: Colors.red, width: 1.0),
                               ),
                               isCollapsed: true,
                               border: InputBorder.none,
                             ),
-                            // validator: (value) {
-                            //   if (value == null || value.name.isEmpty) {
-                            //     return 'Please Select Qualification';
-                            //   }
-                            //   return null;
-                            // },
+                            validator: (value) {
+                              if (value == null) {
+                                return 'Please Select Passing Month';
+                              }
+                              return null;
+                            },
                             hint: Text(
                               'Passing Month',
                               style: batchtext2(AppColors.hintcolor),
@@ -1191,7 +1011,7 @@ class _InterSchoolState extends State<InterSchool> {
                             value: droppassmonth,
                             onChanged: (value) {
                               setState(() {
-                                droppassmonth = value as MonthModel?;
+                                droppassmonth = value;
                                 isSelected = true;
 
                                 // accountTypeValidate = true;
@@ -1260,7 +1080,7 @@ class _InterSchoolState extends State<InterSchool> {
                                 textEditingController.clear();
                               }
                             },
-                            iconStyleData: IconStyleData(
+                            iconStyleData: const IconStyleData(
                               icon: Icon(
                                 Icons.keyboard_arrow_down,
                                 color: AppColors.PrimaryMainColor,
@@ -1270,358 +1090,11 @@ class _InterSchoolState extends State<InterSchool> {
                           ),
                         ),
                       ),
-                      // Text("Regular/Distance",
-                      //     style: FieldTextStyle(
-                      //       AppColors.PrimaryBlackColor,
-                      //     )),
-                      // Container(
-                      //   height: 50.h,
-                      //   width: 480.w,
-                      //   decoration:
-                      //       BoxDecoration(borderRadius: BorderRadius.circular(10.r)),
-                      //   child: DropdownButtonFormField(
-                      //     style: TextStyle(
-                      //         color: AppColors.PrimaryMainColor,
-                      //         fontWeight: FontWeight.w600),
-                      //     decoration: InputDecoration(
-                      //       enabledBorder: OutlineInputBorder(
-                      //         borderRadius: BorderRadius.circular(10.r),
-                      //         borderSide: const BorderSide(
-                      //             color: AppColors.PrimaryGreyColor, width: 1),
-                      //       ),
-                      //       focusedBorder: OutlineInputBorder(
-                      //         borderRadius: BorderRadius.circular(10.r),
-                      //         borderSide: const BorderSide(
-                      //           color: AppColors.PrimaryBlackColor,
-                      //           width: 1,
-                      //         ),
-                      //       ),
-                      //     ),
-                      //     value: dropdownvalue,
-                      //     isExpanded: true,
-                      //     icon: Padding(
-                      //       padding: EdgeInsets.only(right: 10.r),
-                      //       child: Icon(
-                      //         Icons.keyboard_arrow_down,
-                      //         size: 30.sp,
-                      //         color: AppColors.PrimaryMainColor,
-                      //       ),
-                      //     ),
-                      //     items: items.map((String items) {
-                      //       return DropdownMenuItem(
-                      //         value: items,
-                      //         child: Padding(
-                      //           padding: EdgeInsets.only(left: 10.r),
-                      //           child: Text(items),
-                      //         ),
-                      //       );
-                      //     }).toList(),
-                      //     onChanged: (String? newValue) {
-                      //       setState(() {
-                      //         isSelected = true;
-                      //       });
-                      //     },
-                      //   ),
-                      // ),
-                      // SizedBox(
-                      //   height: 10.h,
-                      // ),
-                      // Text("Percentage/CGPA",
-                      //     style: FieldTextStyle(
-                      //       AppColors.PrimaryBlackColor,
-                      //     )),
-                      // Container(
-                      //   height: 50.h,
-                      //   width: 480.w,
-                      //   decoration:
-                      //       BoxDecoration(borderRadius: BorderRadius.circular(10.r)),
-                      //   child: DropdownButtonFormField(
-                      //     style: TextStyle(
-                      //         color: AppColors.PrimaryMainColor,
-                      //         fontWeight: FontWeight.w600),
-                      //     decoration: InputDecoration(
-                      //       enabledBorder: OutlineInputBorder(
-                      //         borderRadius: BorderRadius.circular(10.r),
-                      //         borderSide: const BorderSide(
-                      //             color: AppColors.PrimaryGreyColor, width: 1),
-                      //       ),
-                      //       focusedBorder: OutlineInputBorder(
-                      //         borderRadius: BorderRadius.circular(10.r),
-                      //         borderSide: const BorderSide(
-                      //           color: AppColors.PrimaryBlackColor,
-                      //           width: 1,
-                      //         ),
-                      //       ),
-                      //     ),
-                      //     value: dropdownvalue,
-                      //     isExpanded: true,
-                      //     icon: Padding(
-                      //       padding: EdgeInsets.only(right: 10.r),
-                      //       child: Icon(
-                      //         Icons.keyboard_arrow_down,
-                      //         size: 30.sp,
-                      //         color: AppColors.PrimaryMainColor,
-                      //       ),
-                      //     ),
-                      //     items: items.map((String items) {
-                      //       return DropdownMenuItem(
-                      //         value: items,
-                      //         child: Padding(
-                      //           padding: EdgeInsets.only(left: 10.r),
-                      //           child: Text(items),
-                      //         ),
-                      //       );
-                      //     }).toList(),
-                      //     onChanged: (String? newValue) {
-                      //       setState(() {
-                      //         isSelected = true;
-                      //       });
-                      //     },
-                      //   ),
-                      // ),
-                      // SizedBox(
-                      //   height: 10.h,
-                      // ),
-                      // Text("Degree start Year",
-                      //     style: FieldTextStyle(
-                      //       AppColors.PrimaryBlackColor,
-                      //     )),
-                      // DropdownButtonHideUnderline(
-                      //   child: DropdownButtonFormField2(
-                      //     isDense: false,
-                      //     isExpanded: true,
-                      //     decoration: InputDecoration(
-                      //       enabledBorder: OutlineInputBorder(
-                      //         borderRadius: BorderRadius.circular(10),
-                      //         // width: 0.0 produces a thin "hairline" border
-                      //         borderSide: BorderSide(
-                      //             color: AppColors.PrimaryMainColor, width: 1.0),
-                      //       ),
-                      //       errorBorder: new OutlineInputBorder(
-                      //         borderRadius: BorderRadius.circular(10),
-                      //         borderSide:
-                      //             new BorderSide(color: Colors.red, width: 1.0),
-                      //       ),
-                      //       isCollapsed: true,
-                      //       border: InputBorder.none,
-                      //     ),
-                      //     // validator: (value) {
-                      //     //   if (value == null || value.yearlis.isEmpty) {
-                      //     //     return 'Please Select Qualification';
-                      //     //   }
-                      //     //   return null;
-                      //     // },
-                      //     hint: Text(
-                      //       'Please select Degree Start Year',
-                      //       style: Text2Regular(AppColors.PrimaryMainColor),
-                      //     ),
-                      //     items: yearList
-                      //         .map((item) => DropdownMenuItem(
-                      //               value: item,
-                      //               child: Text(
-                      //                 item.toString(),
-                      //                 style: batchtext2(AppColors.PrimaryMainColor),
-                      //               ),
-                      //             ))
-                      //         .toList(growable: false),
-                      //     value: yeardrop,
-                      //     onChanged: (value) {
-                      //       setState(() {
-                      //         //yeardrop = value as String?;
-                      //         isSelected = true;
-                      //         //  selectedSecurity = value!;
-                      //         // accountTypeValidate = true;
-                      //       });
-                      //     },
-                      //     buttonStyleData: ButtonStyleData(
-                      //       height: 55,
-                      //       // width: 450,
-                      //       padding: const EdgeInsets.all(10),
-                      //     ),
-                      //     dropdownStyleData: DropdownStyleData(
-                      //         isOverButton: true,
-                      //         decoration: BoxDecoration(
-                      //             borderRadius: BorderRadius.circular(10.sp),
-                      //             color: AppColors.backgroungcolor,
-                      //             border: Border.all()),
-                      //         maxHeight: 200.h,
-                      //         // width: 500.w,
-                      //         elevation: 10),
-                      //     menuItemStyleData: const MenuItemStyleData(
-                      //       padding: EdgeInsets.only(left: 10, right: 10),
-                      //       height: 40,
-                      //     ),
-                      //     dropdownSearchData: DropdownSearchData(
-                      //       searchController: textEditingController,
-                      //       searchInnerWidgetHeight: 200.h,
-                      //       searchInnerWidget: Container(
-                      //         height: 50,
-                      //         padding: const EdgeInsets.only(
-                      //           top: 8,
-                      //           bottom: 4,
-                      //           right: 8,
-                      //           left: 8,
-                      //         ),
-                      //         child: TextFormField(
-                      //           style: batchtext2(AppColors.PrimaryMainColor),
-                      //           //expands: true,
-                      //           maxLines: 1,
-                      //           controller: textEditingController,
-                      //           decoration: InputDecoration(
-                      //             isDense: true,
-                      //             contentPadding: const EdgeInsets.symmetric(
-                      //               horizontal: 15,
-                      //               vertical: 15,
-                      //             ),
-                      //             hintText: 'Search here...',
-                      //             hintStyle: TextStyle(
-                      //                 fontSize: 12,
-                      //                 color: AppColors.PrimaryMainColor),
-                      //             border: OutlineInputBorder(
-                      //               borderRadius: BorderRadius.circular(8.sp),
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ),
-                      //       searchMatchFn: (item, searchValue) {
-                      //         // final myItem = qualificationlist.firstWhere((element) =>
-                      //         //     element.name.toString() == item.value.toString());
-                      //         return item.value
-                      //             .toString()
-                      //             .toLowerCase()
-                      //             .contains(searchValue);
-                      //       },
-                      //     ),
-                      //     onMenuStateChange: (isOpen) {
-                      //       if (isOpen) {
-                      //         textEditingController.clear();
-                      //       }
-                      //     },
-                      //     iconStyleData: IconStyleData(
-                      //       icon: Icon(
-                      //         Icons.keyboard_arrow_down,
-                      //         color: AppColors.PrimaryMainColor,
-                      //       ),
-                      //       iconSize: 30,
-                      //     ),
-                      //   ),
-                      // ),
-                      // SizedBox(
-                      //   height: 10.h,
-                      // ),
-                      // Text("Degree end Year",
-                      //     style: FieldTextStyle(
-                      //       AppColors.PrimaryBlackColor,
-                      //     )),
-                      // Container(
-                      //   height: 50.h,
-                      //   width: 480.w,
-                      //   decoration:
-                      //       BoxDecoration(borderRadius: BorderRadius.circular(10.r)),
-                      //   child: DropdownButtonFormField(
-                      //     style: TextStyle(
-                      //         color: AppColors.PrimaryMainColor,
-                      //         fontWeight: FontWeight.w600),
-                      //     decoration: InputDecoration(
-                      //       enabledBorder: OutlineInputBorder(
-                      //         borderRadius: BorderRadius.circular(10.r),
-                      //         borderSide: const BorderSide(
-                      //             color: AppColors.PrimaryGreyColor, width: 1),
-                      //       ),
-                      //       focusedBorder: OutlineInputBorder(
-                      //         borderRadius: BorderRadius.circular(10.r),
-                      //         borderSide: const BorderSide(
-                      //           color: AppColors.PrimaryBlackColor,
-                      //           width: 1,
-                      //         ),
-                      //       ),
-                      //     ),
-                      //     value: dropdownvalue,
-                      //     isExpanded: true,
-                      //     icon: Padding(
-                      //       padding: EdgeInsets.only(right: 10.r),
-                      //       child: Icon(
-                      //         Icons.keyboard_arrow_down,
-                      //         size: 30.sp,
-                      //         color: AppColors.PrimaryMainColor,
-                      //       ),
-                      //     ),
-                      //     items: items.map((String items) {
-                      //       return DropdownMenuItem(
-                      //         value: items,
-                      //         child: Padding(
-                      //           padding: EdgeInsets.only(left: 10.r),
-                      //           child: Text(items),
-                      //         ),
-                      //       );
-                      //     }).toList(),
-                      //     onChanged: (String? newValue) {
-                      //       setState(() {
-                      //         isSelected = true;
-                      //       });
-                      //     },
-                      //   ),
-                      // ),
-                      // SizedBox(
-                      //   height: 10.h,
-                      // ),
-                      // Text("Upload 10th Marks",
-                      //     style: FieldTextStyle(
-                      //       AppColors.PrimaryBlackColor,
-                      //     )),
-                      // Container(
-                      //   height: 50.h,
-                      //   width: 480.w,
-                      //   decoration:
-                      //       BoxDecoration(borderRadius: BorderRadius.circular(10.r)),
-                      //   child: DropdownButtonFormField(
-                      //     style: TextStyle(
-                      //         color: AppColors.PrimaryMainColor,
-                      //         fontWeight: FontWeight.w600),
-                      //     decoration: InputDecoration(
-                      //       enabledBorder: OutlineInputBorder(
-                      //         borderRadius: BorderRadius.circular(10.r),
-                      //         borderSide: const BorderSide(
-                      //             color: AppColors.PrimaryGreyColor, width: 1),
-                      //       ),
-                      //       focusedBorder: OutlineInputBorder(
-                      //         borderRadius: BorderRadius.circular(10.r),
-                      //         borderSide: const BorderSide(
-                      //           color: AppColors.PrimaryBlackColor,
-                      //           width: 1,
-                      //         ),
-                      //       ),
-                      //     ),
-                      //     value: dropdownvalue,
-                      //     isExpanded: true,
-                      //     icon: Padding(
-                      //       padding: EdgeInsets.only(right: 10.r),
-                      //       child: Icon(
-                      //         Icons.keyboard_arrow_down,
-                      //         size: 30.sp,
-                      //         color: AppColors.PrimaryMainColor,
-                      //       ),
-                      //     ),
-                      //     items: items.map((String items) {
-                      //       return DropdownMenuItem(
-                      //         value: items,
-                      //         child: Padding(
-                      //           padding: EdgeInsets.only(left: 10.r),
-                      //           child: Text(items),
-                      //         ),
-                      //       );
-                      //     }).toList(),
-                      //     onChanged: (String? newValue) {
-                      //       setState(() {
-                      //         isSelected = true;
-                      //       });
-                      //     },
-                      //   ),
-                      // ),
+
                       SizedBox(
                         height: 10.h,
                       ),
-                      Text("Upload 10th Marks",
+                      Text("Upload 12th Marks",
                           style: FieldTextStyle(
                             AppColors.PrimaryBlackColor,
                           )),
@@ -1653,7 +1126,7 @@ class _InterSchoolState extends State<InterSchool> {
                                                 // mainAxisAlignment:
                                                 //     MainAxisAlignment.end,
                                                 children: [
-                                                  Text("Upload File"),
+                                                  const Text("Upload File"),
                                                   Center(
                                                       child: Row(
                                                     mainAxisAlignment:
@@ -1680,7 +1153,7 @@ class _InterSchoolState extends State<InterSchool> {
                                                               Container(
                                                                 height: 50.h,
                                                                 width: 100.w,
-                                                                decoration: BoxDecoration(
+                                                                decoration: const BoxDecoration(
                                                                     color: Colors
                                                                         .white
                                                                     // color: AppColors
@@ -1703,7 +1176,7 @@ class _InterSchoolState extends State<InterSchool> {
                                                                       MainAxisAlignment
                                                                           .center,
                                                                   children: [
-                                                                    Icon(Icons
+                                                                    const Icon(Icons
                                                                         .attach_file),
                                                                     Text(
                                                                       "Attach",
@@ -1774,7 +1247,7 @@ class _InterSchoolState extends State<InterSchool> {
                                                 //       ])
                                                 Row(
                                               children: [
-                                                Icon(
+                                                const Icon(
                                                   Icons.file_copy,
                                                   color: AppColors
                                                       .PrimaryMainColor,
@@ -1802,7 +1275,7 @@ class _InterSchoolState extends State<InterSchool> {
               ),
             ),
       bottomNavigationBar: loading1 == true
-          ? Text("")
+          ? const Text("")
           : Container(
               decoration: const BoxDecoration(
                   image: DecorationImage(
@@ -1819,11 +1292,24 @@ class _InterSchoolState extends State<InterSchool> {
                     child: ButtonPrimary(
                       title: "Submit",
                       onPressed: () {
-                        callUploadDocumentApi();
-                        // if (_registerkey.currentState!.validate()) {
-
-                        //   // use the email provided here
-                        // }
+                        if (_registerkey.currentState!.validate() &&
+                            file != null &&
+                            dropboard != null &&
+                            yeardrop != null &&
+                            droppassyear != null &&
+                            droppassmonth != null &&
+                            dropcourse != null) {
+                          callUploadDocumentApi();
+                          // use the email provided here
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            backgroundColor: Colors.red,
+                            content: Text(
+                              "Please Upload file",
+                              style: batchtext2(AppColors.PrimaryWhiteColor),
+                            ),
+                          ));
+                        }
                       },
                     ),
                   )),
@@ -1860,7 +1346,7 @@ class _InterSchoolState extends State<InterSchool> {
   //     }
   //   } catch (e) {
   //     // debugger();
-  //     //print(e);
+
   //   }
   // }
 
@@ -1881,7 +1367,6 @@ class _InterSchoolState extends State<InterSchool> {
       }
     } catch (e) {
       // debugger();
-      //print(e);
     }
   }
 

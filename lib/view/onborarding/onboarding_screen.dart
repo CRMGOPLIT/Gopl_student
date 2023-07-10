@@ -31,195 +31,198 @@ class _OnbordingState extends State<Onbording> {
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppColors.backgroungcolor,
       body: SafeArea(
-        child: Container(
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xffF4F8FE),
-              Color(0xffFDF7F4),
-            ],
-          )),
-          child: Column(
-            children: [
-              // SizedBox(
-              //   height: 40.h,
-              // ),
-              InkWell(
-                onTap: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, RoutesName.login, (routes) => false);
-                },
-                child: Padding(
-                  padding: EdgeInsets.all(15.sp),
-                  child: Align(
-                      alignment: Alignment.topRight,
-                      child: Text(
-                        "Skip Now",
-                        style: TextStyle(
-                            color: AppColors.PrimaryMainColor,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14.sp),
-                      )),
-                ),
-              ),
-              Container(
-                height: 440.h,
-                child: PageView.builder(
-                  controller: _controller,
-                  itemCount: contents.length,
-                  onPageChanged: (int index) {
-                    setState(() {
-                      currtpage = index;
-                    });
+        child: SingleChildScrollView(
+          child: Container(
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0xffF4F8FE),
+                Color(0xffFDF7F4),
+              ],
+            )),
+            child: Column(
+              children: [
+                // SizedBox(
+                //   height: 40.h,
+                // ),
+                InkWell(
+                  onTap: () {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, RoutesName.login, (routes) => false);
                   },
-                  itemBuilder: (_, i) {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 270.h,
-                          //   color: AppColors.PrimaryWhiteColor,
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                  height: 250.h,
-                                  // width: 220.w,
-                                  child: Image.asset(
-                                    contents[i].image!,
-                                    fit: BoxFit.contain,
-                                  )),
-                              SizedBox(
-                                height: 20.h,
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 30.h,
-                        ),
-                        Text(
-                          contents[i].title!,
+                  child: Padding(
+                    padding: EdgeInsets.all(15.sp),
+                    child: Align(
+                        alignment: Alignment.topRight,
+                        child: Text(
+                          "Skip Now",
                           style: TextStyle(
                               color: AppColors.PrimaryMainColor,
-                              fontWeight: FontWeight.w800,
-                              fontSize: 20.sp),
-                        ),
-                        // SizedBox(
-                        //   height: 10.h,
-                        // ),
-                        Padding(
-                          padding: EdgeInsets.all(15.sp),
-                          child: Text(
-                            contents[i].discription!,
-                            textAlign: TextAlign.center,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14.sp),
+                        )),
+                  ),
+                ),
+                SizedBox(
+                  height: screenSize.height * 0.7,
+                  child: PageView.builder(
+                    controller: _controller,
+                    itemCount: contents.length,
+                    onPageChanged: (int index) {
+                      setState(() {
+                        currtpage = index;
+                      });
+                    },
+                    itemBuilder: (_, i) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 270.h,
+                            //   color: AppColors.PrimaryWhiteColor,
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                    height: 250.h,
+                                    // width: 220.w,
+                                    child: Image.asset(
+                                      contents[i].image!,
+                                      fit: BoxFit.contain,
+                                    )),
+                                // SizedBox(
+                                //   height: 20.h,
+                                // ),
+                              ],
+                            ),
+                          ),
+                          // SizedBox(
+                          //   height: 30.h,
+                          // ),
+                          Text(
+                            contents[i].title!,
                             style: TextStyle(
                                 color: AppColors.PrimaryMainColor,
-                                height: 1.4,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 14.sp),
+                                fontWeight: FontWeight.w800,
+                                fontSize: 20.sp),
                           ),
-                        ),
-                      ],
-                    );
-                  },
+                          // SizedBox(
+                          //   height: 10.h,
+                          // ),
+                          Padding(
+                            padding: EdgeInsets.all(15.sp),
+                            child: Text(
+                              contents[i].discription!,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: AppColors.PrimaryMainColor,
+                                  height: 1.4,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14.sp),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(
-                      contents.length, (index) => buildDot(index, context))),
-              // Container(
-              //   height: 60.h,
-              //   decoration: BoxDecoration(
-              //       borderRadius: BorderRadius.circular(10.sp),
-              //       gradient: const LinearGradient(
-              //         begin: Alignment.centerLeft,
-              //         end: Alignment.centerRight,
-              //         colors: [
-              //           Color(0xff143C79),
-              //           Color(0xff2A67C5),
-              //         ],
-              //       )),
-              //   child: const Center(
-              //     child: Text(
-              //       'Next',
-              //       style: TextStyle(
-              //         fontSize: 28.0,
-              //         fontWeight: FontWeight.bold,
-              //         color: Colors.white,
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              SizedBox(
-                height: 10.h,
-              ),
-              Align(
-                alignment: Alignment.topRight,
-                child: Column(
-                  // mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    // SizedBox(
-                    //   height: 30.h,
-                    // ),
-                    currtpage == contents.length - 1
-                        ? InkWell(
-                            onTap: () {
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context, RoutesName.login, (routes) => false);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.all(15),
-                              // alignment: Alignment.center,
-                              height: 90.h,
-                              width: 100.h,
-                              //color: Colors.red,
-                              child: Align(
-                                alignment: Alignment.topRight,
-                                child: Text(
-                                  "Continue",
-                                  style: TextStyle(
-                                      color: AppColors.PrimaryMainColor,
-                                      fontSize: 17.sp,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ),
-                            ))
-                        : InkWell(
-                            onTap: () {
-                              _controller?.nextPage(
-                                  duration: const Duration(seconds: 1),
-                                  curve: Curves.ease);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.all(15),
-                              height: 90.h,
-                              width: 100.h,
-                              //color: Colors.red,
-                              child: Align(
-                                alignment: Alignment.topRight,
-                                child: Text(
-                                  "Next",
-                                  //textAlign: TextAlign.end,
-                                  style: TextStyle(
-                                      color: AppColors.PrimaryMainColor,
-                                      fontSize: 17.sp,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ),
-                            ))
-                  ],
+                SizedBox(
+                  height: 50.h,
                 ),
-              ),
-            ],
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(
+                        contents.length, (index) => buildDot(index, context))),
+                // Container(
+                //   height: 60.h,
+                //   decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(10.sp),
+                //       gradient: const LinearGradient(
+                //         begin: Alignment.centerLeft,
+                //         end: Alignment.centerRight,
+                //         colors: [
+                //           Color(0xff143C79),
+                //           Color(0xff2A67C5),
+                //         ],
+                //       )),
+                //   child: const Center(
+                //     child: Text(
+                //       'Next',
+                //       style: TextStyle(
+                //         fontSize: 28.0,
+                //         fontWeight: FontWeight.bold,
+                //         color: Colors.white,
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      // SizedBox(
+                      //   height: 30.h,
+                      // ),
+                      currtpage == contents.length - 1
+                          ? InkWell(
+                              onTap: () {
+                                Navigator.pushNamedAndRemoveUntil(context,
+                                    RoutesName.login, (routes) => false);
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(15).w,
+                                // alignment: Alignment.center,
+                                height: 90.h,
+                                width: 100.h,
+                                //color: Colors.red,
+                                child: Align(
+                                  alignment: Alignment.topRight,
+                                  child: Text(
+                                    "Continue",
+                                    style: TextStyle(
+                                        color: AppColors.PrimaryMainColor,
+                                        fontSize: 17.sp,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                              ))
+                          : InkWell(
+                              onTap: () {
+                                _controller?.nextPage(
+                                    duration: const Duration(seconds: 1),
+                                    curve: Curves.ease);
+                              },
+                              child: Container(
+                                padding: EdgeInsets.all(15),
+                                height: 90.h,
+                                width: 100.h,
+                                //color: Colors.red,
+                                child: Align(
+                                  alignment: Alignment.topRight,
+                                  child: Text(
+                                    "Next",
+                                    //textAlign: TextAlign.end,
+                                    style: TextStyle(
+                                        color: AppColors.PrimaryMainColor,
+                                        fontSize: 17.sp,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                              ))
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

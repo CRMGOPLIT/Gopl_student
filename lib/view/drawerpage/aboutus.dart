@@ -27,7 +27,11 @@ class _AboutUsState extends State<AboutUs> {
           child: AppBarCustom(
             title: "About Us",
             onpress: () {
-              Navigator.pushNamed(context, RoutesName.bottomnav);
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                RoutesName.bottomnav,
+                (routes) => false,
+              );
             },
           ),
         ),
@@ -37,37 +41,12 @@ class _AboutUsState extends State<AboutUs> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // ImageSlideshow(
-                //     width: double.infinity,
-                //     height: 120.h,
-                //     initialPage: 0,
-                //     indicatorColor: const Color(0xff5D88C6),
-                //     indicatorBackgroundColor: AppColors.PrimaryGreyColor,
-                //     onPageChanged: (value) {},
-                //     autoPlayInterval: 3000,
-                //     isLoop: true,
-                //     children: List.generate(image.length, (index) {
-                //       return Container(
-                //         decoration: BoxDecoration(
-                //           borderRadius: BorderRadius.circular(10.sp),
-                //           image: DecorationImage(
-                //               image: AssetImage(image[index]), fit: BoxFit.fill
-                //               // fit: BoxFit.cover,
-                //               ),
-                //         ),
-                //       );
-                //     })),
                 Image.asset(
                   "assets/images/bannerlogo.png",
                   height: 40,
                   width: 200,
                   fit: BoxFit.contain,
                 ),
-                // Text(
-                //   "Global Opportunities Pvt. Ltd.",
-                //   textAlign: TextAlign.start,
-                //   style: batchtext2(AppColors.PrimaryMainColor),
-                // ),
                 SizedBox(
                   height: 10.h,
                 ),
@@ -75,7 +54,6 @@ class _AboutUsState extends State<AboutUs> {
                   "We are India’s pioneer education consulting group that undertakes students’ recruitment from India and Nepal for 700+ Institutions and university partners across the globe.\n\nWith a massive network of 21 offices in all the major cities in India and Kathmandu, Nepal, Global Opportunities has nurtured alliances in major countries, including the United Kingdom, United States of America, Canada, Australia, New Zealand, Ireland, Singapore, Dubai, Malaysia amongst other countries.",
                   style: batchtext1(AppColors.PrimaryBlackColor),
                 ),
-
                 SizedBox(
                   height: 10.h,
                 ),
@@ -117,7 +95,6 @@ class _AboutUsState extends State<AboutUs> {
                   "Our Motto :  \"Step Out without Doubt” - emphasizes the company’s proficient counseling to the seeker letting them move ahead without any doubts.\"",
                   style: FieldTextStyle(Colors.green),
                 ),
-
                 SizedBox(
                   height: 15.h,
                 ),

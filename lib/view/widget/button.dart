@@ -29,10 +29,6 @@ class ButtonPrimary extends StatelessWidget {
         onPressed: () {
           onPressed();
         },
-        child: Text(title.toUpperCase(),
-            style: btntext(
-              AppColors.PrimaryWhiteColor,
-            )),
         style: ElevatedButton.styleFrom(
             backgroundColor: Colors.transparent,
             textStyle: OtpText(AppColors.PrimaryWhiteColor),
@@ -40,6 +36,10 @@ class ButtonPrimary extends StatelessWidget {
             //     borderRadius: BorderRadius.circular(30.r)),
             shadowColor: Colors.transparent,
             elevation: 10),
+        child: Text(title.toUpperCase(),
+            style: btntext(
+              AppColors.PrimaryWhiteColor,
+            )),
       ),
     );
   }
@@ -70,10 +70,6 @@ class ButtonPrimary2 extends StatelessWidget {
         onPressed: () {
           onPressed();
         },
-        child: Text(title,
-            style: batchtext2(
-              AppColors.PrimaryWhiteColor,
-            )),
         style: ElevatedButton.styleFrom(
             backgroundColor: Colors.transparent,
             textStyle: OtpText(AppColors.PrimaryWhiteColor),
@@ -81,6 +77,10 @@ class ButtonPrimary2 extends StatelessWidget {
             //     borderRadius: BorderRadius.circular(30.r)),
             shadowColor: Colors.transparent,
             elevation: 10),
+        child: Text(title,
+            style: batchtext2(
+              AppColors.PrimaryWhiteColor,
+            )),
       ),
     );
   }

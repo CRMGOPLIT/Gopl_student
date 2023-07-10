@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/constant.dart';
 
+// ignore: non_constant_identifier_names
 TextStyle H1TextStyle(Color? color) {
   return TextStyle(
       color: color ?? AppColors.PrimaryBlackColor,
@@ -11,6 +12,7 @@ TextStyle H1TextStyle(Color? color) {
       fontSize: 26.sp);
 }
 
+// ignore: non_constant_identifier_names
 TextStyle H2TextStyle(Color? color) {
   return TextStyle(
       color: color ?? AppColors.PrimaryBlackColor,
@@ -20,6 +22,7 @@ TextStyle H2TextStyle(Color? color) {
       fontSize: 16.sp);
 }
 
+// ignore: non_constant_identifier_names
 TextStyle FieldTextStyle(Color? color) {
   return TextStyle(
       color: color ?? AppColors.PrimaryBlackColor,
@@ -37,6 +40,7 @@ TextStyle FieldTextStyle(Color? color) {
 //       fontSize: 26);
 // }
 
+// ignore: non_constant_identifier_names
 TextStyle TextRegular(Color? color) {
   return TextStyle(
       color: color ?? AppColors.TextRegularkColor,
@@ -46,6 +50,7 @@ TextStyle TextRegular(Color? color) {
       fontSize: 13.sp);
 }
 
+// ignore: non_constant_identifier_names
 TextStyle Text2Regular(Color? color) {
   return TextStyle(
       color: color ?? AppColors.TextRegularkColor,
@@ -56,6 +61,7 @@ TextStyle Text2Regular(Color? color) {
       fontSize: 14.sp);
 }
 
+// ignore: non_constant_identifier_names
 TextStyle OtpText(Color? color) {
   return TextStyle(
       color: color ?? AppColors.TextRegularkColor,
@@ -111,9 +117,10 @@ TextStyle location(Color? color) {
       decoration: TextDecoration.underline,
       // height: 1.1,
       letterSpacing: 0.6,
-      fontSize: 12.sp);
+      fontSize: 10.sp);
 }
 
+// ignore: non_constant_identifier_names
 Widget MediumBottonWithoutIcon(
   String title,
   bool isEnable,
@@ -136,7 +143,7 @@ Widget MediumBottonWithoutIcon(
             isEnable == false ? Colors.transparent : AppColors.PrimaryMainColor,
         borderRadius: BorderRadius.circular(4),
         autofocus: true,
-        child: Container(
+        child: SizedBox(
           height: 48,
           width: 92,
           child: Row(

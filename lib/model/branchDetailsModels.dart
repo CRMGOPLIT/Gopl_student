@@ -8,19 +8,21 @@ String branchDetailsModelToJson(List<BranchDetailsModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class BranchDetailsModel {
+  final String branchId;
+  final String branchName;
+  final String branchPhone;
+  final String branchAddress;
+  final String locationUrl;
+  final String branchUrl;
+
   BranchDetailsModel({
     required this.branchId,
     required this.branchName,
     required this.branchPhone,
     required this.branchAddress,
     required this.locationUrl,
+    required this.branchUrl,
   });
-
-  final String branchId;
-  final String branchName;
-  final String branchPhone;
-  final String branchAddress;
-  final String locationUrl;
 
   factory BranchDetailsModel.fromJson(Map<String, dynamic> json) =>
       BranchDetailsModel(
@@ -29,6 +31,7 @@ class BranchDetailsModel {
         branchPhone: json["branch_phone"],
         branchAddress: json["branch_Address"],
         locationUrl: json["Location_Url"],
+        branchUrl: json["branch_url"].toString(),
       );
 
   Map<String, dynamic> toJson() => {
@@ -37,5 +40,6 @@ class BranchDetailsModel {
         "branch_phone": branchPhone,
         "branch_Address": branchAddress,
         "Location_Url": locationUrl,
+        "branch_url": branchUrl,
       };
 }

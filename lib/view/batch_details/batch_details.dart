@@ -6,7 +6,6 @@ import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/utils/text_style.dart';
 import 'package:global_student/view/widget/app_bar.dart';
-import 'package:global_student/view/widget/simmereffect.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BatchDetails extends StatefulWidget {
@@ -17,38 +16,7 @@ class BatchDetails extends StatefulWidget {
 }
 
 class _BatchDetailsState extends State<BatchDetails> {
-  bool loanding = true;
-  late DashBoardBloc dashBoardBloc;
   List<BatchDetailsModel> data = [];
-  List batchData = [];
-
-  // @override
-  // void initState() {
-  //   dashBoardBloc = DashBoardBloc();
-  //   getBranchDetails();
-  //   _gethomeData();
-  //   super.initState();
-  // }
-
-  // getBranchDetails() async {
-  //   await dashBoardBloc.batchControllerStream.listen((event) {
-  //     if (event != null) {
-  //       batchData = event;
-  //       for (int i = 0; i < batchData.length; i++) {
-  //         BatchDetailsModel branchDetailsModel =
-  //             BatchDetailsModel.fromJson(event[i]);
-  //         data.add(branchDetailsModel);
-  //       }
-  //       setState(() {
-  //         loanding = false;
-  //       });
-  //     }
-  //   });
-  // }
-
-  // _gethomeData() {
-  //   dashBoardBloc.callGetBatchDetailsApi();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -119,11 +87,6 @@ class _ListBatchState extends State<ListBatch> {
               BatchDetailsModel.fromJson(event[i]);
 
           data.add(branchDetailsModel);
-          // int cf = data[i].confirmedWithFullPayment;
-          // int cp = data[i].confirmedWithPartialPayment;
-          // int totl = int.parse(data[i].fBatchSize);
-
-          // avl = totl - (cf + cp);
         }
         setState(() {
           loanding = false;
@@ -139,14 +102,19 @@ class _ListBatchState extends State<ListBatch> {
   String? sName;
   saveName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    //Return String
+
     sName = prefs.getString('Name');
   }
 
   @override
   Widget build(BuildContext context) {
+    // Size screenSize = MediaQuery.of(context).size;
     return loanding
-        ? ShimmerEffect()
+        ? Center(
+            child: CircularProgressIndicator(
+            strokeWidth: 2.w,
+            color: AppColors.PrimaryMainColor,
+          ))
         : AnimatedOpacity(
             duration: const Duration(milliseconds: 1000),
             opacity: _animate ? 1 : 0,
@@ -176,27 +144,16 @@ class _ListBatchState extends State<ListBatch> {
                                   color: Colors.black12,
                                   blurRadius: 1.0,
                                   spreadRadius: 0.0),
-                              // BoxShadow(
-                              //     offset: Offset(
-                              //       -2,
-                              //       -5,
-                              //     ),
-                              //     color: Colors.black12,
-                              //     blurRadius: 2.0,
-                              //     spreadRadius: 2.0),
                             ]),
                         child: Column(
                           children: [
                             Padding(
                               padding: EdgeInsets.all(8.r),
                               child: Row(
-                                // mainAxisAlignment: MainAxisAlignment.start,
-                                // crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
                                     height: 60.h,
                                     width: 80.w,
-
                                     decoration: BoxDecoration(
                                         color: AppColors.PrimaryMainColor,
                                         image: data[index].fFacultyImag.isEmpty
@@ -209,38 +166,9 @@ class _ListBatchState extends State<ListBatch> {
                                                 image: NetworkImage(
                                                     data[index].fFacultyImag),
                                                 fit: BoxFit.cover,
-                                                // onError:
-                                                //     (exception, stackTrace) {
-                                                //   data[index]
-                                                //           .fFacultyImag
-                                                //           .isEmpty
-                                                //       ? Image.asset(
-                                                //           "assets/images/fimg.png")
-                                                //       : Text("oke;okn");
-                                                // },
                                               ),
                                         borderRadius:
                                             BorderRadius.circular(10.r)),
-                                    // child: Column(
-                                    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    //   crossAxisAlignment: CrossAxisAlignment.center,
-                                    //   children: [
-                                    //     Padding(
-                                    //       padding: EdgeInsets.all(0.r),
-                                    //       child: Image.asset(
-                                    //         "assets/images/fimg.png",
-                                    //         fit: BoxFit.cover,
-                                    //         height: 80.h,
-                                    //       ),
-                                    //     ),
-                                    //     // Text(
-                                    //     //   "IELTS/2022/0064",
-                                    //     //   textAlign: TextAlign.center,
-                                    //     //   style:
-                                    //     //       FieldTextStyle(AppColors.PrimaryWhiteColor),
-                                    //     // ),
-                                    //   ],
-                                    // )
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(left: 10.r),
@@ -337,44 +265,38 @@ class _ListBatchState extends State<ListBatch> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      SizedBox(
-                                        width: 170.w,
-                                        child: RichText(
-                                          overflow: TextOverflow.ellipsis,
-                                          text: TextSpan(
-                                            text: 'Start Date :- ',
-                                            style: batchtext2(
-                                                AppColors.PrimaryBlackColor),
-                                            children: [
-                                              TextSpan(
-                                                text: data[index]
-                                                    .fBatchStartDate
-                                                    .toString(),
-                                                style: batchtext1(AppColors
-                                                    .PrimaryBlackColor),
-                                              ),
-                                            ],
-                                          ),
+                                      RichText(
+                                        overflow: TextOverflow.ellipsis,
+                                        text: TextSpan(
+                                          text: 'Start Date :- ',
+                                          style: batchtext2(
+                                              AppColors.PrimaryBlackColor),
+                                          children: [
+                                            TextSpan(
+                                              text: data[index]
+                                                  .fBatchStartDate
+                                                  .toString(),
+                                              style: batchtext1(
+                                                  AppColors.PrimaryBlackColor),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                      SizedBox(
-                                        width: 150.w,
-                                        child: RichText(
-                                          overflow: TextOverflow.ellipsis,
-                                          text: TextSpan(
-                                            text: 'End Date :- ',
-                                            style: batchtext2(
-                                                AppColors.PrimaryBlackColor),
-                                            children: [
-                                              TextSpan(
-                                                text: data[index]
-                                                    .fBatchEndDate
-                                                    .toString(),
-                                                style: batchtext1(AppColors
-                                                    .PrimaryBlackColor),
-                                              ),
-                                            ],
-                                          ),
+                                      RichText(
+                                        overflow: TextOverflow.ellipsis,
+                                        text: TextSpan(
+                                          text: 'End Date :- ',
+                                          style: batchtext2(
+                                              AppColors.PrimaryBlackColor),
+                                          children: [
+                                            TextSpan(
+                                              text: data[index]
+                                                  .fBatchEndDate
+                                                  .toString(),
+                                              style: batchtext1(
+                                                  AppColors.PrimaryBlackColor),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ],
@@ -393,7 +315,7 @@ class _ListBatchState extends State<ListBatch> {
                             Padding(
                               padding: EdgeInsets.all(8.r),
                               child: Container(
-                                height: 50.h,
+                                height: 55.h,
                                 width: 390.w,
                                 decoration: BoxDecoration(
                                     color: AppColors.PrimaryMainColor,
@@ -430,9 +352,8 @@ class _ListBatchState extends State<ListBatch> {
                                       color: AppColors.PrimaryWhiteColor,
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.all(7.0),
+                                      padding: const EdgeInsets.all(7.0).w,
                                       child: Column(
-                                        // crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             "Time",
@@ -459,7 +380,6 @@ class _ListBatchState extends State<ListBatch> {
                                     Padding(
                                       padding: const EdgeInsets.all(7.0),
                                       child: Column(
-                                        // crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             "Available",
@@ -469,15 +389,8 @@ class _ListBatchState extends State<ListBatch> {
                                           SizedBox(
                                             height: 5.h,
                                           ),
-                                          //                             cf = data[index].confirmedWithFullPayment;
-                                          // int cp = data[i].confirmedWithPartialPayment;
-                                          // int totl = int.parse(data[i].fBatchSize);
-
                                           Text(
                                             avalible(index).toString(),
-                                            //  -  data[index]
-                                            //         .confirmedWithPartialPayment,
-
                                             textAlign: TextAlign.center,
                                             style: batchtext1(
                                                 AppColors.PrimaryWhiteColor),
@@ -493,7 +406,6 @@ class _ListBatchState extends State<ListBatch> {
                                     Padding(
                                       padding: EdgeInsets.all(7.r),
                                       child: Column(
-                                        // crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             "Enrolled",

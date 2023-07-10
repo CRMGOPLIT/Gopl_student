@@ -1,18 +1,29 @@
 class NetworkConstant {
+  // ignore: constant_identifier_names
   static const String BASE_URL = "http://crmapi.global-opportunities.co.in/Api";
+
+  // ignore: constant_identifier_names
   static const String BASE_URL_LOCAl = "http://192.168.1.151:8080/Api";
 
   //post field Register
+  // ignore: constant_identifier_names
   static const String NAME = 'NAME';
+  // ignore: constant_identifier_names
   static const String EMAIL = 'Email';
+  // ignore: constant_identifier_names
   static const String MOBILE = 'mobile';
+  // ignore: constant_identifier_names
   static const String BRANCH = 'location';
+  // ignore: constant_identifier_names
   static const String INTAKE = 'intake';
+  // ignore: constant_identifier_names
   static const String COUNTRY = 'country_interested';
   //post Field Login
+  // ignore: constant_identifier_names
   static const String Mobile_Number = 'f_mobile';
 
   //post otp Field
+  // ignore: constant_identifier_names
   static const String OTP_CODE = 'mobileverified_code';
 
   // post Upload Document
@@ -71,92 +82,101 @@ class NetworkConstant {
 
   static const String studentid = "studentid";
   static const String documentname = "documentname";
+  // ignore: constant_identifier_names
   static const String Applicationid = "Applicationid";
+  // ignore: constant_identifier_names
   static const String Universityid = "Universityid";
   static const String appstage = "appstage";
 
 //Registration Api
-
+  // ignore: constant_identifier_names
   static const String END_POINT_Get_REGISTRATIONDETAILS =
       '/GopAndroid/AndroidDDL';
-
+  // ignore: constant_identifier_names
   static const String END_POINT_POST_REGISTRATION = '/GopAndroid/InsertEnquiry';
 
   //Loginn APi
+  // ignore: constant_identifier_names
   static const String END_POINT_POST_LOGIN = '/Login/GetLogin';
-
+  // ignore: constant_identifier_names
   static const String END_POINT_POST_OTP = "/GopAndroid/GetOTPverified";
-
+  // ignore: constant_identifier_names
   static const String END_POINT_GET_EVENT = "/Event/getUpcomingEvents";
-
+  // ignore: constant_identifier_names
   static const String END_POINT_GET_UNIVERSITY =
       "/GopAndroid/UniversityAppList";
-
+  // ignore: constant_identifier_names
   static const String END_POINT_GET_BRANCH = "/GopAndroid/GetBranchDeatis";
-
+  // ignore: constant_identifier_names
   static const String END_POINT_GET_BATCH = "/GopAndroid/ListBatches";
-
+  // ignore: constant_identifier_names
   static const String END_POINT_GET_BANNERS = "/Login/GetDashboardBanner";
-
+  // ignore: constant_identifier_names
   static const String END_POINT_GET_USER = "/Login/GetTokenInfo";
-
+  // ignore: constant_identifier_names
   static const String END_POINT_APPLICATION_STATUS =
       "/Login/GetTokenApplication";
-
+  // ignore: constant_identifier_names
   static const String END_POINT_QUALIFICATION_LIST =
       "/Registeration/GetQualification";
-
+  // ignore: constant_identifier_names
   static const String END_POINT_POST_DOCUMENT =
       "/Login/TokenQuallificationInfo";
-
+  // ignore: constant_identifier_names
   static const String END_POINT_GET_BOARD =
       "/Registeration/Getuniversity_board";
-
+  // ignore: constant_identifier_names
   static const String END_POINT_MORE_GET_DOCUMENT =
       "/Login/Getstudent_DocDetails";
-
+  // ignore: constant_identifier_names
   static const String END_POINT_GET_QUALIFICATION =
       "/Login/GetstudentQuallification";
 
   //course Search
-
+  // ignore: constant_identifier_names
   static const String END_POINT_SEARCH_COUNTRY =
       "/SearchCourseMaster/GetCountry";
-
+  // ignore: constant_identifier_names
   static const String END_POINT_SEARCH_UNIVERSITY =
       "/SearchCourseMaster/CountryWiseUniversityList";
-
+  // ignore: constant_identifier_names
   static const String END_POINT_SEARCH_LOCATION =
       "/SearchCourseMaster/GetForeignLocationList";
-
+  // ignore: constant_identifier_names
   static const String END_POINT_SEARCH_STUDY_AREA =
       "/SearchCourseMaster/GetAllStudyList";
-
+  // ignore: constant_identifier_names
   static const String END_POINT_SEARCH_DISCIPLINE_AREA =
       "/SearchCourseMaster/GetDisciplineAreaList";
 
+  // ignore: constant_identifier_names
   static const String END_POINT_SEARCH_FILTER_LIST =
       "/gopandroid/AndroidCourseSearchList";
 
+  // ignore: constant_identifier_names
   static const String END_POINT_DASH_SEARCH =
       "/gopandroid/CourseRelatedDetails";
 
+  // ignore: constant_identifier_names
   static const String END_POINT_COURSE_DETAILS =
       "/SearchCourseMaster/GetSearchCourseDetails";
 
   //uploadmore Document
+  // ignore: constant_identifier_names
   static const String END_POINT_UPLOAD_MORE_DOCUMENT =
       "/DocumentUpload/UploadMoreDocmentbyApp";
 
   //visa get details
+  // ignore: constant_identifier_names
   static const String END_POINT_VISA_GET =
       "/GopAndroid/AndroidVisaFileRequiredDocuments";
 //Visa Upload
+  // ignore: constant_identifier_names
   static const String END_POINT_UPLOAD_VISA =
       "/DocumentUpload/studentVisaApplied";
 
 //final submit
-
+  // ignore: constant_identifier_names
   static const String END_POINT_FINAL_VISA_SUBMIT =
       "/DocumentUpload/VisaSubmit";
 }

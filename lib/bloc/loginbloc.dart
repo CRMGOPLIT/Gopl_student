@@ -39,9 +39,9 @@ class LoginDataBloc {
   callPostOtp(Map<String, String> parameter) async {
     try {
       dynamic chuckCats = await loginRepo.postOtpRepo(parameter);
-      postloginSink.add(Response.completed(chuckCats));
+      postOtpSink.add(Response.completed(chuckCats));
     } catch (e) {
-      postloginSink.add(Response.error(e.toString()));
+      postOtpSink.add(Response.error(e.toString()));
     }
   }
 

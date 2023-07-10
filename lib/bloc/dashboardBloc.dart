@@ -1,3 +1,4 @@
+
 import 'dart:async';
 import 'dart:io';
 import 'package:global_student/repogetory/dashBoardGet.dart';
@@ -16,7 +17,7 @@ class DashBoardBloc {
   late StreamController<Response<dynamic>> documentuploadController;
   late StreamController<dynamic> boarduniversityController;
   late StreamController<dynamic> getmoredocumentcontroller;
-  late StreamController<dynamic> uploadmoredocumentcontroller;
+  late StreamController<Response<dynamic>> uploadmoredocumentcontroller;
 
   late StreamController<dynamic> getqualificationcontroller;
 
@@ -101,10 +102,10 @@ class DashBoardBloc {
       getqualificationcontroller.stream;
   //Upload more Document
 
-  StreamSink<dynamic> get uploadmoredocumentcontrollerSink =>
+  StreamSink<Response<dynamic>> get uploadmoredocumentcontrollerSink =>
       uploadmoredocumentcontroller.sink;
 
-  Stream<dynamic> get uploadmoredocumentcontrollerStream =>
+  Stream<Response<dynamic>> get uploadmoredocumentcontrollerStream =>
       uploadmoredocumentcontroller.stream;
 
   //
@@ -142,7 +143,7 @@ class DashBoardBloc {
     boarduniversityController = StreamController<dynamic>();
     getmoredocumentcontroller = StreamController<dynamic>();
     getqualificationcontroller = StreamController<dynamic>();
-    uploadmoredocumentcontroller = StreamController<dynamic>();
+    uploadmoredocumentcontroller = StreamController<Response<dynamic>>();
     getvisadetailscontroller = StreamController<dynamic>();
     uploadviscontroller = StreamController<Response<dynamic>>();
     finalvisasubmitcontroller = StreamController<Response<dynamic>>();
@@ -274,7 +275,8 @@ class DashBoardBloc {
 
   // Upload More Document
 
-  callUploadmoredocumentApi(Map parameter, List<File> files) async {
+  callUploadmoredocumentApi(
+      Map<String, dynamic> parameter, List<File> files) async {
     try {
       dynamic chuckCats = await dashBoardGet.postMoreDocument(parameter, files);
       uploadmoredocumentcontrollerSink.add(Response.completed(chuckCats));
@@ -295,7 +297,7 @@ class DashBoardBloc {
 
 //Visa Upload
 
-  VisaUploadApi(Map parameter, File files) async {
+  visaUploadApi(Map parameter, File files) async {
     try {
       dynamic chuckCats =
           await dashBoardGet.UploadVisaDocument(parameter, files);
@@ -323,6 +325,8 @@ class DashBoardBloc {
     userController.close();
     universityController.close();
     applicationController.close();
+
+    boarduniversityController.close();
     qualificationController.close();
     documentuploadController.close();
     getmoredocumentcontroller.close();

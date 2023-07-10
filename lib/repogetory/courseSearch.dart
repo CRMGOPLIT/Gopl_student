@@ -3,7 +3,7 @@ import 'package:global_student/networking/apiProvider.dart';
 import '../networking/NetworkConstant.dart';
 
 class CourseRepo {
-  ApiProvider _apiProvider = ApiProvider();
+  final ApiProvider _apiProvider = ApiProvider();
 
   Future<dynamic> getCountrySearchApi() async {
     final response = await _apiProvider
@@ -60,8 +60,9 @@ class CourseRepo {
   }
 
   Future<dynamic> getSearchhomeApi() async {
-    final response =
-        await _apiProvider.get(NetworkConstant.END_POINT_DASH_SEARCH);
+    final response = await _apiProvider.get(
+      NetworkConstant.END_POINT_DASH_SEARCH,
+    );
     return response; //GetApplicationDetailsResponse.fromJson(response);
   }
 

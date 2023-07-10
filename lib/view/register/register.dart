@@ -29,21 +29,6 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _mobileController = TextEditingController();
   final GlobalKey<State> _keyLoader = GlobalKey<State>();
 
-  // List of items in our dropdown menu
-  var items = [
-    'Item 1',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
-    'Item 6',
-    'Item 7',
-    'Item 8',
-    'Item 9',
-    'Item 10',
-    'Item 11',
-    'Item 12',
-  ];
   bool isSelected = false;
   bool loanding = true;
 
@@ -76,7 +61,7 @@ class _RegisterPageState extends State<RegisterPage> {
         ));
         Navigator.pushNamed(context, RoutesName.login);
         // debugger();
-        // print(event);
+
         //IF Anything going wrong
 
         // showDialog<void>(
@@ -172,14 +157,13 @@ class _RegisterPageState extends State<RegisterPage> {
     homeDataBloc.getRegistrationDetailsStream.listen((event) {
       if (event != null) {
         // debugger();
-        // print(event);
+
         RegistrationDetails homeRepoModel = RegistrationDetails.fromJson(event);
         ddlLocation.addAll(homeRepoModel.ddlLocation);
         ddlIntake.addAll(homeRepoModel.ddlIntake);
         ddlCountryIntrested.addAll(homeRepoModel.ddlCountryIntrested);
         setState(() {
           loanding = false;
-          //print(location);
         });
       }
     });
@@ -796,7 +780,6 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       dropdownStyleData: DropdownStyleData(
                           isOverButton: true,
-                          isFullScreen: true,
                           openInterval: const Interval(0.25, 0.5),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.sp),

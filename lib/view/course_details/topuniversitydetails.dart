@@ -34,14 +34,13 @@ class _TopUniversityListState extends State<TopUniversityList> {
   void initState() {
     searchBloc = SearchBloc();
     scrollController.addListener(_scrollListener);
-    // scrollController.addListener(_scrollListener);
+
     super.initState();
     getListofuniversity();
     searchFilter();
-    // GetCourseData();
-    // callcourseDetails();
   }
 
+  @override
   void dispose() {
     super.dispose();
     scrollController.dispose();
@@ -52,8 +51,6 @@ class _TopUniversityListState extends State<TopUniversityList> {
     searchBloc.getfiltersearchStream.listen((event) {
       // Navigator.pop(context);
 
-      // debugger();
-      // print(event);
       bool response =
           ApiResponseHelper().handleResponse(event: event, context: context);
 
@@ -80,7 +77,6 @@ class _TopUniversityListState extends State<TopUniversityList> {
   }
 
   Future<void> _scrollListener() async {
-    // if (isloadingmore) return;
     if (scrollController.offset == scrollController.position.maxScrollExtent) {
       page = page + 1;
       setState(() {
@@ -94,14 +90,6 @@ class _TopUniversityListState extends State<TopUniversityList> {
   }
 
   searchFilter() {
-    //  NetworkDialogLoading.showLoadingDialog(context, _keyLoader);
-    // String spselcected = "";
-    // String uniselected = "";
-    // String spdispline = "";
-    // String studyarea = "";
-    // String program = "";
-    // String intake = "";
-    // String location = "";
     Map<String, String> filterdata = {
       NetworkConstant.filterType: "Advance Search",
       NetworkConstant.pageNumber: page.toString(),
@@ -135,7 +123,9 @@ class _TopUniversityListState extends State<TopUniversityList> {
     searchBloc.callGetFilterSearch(filterdata);
   }
 
+  @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppColors.backgroungcolor,
       appBar: PreferredSize(
@@ -143,12 +133,20 @@ class _TopUniversityListState extends State<TopUniversityList> {
         child: AppBarCustom(
           title: "Courses",
           onpress: () {
-            Navigator.pushNamed(context, RoutesName.courseSearch);
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              RoutesName.courseSearch,
+              (routes) => false,
+            );
           },
         ),
       ),
       body: loading
-          ? Center(child: CircularProgressIndicator())
+          ? Center(
+              child: CircularProgressIndicator(
+              strokeWidth: 2.w,
+              color: AppColors.PrimaryMainColor,
+            ))
           : Column(
               children: [
                 Expanded(
@@ -161,12 +159,10 @@ class _TopUniversityListState extends State<TopUniversityList> {
                             return InkWell(
                               onTap: () {
                                 Get.to(
-                                  CourseDetails(),
+                                  const CourseDetails(),
                                   arguments: [
                                     objCourse[index].fCourseDetailId,
-                                    // dashboardCountryDetail[index].country
                                   ],
-                                  // countrySearchdata[index].name
                                 );
                               },
                               child: Padding(
@@ -181,11 +177,8 @@ class _TopUniversityListState extends State<TopUniversityList> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Column(
-                                      //mainAxisSize: MainAxisSize.min,
                                       children: [
                                         ListTile(
-                                            // leading: Text("Master of Science in Computer science With Big Data andArtificial Interlligence"),
-
                                             title: Text(
                                                 objCourse[index]
                                                     .fProgram
@@ -220,7 +213,8 @@ class _TopUniversityListState extends State<TopUniversityList> {
                                                       width: 5.w,
                                                     ),
                                                     SizedBox(
-                                                      width: 230.w,
+                                                      width: screenSize.width *
+                                                          0.6,
                                                       child: Text(
                                                         objCourse[index]
                                                             .fUniversity
@@ -270,20 +264,8 @@ class _TopUniversityListState extends State<TopUniversityList> {
                                                       width: 5.w,
                                                     ),
                                                     Flexible(
-                                                      // width: 100.w,
                                                       child: Text(
-                                                        objCourse[index]
-                                                                .fCurrency
-                                                                .toString() +
-                                                            " " +
-                                                            objCourse[index]
-                                                                .fTuitionFee
-                                                                .toString()
-                                                                .split(".")[0] +
-                                                            "/" +
-                                                            objCourse[index]
-                                                                .fTermTuitionFee
-                                                                .toString(),
+                                                        "${objCourse[index].fCurrency} ${objCourse[index].fTuitionFee.toString().split(".")[0]}/${objCourse[index].fTermTuitionFee}",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: batchtext1(AppColors
@@ -295,57 +277,56 @@ class _TopUniversityListState extends State<TopUniversityList> {
                                                 SizedBox(
                                                   height: 5.h,
                                                 ),
-                                                Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    // Icon(Icons.map),
-                                                    Icon(
-                                                      Icons.watch_later,
-                                                      size: 20.h,
-                                                      color: AppColors
-                                                          .PrimaryMainColor,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 5.w,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 100.w,
-                                                      child: Text(
-                                                        objCourse[index]
-                                                            .fDurationName
-                                                            .toString(),
-                                                        style: batchtext1(AppColors
-                                                            .PrimaryBlackColor),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 10.w,
-                                                    ),
-                                                    Icon(
-                                                      Icons
-                                                          .calendar_today_rounded,
-                                                      size: 20.h,
-                                                      color: AppColors
-                                                          .PrimaryMainColor,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 5.w,
-                                                    ),
-                                                    Flexible(
-                                                      // width: 100.w,
-                                                      child: Text(
-                                                        objCourse[index]
-                                                            .fIntake
-                                                            .toString(),
-                                                        style: batchtext1(AppColors
-                                                            .PrimaryBlackColor),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
+                                                // Row(
+                                                //   crossAxisAlignment:
+                                                //       CrossAxisAlignment.center,
+                                                //   mainAxisAlignment:
+                                                //       MainAxisAlignment.start,
+                                                //   children: [
+                                                //     Icon(
+                                                //       Icons.watch_later,
+                                                //       size: 20.h,
+                                                //       color: AppColors
+                                                //           .PrimaryMainColor,
+                                                //     ),
+                                                //     SizedBox(
+                                                //       width: 5.w,
+                                                //     ),
+                                                //     SizedBox(
+                                                //       width: 100.w,
+                                                //       child: Text(
+                                                //         objCourse[index]
+                                                //             .fDurationName
+                                                //             .toString(),
+                                                //         style: batchtext1(AppColors
+                                                //             .PrimaryBlackColor),
+                                                //       ),
+                                                //     ),
+                                                //     SizedBox(
+                                                //       width: 10.w,
+                                                //     ),
+                                                //     Icon(
+                                                //       Icons
+                                                //           .calendar_today_rounded,
+                                                //       size: 20.h,
+                                                //       color: AppColors
+                                                //           .PrimaryMainColor,
+                                                //     ),
+                                                //     SizedBox(
+                                                //       width: 5.w,
+                                                //     ),
+                                                //     Flexible(
+                                                //       // width: 100.w,
+                                                //       child: Text(
+                                                //         objCourse[index]
+                                                //             .fIntake
+                                                //             .toString(),
+                                                //         style: batchtext1(AppColors
+                                                //             .PrimaryBlackColor),
+                                                //       ),
+                                                //     )
+                                                //   ],
+                                                // ),
                                               ],
                                             )),
                                       ],
@@ -372,13 +353,6 @@ class _TopUniversityListState extends State<TopUniversityList> {
                             );
                           }
                         })),
-                // if (isloadingmore)
-                //   Padding(
-                //     padding: EdgeInsets.all(10),
-                //     child: CircularProgressIndicator(),
-                //   )
-
-                //  Text(universitySearchdata.length.toString()),
               ],
             ),
     );

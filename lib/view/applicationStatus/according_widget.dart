@@ -82,8 +82,6 @@ class _AccordingWidgetState extends State<AccordingWidget> {
         children: [
           Container(
             height: 45.h,
-            // width: 400.w,
-            // margin: EdgeInsets.only(bottom: 10),
             decoration: BoxDecoration(
               color: AppColors.PrimaryMainColor,
               borderRadius: isExpanded == false
@@ -93,23 +91,23 @@ class _AccordingWidgetState extends State<AccordingWidget> {
                       topRight: Radius.circular(4)),
             ),
             child: Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15),
+              padding: const EdgeInsets.only(left: 15, right: 15).r,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text("Application No :- " + "$apinumber",
+                  Text("Application No :- " "$apinumber",
                       style: FieldTextStyle(
                         AppColors.PrimaryWhiteColor,
                       )),
                   isExpanded == true
                       ? Align(
                           child: SizedBox(
-                              width: 20,
-                              height: 40,
+                              width: 20.w,
+                              height: 40.h,
                               child: Center(
                                 child: Icon(
-                                  Icons.keyboard_arrow_down,
+                                  Icons.keyboard_arrow_up,
                                   color: AppColors.PrimaryWhiteColor,
                                   size: 25.sp,
                                 ),
@@ -118,11 +116,11 @@ class _AccordingWidgetState extends State<AccordingWidget> {
                       : Align(
                           alignment: Alignment.center,
                           child: SizedBox(
-                              width: 20,
-                              height: 40,
+                              width: 20.w,
+                              height: 40.h,
                               child: Center(
                                 child: Icon(
-                                  Icons.keyboard_arrow_up,
+                                  Icons.keyboard_arrow_down,
                                   color: AppColors.PrimaryWhiteColor,
                                   size: 25.sp,
                                 ),
@@ -238,7 +236,7 @@ class _AccordingWidgetState extends State<AccordingWidget> {
                                                 color: Colors.green,
                                                 // fontFamily: Constant.font_poppins_bold,
                                                 fontWeight: FontWeight.w500,
-                                                height: 1.1,
+                                                height: 1.1.h,
                                                 fontSize: 12.sp),
                                           ),
                                         ),

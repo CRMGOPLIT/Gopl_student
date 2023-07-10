@@ -8,6 +8,7 @@ import 'package:global_student/networking/NetworkConstant.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/utils/text_style.dart';
+import 'package:global_student/view/helper/apiResponseHelper.dart';
 import 'package:global_student/view/widget/app_bar.dart';
 import 'package:global_student/view/widget/button.dart';
 
@@ -72,7 +73,11 @@ class _UploadMoreDocumentState extends State<UploadMoreDocument> {
         child: AppBarCustom(
           title: "Upload More Document",
           onpress: () {
-            Navigator.pushNamed(context, RoutesName.bottomnav);
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              RoutesName.bottomnav,
+              (routes) => false,
+            );
           },
         ),
       ),
@@ -519,6 +524,8 @@ class _UploadMoreDocumentState extends State<UploadMoreDocument> {
                                                                                 documentdata[index].studentMorDocument[index1].fDocumentName,
                                                                             check:
                                                                                 check1,
+                                                                            documentid:
+                                                                                documentdata[index].studentMorDocument[index1].fDocument,
                                                                           ),
                                                                         );
                                                                       });
@@ -568,27 +575,34 @@ class _UploadMoreDocumentState extends State<UploadMoreDocument> {
 class UploadmoreDialog extends StatefulWidget {
   String? documentname;
   String? applicationid;
+  String? documentid;
   bool? check;
 
   UploadmoreDialog({
     super.key,
     this.applicationid,
     this.documentname,
+    this.documentid,
     this.check,
   });
 
   @override
   // ignore: library_private_types_in_public_api, no_logic_in_create_state
   _UploadmoreDialogState createState() => _UploadmoreDialogState(
-      applicationid: applicationid, documentname: documentname, check: check);
+      applicationid: applicationid,
+      documentname: documentname,
+      check: check,
+      documentid: documentid);
 }
 
 class _UploadmoreDialogState extends State<UploadmoreDialog> {
   String? documentname;
   String? applicationid;
+  String? documentid;
   bool? check = true;
 
-  _UploadmoreDialogState({this.applicationid, this.documentname, this.check});
+  _UploadmoreDialogState(
+      {this.applicationid, this.documentname, this.check, this.documentid});
   late DashBoardBloc dashBoardBloc;
   List<UploadmoreDocument> documentdata = [];
   File? file;
@@ -608,8 +622,72 @@ class _UploadmoreDialogState extends State<UploadmoreDialog> {
 
     //userData1 = "" as UsersDetailsModel;
     _gethomeData();
+    subimmeted();
+
     // SaveName();
     super.initState();
+  }
+
+  void subimmeted() async {
+    dashBoardBloc.uploadmoredocumentcontrollerStream.listen((event) {
+      Navigator.pop(context);
+      bool response =
+          ApiResponseHelper().handleResponse(event: event, context: context);
+
+      if (response == true && event.data["Status"] == "Success") {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          backgroundColor: Colors.green,
+          behavior: SnackBarBehavior.floating,
+          elevation: 0,
+          duration: Duration(milliseconds: 1000),
+          content: Text("Document Submmited Succesfully"),
+        ));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.transparent,
+          behavior: SnackBarBehavior.floating,
+          elevation: 0,
+          duration: const Duration(milliseconds: 1000),
+          content: Container(
+            padding: const EdgeInsets.all(8),
+            height: 80,
+            decoration: BoxDecoration(
+              color: Colors.red.withOpacity(0.9),
+              borderRadius: const BorderRadius.all(Radius.circular(15)),
+            ),
+            child: Row(
+              children: [
+                const SizedBox(
+                  width: 30,
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Oops Error!',
+                        style: TextStyle(fontSize: 18.sp, color: Colors.white),
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      Text("Failed".toString(),
+                          style: batchtext1(
+                            AppColors.PrimaryWhiteColor,
+                          )),
+                      //         TextStyle(fontSize: 15.sp, color: Colors.white),
+                      //     maxLines: 2,
+                      //     overflow: TextOverflow.ellipsis,
+                      //   ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ));
+      }
+    });
   }
 
   getUserDetails() {
@@ -636,19 +714,18 @@ class _UploadmoreDialogState extends State<UploadmoreDialog> {
   void callUploadDocumentApi(
     String ai,
     String dn,
+    String docementid,
   ) {
-    Map data = {
+    Map<String, dynamic> data = {
       NetworkConstant.Applicationid: ai,
       NetworkConstant.documentname: dn,
+      "documentid": docementid.trim(),
     };
 
     dashBoardBloc.callUploadmoredocumentApi(
       data,
       selectedFile,
     );
-    // debugger();
-    // print(data);
-    // }
   }
 
   final _registerkey = GlobalKey<FormState>();
@@ -673,13 +750,8 @@ class _UploadmoreDialogState extends State<UploadmoreDialog> {
             documentname.toString(),
             style: batchtext1(AppColors.PrimaryMainColor),
           ),
-          // Text(applicationid.toString()),
-          // Text(check.toString()),
-          // Text(
-          //   file!.path.split('/').last,
-          //   style: batchtext2(AppColors.PrimaryMainColor),
-          // ),
-          selectedFile.length > 0
+
+          selectedFile.isNotEmpty
               ? Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
@@ -695,15 +767,15 @@ class _UploadmoreDialogState extends State<UploadmoreDialog> {
                               "${selectedFile.length} File ADDED",
                               style: batchtext2(AppColors.PrimaryBlackColor),
                             ),
-                            InkWell(
-                              onTap: () {
-                                selectFile();
-                              },
-                              child: Text(
-                                "+Add File",
-                                style: location(AppColors.PrimaryMainColor),
-                              ),
-                            ),
+                            // InkWell(
+                            //   onTap: () {
+                            //     selectFile();
+                            //   },
+                            //   child: Text(
+                            //     "+Add File",
+                            //     style: location(AppColors.PrimaryMainColor),
+                            //   ),
+                            // ),
                           ],
                         ),
                         Padding(
@@ -855,10 +927,10 @@ class _UploadmoreDialogState extends State<UploadmoreDialog> {
                   ),
                 ),
           SizedBox(
-            height: 10,
+            height: 10.h,
           ),
 
-          selectedFile.length < 1
+          selectedFile.isEmpty
               ? Container()
               : SizedBox(
                   // margin: EdgeInsets.all(10),
@@ -868,10 +940,11 @@ class _UploadmoreDialogState extends State<UploadmoreDialog> {
                       title: " Upload ",
                       onPressed: () {
                         setState(() {});
+
                         callUploadDocumentApi(
-                          applicationid.toString(),
-                          documentname.toString().trim(),
-                        );
+                            applicationid.toString(),
+                            documentname.toString().trim(),
+                            documentid.toString());
                       })),
           // selectedfiledata.length > 0
           //     ? Row(
@@ -1213,7 +1286,7 @@ class _UploadmoreDialogState extends State<UploadmoreDialog> {
   //     }
   //   } catch (e) {
   //     // debugger();
-  //     //print(e);
+
   //   }
   // }
 
@@ -1279,7 +1352,7 @@ class _UploadmoreDialogState extends State<UploadmoreDialog> {
                 selectedFile.removeAt(index);
                 setState(() {});
               },
-              child: Container(
+              child: SizedBox(
                 width: 25,
                 height: 40,
                 child: Container(

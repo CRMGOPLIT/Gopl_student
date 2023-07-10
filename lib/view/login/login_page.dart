@@ -36,9 +36,15 @@ class _LginPageState extends State<LginPage> {
           ApiResponseHelper().handleResponse(event: event, context: context);
 
       if (response == true && event.data['success'] == '1') {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Otp send your Mobile Number"),
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.green,
+          duration: const Duration(seconds: 1),
+          content: Text(
+            "Otp send your Mobile Number",
+            style: batchtext2(AppColors.PrimaryWhiteColor),
+          ),
         ));
+
         Get.to(const OtpPage(), arguments: _mobileNumber.text);
         // Get.to(OtpPage(), arguments: _mobileNumber.text);
         // Navigator.pushNamedAndRemoveUntil(
@@ -49,10 +55,10 @@ class _LginPageState extends State<LginPage> {
           backgroundColor: Colors.transparent,
           behavior: SnackBarBehavior.floating,
           elevation: 0,
-          duration: const Duration(milliseconds: 1000),
+          duration: const Duration(seconds: 2),
           content: Container(
             padding: const EdgeInsets.all(8),
-            height: 60,
+            height: 80,
             decoration: BoxDecoration(
               color: Colors.red.withOpacity(0.9),
               borderRadius: const BorderRadius.all(Radius.circular(15)),
@@ -73,7 +79,8 @@ class _LginPageState extends State<LginPage> {
                       SizedBox(
                         height: 5.h,
                       ),
-                      Text("Login Faield Register your number",
+                      Text(
+                          "Sorry!! your not register with us\nPlease Complete Registration",
                           style: batchtext1(
                             AppColors.PrimaryWhiteColor,
                           )),
@@ -104,6 +111,7 @@ class _LginPageState extends State<LginPage> {
     // debugger();
   }
 
+  final _loginkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,101 +128,119 @@ class _LginPageState extends State<LginPage> {
       //     )),
       body: SingleChildScrollView(
         child: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.only(left: 15.r, right: 15.r),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 30.h,
-                ),
-                // Text("Hello, Welcome back to our account",
-                //     style: Text2Regular(
-                //       AppColors.TextRegularkColor,
-                //     )),
-                Center(
-                  child: SizedBox(
-                      height: 220.h,
-                      width: 350.h,
-                      child: Image.asset(
-                        "assets/images/loginnew1.png",
-                        fit: BoxFit.contain,
+          child: Form(
+            key: _loginkey,
+            child: Padding(
+              padding: EdgeInsets.only(left: 15.r, right: 15.r),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 30.h,
+                  ),
+                  // Text("Hello, Welcome back to our account",
+                  //     style: Text2Regular(
+                  //       AppColors.TextRegularkColor,
+                  //     )),
+                  Center(
+                    child: SizedBox(
+                        height: 220.h,
+                        width: 350.h,
+                        child: Image.asset(
+                          "assets/images/loginnew1.png",
+                          fit: BoxFit.contain,
+                        )),
+                  ),
+                  SizedBox(
+                    height: 55.h,
+                  ),
+                  Text("Login Account",
+                      style: H2TextStyle(
+                        AppColors.PrimaryBlackColor,
                       )),
-                ),
-                SizedBox(
-                  height: 55.h,
-                ),
-                Text("Login Account",
-                    style: H2TextStyle(
-                      AppColors.PrimaryBlackColor,
-                    )),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Text("Hello, Welcome back to our account",
-                    style: Text2Regular(
-                      AppColors.TextRegularkColor,
-                    )),
-                SizedBox(
-                  height: 20.h,
-                ),
-                Text("Enter Your Phone Number",
-                    style: H2TextStyle(
-                      AppColors.PrimaryBlackColor,
-                    )),
-                SizedBox(
-                  height: 10.h,
-                ),
-                IntlPhoneField(
-                  controller: _mobileNumber,
-                  flagsButtonMargin: EdgeInsets.all(10.r),
-                  keyboardType: TextInputType.phone,
-                  decoration: InputDecoration(
-                    // labelText: 'Phone Number',
-                    hintText: "Phone Number",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.r),
-                    ),
+                  SizedBox(
+                    height: 10.h,
                   ),
-                  initialCountryCode: 'IN',
-                  onChanged: (phone) {
-                    if (phone.completeNumber.length >= 13) {
-                      FocusScope.of(context).unfocus();
-                    }
-                  },
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
-                ButtonPrimary(
-                  title: "Request OTP",
-                  onPressed: () {
-                    FocusScope.of(context).unfocus();
-                    callpostlogindata();
-
-                    // Navigator.pushNamedAndRemoveUntil(
-                    //     context, RoutesName.otp, (routes) => false);
-                  },
-                ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, RoutesName.register);
+                  Text("Hello, Welcome back to our account",
+                      style: Text2Regular(
+                        AppColors.TextRegularkColor,
+                      )),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  Text("Enter Your Phone Number",
+                      style: H2TextStyle(
+                        AppColors.PrimaryBlackColor,
+                      )),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  IntlPhoneField(
+                    controller: _mobileNumber,
+                    flagsButtonMargin: EdgeInsets.all(10.r),
+                    keyboardType: TextInputType.phone,
+                    decoration: InputDecoration(
+                      // labelText: 'Phone Number',
+                      hintText: "Phone Number",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.r),
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value == null) {
+                        return 'Enter Your Phone Number';
+                      }
+                      return null;
                     },
-                    child: Text(
-                      'Register'.toUpperCase(),
-                      style: TextRegular(AppColors.PrimaryMainColor),
+                    initialCountryCode: 'IN',
+                    onChanged: (phone) {
+                      if (phone.completeNumber.length >= 13) {
+                        FocusScope.of(context).unfocus();
+                      }
+                    },
+                  ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  ButtonPrimary(
+                    title: "Request OTP",
+                    onPressed: () {
+                      FocusScope.of(context).unfocus();
+                      if (_loginkey.currentState!.validate()) {
+                        callpostlogindata();
+                        // use the email provided here
+                      }
+
+                      // if (_mobileNumber) {
+                      //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      //     content: Text("Otp send your Mobile Number"),
+                      //   ));
+                      // }
+
+                      // Navigator.pushNamedAndRemoveUntil(
+                      //     context, RoutesName.otp, (routes) => false);
+                    },
+                  ),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, RoutesName.register);
+                      },
+                      child: Text(
+                        'Register Now'.toUpperCase(),
+                        style: TextRegular(AppColors.PrimaryMainColor),
+                      ),
                     ),
                   ),
-                ),
-                Text(
-                    "You will receive a 4 digit code for phone number verification ",
-                    textAlign: TextAlign.center,
-                    style: Text2Regular(
-                      AppColors.TextRegularkColor,
-                    )),
-              ],
+                  Text(
+                      "You will receive 4 digit code for phone number verification ",
+                      textAlign: TextAlign.center,
+                      style: Text2Regular(
+                        AppColors.TextRegularkColor,
+                      )),
+                ],
+              ),
             ),
           ),
         ),

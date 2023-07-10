@@ -72,7 +72,7 @@
 //   }
 // }
 
-import 'dart:developer';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
@@ -117,14 +117,13 @@ class _HomePageDataState extends State<HomePageData> {
       final res =
           await http.get(Uri.parse("$_baseUrl?_page=$_page&_limit=$_limit"));
 
-      debugger();
-      print(res);
+   
       setState(() {
         _posts = json.decode(res.body);
       });
     } catch (err) {
       if (kDebugMode) {
-        print('Something went wrong');
+       
       }
     }
 
@@ -162,7 +161,7 @@ class _HomePageDataState extends State<HomePageData> {
         }
       } catch (err) {
         if (kDebugMode) {
-          print('Something went wrong!');
+     
         }
       }
 
@@ -196,7 +195,7 @@ class _HomePageDataState extends State<HomePageData> {
       ),
       body: _isFirstLoadRunning
           ? const Center(
-              child: const CircularProgressIndicator(),
+              child: CircularProgressIndicator(),
             )
           : Column(
               children: [

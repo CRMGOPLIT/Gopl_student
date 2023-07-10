@@ -151,9 +151,9 @@ class SearchBloc {
   callSearchDashSearchApi() async {
     try {
       dynamic chuckCats = await courseRepo.getSearchhomeApi();
-      getdashboardsearch.add(chuckCats);
+      getdashboardsearchSink.add(chuckCats);
     } catch (e) {
-      getdashboardsearch.add('error');
+      getdashboardsearchSink.add('error');
     }
   }
 

@@ -31,21 +31,20 @@ class RegistrationDetails {
   get body => null;
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['ddlCourseIntrested'] =
+    final data = <String, dynamic>{};
+    data['ddlCourseIntrested'] =
         ddlCourseIntrested.map((e) => e.toJson()).toList();
-    _data['ddlIntake'] = ddlIntake.map((e) => e.toJson()).toList();
-    _data['ddlCountryIntrested'] =
+    data['ddlIntake'] = ddlIntake.map((e) => e.toJson()).toList();
+    data['ddlCountryIntrested'] =
         ddlCountryIntrested.map((e) => e.toJson()).toList();
-    _data['ddlLocation'] = ddlLocation.map((e) => e.toJson()).toList();
-    _data['ddlState'] = ddlState.map((e) => e.toJson()).toList();
-    return _data;
+    data['ddlLocation'] = ddlLocation.map((e) => e.toJson()).toList();
+    data['ddlState'] = ddlState.map((e) => e.toJson()).toList();
+    return data;
   }
 }
 
 class DdlCourseIntrested {
   DdlCourseIntrested({
-
     required this.CourseIntrestedId,
     required this.CourseIntrestedName,
   });

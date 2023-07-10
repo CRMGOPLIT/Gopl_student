@@ -62,15 +62,15 @@ class _PinInputState extends State<PinInput> {
               //   return value == '2222' ? null : 'Pin is incorrect';
               // },
               // onClipboardFound: (value) {
-              //   debugPrint('onClipboardFound: $value');
+             
               //   pinController.setText(value);
               // },
               // hapticFeedbackType: HapticFeedbackType.lightImpact,
               // onCompleted: (pin) {
-              //   debugPrint('onCompleted: $pin');
+            
               // },
               // onChanged: (value) {
-              //   debugPrint('onChange0 d: $value');
+             
               // },
               cursor: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

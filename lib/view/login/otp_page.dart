@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -28,24 +26,28 @@ class _OtpPageState extends State<OtpPage> {
 
   late LoginDataBloc loginDataBloc;
   var data2 = Get.arguments;
+  bool resendotp = true;
 
   @override
   void initState() {
     loginDataBloc = LoginDataBloc();
-    // callpostlogindata();
-    loginDataBloc.postloginStream.listen((event) async {
+
+    loginDataBloc.postOtpStream.listen((event) async {
       Navigator.pop(context);
       bool response =
           ApiResponseHelper().handleResponse(event: event, context: context);
-      //log("ehbjhbe" + event.data[success[]]);
-
       if (response == true && event.data['success'] == 1) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Otp Verify Successfully"),
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.green,
+          content: Text(
+            "Login Successfully",
+            style: batchtext2(AppColors.PrimaryWhiteColor),
+          ),
         ));
-        // print(event.data['Token'].toString());
+
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('stringValue', event.data['Token'].toString());
+
         // ignore: use_build_context_synchronously
         Navigator.pushNamedAndRemoveUntil(
           context,
@@ -60,7 +62,7 @@ class _OtpPageState extends State<OtpPage> {
           duration: const Duration(milliseconds: 1000),
           content: Container(
             padding: const EdgeInsets.all(8),
-            height: 60,
+            height: 80,
             decoration: BoxDecoration(
               color: Colors.red.withOpacity(0.9),
               borderRadius: const BorderRadius.all(Radius.circular(15)),
@@ -85,10 +87,6 @@ class _OtpPageState extends State<OtpPage> {
                           style: batchtext1(
                             AppColors.PrimaryWhiteColor,
                           )),
-                      //         TextStyle(fontSize: 15.sp, color: Colors.white),
-                      //     maxLines: 2,
-                      //     overflow: TextOverflow.ellipsis,
-                      //   ),
                     ],
                   ),
                 ),
@@ -98,7 +96,7 @@ class _OtpPageState extends State<OtpPage> {
         ));
       }
     });
-   
+
     super.initState();
   }
 
@@ -109,98 +107,121 @@ class _OtpPageState extends State<OtpPage> {
       NetworkConstant.Mobile_Number: data2,
     };
     loginDataBloc.callPostOtp(data);
+  }
+
+  void callResendOtp() {
+    // NetworkDialog.showLoadingDialog(context, _keyLoader);
+    Map<String, String> data = {
+      NetworkConstant.Mobile_Number: data2,
+    };
+    loginDataBloc.callPostLogin(data);
 
     // debugger();
-  
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        // leading: Icon(
-        //   Icons.arrow_back_ios,
-        //   color: AppColors.PrimaryBlackColor,
-        //   size: 30.sp,
-        // ),
-        centerTitle: true,
-        title: Text(
-          "OTP",
-          style: H1TextStyle(AppColors.PrimaryWhiteColor),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.only(left: 15.r, right: 15.r),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Image.asset(
-                  "assets/images/otpnew1.png",
-                  fit: BoxFit.contain,
-                  height: 220.h,
-                  //width: 350.h,
+      // appBar: AppBar(
+      //   backgroundColor: Colors.transparent,
+      //   centerTitle: true,
+      //   title: Text(
+      //     "OTP",
+      //     style: H1TextStyle(AppColors.PrimaryWhiteColor),
+      //   ),
+      // ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.only(left: 15.r, right: 15.r),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 25.h,
                 ),
-              ),
-              Text('$data2'),
-              SizedBox(
-                height: 60.h,
-              ),
-              Text("Verification code",
-                  style: H2TextStyle(AppColors.PrimaryBlackColor)),
-              SizedBox(
-                height: 10.h,
-              ),
-              RichText(
-                // textAlign: TextAlign.center,
-                text: TextSpan(
-                  text: 'We have send the code verification to\n',
-                  style: Text2Regular(AppColors.TextRegularkColor),
-                  children: [
-                    TextSpan(
-                        text: 'Your  Mobile Number !',
-                        style: Text2Regular(AppColors.TextRegularkColor)),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 40.h,
-              ),
-              Text("Enter the 4-digit code",
-                  style: H2TextStyle(AppColors.PrimaryBlackColor)),
-              SizedBox(
-                height: 5.h,
-              ),
-              PinInput(
-                controller: _otpController,
-              ),
-              SizedBox(
-                height: 15.h,
-              ),
-              ButtonPrimary(
-                title: "Submit",
-                onPressed: () {
-                  callOtpdata();
-                },
-              ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, RoutesName.login);
-                  },
-                  child: Text(
-                    'Resend',
-                    textAlign: TextAlign.center,
-                    style: TextRegular(AppColors.PrimaryMainColor),
+                // Text(
+                //   "OTP",
+                //   style: H1TextStyle(AppColors.PrimaryBlackColor),
+                // ),
+                Center(
+                  child: Image.asset(
+                    "assets/images/otpnew1.png",
+                    fit: BoxFit.contain,
+                    height: 220.h,
                   ),
                 ),
-              ),
-            ],
+                SizedBox(
+                  height: 60.h,
+                ),
+                Text("Verification code",
+                    style: H2TextStyle(AppColors.PrimaryBlackColor)),
+                SizedBox(
+                  height: 10.h,
+                ),
+                RichText(
+                  text: TextSpan(
+                    text: 'We have send the code verification to\n',
+                    style: Text2Regular(AppColors.TextRegularkColor),
+                    children: [
+                      TextSpan(
+                          text: 'Your  Mobile Number !',
+                          style: Text2Regular(AppColors.TextRegularkColor)),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 40.h,
+                ),
+                Text("Enter the 4-digit code",
+                    style: H2TextStyle(AppColors.PrimaryBlackColor)),
+                SizedBox(
+                  height: 5.h,
+                ),
+                PinInput(
+                  controller: _otpController,
+                ),
+                SizedBox(
+                  height: 15.h,
+                ),
+                ButtonPrimary(
+                  title: "Submit",
+                  onPressed: () {
+                    callOtpdata();
+                  },
+                ),
+                resendotp == true
+                    ? Align(
+                        alignment: Alignment.bottomRight,
+                        child: TextButton(
+                          onPressed: () {
+                            setState(() {
+                              resendotp = false;
+                            });
+                            // Navigator.pushNamed(context, RoutesName.login);
+                            callResendOtp();
+                          },
+                          child: Text(
+                            'Resend',
+                            textAlign: TextAlign.center,
+                            style: TextRegular(AppColors.PrimaryMainColor),
+                          ),
+                        ),
+                      )
+                    : Padding(
+                        padding: EdgeInsets.all(10.r),
+                        child: Align(
+                          alignment: Alignment.bottomRight,
+                          child: Text(
+                            'Otp Send',
+                            textAlign: TextAlign.center,
+                            style: TextRegular(AppColors.PrimaryMainColor),
+                          ),
+                        ),
+                      ),
+              ],
+            ),
           ),
         ),
       ),

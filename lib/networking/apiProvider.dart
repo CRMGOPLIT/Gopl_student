@@ -1,9 +1,11 @@
+import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
+import 'package:get/get.dart';
 import 'package:global_student/networking/customException.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import '../utils/routes/customerror.dart';
 import 'NetworkConstant.dart';
 import 'package:path/path.dart';
 
@@ -13,8 +15,10 @@ class ApiProvider {
   final String baseUrllocal = NetworkConstant.BASE_URL_LOCAl;
 
   String? token;
-
-  Future<dynamic> get(String url) async {
+  var responseJson;
+  Future<dynamic> get(
+    String url,
+  ) async {
     var responseJson;
     try {
       final response = await http.get(
@@ -22,17 +26,15 @@ class ApiProvider {
       );
 
       responseJson = _response(response);
-    } on SocketException {
-      throw FetchDataException('No Internet connection');
+    } catch (error) {
+      Get.to(CustomErrorWidget());
     }
     return responseJson;
   }
 
   Future<dynamic> getAfterAuth(String url) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-
     token = prefs.getString('stringValue');
-
     var responseJson;
     try {
       final response = await http.get(
@@ -45,7 +47,7 @@ class ApiProvider {
 
       responseJson = _response(response);
     } catch (e) {
-      throw FetchDataException('No Internet connection');
+      Get.to(CustomErrorWidget());
     }
     return responseJson;
   }
@@ -65,7 +67,7 @@ class ApiProvider {
 
       responseJson = _response(response);
     } catch (e) {
-      throw FetchDataException('No Internet connection');
+      Get.to(CustomErrorWidget());
     }
     return responseJson;
   }
@@ -73,12 +75,14 @@ class ApiProvider {
   Future<dynamic> postBeforeAuth(Map parameter, String url) async {
     var responseJson;
     try {
-      final response = await http.post(Uri.parse(baseUrl + beforeAuth + url),
-          headers: {"Accept": "application/json"}, body: parameter);
+      final response = await http.post(
+          Uri.parse(baseUrllocal + beforeAuth + url),
+          headers: {"Accept": "application/json"},
+          body: parameter);
 
       responseJson = _response(response);
     } catch (e) {
-      throw FetchDataException('No Internet connection');
+      Get.to(CustomErrorWidget());
     }
     return responseJson;
   }
@@ -86,12 +90,12 @@ class ApiProvider {
   Future<dynamic> postlogin(Map parameter, String url) async {
     var responseJson;
     try {
-      final response = await http.post(Uri.parse(baseUrl + url),
+      final response = await http.post(Uri.parse(baseUrllocal + url),
           headers: {"Accept": "application/json"}, body: parameter);
 
       responseJson = _response(response);
     } catch (e) {
-      throw FetchDataException('No Internet connection');
+      Get.to(CustomErrorWidget());
     }
     return responseJson;
   }
@@ -106,11 +110,9 @@ class ApiProvider {
           },
           body: parameter);
 
-      // debugger();
-      // print(response);
       responseJson = _response(response);
     } catch (e) {
-      throw FetchDataException('No Internet connection');
+      Get.to(CustomErrorWidget());
     }
     return responseJson;
   }
@@ -122,12 +124,12 @@ class ApiProvider {
     token = prefs.getString('stringValue');
     try {
       final response = await http.get(
-        Uri.parse(baseUrl + url),
+        Uri.parse(baseUrllocal + url),
       );
 
       responseJson = _response(response);
     } on SocketException {
-      throw FetchDataException('No Internet connection');
+      Get.to(CustomErrorWidget());
     }
     return responseJson;
   }
@@ -165,10 +167,8 @@ class ApiProvider {
           }
         });
       });
-      // debugger();
-      // print(responseJson);
     } catch (e) {
-      throw FetchDataException('No Internet connection');
+      Get.to(CustomErrorWidget());
     }
     return responseJson;
   }
@@ -192,12 +192,14 @@ class ApiProvider {
       );
 
       responseJson = jsonDecode(response.body.toString());
-    } catch (e) {}
+    } catch (e) {
+      Get.to(CustomErrorWidget());
+    }
     return responseJson;
   }
 
   Future<dynamic> postAfterAuthWithMultipart(
-      Map parameter, String url, List<File> files) async {
+      Map<String, dynamic> parameter, String url, List<File> files) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     token = prefs.getString('stringValue');
@@ -232,16 +234,14 @@ class ApiProvider {
       );
 
       await response.send().then((value) async {
-        http.Response.fromStream(value).then((response) {
-          if (response.statusCode == 200) {
-            if (response.body.isNotEmpty) {
-              json.decode(response.body);
-            }
+        await http.Response.fromStream(value).then((response) {
+          if (response.body.isNotEmpty) {
+            responseJson = json.decode(response.body);
           }
         });
       });
     } catch (e) {
-      throw FetchDataException('No Internet connection');
+      Get.to(CustomErrorWidget());
     }
     return responseJson;
   }
@@ -252,14 +252,16 @@ class ApiProvider {
 
     try {
       final response = await http.get(
-        Uri.parse("$baseUrl$url?_page=$_page&_limit=$_limit")
+        Uri.parse("$baseUrllocal$url?_page=$_page&_limit=$_limit")
             .replace(queryParameters: parameter),
         headers: {
           "Content-Type": "application/json",
         },
       );
       responseJson = jsonDecode(response.body.toString());
-    } catch (e) {}
+    } catch (e) {
+      Get.to(CustomErrorWidget());
+    }
     return responseJson;
   }
 }
@@ -268,13 +270,15 @@ dynamic _response(http.Response response) {
   switch (response.statusCode) {
     case 200:
       var responseJson = json.decode(response.body.toString());
-      print(responseJson);
+
       return responseJson;
     case 400:
       throw BadRequestException(response.body.toString());
     case 401:
     case 403:
       throw UnauthorisedException(response.body.toString());
+    case 404:
+      throw BadRequestException(response.body.toString());
     case 500:
     default:
       throw FetchDataException(

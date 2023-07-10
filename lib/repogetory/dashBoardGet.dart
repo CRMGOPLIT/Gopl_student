@@ -3,7 +3,7 @@ import 'package:global_student/networking/apiProvider.dart';
 import '../networking/NetworkConstant.dart';
 
 class DashBoardGet {
-  ApiProvider _apiProvider = ApiProvider();
+  final ApiProvider _apiProvider = ApiProvider();
 
   Future<dynamic> getEventDetailsRepo() async {
     final response =
@@ -108,7 +108,7 @@ class DashBoardGet {
 
   //Upload More Document
 
-  Future<dynamic> postMoreDocument(Map parameter, List<File> files) async {
+  Future<dynamic> postMoreDocument(  Map<String, dynamic> parameter, List<File> files) async {
     final response = await _apiProvider.postAfterAuthWithMultipart(
         parameter, NetworkConstant.END_POINT_UPLOAD_MORE_DOCUMENT, files);
 
@@ -147,6 +147,6 @@ class DashBoardGet {
 }
 
 
-//final submit visa
+
 
 

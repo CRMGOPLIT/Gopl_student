@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 VisaGetModel visaGetModelFromJson(String str) =>
@@ -97,7 +96,8 @@ class AcademicDocument {
   factory AcademicDocument.fromJson(Map<String, dynamic> json) =>
       AcademicDocument(
         fVisaFileDocumentId: json["f_VisaFileDocumentID"],
-        fVisaFileRequiredDocumentId: json["f_VisaFileRequiredDocumentID"].toString(),
+        fVisaFileRequiredDocumentId:
+            json["f_VisaFileRequiredDocumentID"].toString(),
         fCountryid: json["f_countryid"],
         fDocumentName: json["f_DocumentName"].toString(),
         fIsRequired: json["f_IsRequired"],

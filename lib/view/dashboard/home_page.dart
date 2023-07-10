@@ -4,9 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:global_student/bloc/dashboardBloc.dart';
 import 'package:global_student/model/bannermodel.dart';
+import 'package:global_student/model/qualificationsubmitModel.dart';
 import 'package:global_student/model/usersModel.dart';
 import 'package:global_student/utils/color.dart';
-import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/utils/text_style.dart';
 import 'package:global_student/view/applicationStatus/application_status.dart';
 import 'package:global_student/view/batch_details/batch_details.dart';
@@ -14,11 +14,13 @@ import 'package:global_student/view/branch_location/branch_location.dart';
 import 'package:global_student/view/couse_search/course_search.dart';
 import 'package:global_student/view/dashboard/dash_grid_model.dart';
 import 'package:global_student/view/event_details/event_detils.dart';
-import 'package:global_student/view/qualification/graduation.dart';
+import 'package:global_student/view/qualification/completeeducation.dart';
 import 'package:global_student/view/uploadmoreDocument/upload_more_document.dart';
 import 'package:global_student/view/visa/visa_page.dart';
 import 'package:global_student/view/widget/drawer.dart';
+import 'package:global_student/view/widget/visanotapplicalble.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../qualification/highschool.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -30,11 +32,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _drawerscaffoldkey =
       GlobalKey<ScaffoldState>();
-  // List image = [
-  //   "assets/images/appbanner1.jpg",
-  //   "assets/images/appbanner2.jpg",
-  //   "assets/images/appbanner3.jpg",
-  // ];
+
   List<Color> color = [
     const Color(0xff5D88C6),
     const Color(0xffCE7983),
@@ -48,7 +46,7 @@ class _HomePageState extends State<HomePage> {
   Bannermodel? bannermodeldata;
 
   List page = [
-    const Graduation(),
+    const HighSchool(),
     const UploadMoreDocument(),
     const CourseSerach(),
     const ApplicationStatus(),
@@ -60,14 +58,12 @@ class _HomePageState extends State<HomePage> {
     //VisaPage(countryId: bannermodeldata!.isVisaApplicable.toString(), isVisaApplicable: , ),
   ];
 
-// List myList = List.from(page1);
-
   bool loanding = true;
   bool loanding1 = true;
   late DashBoardBloc dashBoardBloc;
   List data = [];
   List dataUser = [];
-  List BranchData = [];
+
   late UsersDetailsModel userData1;
 
   List<String> bannerimages = [];
@@ -77,6 +73,8 @@ class _HomePageState extends State<HomePage> {
     dashBoardBloc = DashBoardBloc();
     getBannersDetails();
     _gethomeData();
+    getUserDetailsdone();
+    //_gethomeDatadone();
     setState(() {
       getUserDetails();
     });
@@ -85,6 +83,32 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
+  List<QualificationSubmitModel> qualificationdatasubmit = [];
+  List qualidata = [];
+  bool loading2 = true;
+
+  // _gethomeDatadone() {
+  //   //dashBoardBloc.callBoardListApi();
+  //   dashBoardBloc.callQualificationApi();
+  //   // dashBoardBloc.callQualificationListApi();
+  // }
+
+  getUserDetailsdone() async {
+    dashBoardBloc.getqualificationcontrollerStream.listen((event) {
+      if (event != null) {
+        qualidata = event;
+        for (int i = 0; i < qualidata.length; i++) {
+          QualificationSubmitModel qualificationSubmitModel =
+              QualificationSubmitModel.fromJson(event[i]);
+          qualificationdatasubmit.add(qualificationSubmitModel);
+        }
+        // Application.add(userData1);
+        setState(() {
+          loading2 = false;
+        });
+      }
+    });
+  }
 //     SharedPreferences prefs = await SharedPreferences.getInstance();
   //     bool _seen = (prefs.getBool('seen') ?? false);
 
@@ -92,7 +116,6 @@ class _HomePageState extends State<HomePage> {
   //       Future.delayed(const Duration(seconds: 3), () {
   //         Navigator.pushNamed(context, RoutesName.home);
 
-  //         print("if $check");
   //         // getConnectivity();
   //       });
   //     } else {
@@ -104,10 +127,8 @@ class _HomePageState extends State<HomePage> {
   //     }
   String? name;
   getUserDetails() async {
-    await dashBoardBloc.userControllerStream.listen((event) async {
+    dashBoardBloc.userControllerStream.listen((event) async {
       if (event != null) {
-        // debugger();
-        // print(event);
         userData1 = UsersDetailsModel.fromJson(event[0]);
 
         SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -133,9 +154,7 @@ class _HomePageState extends State<HomePage> {
   // }
 
   getBannersDetails() async {
-    await dashBoardBloc.bannersControllerStream.listen((event) {
-      // debugger();
-      // print(event);
+    dashBoardBloc.bannersControllerStream.listen((event) {
       if (event != null) {
         Bannermodel bannermodel = Bannermodel.fromJson(event);
 
@@ -159,8 +178,10 @@ class _HomePageState extends State<HomePage> {
   _gethomeData() {
     dashBoardBloc.callGetBannersDetailsApi();
     dashBoardBloc.callGetUsersDetailsApi();
+    dashBoardBloc.callQualificationApi();
   }
 
+  String capitalize(String str) => str[0].toUpperCase() + str.substring(1);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -168,7 +189,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: AppColors.PrimaryWhiteColor,
         elevation: 0,
-        iconTheme: IconThemeData(color: AppColors.PrimaryMainColor),
+        iconTheme: const IconThemeData(color: AppColors.PrimaryMainColor),
         leading: InkWell(
           onTap: () {
             if (_drawerscaffoldkey.currentState!.isDrawerOpen) {
@@ -184,11 +205,28 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         title: loanding1 == true
-            ? Text("")
-            : Text(name.toString(),
-                style: btntext(
-                  AppColors.PrimaryBlackColor,
-                )),
+            ? Container()
+            : RichText(
+                text: TextSpan(
+                    style: TextStyle(color: Colors.black, fontSize: 18),
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: 'Hello,',
+                          style: batchtext2(
+                            AppColors.PrimaryBlackColor,
+                          )),
+                      TextSpan(
+                          text: capitalize(name!).toString(),
+                          style: batchtext1(
+                            AppColors.PrimaryBlackColor,
+                          )),
+                    ]),
+              ),
+
+        //  Text("Hello,$name",
+        //     style: btntext(
+        //       AppColors.PrimaryBlackColor,
+        //     )),
         // loanding1 == true
         //     ? const Text(
         //         "",
@@ -199,22 +237,31 @@ class _HomePageState extends State<HomePage> {
         //         )
         // ),
         actions: [
-          InkWell(
-            onTap: () {
-              Navigator.pushNamed(context, RoutesName.notificationpage);
-            },
-            child: Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: Icon(
-                Icons.notifications_rounded,
-                size: 30.sp,
-                color: AppColors.PrimaryBlackColor,
-              ),
-            ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset(
+              "assets/images/bannerlogo.png",
+              height: 20.h,
+              width: 150.w,
+              fit: BoxFit.contain,
+            ),            
           ),
+          // InkWell(
+          //   onTap: () {
+          //     Navigator.pushNamed(context, RoutesName.notificationpage);
+          //   },
+          //   child: Padding(
+          //     padding: const EdgeInsets.only(right: 20),
+          //     child: Icon(
+          //       Icons.notifications_rounded,
+          //       size: 30.sp,
+          //       color: AppColors.PrimaryBlackColor,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
-      drawer: drawer(),
+      drawer: const drawer(),
       key: _drawerscaffoldkey,
       body: Column(
         children: [
@@ -278,33 +325,43 @@ class _HomePageState extends State<HomePage> {
                             crossAxisCount: 2,
                             crossAxisSpacing: 20.r,
                             mainAxisSpacing: 20.r,
-                            childAspectRatio: 10 / 8),
+                            childAspectRatio: 10.h / 8.h),
                         itemCount: dashgrid.length,
                         itemBuilder: (BuildContext context, int index) {
                           return InkWell(
                             onTap: () {
                               if (index == 7) {
-                                Get.to(
-                                  VisaPage(),
-                                  arguments: [
-                                    bannermodeldata!.countryId,
-                                    bannermodeldata!.countryName,
-                                    bannermodeldata!.isVisaApplicable,
-                                    bannermodeldata!.courseId,
-                                    bannermodeldata!.studentId,
-                                    // dashboardCountryDetail[index].country
-                                  ],
-                                );
+                                bannermodeldata!.isVisaApplicable == "0"
+                                    ? Get.to(() => const VisaNotApplicable())
+                                    : Get.to(
+                                        const VisaPage(),
+                                        arguments: [
+                                          bannermodeldata!.countryId,
+                                          bannermodeldata!.countryName,
+                                          bannermodeldata!.isVisaApplicable,
+                                          bannermodeldata!.courseId,
+                                          bannermodeldata!.studentId,
+                                          // dashboardCountryDetail[index].country
+                                        ],
+                                      );
                               } else {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => page[index]));
+                                index == 0 &&
+                                        qualificationdatasubmit.length >= 2
+                                    ? Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const DonePage()))
+                                    : Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => page[index]));
                               }
-
-                              // Navigator.pushNamed(
-                              //     context, page[index].toString());
                             },
+
+                            // Navigator.pushNamed(
+                            //     context, page[index].toString());
+
                             child: Container(
                               padding: EdgeInsets.all(5.r),
                               decoration: BoxDecoration(
@@ -371,5 +428,11 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
+  }
+}
+
+extension StringExtension on String {
+  String capitalize() {
+    return "${this[0].toUpperCase()}${this.substring(1).toLowerCase()}";
   }
 }

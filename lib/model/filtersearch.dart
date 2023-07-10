@@ -392,6 +392,7 @@ enum FCurrency { AUD }
 
 final fCurrencyValues = EnumValues({"AUD\u0024": FCurrency.AUD});
 
+// ignore: constant_identifier_names
 enum FDurationName { THE_4_YEAR, THE_5_YEAR, THE_3_YEAR }
 
 final fDurationNameValues = EnumValues({
@@ -408,6 +409,7 @@ final fGlobalOpsRankingValues = EnumValues({
   "C": FGlobalOpsRanking.C
 });
 
+// ignore: constant_identifier_names
 enum FLocation { QUEENSLAND, MELBOURNE, SYDNEY }
 
 final fLocationValues = EnumValues({

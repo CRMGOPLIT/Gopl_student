@@ -59,10 +59,8 @@
 
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/view/widget/button.dart';
 
@@ -71,6 +69,8 @@ class ConnectionChecker extends StatefulWidget {
 
   @override
   State<ConnectionChecker> createState() => _ConnectionCheckerState();
+
+  static void init() {}
 }
 
 class _ConnectionCheckerState extends State<ConnectionChecker> {
@@ -84,7 +84,7 @@ class _ConnectionCheckerState extends State<ConnectionChecker> {
       isConnected = true;
     } else {
       isConnected = false;
-      showDialogBox();
+      //ConnectionChecker();
     }
     setState(() {});
   }
@@ -95,23 +95,28 @@ class _ConnectionCheckerState extends State<ConnectionChecker> {
     });
   }
 
-  showDialogBox() {
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) => CupertinoAlertDialog(
-              title: const Text("No Internet"),
-              content: const Text("Please check your internet connection"),
-              actions: [
-                CupertinoButton.filled(
-                    child: const Text("Retry"),
-                    onPressed: () {
-                      Navigator.pop(context);
-                      checkInternet();
-                    }),
-              ],
-            )); // CupertinoAlertDialog
+  @override
+  void dispose() {
+    subscription.cancel();
+    super.dispose();
   }
+  // showDialogBox() {
+  //   showDialog(
+  //       barrierDismissible: false,
+  //       context: context,
+  //       builder: (context) => CupertinoAlertDialog(
+  //             title: const Text("No Internet"),
+  //             content: const Text("Please check your internet connection"),
+  //             actions: [
+  //               CupertinoButton.filled(
+  //                   child: const Text("Retry"),
+  //                   onPressed: () {
+  //                     Navigator.pop(context);
+  //                     checkInternet();
+  //                   }),
+  //             ],
+  //           )); // CupertinoAlertDialog
+  // }
 
   @override
   void initState() {
@@ -130,7 +135,7 @@ class _ConnectionCheckerState extends State<ConnectionChecker> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
-            child: Container(
+            child: SizedBox(
                 height: 230.h,
                 width: 250.w,
                 child: Image.asset(
@@ -163,22 +168,23 @@ class _ConnectionCheckerState extends State<ConnectionChecker> {
                         });
                       }),
                 )
-              : SizedBox(
-                  width: 150.w,
-                  child: ButtonPrimary(
-                      title: "Retry",
-                      onPressed: () {
-                        final snackBar = SnackBar(
-                          content: const Text('No Internet Connection'),
-                          backgroundColor: (Colors.black),
-                          action: SnackBarAction(
-                            textColor: AppColors.PrimaryWhiteColor,
-                            label: 'Dismiss',
-                            onPressed: () {},
-                          ),
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      }))
+              : Container(),
+          // SizedBox(
+          //     width: 150.w,
+          //     child: ButtonPrimary(
+          //         title: "Retry",
+          //         onPressed: () {
+          //           final snackBar = SnackBar(
+          //             content: const Text('No Internet Connection'),
+          //             backgroundColor: (Colors.black),
+          //             action: SnackBarAction(
+          //               textColor: AppColors.PrimaryWhiteColor,
+          //               label: 'Dismiss',
+          //               onPressed: () {},
+          //             ),
+          //           );
+          //           ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          //         }))
         ],
       ),
     );

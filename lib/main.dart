@@ -1,9 +1,13 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:global_student/utils/routes/customerror.dart';
 import 'package:global_student/utils/routes/routes.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
+
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 int? isViewed;
@@ -16,6 +20,11 @@ void main() async {
   ]);
   SharedPreferences prefs = await SharedPreferences.getInstance();
   screenboard = prefs.getBool('screenboard') ?? false;
+
+  ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
+    return const CustomErrorWidget(); // Replace CustomErrorWidget with your own error screen widget
+  };
+
   // isViewed = prefs.getInt('onBoard');
   runApp(const MyApp());
 }
@@ -32,11 +41,11 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
+          title: 'Global Opportunities',
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          // home: DialogDemo(),
+          // home: FlipAnimationListView(),
           initialRoute: RoutesName.splash,
           onGenerateRoute: Routes.generateRoute,
         );

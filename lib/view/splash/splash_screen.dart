@@ -1,11 +1,14 @@
 import 'dart:async';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fadein/flutter_fadein.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/view/widget/internetconnection.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../utils/routes/routes_name.dart';
 
@@ -21,48 +24,51 @@ class _SplashScreenState extends State<SplashScreen> {
   String? check;
 
   String? token;
-//  late StreamSubscription subscription;
-  late StreamSubscription subscription2;
+  //late StreamSubscription subscription;
+  //late StreamSubscription subscription2;
   bool isDeviceConnected = false;
   bool isAlertSet = false;
 
-  // late ConnectivityResult result;
+  late ConnectivityResult result;
   late StreamSubscription subscription;
   var isConnected = false;
-  // checkInternet() async {
-  //   result = await Connectivity().checkConnectivity();
-  //   if (result != ConnectivityResult.none) {
-  //     isConnected = true;
-  //   } else {
-  //     isConnected = false;
-  //     showDialogBox();
-  //   }
-  //   setState(() {});
-  // }
 
-  // startStreaming() {
-  //   subscription = Connectivity().onConnectivityChanged.listen((event) async {
-  //     checkInternet();
-  //   });
-  // }
-
-  showDialogBox() {
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) => CupertinoAlertDialog(
-              title: const Text("No Internet"),
-              content: const Text("Please check your internet connection"),
-              actions: [
-                CupertinoButton.filled(
-                    child: const Text("Retry"),
-                    onPressed: () {
-                      Navigator.pop(context);
-                      // checkInternet();
-                    }),
-              ],
-            )); // CupertinoAlertDialog
+  checkInternet() async {
+    result = await Connectivity().checkConnectivity();
+    if (result != ConnectivityResult.none) {
+      isConnected = true;
+    } else {
+      isConnected = false;
+      Get.to(const ConnectionChecker());
+      // Navigator.pushNamed(context, RoutesName.otp);
+      // ConnectionChecker();
+    }
+    setState(() {});
   }
+
+  startStreaming() {
+    subscription = Connectivity().onConnectivityChanged.listen((event) async {
+      checkInternet();
+    });
+  }
+
+  // showDialogBox() {
+  //   showDialog(
+  //       barrierDismissible: false,
+  //       context: context,
+  //       builder: (context) => CupertinoAlertDialog(
+  //             title: const Text("No Internet"),
+  //             content: const Text("Please check your internet connection"),
+  //             actions: [
+  //               CupertinoButton.filled(
+  //                   child: const Text("Retry"),
+  //                   onPressed: () {
+  //                     Navigator.pop(context);
+  //                     checkInternet();
+  //                   }),
+  //             ],
+  //           )); // CupertinoAlertDialog
+  // }
 
   // @override
   // void initState() {
@@ -71,63 +77,70 @@ class _SplashScreenState extends State<SplashScreen> {
   //   super.initState();
   // }
 
-  // getConnectivity() =>
-  //     subscription = Connectivity().onConnectivityChanged.listen(
-  //       (ConnectivityResult result) async {
-  //         isDeviceConnected = await InternetConnectionChecker().hasConnection;
-  //         if (!isDeviceConnected && isAlertSet == false) {
-  //           showDialogBox();
-  //           setState(() => isAlertSet = true);
-  //         }
-  //       },
-  //     );
+  getConnectivity() =>
+      subscription = Connectivity().onConnectivityChanged.listen(
+        (ConnectivityResult result) async {
+          isDeviceConnected = await InternetConnectionChecker().hasConnection;
+          if (!isDeviceConnected && isAlertSet == false) {
+            const ConnectionChecker();
+            setState(() => isAlertSet = true);
+          }
+        },
+      );
 
   @override
   void dispose() {
-    // subscription.cancel();
-    //subscription2.cancel();
+    subscription.cancel();
+    // subscription2.cancel();
     super.dispose();
   }
 
-  // Future _checkInternetConnection() async {
-  //   var connectivityResult = await (Connectivity().checkConnectivity());
-  //   if (connectivityResult == ConnectivityResult.mobile ||
-  //       connectivityResult == ConnectivityResult.wifi) {
-  //     setState(() {
-  //       _connectionStatus = 'Connected';
-  //       check = _connectionStatus;
-  //     });
-  //     SharedPreferences prefs = await SharedPreferences.getInstance();
-  //     bool _seen = (prefs.getBool('seen') ?? false);
+  Future _checkInternetConnection() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      setState(() {
+        _connectionStatus = 'Connected';
+        check = _connectionStatus;
+      });
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      bool seen = (prefs.getBool('seen') ?? false);
+      token = prefs.getString('stringValue');
 
-  //     if (_seen) {
-  //       Future.delayed(const Duration(seconds: 3), () {
-  //         Navigator.pushNamed(context, RoutesName.home);
+      if (seen && token != null) {
+        Future.delayed(const Duration(seconds: 3), () {
+          Navigator.pushNamed(context, RoutesName.bottomnav);
+          getConnectivity();
+        });
+      } else {
+        await prefs.setBool('seen', true);
+        if (seen == true && token == null) {
+          Future.delayed(const Duration(seconds: 3), () {
+            Navigator.pushNamed(context, RoutesName.login);
+            getConnectivity();
+          });
+        } else {
+          Future.delayed(const Duration(seconds: 3), () {
+            Navigator.pushNamed(context, RoutesName.onbording);
+            getConnectivity();
+          });
+        }
+      }
+    } else {
+      setState(() {
+        _connectionStatus = 'Not connected';
+        check = _connectionStatus;
+      });
+      checkInternet();
+      showDialogwBox();
 
-  //         print("if $check");
-  //         // getConnectivity();
-  //       });
-  //     } else {
-  //       await prefs.setBool('seen', true);
-  //       Future.delayed(const Duration(seconds: 3), () {
-  //         Navigator.pushNamed(context, RoutesName.onbording);
-  //         //  getConnectivity();
-  //       });
-  //     }
-  //   } else {
-  //     setState(() {
-  //       _connectionStatus = 'Not connected';
-  //       check = _connectionStatus;
-  //     });
-  //     // checkInternet();
-  //     // showDialogBox();
-  //     // getConnectivity();
-  //     print("else$check");
-  //     // Future.delayed(const Duration(seconds: 1), () {
-  //     //   Navigator.pushNamed(context, RoutesName.onbording);
-  //     // });
-  //   }
-  // }
+      getConnectivity();
+
+      // Future.delayed(const Duration(seconds: 1), () {
+      //   Navigator.pushNamed(context, RoutesName.onbording);
+      // });
+    }
+  }
 
   // Future checkmethod() async {
   //   if (check == 'Connected') {
@@ -137,7 +150,6 @@ class _SplashScreenState extends State<SplashScreen> {
   //     if (_seen) {
   //       Future.delayed(const Duration(seconds: 3), () {
   //         Navigator.pushNamed(context, RoutesName.home);
-  //         print("if $check");
   //       });
   //     } else {
   //       await prefs.setBool('seen', true);
@@ -149,7 +161,6 @@ class _SplashScreenState extends State<SplashScreen> {
   //     Future.delayed(const Duration(seconds: 3), () {
   //       Navigator.pushNamed(context, RoutesName.login);
   //     });
-  //     print("else$check");
   //   }
   // }
 
@@ -183,12 +194,12 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   initState() {
-    //   checkmethod();
-    // startStreaming();
-    // _checkInternetConnection();
-    //getConnectivity();
+    // checkmethod();
+    startStreaming();
+    _checkInternetConnection();
+
+    // getConnectivity();
     // getStringValuesSF();
-    getStringValuesSF();
 
     // Future.delayed(const Duration(seconds: 3), () {
     //   Navigator.pushNamed(context, RoutesName.onbording);
@@ -196,22 +207,33 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
 
-  getStringValuesSF() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    //Return String
-    token = prefs.getString('stringValue');
-    if (token == null) {
-      Future.delayed(const Duration(seconds: 3), () {
-        Navigator.pushNamed(context, RoutesName.onbording);
-      });
-    } else {
-      Future.delayed(const Duration(seconds: 3), () {
-        Navigator.pushNamed(context, RoutesName.bottomnav);
-      });
-    }
+  // getStringValuesSF() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   //Return String
+  //   token = prefs.getString('stringValue');
+  //   if (token == null) {
+  //     Future.delayed(const Duration(seconds: 3), () {
+  //       //  Navigator.pushNamed(context, RoutesName.onbording);
+  //       Navigator.pushNamedAndRemoveUntil(
+  //         context,
+  //         RoutesName.onbording,
+  //         (routes) => false,
+  //       );
+  //     });
+  //   } else {
+  //     Future.delayed(const Duration(seconds: 3), () {
+  //       // Navigator.pushNamed(context, RoutesName.bottomnav);
 
-    return token;
-  }
+  //       Navigator.pushNamedAndRemoveUntil(
+  //         context,
+  //         RoutesName.bottomnav,
+  //         (routes) => false,
+  //       );
+  //     });
+  //   }
+
+  //   return token;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -224,11 +246,11 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Center(
-                    child: Text(
-                      'Internet connection status: $_connectionStatus',
-                    ),
-                  ),
+                  // Center(
+                  //   child: Text(
+                  //     'Internet connection status: $_connectionStatus',
+                  //   ),
+                  // ),
                   // Text(token.toString()),
                   SizedBox(
                     height: 50.h,
@@ -295,7 +317,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 isDeviceConnected =
                     await InternetConnectionChecker().hasConnection;
                 if (!isDeviceConnected && isAlertSet == false) {
-                  showDialogBox();
+                  showDialogwBox();
                   setState(() => isAlertSet = true);
                 }
               },
@@ -305,5 +327,3 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       );
 }
-
-
