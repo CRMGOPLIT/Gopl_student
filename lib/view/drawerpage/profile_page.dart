@@ -5,8 +5,8 @@ import 'package:global_student/model/usersModel.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/utils/text_style.dart';
-
 import 'package:global_student/view/widget/app_bar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -238,12 +238,142 @@ class _ProfilePageState extends State<ProfilePage> {
                                       SizedBox(
                                         height: 6.h,
                                       ),
-                                      Text(
-                                          "☎️  ${userData1!.fCounsellorMobile}",
+                                      InkWell(
+                                        onTap: () {
+                                          openDialPad(
+                                              userData1!.fCounsellorMobile);
+                                        },
+                                        child: Text(
+                                            "☎️  ${userData1!.fCounsellorMobile}",
+                                            style: batchtext1(
+                                                AppColors.PrimaryMainColor)),
+                                      ),
+                                      SizedBox(
+                                        height: 6.h,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5.h,
+                          ),
+                          Card(
+                            elevation: 2,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: ListTile(
+                                title: Padding(
+                                  padding:
+                                      EdgeInsets.only(bottom: 1.sp, top: 5.sp),
+                                  child: Text(
+                                    "Office Manager",
+                                    style:
+                                        batchtext2(AppColors.PrimaryBlackColor),
+                                  ),
+                                ),
+                                subtitle: Padding(
+                                  padding:
+                                      EdgeInsets.only(bottom: 5.sp, top: 5.sp),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text("🧑  ${userData1!.omName}",
                                           style: batchtext1(
                                               AppColors.PrimaryBlackColor)),
                                       SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      Text("Office Manager Email",
+                                          style: batchtext2(
+                                              AppColors.PrimaryBlackColor)),
+                                      SizedBox(
                                         height: 6.h,
+                                      ),
+                                      Text("📩  ${userData1!.fOmEmail}",
+                                          style: batchtext1(
+                                              AppColors.PrimaryBlackColor)),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      Text("Office Manager Mobile",
+                                          style: batchtext2(
+                                              AppColors.PrimaryBlackColor)),
+                                      SizedBox(
+                                        height: 6.h,
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          openDialPad(userData1!.fOmMobile);
+                                        },
+                                        child: Text(
+                                            "☎️  ${userData1!.fOmMobile}",
+                                            style: batchtext1(
+                                                AppColors.PrimaryMainColor)),
+                                      ),
+                                      SizedBox(
+                                        height: 6.h,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5.h,
+                          ),
+                          Card(
+                            elevation: 2,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: ListTile(
+                                title: Padding(
+                                  padding:
+                                      EdgeInsets.only(bottom: 1.sp, top: 5.sp),
+                                  child: Text(
+                                    "Regional Manager",
+                                    style:
+                                        batchtext2(AppColors.PrimaryBlackColor),
+                                  ),
+                                ),
+                                subtitle: Padding(
+                                  padding:
+                                      EdgeInsets.only(bottom: 5.sp, top: 5.sp),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text("🧑  ${userData1!.rmName}",
+                                          style: batchtext1(
+                                              AppColors.PrimaryBlackColor)),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      Text("Regional Manager Email",
+                                          style: batchtext2(
+                                              AppColors.PrimaryBlackColor)),
+                                      SizedBox(
+                                        height: 6.h,
+                                      ),
+                                      Text("📩  ${userData1!.fRmEmail}",
+                                          style: batchtext1(
+                                              AppColors.PrimaryBlackColor)),
+                                      SizedBox(
+                                        height: 10.h,
                                       ),
                                     ],
                                   ),
@@ -257,5 +387,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
               ));
+  }
+
+  openDialPad(String phoneNumber) async {
+    Uri url = Uri(scheme: "tel", path: phoneNumber);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    }
   }
 }

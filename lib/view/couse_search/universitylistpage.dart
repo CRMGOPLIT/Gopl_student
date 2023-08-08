@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -36,10 +34,8 @@ class _UniversityListPageState extends State<UniversityListPage> {
   void initState() {
     searchBloc = SearchBloc();
     scrollController.addListener(_scrollListener);
-
     super.initState();
     getListofuniversity();
-
     searchFilter();
   }
 
@@ -123,14 +119,6 @@ class _UniversityListPageState extends State<UniversityListPage> {
     searchBloc.callGetFilterSearch(filterdata);
   }
 
-  text1(int index) {
-    var output;
-    for (int i = 0; i < objCourse.length; i++) {
-      output = objCourse[index].fUniversity;
-    }
-    return output[0];
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -178,33 +166,19 @@ class _UniversityListPageState extends State<UniversityListPage> {
                                 child: Card(
                                   elevation: 3,
                                   child: ListTile(
-                                    leading: Container(
-                                        height: 50.h,
-                                        width: 50.w,
-                                        decoration: BoxDecoration(
-                                            color: AppColors.PrimaryMainColor,
-                                            borderRadius:
-                                                BorderRadius.circular(40),
-                                            image:
-                                                // objCourse[index].logo == "null"
-                                                //     ? const DecorationImage(
-                                                //         image:
-                                                // AssetImage(
-                                                //             "assets/images/account.png"),
-                                                //         fit: BoxFit.fill,
-                                                //       )
-                                                //     :
-                                                DecorationImage(
-                                              onError: (error, stackTrace) =>
-                                                  const AssetImage(
-                                                      "assets/images/c1.png"),
-                                              image: NetworkImage(
-                                                objCourse[index]
-                                                    .logo
-                                                    .toString(),
-                                              ),
-                                              fit: BoxFit.fill,
-                                            ))),
+                                    leading: CircleAvatar(
+                                      onForegroundImageError:
+                                          (exception, stackTrace) => {
+                                        const AssetImage(
+                                            "assets/images/c1.png"),
+                                      },
+                                      backgroundColor:
+                                          AppColors.PrimaryMainColor,
+                                      radius: 30.r,
+                                      foregroundImage: NetworkImage(
+                                        objCourse[index].logo.toString(),
+                                      ),
+                                    ),
                                     title: Padding(
                                       padding: EdgeInsets.only(
                                           bottom: 5.sp, top: 10.sp),

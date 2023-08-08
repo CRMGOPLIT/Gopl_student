@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:global_student/bloc/dashboardBloc.dart';
 import 'package:global_student/model/batchModel.dart';
 import 'package:global_student/utils/color.dart';
@@ -17,6 +18,7 @@ class BatchDetails extends StatefulWidget {
 
 class _BatchDetailsState extends State<BatchDetails> {
   List<BatchDetailsModel> data = [];
+  var data2 = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +27,9 @@ class _BatchDetailsState extends State<BatchDetails> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(50.h),
           child: AppBarCustom(
-            title: "Batch Details",
+            title: "${data2[0]} Course",
             onpress: () {
-              Navigator.pushNamed(context, RoutesName.bottomnav);
+              Navigator.pushNamed(context, RoutesName.batchlist);
             },
           ),
         ),
@@ -52,6 +54,7 @@ class _ListBatchState extends State<ListBatch> {
   bool _animate = false;
 
   static bool _isStart = true;
+  var data2 = Get.arguments;
 
   @override
   void initState() {
@@ -96,7 +99,11 @@ class _ListBatchState extends State<ListBatch> {
   }
 
   _gethomeData() {
-    dashBoardBloc.callGetBatchDetailsApi();
+    Map<String, String> data = {
+      "BatchType": data2[0].toString(),
+    };
+
+    dashBoardBloc.callGetBatchDetailsApi(data);
   }
 
   String? sName;
@@ -108,7 +115,6 @@ class _ListBatchState extends State<ListBatch> {
 
   @override
   Widget build(BuildContext context) {
-    // Size screenSize = MediaQuery.of(context).size;
     return loanding
         ? Center(
             child: CircularProgressIndicator(
@@ -124,328 +130,301 @@ class _ListBatchState extends State<ListBatch> {
               padding: _animate
                   ? const EdgeInsets.all(2.0)
                   : const EdgeInsets.only(top: 10),
-              child: ListView.builder(
-                  itemCount: data.length,
-                  itemBuilder: ((context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(
-                              left: 10, right: 10, bottom: 5, top: 5)
-                          .r,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: AppColors.PrimaryWhiteColor,
-                            borderRadius: BorderRadius.circular(10.r),
-                            boxShadow: const [
-                              BoxShadow(
-                                  offset: Offset(
-                                    3,
-                                    3,
-                                  ),
-                                  color: Colors.black12,
-                                  blurRadius: 1.0,
-                                  spreadRadius: 0.0),
-                            ]),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.all(8.r),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    height: 60.h,
-                                    width: 80.w,
-                                    decoration: BoxDecoration(
-                                        color: AppColors.PrimaryMainColor,
-                                        image: data[index].fFacultyImag.isEmpty
-                                            ? const DecorationImage(
-                                                image: AssetImage(
-                                                    "assets/images/fimg.png"),
-                                                fit: BoxFit.cover,
-                                              )
-                                            : DecorationImage(
-                                                image: NetworkImage(
-                                                    data[index].fFacultyImag),
-                                                fit: BoxFit.cover,
-                                              ),
-                                        borderRadius:
-                                            BorderRadius.circular(10.r)),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 10.r),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        RichText(
-                                          text: TextSpan(
-                                            text: 'Name :- ',
-                                            style: batchtext2(
-                                                AppColors.PrimaryBlackColor),
-                                            children: [
-                                              TextSpan(
-                                                text: data[index]
-                                                    .fFacultyName
-                                                    .toString(),
-                                                style: batchtext1(AppColors
-                                                    .PrimaryBlackColor),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 5.h,
-                                        ),
-                                        RichText(
-                                          text: TextSpan(
-                                            text: 'Faculty Grade :- ',
-                                            style: batchtext2(
-                                                AppColors.PrimaryBlackColor),
-                                            children: [
-                                              TextSpan(
-                                                text: data[index]
-                                                    .fFacultyGrade
-                                                    .toString(),
-                                                style: batchtext1(AppColors
-                                                    .PrimaryBlackColor),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 5.h,
-                                        ),
-                                        RichText(
-                                          text: TextSpan(
-                                            text: 'Batch Type :- ',
-                                            style: batchtext2(
-                                                AppColors.PrimaryBlackColor),
-                                            children: [
-                                              TextSpan(
-                                                text: data[index]
-                                                    .fIsOffline
-                                                    .toString(),
-                                                style: batchtext1(AppColors
-                                                    .PrimaryBlackColor),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
+              child: data.isEmpty
+                  ? SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 80.h,
+                          ),
+                          Center(
+                              child: Image.asset(
+                            "assets/images/class.png",
+                            height: 250.h,
+                            width: 280.w,
+                            fit: BoxFit.contain,
+                          )),
+                          Text("Batch coming soon please wait..👨🏼‍💻",
+                              style: H2TextStyle(AppColors.PrimaryMainColor)),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          SizedBox(
+                            height: 40.h,
+                          ),
+                        ],
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: data.length,
+                      itemBuilder: ((context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                            left: 8,
+                            right: 8,
+                            bottom: 5,
+                          ).r,
+                          child: Card(
+                            elevation: 4,
+                            borderOnForeground: true,
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                color:
+                                    AppColors.PrimaryMainColor.withOpacity(0.3),
                               ),
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 8, right: 8),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  RichText(
-                                    text: TextSpan(
-                                      text: 'Batch Name :- ',
-                                      style: batchtext2(
-                                          AppColors.PrimaryBlackColor),
-                                      children: [
-                                        TextSpan(
-                                          text:
-                                              data[index].fBatchName.toString(),
-                                          style: batchtext1(
-                                              AppColors.PrimaryBlackColor),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5.h,
-                                  ),
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      RichText(
-                                        overflow: TextOverflow.ellipsis,
-                                        text: TextSpan(
-                                          text: 'Start Date :- ',
-                                          style: batchtext2(
-                                              AppColors.PrimaryBlackColor),
-                                          children: [
-                                            TextSpan(
-                                              text: data[index]
-                                                  .fBatchStartDate
-                                                  .toString(),
-                                              style: batchtext1(
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          RichText(
+                                            text: TextSpan(
+                                              text: '',
+                                              style: batchtext2(
                                                   AppColors.PrimaryBlackColor),
+                                              children: [
+                                                TextSpan(
+                                                  text: data[index]
+                                                      .fFacultyName
+                                                      .toString(),
+                                                  style: batchtext2(AppColors
+                                                      .PrimaryBlackColor),
+                                                ),
+                                              ],
                                             ),
-                                          ],
-                                        ),
-                                      ),
-                                      RichText(
-                                        overflow: TextOverflow.ellipsis,
-                                        text: TextSpan(
-                                          text: 'End Date :- ',
-                                          style: batchtext2(
-                                              AppColors.PrimaryBlackColor),
-                                          children: [
-                                            TextSpan(
-                                              text: data[index]
-                                                  .fBatchEndDate
-                                                  .toString(),
-                                              style: batchtext1(
+                                          ),
+                                          SizedBox(
+                                            height: 5.h,
+                                          ),
+                                          RichText(
+                                            text: TextSpan(
+                                              text: 'Batch Type :- ',
+                                              style: batchtext2(
                                                   AppColors.PrimaryBlackColor),
+                                              children: [
+                                                TextSpan(
+                                                  text: data[index]
+                                                      .fIsOffline
+                                                      .toString(),
+                                                  style: batchtext1(AppColors
+                                                      .PrimaryBlackColor),
+                                                ),
+                                              ],
                                             ),
-                                          ],
-                                        ),
-                                      ),
+                                          ),
+                                        ],
+                                      )
                                     ],
                                   ),
                                   SizedBox(
                                     height: 5.h,
                                   ),
-                                  Container(
-                                    width: 300,
-                                    height: 1.h,
-                                    color: AppColors.PrimaryGreyColor,
-                                  )
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(8.r),
-                              child: Container(
-                                height: 55.h,
-                                width: 390.w,
-                                decoration: BoxDecoration(
-                                    color: AppColors.PrimaryMainColor,
-                                    borderRadius: BorderRadius.circular(10.r)),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(6.0),
-                                      child: Column(
-                                        // crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Batch Size",
-                                            style: batchtext2(
-                                                AppColors.PrimaryWhiteColor),
-                                          ),
-                                          SizedBox(
-                                            height: 5.h,
-                                          ),
-                                          Text(
-                                            data[index].fBatchSize.toString(),
-                                            textAlign: TextAlign.center,
-                                            style: batchtext1(
-                                                AppColors.PrimaryWhiteColor),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      height: 40.h,
-                                      width: 2.w,
-                                      color: AppColors.PrimaryWhiteColor,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(7.0).w,
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            "Time",
-                                            style: batchtext2(
-                                                AppColors.PrimaryWhiteColor),
-                                          ),
-                                          SizedBox(
-                                            height: 5.h,
-                                          ),
-                                          Text(
-                                            data[index].fBatchTiming.toString(),
-                                            textAlign: TextAlign.center,
-                                            style: batchtext1(
-                                                AppColors.PrimaryWhiteColor),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      height: 40.h,
-                                      width: 2.w,
-                                      color: AppColors.PrimaryWhiteColor,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(7.0),
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            "Available",
-                                            style: batchtext2(
-                                                AppColors.PrimaryWhiteColor),
-                                          ),
-                                          SizedBox(
-                                            height: 5.h,
-                                          ),
-                                          Text(
-                                            avalible(index).toString(),
-                                            textAlign: TextAlign.center,
-                                            style: batchtext1(
-                                                AppColors.PrimaryWhiteColor),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      height: 40.h,
-                                      width: 2.w,
-                                      color: AppColors.PrimaryWhiteColor,
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.all(7.r),
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            "Enrolled",
-                                            style: batchtext2(
-                                                AppColors.PrimaryWhiteColor),
-                                          ),
-                                          SizedBox(
-                                            height: 5.h,
-                                          ),
-                                          InkWell(
-                                            onTap: () {
-                                              Navigator.pushNamed(
-                                                  context, RoutesName.home,
-                                                  arguments: [
-                                                    "name ",
-                                                    "jdnwkk",
-                                                    "wndopi"
-                                                  ]);
-                                            },
-                                            child: Text(
-                                              data[index]
-                                                  .confirmedWithFullPayment
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      RichText(
+                                        text: TextSpan(
+                                          text: 'Batch Name :- ',
+                                          style: batchtext2(
+                                              AppColors.PrimaryBlackColor),
+                                          children: [
+                                            TextSpan(
+                                              text: data[index]
+                                                  .fBatchName
                                                   .toString(),
-                                              textAlign: TextAlign.center,
                                               style: batchtext1(
-                                                  AppColors.PrimaryWhiteColor),
+                                                  AppColors.PrimaryBlackColor),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          RichText(
+                                            overflow: TextOverflow.ellipsis,
+                                            text: TextSpan(
+                                              text: 'Start Date :- ',
+                                              style: batchtext2(
+                                                  AppColors.PrimaryBlackColor),
+                                              children: [
+                                                TextSpan(
+                                                  text: data[index]
+                                                      .fBatchStartDate
+                                                      .toString(),
+                                                  style: batchtext1(AppColors
+                                                      .PrimaryBlackColor),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          RichText(
+                                            overflow: TextOverflow.ellipsis,
+                                            text: TextSpan(
+                                              text: 'End Date :- ',
+                                              style: batchtext2(
+                                                  AppColors.PrimaryBlackColor),
+                                              children: [
+                                                TextSpan(
+                                                  text: data[index]
+                                                      .fBatchEndDate
+                                                      .toString(),
+                                                  style: batchtext1(AppColors
+                                                      .PrimaryBlackColor),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ],
                                       ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                    ],
+                                  ),
+                                  Card(
+                                    elevation: 4,
+                                    color: AppColors.backgroungcolor,
+                                    shape: RoundedRectangleBorder(
+                                      side: BorderSide(
+                                        color: AppColors.PrimaryMainColor
+                                            .withOpacity(0.3),
+                                      ),
+                                      borderRadius: BorderRadius.circular(5.r),
                                     ),
-                                  ],
-                                ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(6.0),
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                "Batch Size",
+                                                style: batchtext2(AppColors
+                                                    .PrimaryBlackColor),
+                                              ),
+                                              SizedBox(
+                                                height: 5.h,
+                                              ),
+                                              Text(
+                                                data[index]
+                                                    .fBatchSize
+                                                    .toString(),
+                                                textAlign: TextAlign.center,
+                                                style: batchtext1(AppColors
+                                                    .PrimaryBlackColor),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          height: 40.h,
+                                          width: 1.w,
+                                          color: AppColors.PrimaryBlackColor,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(7.0).w,
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                "Time",
+                                                style: batchtext2(AppColors
+                                                    .PrimaryBlackColor),
+                                              ),
+                                              SizedBox(
+                                                height: 5.h,
+                                              ),
+                                              Text(
+                                                data[index]
+                                                    .fBatchTiming
+                                                    .toString(),
+                                                textAlign: TextAlign.center,
+                                                style: batchtext1(AppColors
+                                                    .PrimaryBlackColor),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          height: 40.h,
+                                          width: 1.w,
+                                          color: AppColors.PrimaryBlackColor,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(7.0),
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                "Available",
+                                                style: batchtext2(AppColors
+                                                    .PrimaryBlackColor),
+                                              ),
+                                              SizedBox(
+                                                height: 5.h,
+                                              ),
+                                              Text(
+                                                avalible(index).toString(),
+                                                textAlign: TextAlign.center,
+                                                style: batchtext1(AppColors
+                                                    .PrimaryBlackColor),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          height: 40.h,
+                                          width: 1.w,
+                                          color: AppColors.PrimaryBlackColor,
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.all(7.r),
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                "Enrolled",
+                                                style: batchtext2(AppColors
+                                                    .PrimaryBlackColor),
+                                              ),
+                                              SizedBox(
+                                                height: 5.h,
+                                              ),
+                                              Text(
+                                                data[index]
+                                                    .confirmedWithFullPayment
+                                                    .toString(),
+                                                textAlign: TextAlign.center,
+                                                style: batchtext1(AppColors
+                                                    .PrimaryBlackColor),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
                               ),
-                            )
-                          ],
-                        ),
-                      ),
-                    );
-                  })),
+                            ),
+                          ),
+                        );
+                      })),
             ),
           );
   }
@@ -454,7 +433,6 @@ class _ListBatchState extends State<ListBatch> {
     int cf = data[i].confirmedWithFullPayment;
     int cp = data[i].confirmedWithPartialPayment;
     int totl = int.parse(data[i].fBatchSize);
-
     return totl - (cf + cp);
   }
 }

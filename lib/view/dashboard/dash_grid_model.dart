@@ -18,7 +18,7 @@ List<GridModel> dashgrid = [
       image: 'assets/images/addnew1.png',
       color: const Color(0xffEEF5FF)),
   GridModel(
-      title: 'Upload Document',
+      title: 'Upload More Document',
       image: 'assets/images/documentic.png',
       color: const Color(0xffFFEEF0)),
   GridModel(
@@ -37,9 +37,8 @@ List<GridModel> dashgrid = [
       title: 'Event Details',
       image: 'assets/images/eventic.png',
       color: const Color(0xffFFEEF9)),
-      
   GridModel(
-      title: 'Branch Location',
+      title: 'Branch Office',
       image: 'assets/images/locationic.png',
       color: const Color(0xffFFF6EE)),
   GridModel(
@@ -65,4 +64,27 @@ List<GridModel> Countrycourse = [
     title: 'Australia',
     image: 'assets/images/c2.png',
   ),
+];
+
+List<GridModel> batchlist = [
+  GridModel(
+      title: 'IELTS',
+      image: 'assets/images/Ielts.png',
+      color: const Color(0xffF3FCFF)),
+  GridModel(
+      title: 'GRE',
+      image: 'assets/images/GRE.png',
+      color: const Color(0xffFFEEF0)),
+  GridModel(
+      title: 'GMAT',
+      image: 'assets/images/GMAT.png',
+      color: const Color(0xffF4F3FF)),
+  GridModel(
+      title: 'SAT',
+      image: 'assets/images/sat.png',
+      color: const Color(0xffF2F9F6)),
+  GridModel(
+      title: 'PTE',
+      image: 'assets/images/PTE.png',
+      color: const Color(0xffF9F2F6)),
 ];

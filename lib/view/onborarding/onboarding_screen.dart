@@ -48,9 +48,6 @@ class _OnbordingState extends State<Onbording> {
             )),
             child: Column(
               children: [
-                // SizedBox(
-                //   height: 40.h,
-                // ),
                 InkWell(
                   onTap: () {
                     Navigator.pushNamedAndRemoveUntil(
@@ -85,25 +82,17 @@ class _OnbordingState extends State<Onbording> {
                         children: [
                           SizedBox(
                             height: 270.h,
-                            //   color: AppColors.PrimaryWhiteColor,
                             child: Column(
                               children: [
                                 SizedBox(
                                     height: 250.h,
-                                    // width: 220.w,
                                     child: Image.asset(
                                       contents[i].image!,
                                       fit: BoxFit.contain,
                                     )),
-                                // SizedBox(
-                                //   height: 20.h,
-                                // ),
                               ],
                             ),
                           ),
-                          // SizedBox(
-                          //   height: 30.h,
-                          // ),
                           Text(
                             contents[i].title!,
                             style: TextStyle(
@@ -111,9 +100,6 @@ class _OnbordingState extends State<Onbording> {
                                 fontWeight: FontWeight.w800,
                                 fontSize: 20.sp),
                           ),
-                          // SizedBox(
-                          //   height: 10.h,
-                          // ),
                           Padding(
                             padding: EdgeInsets.all(15.sp),
                             child: Text(
@@ -138,40 +124,13 @@ class _OnbordingState extends State<Onbording> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(
                         contents.length, (index) => buildDot(index, context))),
-                // Container(
-                //   height: 60.h,
-                //   decoration: BoxDecoration(
-                //       borderRadius: BorderRadius.circular(10.sp),
-                //       gradient: const LinearGradient(
-                //         begin: Alignment.centerLeft,
-                //         end: Alignment.centerRight,
-                //         colors: [
-                //           Color(0xff143C79),
-                //           Color(0xff2A67C5),
-                //         ],
-                //       )),
-                //   child: const Center(
-                //     child: Text(
-                //       'Next',
-                //       style: TextStyle(
-                //         fontSize: 28.0,
-                //         fontWeight: FontWeight.bold,
-                //         color: Colors.white,
-                //       ),
-                //     ),
-                //   ),
-                // ),
                 SizedBox(
                   height: 10.h,
                 ),
                 Align(
                   alignment: Alignment.topRight,
                   child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      // SizedBox(
-                      //   height: 30.h,
-                      // ),
                       currtpage == contents.length - 1
                           ? InkWell(
                               onTap: () {
@@ -180,10 +139,8 @@ class _OnbordingState extends State<Onbording> {
                               },
                               child: Container(
                                 padding: const EdgeInsets.all(15).w,
-                                // alignment: Alignment.center,
                                 height: 90.h,
-                                width: 100.h,
-                                //color: Colors.red,
+                                width: 120.h,
                                 child: Align(
                                   alignment: Alignment.topRight,
                                   child: Text(
@@ -202,15 +159,13 @@ class _OnbordingState extends State<Onbording> {
                                     curve: Curves.ease);
                               },
                               child: Container(
-                                padding: EdgeInsets.all(15),
+                                padding: const EdgeInsets.all(15).r,
                                 height: 90.h,
                                 width: 100.h,
-                                //color: Colors.red,
                                 child: Align(
                                   alignment: Alignment.topRight,
                                   child: Text(
                                     "Next",
-                                    //textAlign: TextAlign.end,
                                     style: TextStyle(
                                         color: AppColors.PrimaryMainColor,
                                         fontSize: 17.sp,
@@ -245,12 +200,9 @@ class _OnbordingState extends State<Onbording> {
   }
 
   void _finishIntro() async {
-    // Update the boolean value in SharedPreferences
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       prefs.setBool('isFirstTime', true);
     });
-
-    //  Navigator.pushNamed(context, RoutesName.home);
   }
 }

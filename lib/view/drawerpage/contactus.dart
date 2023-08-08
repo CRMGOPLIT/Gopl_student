@@ -5,7 +5,6 @@ import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/utils/text_style.dart';
 import 'package:global_student/view/widget/app_bar.dart';
-import 'package:lottie/lottie.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContactUs extends StatefulWidget {
@@ -49,12 +48,24 @@ class _ContactUsState extends State<ContactUs> {
                           image: AssetImage("assets/images/bannerlogo.png"))),
                 ),
               ),
-              Center(
-                child: SizedBox(
-                    height: 150,
-                    width: 150,
-                    child: Lottie.asset("assets/images/contactus.json",
-                        fit: BoxFit.fill)),
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    RoutesName.branchLocation,
+                    (routes) => false,
+                  );
+                },
+                child: Center(
+                  child: SizedBox(
+                      height: 200,
+                      width: 250,
+                      child: Image.asset("assets/images/mapbranch.png",
+                          fit: BoxFit.fill)),
+                ),
+              ),
+              SizedBox(
+                height: 10.h,
               ),
               InkWell(
                 onTap: _launchUrl,
@@ -154,21 +165,6 @@ class _ContactUsState extends State<ContactUs> {
           ),
         ),
       ),
-      //floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      // floatingActionButton: Align(
-      //   alignment: Alignment.bottomRight,
-      //   child: FloatingActionButton(
-      //       backgroundColor: Colors.white,
-      //       onPressed: () {
-      //         whatsapp();
-      //       },
-      //       child: Column(
-      //         children: [
-      //           Image.asset("assets/images/whatsapp.png"),
-      //           Text("fjknkj")
-      //         ],
-      //       )),
-      // ),
       floatingActionButton: FloatingActionButton.extended(
           backgroundColor: Colors.transparent,
           highlightElevation: 0.0,
@@ -196,18 +192,20 @@ class _ContactUsState extends State<ContactUs> {
   }
 
   whatsapp() async {
-    var contact = "9155201859";
-    var androidUrl =
+    var contact = "+919205689041";
+    final androidUrl =
         "whatsapp://send?phone=$contact&text= Hi, I need some help";
-    var iosUrl =
-        "https://wa.me/$contact?text=${Uri.parse('Hi, I need some help')}";
+    final iosUrl =
+        "https://wa.me/$contact?text=${Uri.parse('Hi, I need some help regarding Abroad Education.')}";
 
     try {
       if (Platform.isIOS) {
+        // ignore: deprecated_member_use
         await launch(
           (iosUrl),
         );
-      } else { 
+      } else {
+        // ignore: deprecated_member_use
         await launch(
           (androidUrl),
         );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:global_student/utils/color.dart';
 
 import '../../utils/routes/routes_name.dart';
@@ -14,6 +15,8 @@ class VisaNotApplicable extends StatefulWidget {
 }
 
 class _VisaNotApplicableState extends State<VisaNotApplicable> {
+  var data2 = Get.arguments;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,25 +34,39 @@ class _VisaNotApplicableState extends State<VisaNotApplicable> {
           },
         ),
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 100.h,
-          ),
-          Center(
-            child: Image.asset(
-              "assets/images/visastatus.png",
-              height: 230.h,
-              width: 250.w,
-              fit: BoxFit.contain,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 100.h,
             ),
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          Text("You have not yet Reached Visa Stage.",
-              style: H2TextStyle(AppColors.PrimaryMainColor)),
-        ],
+            Center(
+              child: Image.asset(
+                "assets/images/visastatus.png",
+                height: 230.h,
+                width: 250.w,
+                fit: BoxFit.contain,
+              ),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            data2[0] == "0"
+                ? Text("You have not yet Reached Visa Stage.",
+                    style: H2TextStyle(AppColors.PrimaryMainColor))
+                : Column(
+                    children: [
+                      Text("Visa Already Applied.",
+                          style: H2TextStyle(AppColors.PrimaryMainColor)),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      Text("Contact to Your Counsellor.",
+                          style: batchtext2(AppColors.PrimaryMainColor)),
+                    ],
+                  ),
+          ],
+        ),
       ),
     );
   }

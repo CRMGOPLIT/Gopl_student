@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:io';
 import 'package:global_student/repogetory/dashBoardGet.dart';
@@ -182,9 +181,9 @@ class DashBoardBloc {
 
   //Get Batch Details
 
-  callGetBatchDetailsApi() async {
+  callGetBatchDetailsApi(Map<String, dynamic> parameter) async {
     try {
-      dynamic chuckCats = await dashBoardGet.getBatchDetailsRepo();
+      dynamic chuckCats = await dashBoardGet.getBatchDetailsRepo(parameter);
       batchControllerSink.add(chuckCats);
     } catch (e) {
       batchControllerSink.add('error');
@@ -325,11 +324,11 @@ class DashBoardBloc {
     userController.close();
     universityController.close();
     applicationController.close();
-
     boarduniversityController.close();
     qualificationController.close();
     documentuploadController.close();
     getmoredocumentcontroller.close();
+    getqualificationcontroller.close();
     uploadmoredocumentcontroller.close();
     getvisadetailscontroller.close();
     uploadviscontroller.close();

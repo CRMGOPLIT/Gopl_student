@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -6,8 +7,13 @@ import 'package:global_student/model/coursedetailsmodel.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/text_style.dart';
 import 'package:global_student/view/widget/app_bar.dart';
+import 'package:lottie/lottie.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../utils/routes/routes_name.dart';
+import '../helper/apiResponseHelper.dart';
+import '../widget/loader.dart';
 
 class CourseDetails extends StatefulWidget {
   const CourseDetails({super.key});
@@ -19,6 +25,7 @@ class CourseDetails extends StatefulWidget {
 class _CourseDetailsState extends State<CourseDetails> {
   late SearchBloc searchBloc;
   List<CourseMoreDetails> coursemoredetails = [];
+  final GlobalKey<State> _keyLoader = GlobalKey<State>();
 
   List colordata = [
     const Color(0xffc3ddd6),
@@ -54,13 +61,94 @@ class _CourseDetailsState extends State<CourseDetails> {
     }
   }
 
+  String? studentid;
+
+  setdata() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    studentid = prefs.getString("studentId");
+
+    setState(() {});
+  }
+
   @override
   void initState() {
     searchBloc = SearchBloc();
+    setdata();
     // scrollController.addListener(_scrollListener);
     super.initState();
     getCourseData();
     callcourseDetails();
+
+    searchBloc.courseappliedEmailStream.listen((event) {
+      Navigator.pop(context);
+      bool response =
+          ApiResponseHelper().handleResponse(event: event, context: context);
+
+      if (response == true && event.data['Status'] == 'Success') {
+        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        //   backgroundColor: Colors.green,
+        //   duration: const Duration(seconds: 1),
+        //   content: Text(
+        //     "Otp send your Mobile Number",
+        //     style: batchtext2(AppColors.PrimaryWhiteColor),
+        //   ),
+        // ));
+        sucess();
+        Timer(const Duration(milliseconds: 3000), () {
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            RoutesName.bottomnav,
+            (routes) => false,
+          );
+        });
+
+        // Get.to(const OtpPage(), arguments: _mobileNumber.text);
+        // Get.to(OtpPage(), arguments: _mobileNumber.text);
+        // Navigator.pushNamedAndRemoveUntil(
+        //     context, RoutesName.otp, (routes) => false,
+        //     arguments: {_mobileNumber.text});
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.transparent,
+          behavior: SnackBarBehavior.floating,
+          elevation: 0,
+          duration: const Duration(seconds: 2),
+          content: Container(
+            padding: const EdgeInsets.all(8),
+            height: 80,
+            decoration: BoxDecoration(
+              color: Colors.red.withOpacity(0.9),
+              borderRadius: const BorderRadius.all(Radius.circular(15)),
+            ),
+            child: Row(
+              children: [
+                const SizedBox(
+                  width: 30,
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Oops Error!',
+                        style: TextStyle(fontSize: 18.sp, color: Colors.white),
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      Text("Sorry!! Please Contact to Your counsellor",
+                          style: batchtext1(
+                            AppColors.PrimaryWhiteColor,
+                          )),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ));
+      }
+    });
   }
 
   void getCourseData() async {
@@ -92,6 +180,15 @@ class _CourseDetailsState extends State<CourseDetails> {
     searchBloc.callGetCourseDetails(data);
   }
 
+  searchFilter() {
+    NetworkDialog.showLoadingDialog(context, _keyLoader);
+    Map<String, String> courseAppliedemail = {
+      "CourseId": coursemoredetails[0].fCourseDetailId.toString(),
+      "StudentId": studentid.toString(),
+    };
+    searchBloc.callCourseAppliedEmail(courseAppliedemail);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,13 +199,6 @@ class _CourseDetailsState extends State<CourseDetails> {
           title: "Course Details",
           onpress: () {
             Get.back();
-
-            // Navigator.pushNamedAndRemoveUntil(
-            //   context,
-            //   RoutesName.courseSearch,
-            //   (routes) => false,
-            // );
-            // Navigator.pushNamed(context, RoutesName.bottomnav);
           },
         ),
       ),
@@ -187,17 +277,11 @@ class _CourseDetailsState extends State<CourseDetails> {
                       children: [
                         Container(
                           height: 40.h,
-                          // width: double.infinity,
                           padding: EdgeInsets.all(10.r),
                           decoration: BoxDecoration(
                               color: AppColors.PrimaryMainColor,
                               borderRadius: BorderRadius.circular(5.sp)),
-                          child:
-                              //  coursemoredetails[i].fNationalRank == null
-                              //     ? Text("")
-                              //     :
-
-                              Row(
+                          child: Row(
                             children: [
                               Image.asset(
                                 "assets/images/ranklogo.png",
@@ -217,19 +301,6 @@ class _CourseDetailsState extends State<CourseDetails> {
                             ],
                           ),
                         ),
-                        // Container(
-                        //   height: 40.h,
-                        //   width: 160.w,
-                        //   decoration: BoxDecoration(
-                        //       color: AppColors.PrimaryMainColor,
-                        //       borderRadius: BorderRadius.circular(5.sp)),
-                        //   child: ListTile(
-                        //     leading: Text(
-                        //       "GOPL Ranking :- ${coursemoredetails[0].fGlobalOpsRanking}",
-                        //       style: batchtext1(AppColors.PrimaryWhiteColor),
-                        //     ),
-                        //   ),
-                        // ),
                       ],
                     ),
                     SizedBox(
@@ -246,11 +317,11 @@ class _CourseDetailsState extends State<CourseDetails> {
                     ),
                     InkWell(
                       onTap: () async {
-                        if (await canLaunch(
-                            coursemoredetails[0].fUniversityUrl)) {
-                          await launch(coursemoredetails[0].fUniversityUrl);
-                        } else {
-                          throw 'Could not launch ${coursemoredetails[0].fUniversityUrl}';
+                        final Uri url = Uri.parse(
+                            coursemoredetails[0].fUniversityUrl.toString());
+                        if (!await launchUrl(url,
+                            mode: LaunchMode.externalApplication)) {
+                          throw Exception('Could not launch $url');
                         }
                       },
                       child: Center(
@@ -316,6 +387,10 @@ class _CourseDetailsState extends State<CourseDetails> {
                             children: [
                               SizedBox(
                                 height: 5.h,
+                              ),
+                              Coursefield(
+                                title: "Program Level :-  ",
+                                subtitle: coursemoredetails[0].fProgramLevel,
                               ),
                               Coursefield(
                                 title: "Intakes :-  ",
@@ -407,7 +482,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                             coursemoredetails[0].fSat <= 0
                         ? Container()
                         : SizedBox(
-                            height: 135.h,
+                            height: 138.h,
                             child: ListView.builder(
                                 shrinkWrap: true,
                                 scrollDirection: Axis.horizontal,
@@ -619,12 +694,62 @@ class _CourseDetailsState extends State<CourseDetails> {
                                 coursemoredetails[0].fRemark.toString(),
                                 style: batchtext1(AppColors.PrimaryBlackColor),
                               ),
+                              // Image.asset("assets/images/sucess.gif"),
+                              Center(
+                                child: InkWell(
+                                  onTap: () {
+                                    searchFilter();
+                                    // sucess();
+                                  },
+                                  child: Container(
+                                      height: 40.h,
+                                      width: 100.w,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(5.sp),
+                                          color: Colors.green),
+                                      child: Center(
+                                        child: Text(
+                                          "Apply Now",
+                                          style: batchtext2(
+                                              AppColors.PrimaryWhiteColor),
+                                        ),
+                                      )),
+                                ),
+                              )
                             ],
                           ),
                   ],
                 ),
               ),
             ),
+    );
+  }
+
+  sucess() {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Column(
+          children: [
+            Image.asset(
+              "assets/images/bannerlogo.png",
+              height: 40.h,
+              width: 200.w,
+              fit: BoxFit.contain,
+            ),
+            SizedBox(
+                height: 100.h,
+                child: Lottie.asset(
+                  "assets/images/sucess1.json",
+                )),
+          ],
+        ),
+        content: Text(
+          "Your Query is submitted to counsellor.",
+          style: batchtext2(AppColors.PrimaryMainColor),
+        ),
+      ),
     );
   }
 }
@@ -660,7 +785,7 @@ class StanderedTest extends StatelessWidget {
               child: CircularPercentIndicator(
                 animation: true,
                 animationDuration: 3600,
-                radius: 25.0,
+                radius: 25.0.r,
                 lineWidth: 3.0,
 
                 // header: new Text("Icon header"),
@@ -676,7 +801,7 @@ class StanderedTest extends StatelessWidget {
               height: 5.h,
             ),
             Padding(
-              padding: const EdgeInsets.all(5.0),
+              padding: const EdgeInsets.all(5.0).r,
               child: Text(
                 title,
                 maxLines: 2,

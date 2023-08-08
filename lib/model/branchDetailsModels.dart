@@ -26,11 +26,11 @@ class BranchDetailsModel {
 
   factory BranchDetailsModel.fromJson(Map<String, dynamic> json) =>
       BranchDetailsModel(
-        branchId: json["branch_id"],
-        branchName: json["branch_name"],
-        branchPhone: json["branch_phone"],
-        branchAddress: json["branch_Address"],
-        locationUrl: json["Location_Url"],
+        branchId: json["branch_id"].toString(),
+        branchName: json["branch_name"].toString(),
+        branchPhone: json["branch_phone"].toString(),
+        branchAddress: json["branch_Address"].toString(),
+        locationUrl: json["Location_Url"].toString(),
         branchUrl: json["branch_url"].toString(),
       );
 

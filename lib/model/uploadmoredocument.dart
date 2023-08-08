@@ -8,6 +8,19 @@ String uploadmoreDocumentToJson(List<UploadmoreDocument> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class UploadmoreDocument {
+  final String fStudentId;
+  final String fApplicationId;
+  final String fIntake;
+  final String universityApplied;
+  final int fUniversityId;
+  final String fApplicationStage;
+  final String courseName;
+  final String currentAppStage;
+  final String currentPosition;
+  final List<StudentMorDocument> studentMorDocument;
+  final String fApplicationUpdatedStage;
+  final dynamic fDocumentName;
+
   UploadmoreDocument({
     required this.fStudentId,
     required this.fApplicationId,
@@ -22,19 +35,6 @@ class UploadmoreDocument {
     required this.fApplicationUpdatedStage,
     required this.fDocumentName,
   });
-
-  final String fStudentId;
-  final String fApplicationId;
-  final String fIntake;
-  final String universityApplied;
-  final int fUniversityId;
-  final String fApplicationStage;
-  final String courseName;
-  final String currentAppStage;
-  final String currentPosition;
-  final List<StudentMorDocument> studentMorDocument;
-  final String fApplicationUpdatedStage;
-  final String fDocumentName;
 
   factory UploadmoreDocument.fromJson(Map<String, dynamic> json) =>
       UploadmoreDocument(
@@ -72,26 +72,30 @@ class UploadmoreDocument {
 }
 
 class StudentMorDocument {
+  final String fDocumentName;
+  final String fDocument;
+  final String fMoreDocRemark;
+  final String fDocumentStatus;
+
   StudentMorDocument({
     required this.fDocumentName,
     required this.fDocument,
     required this.fMoreDocRemark,
+    required this.fDocumentStatus,
   });
-
-  final String fDocumentName;
-  final String fDocument;
-  final String fMoreDocRemark;
 
   factory StudentMorDocument.fromJson(Map<String, dynamic> json) =>
       StudentMorDocument(
         fDocumentName: json["f_document_name"],
         fDocument: json["f_document"],
         fMoreDocRemark: json["f_MoreDoc_Remark"],
+        fDocumentStatus: json["f_document_status"],
       );
 
   Map<String, dynamic> toJson() => {
         "f_document_name": fDocumentName,
         "f_document": fDocument,
         "f_MoreDoc_Remark": fMoreDocRemark,
+        "f_document_status": fDocumentStatus,
       };
 }

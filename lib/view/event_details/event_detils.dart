@@ -139,31 +139,33 @@ class _EventDetailsState extends State<EventDetails> {
                   ),
                   Expanded(
                     child: TabBarView(children: [
-                      //Tab 2
+                      //Tab 1
 
                       universitydetails.isEmpty
-                          ? Column(
-                              children: [
-                                SizedBox(
-                                  height: 100.h,
-                                ),
-                                Center(
-                                    child: Image.asset(
-                                  "assets/images/noevent.png",
-                                  height: 230.h,
-                                  width: 250.w,
-                                  fit: BoxFit.contain,
-                                )),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                                Text("Event Coming soon...👨‍💻",
-                                    style: H2TextStyle(
-                                        AppColors.PrimaryMainColor)),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                              ],
+                          ? SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 100.h,
+                                  ),
+                                  Center(
+                                      child: Image.asset(
+                                    "assets/images/noevent.png",
+                                    height: 230.h,
+                                    width: 250.w,
+                                    fit: BoxFit.contain,
+                                  )),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  Text("Event Coming soon...👨‍💻",
+                                      style: H2TextStyle(
+                                          AppColors.PrimaryMainColor)),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                ],
+                              ),
                             )
                           : ListView.builder(
                               itemCount: universitydetails.length,
@@ -409,20 +411,17 @@ class _EventDetailsState extends State<EventDetails> {
                                               ),
                                               InkWell(
                                                 onTap: () async {
-                                                  const url =
-                                                      'https://www.google.com/maps/d/viewer?mid=1T1ZLcwz23FD9CGb7GnBTTtiXfxw&hl=en_US&ll=28.684263000000033%2C77.18702299999997&z=17';
-                                                  if (await canLaunch(
-                                                      data[index]
-                                                          .venueLocation
-                                                          .toString())) {
-                                                    await launch(data[index]
-                                                        .venueLocation
-                                                        .toString());
-                                                  } else {
-                                                    throw 'Could not launch $url';
-                                                  }
+                                                  // final Uri url = Uri.parse(
+                                                  //     data[index]
+                                                  //         .venueLocation);
+                                                  // if (!await launchUrl(url,
+                                                  //     mode: LaunchMode
+                                                  //         .externalApplication)) {
+                                                  //   throw Exception(
+                                                  //       'Could not launch $url');
+                                                  // }
                                                 },
-                                                child: Row( 
+                                                child: Row(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
@@ -635,17 +634,14 @@ class _EventDetailsState extends State<EventDetails> {
                                               ),
                                               InkWell(
                                                 onTap: () async {
-                                                  const url =
-                                                      'https://www.google.com/maps/d/viewer?mid=1T1ZLcwz23FD9CGb7GnBTTtiXfxw&hl=en_US&ll=28.684263000000033%2C77.18702299999997&z=17';
-                                                  if (await canLaunch(
+                                                  final Uri url = Uri.parse(
                                                       data[index]
-                                                          .venueLocation
-                                                          .toString())) {
-                                                    await launch(data[index]
-                                                        .venueLocation
-                                                        .toString());
-                                                  } else {
-                                                    throw 'Could not launch $url';
+                                                          .venueLocation);
+                                                  if (!await launchUrl(url,
+                                                      mode: LaunchMode
+                                                          .externalApplication)) {
+                                                    throw Exception(
+                                                        'Could not launch $url');
                                                   }
                                                 },
                                                 child: Row(

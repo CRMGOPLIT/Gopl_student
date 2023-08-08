@@ -73,172 +73,174 @@ class _BranchLocationState extends State<BranchLocation> {
               strokeWidth: 2.w,
               color: AppColors.PrimaryMainColor,
             ))
-          : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                      itemCount: data.length,
-                      itemBuilder: (context, index) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left: 15.r,
-                                  right: 15.r,
-                                  bottom: 5.r.r,
-                                  top: 5.r),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    height: 150.h,
-                                    width: 330.w,
-                                    decoration: BoxDecoration(
-                                        color: AppColors.PrimaryMainColor,
-                                        borderRadius:
-                                            BorderRadius.circular(10.r),
-                                        image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: NetworkImage(
-                                              data[index].branchUrl,
-                                            ))),
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          height: 150.h,
-                                          width: 330.w,
-                                          decoration: BoxDecoration(
-                                              color:
-                                                  Colors.black.withOpacity(0.3),
-                                              borderRadius:
-                                                  BorderRadius.circular(10.sp)),
-                                          child: Column(
-                                            children: [
-                                              Padding(
-                                                padding:
-                                                    EdgeInsets.only(left: 8.r),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    SizedBox(
-                                                      height: 70.h,
-                                                    ),
-                                                    Text(
-                                                      data[index]
-                                                          .branchName
-                                                          .toString(),
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: batchtext2(AppColors
-                                                          .PrimaryWhiteColor),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 5.h,
-                                                    ),
-                                                    Row(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Icon(
-                                                          Icons.location_on,
-                                                          size: 15.sp,
-                                                          color: AppColors
-                                                              .PrimaryWhiteColor,
-                                                        ),
-                                                        SizedBox(
-                                                          width: 5.w,
-                                                        ),
-                                                        InkWell(
-                                                          onTap: () async {
-                                                            final Uri url =
-                                                                Uri.parse(data[
-                                                                        index]
-                                                                    .locationUrl);
-                                                            if (!await launchUrl(
-                                                                url,
-                                                                mode: LaunchMode
-                                                                    .externalApplication)) {
-                                                              throw Exception(
-                                                                  'Could not launch $url');
-                                                            }
-                                                          },
-                                                          child: SizedBox(
-                                                            width: 300.w,
-                                                            child: Text(
-                                                                data[index]
-                                                                    .branchAddress
-                                                                    .toString(),
-                                                                maxLines: 3,
-                                                                style: location(
-                                                                    AppColors
-                                                                        .PrimaryWhiteColor)),
-                                                          ),
-                                                        )
-                                                      ],
-                                                    ),
-                                                    SizedBox(
-                                                      height: 5.h,
-                                                    ),
-                                                    Row(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Icon(
-                                                          Icons.phone,
-                                                          size: 15.sp,
-                                                          color: AppColors
-                                                              .PrimaryWhiteColor,
-                                                        ),
-                                                        SizedBox(
-                                                          width: 5.w,
-                                                        ),
-                                                        SizedBox(
-                                                          width: 160.w,
-                                                          child: Text(
-                                                            data[index]
-                                                                .branchPhone
-                                                                .toString(),
-                                                            style: batchtext2(
-                                                                AppColors
-                                                                    .PrimaryWhiteColor),
-                                                          ),
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ],
+          : Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemCount: data.length,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: [
+                              Card(
+                                elevation: 4,
+                                child: Container(
+                                  height: 165.h,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: AppColors.PrimaryGreyColor),
+                                      color: AppColors.PrimaryWhiteColor,
+                                      borderRadius: BorderRadius.circular(5.r)),
+                                  child: Column(
+                                    children: [
+                                      Stack(
+                                        children: [
+                                          Image.network(
+                                            data[index].branchUrl,
+                                            height: 103.h,
+                                            width: 320.w,
+                                            fit: BoxFit.fill,
+                                          ),
+                                          Positioned(
+                                            left: 190.w,
+                                            top: 4.h,
+                                            child: Container(
+                                              constraints: const BoxConstraints(
+                                                maxHeight: double.infinity,
+                                              ),
+                                              width: 120.w,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    AppColors.PrimaryWhiteColor
+                                                        .withOpacity(0.7),
+                                                borderRadius:
+                                                    BorderRadius.circular(20.r),
+                                              ),
+                                              child: Padding(
+                                                padding: EdgeInsets.all(8.r),
+                                                child: Text(
+                                                  data[index]
+                                                      .branchName
+                                                      .toString(),
+                                                  textAlign: TextAlign.center,
+                                                  style: FieldTextStyle(
+                                                      AppColors
+                                                          .PrimaryMainColor),
                                                 ),
                                               ),
-                                            ],
+                                            ),
                                           ),
-                                        )
-                                      ],
-                                    ),
+                                        ],
+                                      ),
+                                      Container(
+                                        height: 60.h,
+                                        padding: EdgeInsets.all(5.h),
+                                        decoration: const BoxDecoration(
+                                            color: AppColors.PrimaryWhiteColor),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Icon(
+                                                  Icons.location_on,
+                                                  size: 15.sp,
+                                                  color: Colors.red,
+                                                ),
+                                                SizedBox(
+                                                  width: 10.w,
+                                                ),
+                                                InkWell(
+                                                  onTap: () async {
+                                                    final Uri url = Uri.parse(
+                                                        data[index]
+                                                            .locationUrl);
+                                                    if (!await launchUrl(url,
+                                                        mode: LaunchMode
+                                                            .externalApplication)) {
+                                                      throw Exception(
+                                                          'Could not launch $url');
+                                                    }
+                                                  },
+                                                  child: SizedBox(
+                                                    width: 280.w,
+                                                    child: Text(
+                                                        data[index]
+                                                            .branchAddress
+                                                            .toString(),
+                                                        maxLines: 2,
+                                                        style: location(AppColors
+                                                            .PrimaryMainColor)),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 5.h,
+                                            ),
+                                            InkWell(
+                                              onTap: () async {
+                                                openDialPad(
+                                                    data[index].branchPhone);
+                                              },
+                                              child: Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Icon(
+                                                    Icons.phone,
+                                                    size: 15.sp,
+                                                    color: Colors.green,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 10.w,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 160.w,
+                                                    child: Text(
+                                                      data[index]
+                                                          .branchPhone
+                                                          .toString(),
+                                                      style: batchtext1(AppColors
+                                                          .PrimaryMainColor),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
-                          ],
-                        );
-                      }),
-                )
-              ],
+                            ],
+                          );
+                        }),
+                  ),
+                ],
+              ),
             ),
     );
+  }
+
+  openDialPad(String phoneNumber) async {
+    Uri url = Uri(scheme: "tel", path: phoneNumber);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    }
   }
 }

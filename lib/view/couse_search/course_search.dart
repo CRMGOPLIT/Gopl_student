@@ -11,7 +11,6 @@ import 'package:global_student/utils/text_style.dart';
 import 'package:global_student/view/course_details/course_details.dart';
 import 'package:global_student/view/course_details/topuniversitydetails.dart';
 import 'package:global_student/view/couse_search/universitylistpage.dart';
-import 'package:global_student/view/dashboard/dash_grid_model.dart';
 import 'package:global_student/view/widget/app_bar.dart';
 
 class CourseSerach extends StatefulWidget {
@@ -61,6 +60,28 @@ class _CourseSerachState extends State<CourseSerach> {
 
   getdata() {
     searchBloc.callSearchDashSearchApi();
+  }
+
+  List<String> colors = [];
+
+  List<String> generateRandomColors() {
+    List<String> colorList = [
+      'assets/images/c1.png',
+      'assets/images/c2.png',
+      'assets/images/c3.png',
+      'assets/images/c1.png',
+    ];
+
+    colorList.shuffle(Random());
+    return colorList;
+  }
+
+  getRandomColor() {
+    if (colors.isEmpty) {
+      // Regenerate colors if the list is empty
+      colors = generateRandomColors();
+    }
+    return colors.removeLast(); // Remove the last color from the list
   }
 
   @override
@@ -378,9 +399,6 @@ class _CourseSerachState extends State<CourseSerach> {
                         scrollDirection: Axis.horizontal,
                         itemCount: dashboardCountryDetail.length,
                         itemBuilder: (context, index) {
-                          final randomIndex =
-                              Random().nextInt(Countrycourse.length);
-                          final imageUrl = Countrycourse[randomIndex].image;
                           return Row(
                             children: [
                               InkWell(
@@ -401,13 +419,32 @@ class _CourseSerachState extends State<CourseSerach> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Column(
                                       children: [
-                                        CircleAvatar(
-                                          backgroundColor: Colors.transparent,
-                                          backgroundImage: AssetImage(
-                                            imageUrl.toString(),
-                                          ),
-                                          radius: 40,
-                                        ),
+                                        dashboardCountryDetail[index]
+                                                        .countryImg
+                                                        .toString() !=
+                                                    "" &&
+                                                dashboardCountryDetail[index]
+                                                        .countryImg
+                                                        .toString() !=
+                                                    "null"
+                                            ? CircleAvatar(
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                backgroundImage: NetworkImage(
+                                                  dashboardCountryDetail[index]
+                                                      .countryImg
+                                                      .toString(),
+                                                ),
+                                                radius: 40.r,
+                                              )
+                                            : CircleAvatar(
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                backgroundImage:
+                                                    const AssetImage(
+                                                        "assets/images/c1.png"),
+                                                radius: 40.r,
+                                              ),
                                         SizedBox(
                                           height: 2.h,
                                         ),

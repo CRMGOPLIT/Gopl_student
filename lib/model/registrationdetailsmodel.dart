@@ -99,10 +99,10 @@ class DdlCountryIntrested {
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['IntrestedCountryId'] = IntrestedCountryId;
-    _data['IntrestedCountryName'] = IntrestedCountryName;
-    return _data;
+    final data = <String, dynamic>{};
+    data['IntrestedCountryId'] = IntrestedCountryId;
+    data['IntrestedCountryName'] = IntrestedCountryName;
+    return data;
   }
 }
 

@@ -7,13 +7,13 @@ class Registrationget {
   Future<dynamic> getRegistraionDetailsApi() async {
     final response = await _apiProvider
         .get(NetworkConstant.END_POINT_Get_REGISTRATIONDETAILS);
-  
-    return response; //GetApplicationDetailsResponse.fromJson(response);
+
+    return response;
   }
 
   Future<dynamic> postRegistration(Map<String, String> parameter) async {
     final response = await _apiProvider.postBeforeAuth(
         parameter, NetworkConstant.END_POINT_POST_REGISTRATION);
-    return response; //GetApplicationDetailsResponse.fromJson(response);
+    return response;
   }
 }

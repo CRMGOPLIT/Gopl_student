@@ -11,8 +11,7 @@ class ApiResponseHelper {
   }) {
     if (event.status == Status.COMPLETED) {
       if (event.data['status'] == 'FAILURE') {
-        //IF Anything going wrong
-        showDialog<void>(
+        showDialog(
             context: context,
             barrierColor: AppColors.PrimaryMainColor,
             barrierDismissible: false,
@@ -36,7 +35,6 @@ class ApiResponseHelper {
           onPressed: () {
             Navigator.pop(context);
             return false;
-            // callGetAplicationDetails();
           });
     }
     return false;

@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:global_student/utils/color.dart';
@@ -42,7 +41,7 @@ class _BottomState extends State<Bottom> {
             type: BottomNavigationBarType.fixed,
             selectedLabelStyle: batchtext2(AppColors.hintcolor),
             unselectedLabelStyle: batchtext1(AppColors.hintcolor),
-            iconSize: 25,
+            iconSize: 20.sp,
             backgroundColor: AppColors.PrimaryWhiteColor,
             elevation: 10,
             selectedFontSize: 10,
@@ -50,27 +49,39 @@ class _BottomState extends State<Bottom> {
             selectedItemColor: AppColors.PrimaryMainColor,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home,
+                  icon: ImageIcon(
+                    AssetImage("assets/images/b1.png"),
+                  ),
+                  activeIcon: ImageIcon(
+                    AssetImage("assets/images/b1.png"),
                   ),
                   label: "Home",
                   backgroundColor: AppColors.PrimaryGreyColor),
               BottomNavigationBarItem(
-                  icon: InkWell(
-                    child: Icon(
-                      Icons.query_stats_rounded,
-                    ),
-                  ),
-                  label: "Application",
-                  backgroundColor: Colors.red),
+                icon: ImageIcon(
+                  AssetImage("assets/images/b2.png"),
+                ),
+                activeIcon: ImageIcon(
+                  AssetImage("assets/images/b2.png"),
+                ),
+                label: "My Application",
+              ),
               BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.phone,
-                  ),
-                  label: "Contact Us",
-                  backgroundColor: Colors.white),
+                icon: ImageIcon(
+                  AssetImage("assets/images/b3.png"),
+                ),
+                activeIcon: ImageIcon(
+                  AssetImage("assets/images/b3.png"),
+                ),
+                label: "Contact Us",
+              ),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.person_rounded),
+                  icon: ImageIcon(
+                    AssetImage("assets/images/b4.png"),
+                  ),
+                  activeIcon: ImageIcon(
+                    AssetImage("assets/images/b4.png"),
+                  ),
                   label: 'Profile',
                   backgroundColor: Colors.white),
             ],
@@ -99,23 +110,24 @@ class _BottomState extends State<Bottom> {
           duration: const Duration(seconds: 1),
           behavior: SnackBarBehavior.floating,
           backgroundColor: AppColors.PrimaryWhiteColor,
-
-          // width: double.infinity,
+          elevation: 4,
+          width: 220.w,
           content: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Container(
                 color: AppColors.PrimaryMainColor,
-                // decoration:
-                //     BoxDecoration(borderRadius: BorderRadius.circular(10)),
                 child: Image.asset(
                   "assets/images/logomain.jpg",
                   height: 20.h,
                   width: 20.w,
                 ),
               ),
+              SizedBox(
+                width: 10.w,
+              ),
               Text(
-                "Press again the button to exit",
+                "Press back again to exit",
                 style: batchtext1(AppColors.PrimaryMainColor),
               ),
             ],

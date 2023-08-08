@@ -1,3 +1,5 @@
+import 'dart:math';
+import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,7 +11,6 @@ import 'package:global_student/model/usersModel.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/text_style.dart';
 import 'package:global_student/view/applicationStatus/application_status.dart';
-import 'package:global_student/view/batch_details/batch_details.dart';
 import 'package:global_student/view/branch_location/branch_location.dart';
 import 'package:global_student/view/couse_search/course_search.dart';
 import 'package:global_student/view/dashboard/dash_grid_model.dart';
@@ -20,7 +21,10 @@ import 'package:global_student/view/visa/visa_page.dart';
 import 'package:global_student/view/widget/drawer.dart';
 import 'package:global_student/view/widget/visanotapplicalble.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../model/universityvisitModel.dart';
+import '../batch_details/batchlist.dart';
 import '../qualification/highschool.dart';
+import '../qualification/interschool.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -43,6 +47,7 @@ class _HomePageState extends State<HomePage> {
     const Color(0xffCEA279),
     const Color(0xff6DACC0),
   ];
+
   Bannermodel? bannermodeldata;
 
   List page = [
@@ -50,7 +55,7 @@ class _HomePageState extends State<HomePage> {
     const UploadMoreDocument(),
     const CourseSerach(),
     const ApplicationStatus(),
-    const BatchDetails(),
+    const BatchList(),
     const EventDetails(),
     const BranchLocation(),
     // Container(),
@@ -60,6 +65,7 @@ class _HomePageState extends State<HomePage> {
 
   bool loanding = true;
   bool loanding1 = true;
+  bool loanding3 = true;
   late DashBoardBloc dashBoardBloc;
   List data = [];
   List dataUser = [];
@@ -68,30 +74,29 @@ class _HomePageState extends State<HomePage> {
 
   List<String> bannerimages = [];
 
+  List<UniversityVisitModel> universitydetails = [];
+
+  List universityData = [];
+
   @override
   void initState() {
     dashBoardBloc = DashBoardBloc();
     getBannersDetails();
     _gethomeData();
     getUserDetailsdone();
-    //_gethomeDatadone();
+    getUniversityDetails();
+
     setState(() {
       getUserDetails();
     });
+    colors = generateRandomColors();
 
-    // SaveName();
     super.initState();
   }
 
   List<QualificationSubmitModel> qualificationdatasubmit = [];
   List qualidata = [];
   bool loading2 = true;
-
-  // _gethomeDatadone() {
-  //   //dashBoardBloc.callBoardListApi();
-  //   dashBoardBloc.callQualificationApi();
-  //   // dashBoardBloc.callQualificationListApi();
-  // }
 
   getUserDetailsdone() async {
     dashBoardBloc.getqualificationcontrollerStream.listen((event) {
@@ -102,29 +107,14 @@ class _HomePageState extends State<HomePage> {
               QualificationSubmitModel.fromJson(event[i]);
           qualificationdatasubmit.add(qualificationSubmitModel);
         }
-        // Application.add(userData1);
+
         setState(() {
           loading2 = false;
         });
       }
     });
   }
-//     SharedPreferences prefs = await SharedPreferences.getInstance();
-  //     bool _seen = (prefs.getBool('seen') ?? false);
 
-  //     if (_seen) {
-  //       Future.delayed(const Duration(seconds: 3), () {
-  //         Navigator.pushNamed(context, RoutesName.home);
-
-  //         // getConnectivity();
-  //       });
-  //     } else {
-  //       await prefs.setBool('seen', true);
-  //       Future.delayed(const Duration(seconds: 3), () {
-  //         Navigator.pushNamed(context, RoutesName.onbording);
-  //         //  getConnectivity();
-  //       });
-  //     }
   String? name;
   getUserDetails() async {
     dashBoardBloc.userControllerStream.listen((event) async {
@@ -134,6 +124,7 @@ class _HomePageState extends State<HomePage> {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('Name', userData1.fFirstName.toString());
         prefs.setString('Email', userData1.fStudentEmail.toString());
+        prefs.setString('studentId', userData1.fStudentId.toString());
         prefs.setString(
             'counsellorcall', userData1.fCounsellorMobile.toString());
 
@@ -146,13 +137,6 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  // String? sName;
-  // SaveName() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   //Return String
-  //   sName = prefs.getString('Name');
-  // }
-
   getBannersDetails() async {
     dashBoardBloc.bannersControllerStream.listen((event) {
       if (event != null) {
@@ -162,14 +146,26 @@ class _HomePageState extends State<HomePage> {
 
         bannermodeldata = bannermodel;
 
-        // BranchData = event;
-        // for (int i = 0; i < BranchData.length; i++) {
-        //   Bannermodel bannermodel1 = Bannermodel.fromJson(event[i]);
-
-        //   data.add(bannermodel1);
-        // }
         setState(() {
           loanding = false;
+        });
+      }
+    });
+  }
+
+  getUniversityDetails() async {
+    dashBoardBloc.universityControllerStream.listen((event) {
+      if (event != null) {
+        universityData = event;
+
+        for (int i = 0; i < universityData.length; i++) {
+          UniversityVisitModel universityVisitModel =
+              UniversityVisitModel.fromJson(event[i]);
+          universitydetails.add(universityVisitModel);
+        }
+
+        setState(() {
+          loanding3 = false;
         });
       }
     });
@@ -179,250 +175,370 @@ class _HomePageState extends State<HomePage> {
     dashBoardBloc.callGetBannersDetailsApi();
     dashBoardBloc.callGetUsersDetailsApi();
     dashBoardBloc.callQualificationApi();
+    dashBoardBloc.callGetUniversityDetailsApi();
+  }
+
+  List<Color> colors = [];
+
+  List<Color> generateRandomColors() {
+    List<Color> colorList = [
+      const Color(0xffEEF5FF),
+      const Color(0xffFFEEF0),
+      const Color(0xffF4F3FF),
+      const Color(0xffF2F9F6),
+      const Color(0xffF9F2F6),
+      const Color(0xffFFEEF9),
+      const Color(0xffFFF6EE),
+      const Color(0xffF3FCFF),
+    ];
+    // Shuffle the colors randomly
+    colorList.shuffle(Random());
+    return colorList;
+  }
+
+  Color getRandomColor() {
+    if (colors.isEmpty) {
+      // Regenerate colors if the list is empty
+      colors = generateRandomColors();
+    }
+    return colors.removeLast();
   }
 
   String capitalize(String str) => str[0].toUpperCase() + str.substring(1);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.PrimaryWhiteColor,
-      appBar: AppBar(
+    return SafeArea(
+      child: Scaffold(
         backgroundColor: AppColors.PrimaryWhiteColor,
-        elevation: 0,
-        iconTheme: const IconThemeData(color: AppColors.PrimaryMainColor),
-        leading: InkWell(
-          onTap: () {
-            if (_drawerscaffoldkey.currentState!.isDrawerOpen) {
-              Navigator.pop(context);
-            } else {
-              _drawerscaffoldkey.currentState!.openDrawer();
-            }
-          },
-          child: Icon(
-            Icons.menu,
-            color: AppColors.PrimaryBlackColor,
-            size: 30.sp,
+        appBar: AppBar(
+          backgroundColor: AppColors.PrimaryWhiteColor,
+          elevation: 0,
+          iconTheme: const IconThemeData(color: AppColors.PrimaryMainColor),
+          leading: InkWell(
+            onTap: () {
+              if (_drawerscaffoldkey.currentState!.isDrawerOpen) {
+                _drawerscaffoldkey.currentState!.closeDrawer();
+              } else {
+                _drawerscaffoldkey.currentState!.openDrawer();
+              }
+            },
+            child: Icon(
+              Icons.menu,
+              color: AppColors.PrimaryBlackColor,
+              size: 30.sp,
+            ),
           ),
+          title: loanding1 == true
+              ? Container()
+              : RichText(
+                  text: TextSpan(
+                      style: TextStyle(color: Colors.black, fontSize: 18.sp),
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: 'Hello,',
+                            style: batchtext2(
+                              AppColors.PrimaryBlackColor,
+                            )),
+                        TextSpan(
+                            text: capitalize(name!).toString(),
+                            style: batchtext1(
+                              AppColors.PrimaryBlackColor,
+                            )),
+                      ]),
+                ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset(
+                "assets/images/bannerlogo.png",
+                height: 20.h,
+                width: 150.w,
+                fit: BoxFit.contain,
+              ),
+            ),
+          ],
         ),
-        title: loanding1 == true
-            ? Container()
-            : RichText(
-                text: TextSpan(
-                    style: TextStyle(color: Colors.black, fontSize: 18),
-                    children: <TextSpan>[
-                      TextSpan(
-                          text: 'Hello,',
-                          style: batchtext2(
-                            AppColors.PrimaryBlackColor,
-                          )),
-                      TextSpan(
-                          text: capitalize(name!).toString(),
-                          style: batchtext1(
-                            AppColors.PrimaryBlackColor,
-                          )),
-                    ]),
-              ),
-
-        //  Text("Hello,$name",
-        //     style: btntext(
-        //       AppColors.PrimaryBlackColor,
-        //     )),
-        // loanding1 == true
-        //     ? const Text(
-        //         "",
-        //       )
-        //     : Text(userData1.fFirstName.toString(),
-        //         style: btntext(
-        //           AppColors.PrimaryBlackColor,
-        //         )
-        // ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset(
-              "assets/images/bannerlogo.png",
-              height: 20.h,
-              width: 150.w,
-              fit: BoxFit.contain,
-            ),            
-          ),
-          // InkWell(
-          //   onTap: () {
-          //     Navigator.pushNamed(context, RoutesName.notificationpage);
-          //   },
-          //   child: Padding(
-          //     padding: const EdgeInsets.only(right: 20),
-          //     child: Icon(
-          //       Icons.notifications_rounded,
-          //       size: 30.sp,
-          //       color: AppColors.PrimaryBlackColor,
-          //     ),
-          //   ),
-          // ),
-        ],
-      ),
-      drawer: const drawer(),
-      key: _drawerscaffoldkey,
-      body: Column(
-        children: [
-          Container(
-              height: 160.h,
-              padding: EdgeInsets.all(15.r),
-              child: loanding == true
-                  ? Container(
-                      color: AppColors.PrimaryGreyColor,
-                    )
-                  : ImageSlideshow(
-                      width: double.infinity,
-                      // height: 15.h,
-                      initialPage: 0,
-                      indicatorColor: const Color(0xff5D88C6),
-                      indicatorBackgroundColor: AppColors.PrimaryGreyColor,
-                      onPageChanged: (value) {},
-                      autoPlayInterval: 3000,
-                      isLoop: true,
-                      children: List.generate(bannerimages.length, (index) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.sp),
-                            image: DecorationImage(
-                                image: NetworkImage(bannerimages[index]),
-                                fit: BoxFit.fill
-                                // fit: BoxFit.cover,
-                                ),
-                          ),
-                        );
-                      }))),
-          // SizedBox(
-          //   height: 10.h,
-          // ),
-          // Text(
-          //   bannermodeldata!.isVisaApplicable.toString(),
-          //   style: TextStyle(color: AppColors.PrimaryBlackColor),
-          // ),
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                // color: AppColors.PrimaryMainColor,
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(25.r),
-                  topLeft: Radius.circular(25.r),
-                ),
-              ),
-              child: Container(
-                padding: EdgeInsets.only(
-                  left: 15.r,
-                  right: 15.r,
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: GridView.builder(
-                        physics: const BouncingScrollPhysics(
-                            parent: AlwaysScrollableScrollPhysics()),
-                        shrinkWrap: true,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 20.r,
-                            mainAxisSpacing: 20.r,
-                            childAspectRatio: 10.h / 8.h),
-                        itemCount: dashgrid.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return InkWell(
-                            onTap: () {
-                              if (index == 7) {
-                                bannermodeldata!.isVisaApplicable == "0"
-                                    ? Get.to(() => const VisaNotApplicable())
-                                    : Get.to(
-                                        const VisaPage(),
-                                        arguments: [
-                                          bannermodeldata!.countryId,
-                                          bannermodeldata!.countryName,
-                                          bannermodeldata!.isVisaApplicable,
-                                          bannermodeldata!.courseId,
-                                          bannermodeldata!.studentId,
-                                          // dashboardCountryDetail[index].country
-                                        ],
-                                      );
-                              } else {
-                                index == 0 &&
-                                        qualificationdatasubmit.length >= 2
-                                    ? Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const DonePage()))
-                                    : Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => page[index]));
-                              }
-                            },
-
-                            // Navigator.pushNamed(
-                            //     context, page[index].toString());
-
-                            child: Container(
-                              padding: EdgeInsets.all(5.r),
-                              decoration: BoxDecoration(
-                                  color: dashgrid[index].color,
-                                  borderRadius: BorderRadius.circular(10.r),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                        offset: Offset(
-                                          3,
-                                          3,
-                                        ),
-                                        color: Colors.black12,
-                                        blurRadius: 1.0,
-                                        spreadRadius: 0.0),
-                                  ]),
-                              child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    // Lottie.asset(
-                                    //   dashgrid[index].image!,
-                                    //   height: 60.h,
-                                    //   width: 60.w,
-                                    //   fit: BoxFit.cover,
-                                    // ),
-                                    Container(
-                                      padding: EdgeInsets.all(10.sp),
-                                      alignment: Alignment.center,
-                                      height: 55.h,
-                                      width: 55.w,
-                                      decoration: BoxDecoration(
-                                          color: color[index],
-                                          shape: BoxShape.circle),
-                                      child: Image.asset(
-                                        // "assets/images/timer.json",
-                                        dashgrid[index].image!,
-                                        // height: 5.h,
-                                        // width: 5.w,
-
-                                        //fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 10.h,
-                                    ),
-                                    Text(dashgrid[index].title!,
-                                        textAlign: TextAlign.center,
-                                        style: batchtext2(
-                                          AppColors.PrimaryBlackColor,
-                                        )),
-                                  ]),
+        drawer: const drawer(),
+        key: _drawerscaffoldkey,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+                height: 160.h,
+                padding: EdgeInsets.all(10.r),
+                child: loanding == true
+                    ? Container(
+                        color: AppColors.PrimaryGreyColor,
+                      )
+                    : ImageSlideshow(
+                        width: double.infinity,
+                        initialPage: 0,
+                        indicatorColor: const Color(0xff5D88C6),
+                        indicatorBackgroundColor: AppColors.PrimaryGreyColor,
+                        onPageChanged: (value) {},
+                        autoPlayInterval: 3000,
+                        isLoop: true,
+                        children: List.generate(bannerimages.length, (index) {
+                          return Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.sp),
+                              image: DecorationImage(
+                                  image: NetworkImage(bannerimages[index]),
+                                  fit: BoxFit.fill),
                             ),
                           );
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                  ],
-                ),
+                        }))),
+            Expanded(child: homeBoard()),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget universityBanner() {
+    return loanding3 == true
+        ? Container()
+        : Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 10.r),
+                child: Text("University Visit",
+                    textAlign: TextAlign.center,
+                    style: batchtext2(
+                      AppColors.PrimaryBlackColor,
+                    )),
               ),
+              SizedBox(
+                height: 75.h,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemCount: universityData.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.only(left: 10.r),
+                        child: Row(
+                          children: [
+                            Card(
+                              child: Container(
+                                  height: 70.h,
+                                  width: 320.w,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: AppColors.PrimaryGreyColor),
+                                      color: getRandomColor(),
+                                      borderRadius: BorderRadius.circular(5)),
+                                  child: FlipCard(
+                                    flipOnTouch: true,
+                                    front: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        children: [
+                                          universitydetails[index]
+                                                          .logo
+                                                          .toString() !=
+                                                      "null" &&
+                                                  universitydetails[index]
+                                                          .logo
+                                                          .toString() !=
+                                                      ""
+                                              ? Image.network(
+                                                  universitydetails[index]
+                                                      .logo
+                                                      .toString(),
+                                                  height: 50.h,
+                                                  width: 80.w,
+                                                  fit: BoxFit.fill,
+                                                )
+                                              : Icon(
+                                                  Icons.school,
+                                                  size: 40.h,
+                                                ),
+                                          SizedBox(
+                                            width: 20.w,
+                                          ),
+                                          Flexible(
+                                            child: Column(
+                                              children: [
+                                                Container(
+                                                  // color: AppColors
+                                                  //     .PrimaryGreyColor,
+                                                  alignment:
+                                                      Alignment.bottomLeft,
+                                                  width: 390.w,
+                                                  child: Column(
+                                                    children: [
+                                                      Text(
+                                                        universitydetails[index]
+                                                            .university
+                                                            .toString(),
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        maxLines: 1,
+                                                        style: batchtext2(AppColors
+                                                            .PrimaryBlackColor),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 5.h,
+                                                      ),
+                                                      Text(
+                                                        universitydetails[index]
+                                                            .branchName
+                                                            .toString(),
+                                                        style: batchtext1(AppColors
+                                                            .PrimaryBlackColor),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Align(
+                                                  alignment:
+                                                      Alignment.bottomRight,
+                                                  child: Text(
+                                                    "View More 👆",
+                                                    style: TextStyle(
+                                                      fontSize: 9.sp,
+                                                      decoration: TextDecoration
+                                                          .underline,
+                                                      color: AppColors
+                                                          .PrimaryMainColor,
+                                                      fontFamily: "Outfit",
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    back: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "Country :- ${universitydetails[index].country}",
+                                            style: batchtext2(
+                                                AppColors.PrimaryBlackColor),
+                                          ),
+                                          Text(
+                                            "Date :- ${universitydetails[index].dateOfVisit}",
+                                            style: batchtext1(
+                                                AppColors.PrimaryBlackColor),
+                                          ),
+                                          Text(
+                                            "Time :- ${"${universitydetails[index].timeFrom} To ${universitydetails[index].timeTo}"}",
+                                            style: batchtext1(
+                                                AppColors.PrimaryBlackColor),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )),
+                            ),
+                          ],
+                        ),
+                      );
+                    }),
+              ),
+            ],
+          );
+  }
+
+  Widget homeBoard() {
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          universityData.isNotEmpty ? universityBanner() : Container(),
+          Padding(
+            padding: EdgeInsets.only(left: 10.r, right: 10.r),
+            child: GridView.builder(
+              physics: const BouncingScrollPhysics(
+                  parent: NeverScrollableScrollPhysics()),
+              shrinkWrap: true,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10.r,
+                  mainAxisSpacing: 10.r,
+                  childAspectRatio: 15.w / 10.w),
+              itemCount: dashgrid.length,
+              itemBuilder: (BuildContext context, int index) {
+                return InkWell(
+                  onTap: () {
+                    if (index == 7) {
+                      bannermodeldata!.isVisaApplicable == "0"
+                          ? Get.to(const VisaNotApplicable(), arguments: [
+                              bannermodeldata!.isVisaApplicable,
+                            ])
+                          : bannermodeldata!.isVisaApplicable == "2"
+                              ? Get.to(const VisaNotApplicable(), arguments: [
+                                  bannermodeldata!.isVisaApplicable,
+                                ])
+                              : Get.to(
+                                  const VisaPage(),
+                                  arguments: [
+                                    bannermodeldata!.countryId,
+                                    bannermodeldata!.countryName,
+                                    bannermodeldata!.isVisaApplicable,
+                                    bannermodeldata!.courseId,
+                                    bannermodeldata!.studentId,
+                                  ],
+                                );
+                    } else {
+                      index == 0
+                          ? Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      qualificationdatasubmit.isEmpty
+                                          ? const HighSchool()
+                                          : qualificationdatasubmit.length == 1
+                                              ? const InterSchool()
+                                              : const DonePage()))
+                          : Navigator.push(
+                              context,
+                              FadeInPageRoute(page: page[index]),
+                            );
+                    }
+                  },
+                  child: Card(
+                    elevation: 4,
+                    borderOnForeground: true,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    color: dashgrid[index].color,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(10.sp),
+                            alignment: Alignment.center,
+                            height: 55.h,
+                            width: 55.w,
+                            decoration: BoxDecoration(
+                                color: color[index], shape: BoxShape.circle),
+                            child: Image.asset(
+                              dashgrid[index].image!,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          Text(dashgrid[index].title!,
+                              textAlign: TextAlign.center,
+                              style: batchtext2(
+                                AppColors.PrimaryBlackColor,
+                              )),
+                        ]),
+                  ),
+                );
+              },
             ),
           ),
         ],
@@ -431,8 +547,22 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-extension StringExtension on String {
-  String capitalize() {
-    return "${this[0].toUpperCase()}${this.substring(1).toLowerCase()}";
-  }
+// Custom page route transition using FadeIn animation
+class FadeInPageRoute extends PageRouteBuilder {
+  final Widget page;
+  FadeInPageRoute({required this.page})
+      : super(
+          transitionDuration: const Duration(milliseconds: 300),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            const begin = 0.0;
+            const end = 1.0;
+            final tween = Tween(begin: begin, end: end);
+            final opacityAnimation = animation.drive(tween);
+            return FadeTransition(
+              opacity: opacityAnimation,
+              child: child,
+            );
+          },
+          pageBuilder: (context, animation, secondaryAnimation) => page,
+        );
 }

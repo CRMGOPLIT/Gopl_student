@@ -40,7 +40,6 @@ class _HighSchoolState extends State<HighSchool> {
 
   final GlobalKey<State> _keyLoader = GlobalKey<State>();
 
-  // List of items in our dropdown menu
   var course = [
     'Regular',
     'Distance',
@@ -67,12 +66,11 @@ class _HighSchoolState extends State<HighSchool> {
   List qualificationdata = [];
   List boarddata = [];
   bool loading = true;
-  // bool loading1 = true;
 
   @override
   initState() {
     dashBoardBloc = DashBoardBloc();
-    // _gethomeDatauniversity();
+
     getBoardUniversityList();
     dashBoardBloc.callBoardListApi();
     showYear();
@@ -86,7 +84,12 @@ class _HighSchoolState extends State<HighSchool> {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text("Document Submmited Succesfully"),
         ));
-        Navigator.pushNamed(context, RoutesName.interschool);
+
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          RoutesName.interschool,
+          (routes) => false,
+        );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor: Colors.transparent,
@@ -120,10 +123,6 @@ class _HighSchoolState extends State<HighSchool> {
                           style: batchtext1(
                             AppColors.PrimaryWhiteColor,
                           )),
-                      //         TextStyle(fontSize: 15.sp, color: Colors.white),
-                      //     maxLines: 2,
-                      //     overflow: TextOverflow.ellipsis,
-                      //   ),
                     ],
                   ),
                 ),
@@ -153,7 +152,6 @@ class _HighSchoolState extends State<HighSchool> {
     });
   }
 
-
   void callUploadDocumentApi() {
     NetworkDialog.showLoadingDialog(context, _keyLoader);
     Map data = {
@@ -168,7 +166,6 @@ class _HighSchoolState extends State<HighSchool> {
       NetworkConstant.pyear: droppassyear!.toString(),
       NetworkConstant.rdistance: dropcourse,
       NetworkConstant.dtype: NetworkConstant.documenttpye,
-      // NetworkConstant.image: file!,
     };
 
     dashBoardBloc.callUploadDocumentApi(
@@ -191,7 +188,7 @@ class _HighSchoolState extends State<HighSchool> {
     return Scaffold(
       backgroundColor: AppColors.backgroungcolor,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(50.h), // here the desired height
+        preferredSize: Size.fromHeight(50.h),
         child: AppBarCustomlead(
           title: "Qualification",
         ),
@@ -215,17 +212,16 @@ class _HighSchoolState extends State<HighSchool> {
                         width: 450,
                         decoration: BoxDecoration(
                             color: Colors.white,
+                            border: Border.all(color: AppColors.hintcolor),
                             borderRadius: BorderRadius.circular(10)),
                         child: Padding(
                           padding: EdgeInsets.all(15.sp),
                           child: Text(
                             "10th",
-                            // textAlign: TextAlign.center,
                             style: batchtext2(AppColors.PrimaryMainColor),
                           ),
                         ),
                       ),
-
                       SizedBox(
                         height: 10.h,
                       ),
@@ -241,47 +237,32 @@ class _HighSchoolState extends State<HighSchool> {
                           return null;
                         },
                       ),
-
-                      // TextFormWidget(
-                      //   hint: "Enter Your Course Studied",
-                      //   title: "Course Studied",
-                      //   controller: courseStudiedEditingController,
-                      //   keyboardType: TextInputType.emailAddress,
-                      //   validator: (value) {
-                      //     if (value == null || value.isEmpty) {
-                      //       return 'Please enter Your email';
-                      //     }
-                      //     return null;
-                      //   },
-                      // ),
-
                       Text("Course Type",
                           style: FieldTextStyle(
                             AppColors.PrimaryBlackColor,
                           )),
+                      SizedBox(
+                        height: 5.h,
+                      ),
                       Container(
-                        height: 55,
-                        width: 450,
                         decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(10)),
+                            borderRadius: BorderRadius.circular(10.r)),
                         child: DropdownButtonHideUnderline(
                           child: DropdownButtonFormField2(
                             isDense: false,
                             isExpanded: true,
-                            decoration: const InputDecoration(
-                              // enabledBorder: OutlineInputBorder(
-                              //   borderRadius: BorderRadius.circular(10),
-                              //   // width: 0.0 produces a thin "hairline" border
-                              //   // borderSide: BorderSide(
-                              //   //     color: AppColors.PrimaryMainColor,
-                              //   //     width: 1.0),
-                              // ),
-                              // errorBorder: new OutlineInputBorder(
-                              //   borderRadius: BorderRadius.circular(10),
-                              //   borderSide: new BorderSide(
-                              //       color: Colors.red, width: 1.0),
-                              // ),
+                            decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.r),
+                                borderSide: const BorderSide(
+                                    color: AppColors.hintcolor, width: 1.0),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(
+                                    color: Colors.red, width: 1.0),
+                              ),
                               isCollapsed: true,
                               border: InputBorder.none,
                             ),
@@ -310,14 +291,12 @@ class _HighSchoolState extends State<HighSchool> {
                               setState(() {
                                 dropcourse = value;
                                 isSelected = true;
-                                //  selectedSecurity = value!;
-                                // accountTypeValidate = true;
                               });
                             },
-                            buttonStyleData: const ButtonStyleData(
-                              height: 55,
-                              width: 450,
-                              padding: EdgeInsets.all(10),
+                            buttonStyleData: ButtonStyleData(
+                              height: 50.h,
+                              width: 450.w,
+                              padding: EdgeInsets.all(10.r),
                             ),
                             dropdownStyleData: DropdownStyleData(
                                 isOverButton: true,
@@ -348,6 +327,9 @@ class _HighSchoolState extends State<HighSchool> {
                           style: FieldTextStyle(
                             AppColors.PrimaryBlackColor,
                           )),
+                      SizedBox(
+                        height: 5.h,
+                      ),
                       Container(
                         decoration: BoxDecoration(
                             color: Colors.white,
@@ -357,15 +339,14 @@ class _HighSchoolState extends State<HighSchool> {
                             isDense: false,
                             isExpanded: true,
                             decoration: InputDecoration(
-                              // enabledBorder: OutlineInputBorder(
-                              //   borderRadius: BorderRadius.circular(10),
-                              //   // width: 0.0 produces a thin "hairline" border
-                              //   borderSide: BorderSide(
-                              //       color: AppColors.PrimaryMainColor, width: 1.0),
-                              // ),
-                              errorBorder:  OutlineInputBorder(
+                              enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide:  const BorderSide(
+                                borderSide: const BorderSide(
+                                    color: AppColors.hintcolor, width: 1.0),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(
                                     color: Colors.red, width: 1.0),
                               ),
                               isCollapsed: true,
@@ -397,27 +378,22 @@ class _HighSchoolState extends State<HighSchool> {
                               setState(() {
                                 dropboard = value;
                                 isSelected = true;
-                                //  selectedSecurity = value!;
-                                // accountTypeValidate = true;
                               });
                             },
                             buttonStyleData: ButtonStyleData(
-                              height: 55,
-                              // width: 450,
+                              height: 55.h,
                               padding: EdgeInsets.all(10.r),
                             ),
                             dropdownStyleData: DropdownStyleData(
-                                // isOverButton: true,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.sp),
                                     color: AppColors.backgroungcolor,
                                     border: Border.all()),
                                 maxHeight: 300.h,
-                                // width: 500.w,
                                 elevation: 10),
-                            menuItemStyleData: const MenuItemStyleData(
-                              padding: EdgeInsets.only(left: 10, right: 10),
-                              height: 40,
+                            menuItemStyleData: MenuItemStyleData(
+                              padding: EdgeInsets.only(left: 10.r, right: 10.r),
+                              height: 40.h,
                             ),
                             dropdownSearchData:
                                 DropdownSearchData<BoardUniversityModel>(
@@ -433,7 +409,6 @@ class _HighSchoolState extends State<HighSchool> {
                                 ),
                                 child: TextFormField(
                                   style: batchtext2(AppColors.PrimaryMainColor),
-                                  //expands: true,
                                   maxLines: 1,
                                   controller: textEditingController,
                                   decoration: InputDecoration(
@@ -452,8 +427,6 @@ class _HighSchoolState extends State<HighSchool> {
                                 ),
                               ),
                               searchMatchFn: (item, searchValue) {
-                                // final myItem = qualificationlist.firstWhere((element) =>
-                                //     element.name.toString() == item.value.toString());
                                 return item.value!.name
                                     .toString()
                                     .toLowerCase()
@@ -475,11 +448,9 @@ class _HighSchoolState extends State<HighSchool> {
                           ),
                         ),
                       ),
-
                       SizedBox(
                         height: 10.h,
                       ),
-
                       TextFormWidget(
                         hint: "Enter Your percentage",
                         title: "Percentage/Grade/%",
@@ -492,11 +463,13 @@ class _HighSchoolState extends State<HighSchool> {
                           return null;
                         },
                       ),
-
                       Text("Starting Year",
                           style: FieldTextStyle(
                             AppColors.PrimaryBlackColor,
                           )),
+                      SizedBox(
+                        height: 5.h,
+                      ),
                       Container(
                         decoration: BoxDecoration(
                             color: Colors.white,
@@ -506,15 +479,14 @@ class _HighSchoolState extends State<HighSchool> {
                             isDense: false,
                             isExpanded: true,
                             decoration: InputDecoration(
-                              // enabledBorder: OutlineInputBorder(
-                              //   borderRadius: BorderRadius.circular(10),
-                              //   // width: 0.0 produces a thin "hairline" border
-                              //   borderSide: BorderSide(
-                              //       color: AppColors.PrimaryMainColor, width: 1.0),
-                              // ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(
+                                    color: AppColors.hintcolor, width: 1.0),
+                              ),
                               errorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide:  const BorderSide(
+                                borderSide: const BorderSide(
                                     color: Colors.red, width: 1.0),
                               ),
                               isCollapsed: true,
@@ -545,12 +517,10 @@ class _HighSchoolState extends State<HighSchool> {
                               setState(() {
                                 yeardrop = value as int?;
                                 isSelected = true;
-                                //  selectedSecurity = value!;
-                                // accountTypeValidate = true;
                               });
                             },
                             buttonStyleData: ButtonStyleData(
-                              height: 55,
+                              height: 55.h,
                               // width: 450,
                               padding: EdgeInsets.all(10.r),
                             ),
@@ -561,17 +531,17 @@ class _HighSchoolState extends State<HighSchool> {
                                     color: AppColors.backgroungcolor,
                                     border: Border.all()),
                                 maxHeight: 300.h,
-                                // width: 500.w,
                                 elevation: 10),
-                            menuItemStyleData: const MenuItemStyleData(
-                              padding: EdgeInsets.only(left: 10, right: 10),
-                              height: 40,
+                            menuItemStyleData: MenuItemStyleData(
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 10).r,
+                              height: 40.h,
                             ),
                             dropdownSearchData: DropdownSearchData(
                               searchController: textEditingController,
                               searchInnerWidgetHeight: 200.h,
                               searchInnerWidget: Container(
-                                height: 50,
+                                height: 50.h,
                                 padding: const EdgeInsets.only(
                                   top: 8,
                                   bottom: 4,
@@ -599,8 +569,6 @@ class _HighSchoolState extends State<HighSchool> {
                                 ),
                               ),
                               searchMatchFn: (item, searchValue) {
-                                // final myItem = qualificationlist.firstWhere((element) =>
-                                //     element.name.toString() == item.value.toString());
                                 return item.value!
                                     .toString()
                                     .toLowerCase()
@@ -622,7 +590,6 @@ class _HighSchoolState extends State<HighSchool> {
                           ),
                         ),
                       ),
-
                       SizedBox(
                         height: 10.h,
                       ),
@@ -630,6 +597,9 @@ class _HighSchoolState extends State<HighSchool> {
                           style: FieldTextStyle(
                             AppColors.PrimaryBlackColor,
                           )),
+                      SizedBox(
+                        height: 5.h,
+                      ),
                       Container(
                         decoration: BoxDecoration(
                             color: Colors.white,
@@ -639,13 +609,12 @@ class _HighSchoolState extends State<HighSchool> {
                             isDense: false,
                             isExpanded: true,
                             decoration: InputDecoration(
-                              // enabledBorder: OutlineInputBorder(
-                              //   borderRadius: BorderRadius.circular(10),
-                              //   // width: 0.0 produces a thin "hairline" border
-                              //   borderSide: BorderSide(
-                              //       color: AppColors.PrimaryMainColor, width: 1.0),
-                              // ),
-                              errorBorder:  OutlineInputBorder(
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(
+                                    color: AppColors.hintcolor, width: 1.0),
+                              ),
+                              errorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide: const BorderSide(
                                     color: Colors.red, width: 1.0),
@@ -678,33 +647,29 @@ class _HighSchoolState extends State<HighSchool> {
                               setState(() {
                                 dropmonth = value;
                                 isSelected = true;
-                                //  selectedSecurity = value!;
-                                // accountTypeValidate = true;
                               });
                             },
                             buttonStyleData: ButtonStyleData(
-                              height: 55,
-                              // width: 450,
+                              height: 55.h,
                               padding: EdgeInsets.all(10.r),
                             ),
                             dropdownStyleData: DropdownStyleData(
-                                // isOverButton: true,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.sp),
                                     color: AppColors.backgroungcolor,
                                     border: Border.all()),
                                 maxHeight: 300.h,
-                                // width: 500.w,
                                 elevation: 10),
-                            menuItemStyleData: const MenuItemStyleData(
-                              padding: EdgeInsets.only(left: 10, right: 10),
-                              height: 40,
+                            menuItemStyleData: MenuItemStyleData(
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 10).r,
+                              height: 40.h,
                             ),
                             dropdownSearchData: DropdownSearchData<MonthModel>(
                               searchController: textEditingController,
                               searchInnerWidgetHeight: 200.h,
                               searchInnerWidget: Container(
-                                height: 50,
+                                height: 50.h,
                                 padding: const EdgeInsets.only(
                                   top: 8,
                                   bottom: 4,
@@ -713,7 +678,6 @@ class _HighSchoolState extends State<HighSchool> {
                                 ),
                                 child: TextFormField(
                                   style: batchtext2(AppColors.PrimaryMainColor),
-                                  //expands: true,
                                   maxLines: 1,
                                   controller: textEditingController,
                                   decoration: InputDecoration(
@@ -732,8 +696,6 @@ class _HighSchoolState extends State<HighSchool> {
                                 ),
                               ),
                               searchMatchFn: (item, searchValue) {
-                                // final myItem = qualificationlist.firstWhere((element) =>
-                                //     element.name.toString() == item.value.toString());
                                 return item.value!.name
                                     .toString()
                                     .toLowerCase()
@@ -762,6 +724,9 @@ class _HighSchoolState extends State<HighSchool> {
                           style: FieldTextStyle(
                             AppColors.PrimaryBlackColor,
                           )),
+                      SizedBox(
+                        height: 5.h,
+                      ),
                       Container(
                         decoration: BoxDecoration(
                             color: Colors.white,
@@ -771,15 +736,14 @@ class _HighSchoolState extends State<HighSchool> {
                             isDense: false,
                             isExpanded: true,
                             decoration: InputDecoration(
-                              // enabledBorder: OutlineInputBorder(
-                              //   borderRadius: BorderRadius.circular(10),
-                              //   // width: 0.0 produces a thin "hairline" border
-                              //   borderSide: BorderSide(
-                              //       color: AppColors.PrimaryMainColor, width: 1.0),
-                              // ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(
+                                    color: AppColors.hintcolor, width: 1.0),
+                              ),
                               errorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide:  const BorderSide(
+                                borderSide: const BorderSide(
                                     color: Colors.red, width: 1.0),
                               ),
                               isCollapsed: true,
@@ -810,23 +774,18 @@ class _HighSchoolState extends State<HighSchool> {
                               setState(() {
                                 droppassyear = value as int?;
                                 isSelected = true;
-                                //  selectedSecurity = value!;
-                                // accountTypeValidate = true;
                               });
                             },
                             buttonStyleData: ButtonStyleData(
-                              height: 55,
-                              // width: 450,
+                              height: 55.h,
                               padding: EdgeInsets.all(10.r),
                             ),
                             dropdownStyleData: DropdownStyleData(
-                                // isOverButton: true,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.sp),
                                     color: AppColors.backgroungcolor,
                                     border: Border.all()),
                                 maxHeight: 300.h,
-                                // width: 500.w,
                                 elevation: 10),
                             menuItemStyleData: const MenuItemStyleData(
                               padding: EdgeInsets.only(left: 10, right: 10),
@@ -845,7 +804,6 @@ class _HighSchoolState extends State<HighSchool> {
                                 ),
                                 child: TextFormField(
                                   style: batchtext2(AppColors.PrimaryMainColor),
-                                  //expands: true,
                                   maxLines: 1,
                                   controller: textEditingController,
                                   decoration: InputDecoration(
@@ -864,8 +822,6 @@ class _HighSchoolState extends State<HighSchool> {
                                 ),
                               ),
                               searchMatchFn: (item, searchValue) {
-                                // final myItem = qualificationlist.firstWhere((element) =>
-                                //     element.name.toString() == item.value.toString());
                                 return item.value!
                                     .toString()
                                     .toLowerCase()
@@ -894,6 +850,9 @@ class _HighSchoolState extends State<HighSchool> {
                           style: FieldTextStyle(
                             AppColors.PrimaryBlackColor,
                           )),
+                      SizedBox(
+                        height: 5.h,
+                      ),
                       Container(
                         decoration: BoxDecoration(
                             color: Colors.white,
@@ -903,15 +862,14 @@ class _HighSchoolState extends State<HighSchool> {
                             isDense: false,
                             isExpanded: true,
                             decoration: InputDecoration(
-                              // enabledBorder: OutlineInputBorder(
-                              //   borderRadius: BorderRadius.circular(10),
-                              //   // width: 0.0 produces a thin "hairline" border
-                              //   borderSide: BorderSide(
-                              //       color: AppColors.PrimaryMainColor, width: 1.0),
-                              // ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(
+                                    color: AppColors.hintcolor, width: 1.0),
+                              ),
                               errorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide:  const BorderSide(
+                                borderSide: const BorderSide(
                                     color: Colors.red, width: 1.0),
                               ),
                               isCollapsed: true,
@@ -942,23 +900,18 @@ class _HighSchoolState extends State<HighSchool> {
                               setState(() {
                                 droppassmonth = value;
                                 isSelected = true;
-
-                                // accountTypeValidate = true;
                               });
                             },
                             buttonStyleData: ButtonStyleData(
-                              height: 55,
-                              // width: 450,
+                              height: 55.h,
                               padding: EdgeInsets.all(10.r),
                             ),
                             dropdownStyleData: DropdownStyleData(
-                                // isOverButton: true,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.sp),
                                     color: AppColors.backgroungcolor,
                                     border: Border.all()),
                                 maxHeight: 300.h,
-                                // width: 500.w,
                                 elevation: 10),
                             menuItemStyleData: const MenuItemStyleData(
                               padding: EdgeInsets.only(left: 10, right: 10),
@@ -996,8 +949,6 @@ class _HighSchoolState extends State<HighSchool> {
                                 ),
                               ),
                               searchMatchFn: (item, searchValue) {
-                                // final myItem = qualificationlist.firstWhere((element) =>
-                                //     element.name.toString() == item.value.toString());
                                 return item.value!.name
                                     .toString()
                                     .toLowerCase()
@@ -1019,7 +970,6 @@ class _HighSchoolState extends State<HighSchool> {
                           ),
                         ),
                       ),
-
                       SizedBox(
                         height: 10.h,
                       ),
@@ -1027,6 +977,9 @@ class _HighSchoolState extends State<HighSchool> {
                           style: FieldTextStyle(
                             AppColors.PrimaryBlackColor,
                           )),
+                      SizedBox(
+                        height: 5.h,
+                      ),
                       GestureDetector(
                         onTap: () {
                           selectFiles();
@@ -1035,8 +988,7 @@ class _HighSchoolState extends State<HighSchool> {
                             height: 50.h,
                             width: 340.w,
                             decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: AppColors.PrimaryWhiteColor),
+                                border: Border.all(color: AppColors.hintcolor),
                                 borderRadius: BorderRadius.circular(10.r)),
                             child: (file == null)
                                 ? Container(
@@ -1051,96 +1003,57 @@ class _HighSchoolState extends State<HighSchool> {
                                         Padding(
                                             padding: EdgeInsets.only(
                                                 left: 20.r, right: 0),
-                                            child: Row(
-                                                // mainAxisAlignment:
-                                                //     MainAxisAlignment.end,
+                                            child: Row(children: [
+                                              const Text("Upload File"),
+                                              Center(
+                                                  child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
                                                 children: [
-                                                  const Text("Upload File"),
-                                                  Center(
+                                                  Container(
+                                                      color: Colors.transparent,
+                                                      margin: EdgeInsets.only(
+                                                          left: 10.r),
+                                                      width: 220.w,
                                                       child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.end,
-                                                    children: [
-                                                      Container(
-                                                          color: Colors
-                                                              .transparent,
-                                                          margin:
-                                                              EdgeInsets.only(
-                                                                  left: 10.r),
-                                                          width: 220.w,
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .end,
-                                                            children: [
-                                                              Container(
-                                                                height: 50,
-                                                                width: 2,
-                                                                color: AppColors
-                                                                    .PrimaryGreyColor,
-                                                              ),
-                                                              Container(
-                                                                height: 50.h,
-                                                                width: 100.w,
-                                                                decoration: const BoxDecoration(
-                                                                    color: Colors
-                                                                        .white
-                                                                    // color: AppColors
-                                                                    //     .PrimaryGreyColor,
-                                                                    // border: Border.all(
-                                                                    //     color: AppColors
-                                                                    //         .PrimaryGreyColor),
-                                                                    // borderRadius:
-                                                                    //     const BorderRadius
-                                                                    //             .only(
-                                                                    //         topRight: Radius
-                                                                    //             .circular(
-                                                                    //                 10),
-                                                                    //         bottomRight: Radius
-                                                                    //             .circular(
-                                                                    //                 10))
-                                                                    ),
-                                                                child: Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    const Icon(Icons
-                                                                        .attach_file),
-                                                                    Text(
-                                                                      "Attach",
-                                                                      style: btntext(
-                                                                          AppColors
-                                                                              .PrimaryBlackColor),
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                              )
-                                                            ],
-                                                          )
-                                                          //Text(file!.path!.split('/').last),
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .end,
+                                                        children: [
+                                                          Container(
+                                                            height: 50,
+                                                            width: 2,
+                                                            color: AppColors
+                                                                .PrimaryGreyColor,
                                                           ),
-                                                    ],
-                                                  )),
-                                                ])
-                                            // : Row(
-                                            //     children: [
-                                            //       Image.asset(
-                                            //         "assets/images/docx.png",
-                                            //         height: 20.h,
-                                            //       ),
-                                            //       Center(
-                                            //           child: Container(
-                                            //         margin: EdgeInsets.only(
-                                            //             left: 10.r),
-                                            //         width: 250.w,
-                                            //         child: Text(file!.path!
-                                            //             .split('/')
-                                            //             .last),
-                                            //       )),
-                                            //     ],
-                                            //   )
-                                            ),
+                                                          Container(
+                                                            height: 50.h,
+                                                            width: 100.w,
+                                                            decoration:
+                                                                const BoxDecoration(
+                                                                    color: Colors
+                                                                        .white),
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                const Icon(Icons
+                                                                    .attach_file),
+                                                                Text(
+                                                                  "Attach",
+                                                                  style: btntext(
+                                                                      AppColors
+                                                                          .PrimaryBlackColor),
+                                                                )
+                                                              ],
+                                                            ),
+                                                          )
+                                                        ],
+                                                      )),
+                                                ],
+                                              )),
+                                            ])),
                                       ],
                                     ),
                                   )
@@ -1157,24 +1070,7 @@ class _HighSchoolState extends State<HighSchool> {
                                             padding: EdgeInsets.only(
                                                 left: 20.r, right: 0),
 //
-                                            child:
-                                                //(file!.path.split(".pdf")[0] == "pdf")
-                                                // ? Row(
-                                                //     // mainAxisAlignment:
-                                                //     //     MainAxisAlignment.end,
-                                                //     children: [
-                                                //         const Icon(
-                                                //           Icons.picture_as_pdf,
-                                                //           color: Colors.red,
-                                                //         ),
-                                                //         SizedBox(
-                                                //           width: 10.w,
-                                                //         ),
-                                                //         Text(file!.path
-                                                //             .split('/')
-                                                //             .last),
-                                                //       ])
-                                                Row(
+                                            child: Row(
                                               children: [
                                                 const Icon(
                                                   Icons.file_copy,
@@ -1204,82 +1100,37 @@ class _HighSchoolState extends State<HighSchool> {
               ),
             ),
       bottomNavigationBar: loading == false
-          ? Container(
-              decoration: const BoxDecoration(
-                  // color: Colors.red,
-                  image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage(
-                        "assets/images/bgreg.jpeg",
-                      ))),
-              child: BottomAppBar(
-                  elevation: 0.0,
-                  color: Colors.transparent,
-                  child: Padding(
-                    padding:
-                        EdgeInsets.only(bottom: 15.r, left: 15.r, right: 15.r),
-                    child: ButtonPrimary(
-                      title: "Submit",
-                      onPressed: () {
-                        if (_registerkey.currentState!.validate() &&
-                            file != null &&
-                            dropboard != null &&
-                            yeardrop != null &&
-                            droppassyear != null &&
-                            droppassmonth != null &&
-                            dropcourse != null) {
-                          callUploadDocumentApi();
-                          // use the email provided here
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            backgroundColor: Colors.red,
-                            content: Text(
-                              "Please Upload file",
-                              style: batchtext2(AppColors.PrimaryWhiteColor),
-                            ),
-                          ));
-                          // callUploadDocumentApi();
-                        }
-                      },
-                    ),
-                  )),
-            )
-          : const Text(""),
+          ? BottomAppBar(
+              elevation: 0.0,
+              color: Colors.transparent,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 15.r, left: 15.r, right: 15.r),
+                child: ButtonPrimary(
+                  title: "Submit",
+                  onPressed: () {
+                    if (_registerkey.currentState!.validate() &&
+                        file != null &&
+                        dropboard != null &&
+                        yeardrop != null &&
+                        droppassyear != null &&
+                        droppassmonth != null &&
+                        dropcourse != null) {
+                      callUploadDocumentApi();
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        backgroundColor: Colors.red,
+                        content: Text(
+                          "Please Upload file",
+                          style: batchtext2(AppColors.PrimaryWhiteColor),
+                        ),
+                      ));
+                    }
+                  },
+                ),
+              ))
+          : Container(),
     );
   }
-
-  // void selectFiles() async {
-  //   FilePickerResult? result = await FilePicker.platform.pickFiles(
-  //     allowMultiple: false,
-  //     type: FileType.custom,
-  //     allowedExtensions: ['docx', 'pdf'],
-  //   );
-  //   if (result == null) return;
-
-  //   file = result.files
-
-  //   setState(() {});
-  // }
-
-  // void selectFiles() async {
-  //   try {
-  //     FilePickerResult? result = await FilePicker.platform.pickFiles(
-  //       allowedExtensions: ['pdf'],
-  //       type: FileType.custom,
-  //     );
-
-  //     if (result != null) {
-  //       setState(() {
-  //         file = File(result.files.single.path!);
-  //       });
-  //     } else {
-  //       // User canceled the picker
-  //     }
-  //   } catch (e) {
-  //     // debugger();
-
-  //   }
-  // }
 
   void selectFiles() async {
     try {
@@ -1293,29 +1144,8 @@ class _HighSchoolState extends State<HighSchool> {
         setState(() {
           file = File(result.files.single.path!);
         });
-      } else {
-        // User canceled the picker
-      }
-    } catch (e) {
-      // debugger();
-    }
+      } else {}
+      // ignore: empty_catches
+    } catch (e) {}
   }
-
-  //  void selectFiles() async {
-  //   FilePickerResult? result = await FilePicker.platform.pickFiles(
-  //     allowMultiple: true,
-  //     type: FileType.custom,
-  //     allowedExtensions: ['xlsx'],
-  //   );
-
-  //   if (result != null) {
-  //     List<File> files = result.paths.map((path) => File(path!)).toList();
-  //     setState(() {
-  //       selectedBankStatements.addAll(files);
-  //       isFileSelected = true;
-  //     });
-  //   } else {
-  //     // User canceled the picker
-  //   }
-  // }
 }

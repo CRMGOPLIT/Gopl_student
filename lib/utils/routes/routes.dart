@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/view/applicationStatus/application_status.dart';
 import 'package:global_student/view/batch_details/batch_details.dart';
+import 'package:global_student/view/batch_details/batchlist.dart';
 import 'package:global_student/view/branch_location/branch_location.dart';
 import 'package:global_student/view/course_details/course_details.dart';
 import 'package:global_student/view/couse_search/course_search.dart';
@@ -10,16 +11,13 @@ import 'package:global_student/view/dashboard/home_page.dart';
 import 'package:global_student/view/drawerpage/aboutus.dart';
 import 'package:global_student/view/drawerpage/contactus.dart';
 import 'package:global_student/view/drawerpage/profile_page.dart';
-import 'package:global_student/view/edit/edit_page.dart';
 import 'package:global_student/view/event_details/event_detils.dart';
 import 'package:global_student/view/login/login_page.dart';
-import 'package:global_student/view/notification/notification.dart';
 import 'package:global_student/view/qualification/completeeducation.dart';
 import 'package:global_student/view/qualification/graduation.dart';
 import 'package:global_student/view/qualification/highschool.dart';
 import 'package:global_student/view/qualification/interschool.dart';
 import 'package:global_student/view/search/search.dart';
-import 'package:global_student/view/second.dart';
 import 'package:global_student/view/splash/splash_screen.dart';
 import 'package:global_student/view/uploadmoreDocument/upload_more_document.dart';
 import 'package:global_student/view/visa/visa_page.dart';
@@ -55,9 +53,6 @@ class Routes {
       case RoutesName.register:
         return MaterialPageRoute(
             builder: (BuildContext context) => const RegisterPage());
-      case RoutesName.edit:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => const EditPage());
       case RoutesName.home:
         return MaterialPageRoute(
             builder: (BuildContext context) => const HomePage());
@@ -80,12 +75,6 @@ class Routes {
       case RoutesName.branchLocation:
         return MaterialPageRoute(
             builder: (BuildContext context) => const BranchLocation());
-      // case RoutesName.cpmpare:
-      //   return MaterialPageRoute(builder: (BuildContext context) => Compare());
-
-      case RoutesName.multiple:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => const MyHomePage());
 
       case RoutesName.courseSearch:
         return MaterialPageRoute(
@@ -117,10 +106,6 @@ class Routes {
       case RoutesName.bottomnav:
         return MaterialPageRoute(builder: (BuildContext context) => Bottom());
 
-      case RoutesName.notificationpage:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => const NotificationPage());
-
       case RoutesName.profilepage:
         return MaterialPageRoute(
             builder: (BuildContext context) => const ProfilePage());
@@ -148,6 +133,10 @@ class Routes {
       case RoutesName.visanotapplicable:
         return MaterialPageRoute(
             builder: (BuildContext context) => const VisaNotApplicable());
+
+      case RoutesName.batchlist:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const BatchList());
 
       default:
         return MaterialPageRoute(builder: (_) {

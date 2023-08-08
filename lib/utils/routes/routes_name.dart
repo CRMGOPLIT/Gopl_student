@@ -1,7 +1,6 @@
 class RoutesName {
   //initial Routes
   static const String splash = 'splash_view';
-
   //accounts routes name
   static const String onbording = 'onboarding_screen';
   static const String login = 'login_screen';
@@ -10,7 +9,6 @@ class RoutesName {
   static const String edit = 'edit_screen';
 
   //qualification routes
-
   static const String highschool = 'highschool_screen';
 
   //home screen routes name
@@ -27,12 +25,10 @@ class RoutesName {
 
   //Branch Location
   static const String branchLocation = 'branch_location';
-
   static const String cpmpare = 'compare';
   static const String multiple = 'multiple';
 
   //Course Search
-
   static const String courseSearch = 'courseSearch';
 
   //Search Page
@@ -56,23 +52,17 @@ class RoutesName {
 
   //profile Page
   static const String profilepage = 'profilepage';
-
-  //
   static const String interschool = 'interschool';
-
   static const String grduation = 'grduation';
-
   static const String uploadmoredocument = 'uploadmoredocument';
-
-  //
-
   static const String universitylist = 'universitylist';
 
   //done page
-
   static const String donepage = 'donepage';
 
   //visanotapplicable
-   static const String visanotapplicable = 'visanotapplicable';
+  static const String visanotapplicable = 'visanotapplicable';
 
+  //Batch List
+  static const String batchlist = 'batchlist';
 }

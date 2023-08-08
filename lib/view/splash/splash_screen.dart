@@ -22,10 +22,8 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   String? _connectionStatus;
   String? check;
-
   String? token;
-  //late StreamSubscription subscription;
-  //late StreamSubscription subscription2;
+
   bool isDeviceConnected = false;
   bool isAlertSet = false;
 
@@ -40,10 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
     } else {
       isConnected = false;
       Get.to(const ConnectionChecker());
-      // Navigator.pushNamed(context, RoutesName.otp);
-      // ConnectionChecker();
     }
-    setState(() {});
   }
 
   startStreaming() {
@@ -51,31 +46,6 @@ class _SplashScreenState extends State<SplashScreen> {
       checkInternet();
     });
   }
-
-  // showDialogBox() {
-  //   showDialog(
-  //       barrierDismissible: false,
-  //       context: context,
-  //       builder: (context) => CupertinoAlertDialog(
-  //             title: const Text("No Internet"),
-  //             content: const Text("Please check your internet connection"),
-  //             actions: [
-  //               CupertinoButton.filled(
-  //                   child: const Text("Retry"),
-  //                   onPressed: () {
-  //                     Navigator.pop(context);
-  //                     checkInternet();
-  //                   }),
-  //             ],
-  //           )); // CupertinoAlertDialog
-  // }
-
-  // @override
-  // void initState() {
-
-  //   startStreaming();
-  //   super.initState();
-  // }
 
   getConnectivity() =>
       subscription = Connectivity().onConnectivityChanged.listen(
@@ -91,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void dispose() {
     subscription.cancel();
-    // subscription2.cancel();
+
     super.dispose();
   }
 
@@ -116,12 +86,21 @@ class _SplashScreenState extends State<SplashScreen> {
         await prefs.setBool('seen', true);
         if (seen == true && token == null) {
           Future.delayed(const Duration(seconds: 3), () {
-            Navigator.pushNamed(context, RoutesName.login);
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              RoutesName.login,
+              (routes) => false,
+            );
             getConnectivity();
           });
         } else {
           Future.delayed(const Duration(seconds: 3), () {
-            Navigator.pushNamed(context, RoutesName.onbording);
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              RoutesName.onbording,
+              (routes) => false,
+            );
+
             getConnectivity();
           });
         }
@@ -135,105 +114,15 @@ class _SplashScreenState extends State<SplashScreen> {
       showDialogwBox();
 
       getConnectivity();
-
-      // Future.delayed(const Duration(seconds: 1), () {
-      //   Navigator.pushNamed(context, RoutesName.onbording);
-      // });
     }
   }
 
-  // Future checkmethod() async {
-  //   if (check == 'Connected') {
-  //     SharedPreferences prefs = await SharedPreferences.getInstance();
-  //     bool _seen = (prefs.getBool('seen') ?? false);
-
-  //     if (_seen) {
-  //       Future.delayed(const Duration(seconds: 3), () {
-  //         Navigator.pushNamed(context, RoutesName.home);
-  //       });
-  //     } else {
-  //       await prefs.setBool('seen', true);
-  //       Future.delayed(const Duration(seconds: 3), () {
-  //         Navigator.pushNamed(context, RoutesName.onbording);
-  //       });
-  //     }
-  //   } else {
-  //     Future.delayed(const Duration(seconds: 3), () {
-  //       Navigator.pushNamed(context, RoutesName.login);
-  //     });
-  //   }
-  // }
-
-  // Future checkFirstSeen() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   bool _seen = (prefs.getBool('seen') ?? false);
-
-  //   if (_seen) {
-  //     Future.delayed(const Duration(seconds: 3), () {
-  //       Navigator.pushNamed(context, RoutesName.home);
-  //     });
-  //   } else {
-  //     await prefs.setBool('seen', true);
-  //     Future.delayed(const Duration(seconds: 3), () {
-  //       Navigator.pushNamed(context, RoutesName.onbording);
-  //     });
-  //   }
-  // }
-
-  // Future<Object> checkInternetConnectivity() async {
-  //   var connectivityResult = await (Connectivity().checkConnectivity());
-  //   if (connectivityResult == ConnectivityResult.mobile ||
-  //       connectivityResult == ConnectivityResult.wifi) {
-  //     // Mobile data detected.
-  //     return errmsg("cecjnjk", false);
-  //   } else {
-  //     // Neither mobile data nor Wifi detected.
-  //     return false;
-  //   }
-  // }
-
   @override
   initState() {
-    // checkmethod();
     startStreaming();
     _checkInternetConnection();
-
-    // getConnectivity();
-    // getStringValuesSF();
-
-    // Future.delayed(const Duration(seconds: 3), () {
-    //   Navigator.pushNamed(context, RoutesName.onbording);
-    // });
     super.initState();
   }
-
-  // getStringValuesSF() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   //Return String
-  //   token = prefs.getString('stringValue');
-  //   if (token == null) {
-  //     Future.delayed(const Duration(seconds: 3), () {
-  //       //  Navigator.pushNamed(context, RoutesName.onbording);
-  //       Navigator.pushNamedAndRemoveUntil(
-  //         context,
-  //         RoutesName.onbording,
-  //         (routes) => false,
-  //       );
-  //     });
-  //   } else {
-  //     Future.delayed(const Duration(seconds: 3), () {
-  //       // Navigator.pushNamed(context, RoutesName.bottomnav);
-
-  //       Navigator.pushNamedAndRemoveUntil(
-  //         context,
-  //         RoutesName.bottomnav,
-  //         (routes) => false,
-  //       );
-  //     });
-  //   }
-
-  //   return token;
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -246,12 +135,6 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Center(
-                  //   child: Text(
-                  //     'Internet connection status: $_connectionStatus',
-                  //   ),
-                  // ),
-                  // Text(token.toString()),
                   SizedBox(
                     height: 50.h,
                   ),
@@ -259,7 +142,6 @@ class _SplashScreenState extends State<SplashScreen> {
                     child: Image.asset(
                       "assets/images/logo.png",
                       height: 180.h,
-                      // width: 200.w,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -281,9 +163,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Widget errmsg(String text, bool show) {
-    //error message widget.
     if (show == true) {
-      //if error is true then show error message box
       return Container(
         padding: const EdgeInsets.all(10.00),
         margin: const EdgeInsets.only(bottom: 10.00),
@@ -292,15 +172,12 @@ class _SplashScreenState extends State<SplashScreen> {
           Container(
             margin: const EdgeInsets.only(right: 6.00),
             child: const Icon(Icons.info, color: Colors.white),
-          ), // icon for error message
-
+          ),
           Text(text, style: const TextStyle(color: Colors.white)),
-          //show error message text
         ]),
       );
     } else {
       return Container();
-      //if error is false, return empty container.
     }
   }
 

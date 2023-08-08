@@ -1,17 +1,14 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/routes/customerror.dart';
 import 'package:global_student/utils/routes/routes.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
-
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 int? isViewed;
-
 bool? screenboard;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,9 +40,19 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Global Opportunities',
           theme: ThemeData(
-            primarySwatch: Colors.blue,
+            // primarySwatch: Colors.blue,
+            appBarTheme: const AppBarTheme(
+              //  iconTheme: IconThemeData(color: Colors.black),
+              color: AppColors.PrimaryMainColor,
+              foregroundColor: Colors.black,
+              systemOverlayStyle: SystemUiOverlayStyle(
+                statusBarColor: AppColors.PrimaryMainColor,
+                statusBarIconBrightness: Brightness.light,
+                statusBarBrightness: Brightness.light,
+              ),
+            ),
           ),
-          // home: FlipAnimationListView(),
+          // home: MyPage(),
           initialRoute: RoutesName.splash,
           onGenerateRoute: Routes.generateRoute,
         );

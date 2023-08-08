@@ -29,7 +29,7 @@ class _LginPageState extends State<LginPage> {
   @override
   void initState() {
     loginDataBloc = LoginDataBloc();
-    // callpostlogindata();
+
     loginDataBloc.postloginStream.listen((event) {
       Navigator.pop(context);
       bool response =
@@ -41,15 +41,11 @@ class _LginPageState extends State<LginPage> {
           duration: const Duration(seconds: 1),
           content: Text(
             "Otp send your Mobile Number",
-            style: batchtext2(AppColors.PrimaryWhiteColor),
+            style: batchtext1(AppColors.PrimaryWhiteColor),
           ),
         ));
 
         Get.to(const OtpPage(), arguments: _mobileNumber.text);
-        // Get.to(OtpPage(), arguments: _mobileNumber.text);
-        // Navigator.pushNamedAndRemoveUntil(
-        //     context, RoutesName.otp, (routes) => false,
-        //     arguments: {_mobileNumber.text});
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor: Colors.transparent,
@@ -57,16 +53,16 @@ class _LginPageState extends State<LginPage> {
           elevation: 0,
           duration: const Duration(seconds: 2),
           content: Container(
-            padding: const EdgeInsets.all(8),
-            height: 80,
+            padding: EdgeInsets.all(8.r),
+            height: 80.h,
             decoration: BoxDecoration(
               color: Colors.red.withOpacity(0.9),
               borderRadius: const BorderRadius.all(Radius.circular(15)),
             ),
             child: Row(
               children: [
-                const SizedBox(
-                  width: 30,
+                SizedBox(
+                  width: 30.w,
                 ),
                 Expanded(
                   child: Column(
@@ -84,10 +80,6 @@ class _LginPageState extends State<LginPage> {
                           style: batchtext1(
                             AppColors.PrimaryWhiteColor,
                           )),
-                      //         TextStyle(fontSize: 15.sp, color: Colors.white),
-                      //     maxLines: 2,
-                      //     overflow: TextOverflow.ellipsis,
-                      //   ),
                     ],
                   ),
                 ),
@@ -107,26 +99,16 @@ class _LginPageState extends State<LginPage> {
       NetworkConstant.Mobile_Number: _mobileNumber.text,
     };
     loginDataBloc.callPostLogin(data);
-
-    // debugger();
   }
 
   final _loginkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: AppColors.PrimaryWhiteColor,
-      // appBar: AppBar(
-      //     elevation: 0,
-      //     automaticallyImplyLeading: false,
-      //     backgroundColor: AppColors.PrimaryWhiteColor,
-      //     title: Text(
-      //       "Login Account",
-      //       style: H1TextStyle(
-      //         AppColors.PrimaryBlackColor,
-      //       ),
-      //     )),
       body: SingleChildScrollView(
+        reverse: false,
         child: SafeArea(
           child: Form(
             key: _loginkey,
@@ -138,14 +120,10 @@ class _LginPageState extends State<LginPage> {
                   SizedBox(
                     height: 30.h,
                   ),
-                  // Text("Hello, Welcome back to our account",
-                  //     style: Text2Regular(
-                  //       AppColors.TextRegularkColor,
-                  //     )),
                   Center(
                     child: SizedBox(
                         height: 220.h,
-                        width: 350.h,
+                        width: 350.w,
                         child: Image.asset(
                           "assets/images/loginnew1.png",
                           fit: BoxFit.contain,
@@ -180,7 +158,6 @@ class _LginPageState extends State<LginPage> {
                     flagsButtonMargin: EdgeInsets.all(10.r),
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
-                      // labelText: 'Phone Number',
                       hintText: "Phone Number",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.r),
@@ -208,17 +185,7 @@ class _LginPageState extends State<LginPage> {
                       FocusScope.of(context).unfocus();
                       if (_loginkey.currentState!.validate()) {
                         callpostlogindata();
-                        // use the email provided here
                       }
-
-                      // if (_mobileNumber) {
-                      //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      //     content: Text("Otp send your Mobile Number"),
-                      //   ));
-                      // }
-
-                      // Navigator.pushNamedAndRemoveUntil(
-                      //     context, RoutesName.otp, (routes) => false);
                     },
                   ),
                   Align(
@@ -239,6 +206,11 @@ class _LginPageState extends State<LginPage> {
                       style: Text2Regular(
                         AppColors.TextRegularkColor,
                       )),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: 150.h,
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                  )
                 ],
               ),
             ),

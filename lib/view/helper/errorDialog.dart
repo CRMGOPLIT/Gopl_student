@@ -8,12 +8,12 @@ class ErrorDialog extends StatelessWidget {
   final String title;
   final String image;
 
-  const ErrorDialog({super.key, 
+  const ErrorDialog({
+    super.key,
     required this.image,
     required this.title,
     required this.onPressed,
   });
-
 
   @override
   Widget build(BuildContext context) {
@@ -37,16 +37,14 @@ class ErrorDialog extends StatelessWidget {
               decoration:
                   BoxDecoration(borderRadius: BorderRadius.circular(10)),
               child: Column(
-                // mainAxisSize: MainAxisSize.min,
-                // mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   SizedBox(
                     height: 16.h,
                   ),
                   Image.asset(
                     image,
-                    height: 94,
-                    width: 114,
+                    height: 94.h,
+                    width: 114.w,
                   ),
 
                   SizedBox(
@@ -61,16 +59,15 @@ class ErrorDialog extends StatelessWidget {
 
                   Padding(
                     padding: const EdgeInsets.only(
-                        top: 24, left: 24, right: 24, bottom: 8),
+                            top: 24, left: 24, right: 24, bottom: 8)
+                        .r,
                     child: SizedBox(
-                      width: 300,
+                      width: 300.w,
                       child: onPressed('Okay', true, () {
                         onPressed();
                       }),
                     ),
                   ),
-
-                  // SizedBox(height: 30),
                 ],
               ),
             ),

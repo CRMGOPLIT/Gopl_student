@@ -10,7 +10,8 @@ class Error extends StatelessWidget {
 
   final Function onRetryPressed;
 
-  const Error({super.key, required this.errorMessage, required this.onRetryPressed});
+  const Error(
+      {super.key, required this.errorMessage, required this.onRetryPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +33,6 @@ class Error extends StatelessWidget {
                 style: TextRegular(Colors.black),
               ),
               SizedBox(height: 8.h),
-              // RaisedButton(
-              //   color: AppColors.PrimaryColor,
-              //   child: Text('Retry', style: textStyle()),
-              //   onPressed: () {
-              //     onRetryPressed();
-              //   },
-              // )
             ],
           ),
         )
@@ -69,15 +63,12 @@ class NetworkDialog {
       BuildContext context, GlobalKey key) async {
     return showDialog<void>(
         context: context,
-        // barrierColor: AppColors.GreyScaleDarkG5Color.withOpacity(0.5),
         barrierDismissible: false,
         builder: (BuildContext context) {
           return WillPopScope(
               onWillPop: () async => false,
               child: SimpleDialog(
                 key: key,
-                // shape: ShapeBorder,
-                //  shape: BoxShape.circle,
                 backgroundColor: AppColors.backgroungcolor,
                 children: [
                   Padding(
@@ -116,10 +107,7 @@ class NetworkDialogLoading {
           return WillPopScope(
               onWillPop: () async => false,
               child: Center(
-                child:
-                    // Lottie.asset("assets/images/loader.json",
-                    //     height: 320.h, width: 250.w)
-                    CircularProgressIndicator(
+                child: CircularProgressIndicator(
                   color: AppColors.PrimaryMainColor,
                   strokeWidth: 3.w,
                 ),

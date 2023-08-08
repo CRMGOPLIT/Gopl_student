@@ -10,9 +10,7 @@ class HomeDataBloc {
   late StreamController<Response<dynamic>> postRegistraion;
 
   StreamSink<dynamic> get getRegistrationDetailsSink => streamController.sink;
-
   Stream<dynamic> get getRegistrationDetailsStream => streamController.stream;
-
   StreamSink<Response<dynamic>> get postRegistrationSink =>
       postRegistraion.sink;
 

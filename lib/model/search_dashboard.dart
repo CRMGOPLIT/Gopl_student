@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 SearchDashBoard searchDashBoardFromJson(String str) =>
@@ -8,9 +7,9 @@ String searchDashBoardToJson(SearchDashBoard data) =>
     json.encode(data.toJson());
 
 class SearchDashBoard {
-  List<DashboardCourseDetail> dashboardCourseDetail;
-  List<DashboardUniversityDetail> dashboardUniversityDetail;
-  List<DashboardCountryDetail> dashboardCountryDetail;
+  final List<DashboardCourseDetail> dashboardCourseDetail;
+  final List<DashboardUniversityDetail> dashboardUniversityDetail;
+  final List<DashboardCountryDetail> dashboardCountryDetail;
 
   SearchDashBoard({
     required this.dashboardCourseDetail,
@@ -42,14 +41,16 @@ class SearchDashBoard {
 }
 
 class DashboardCountryDetail {
-  String country;
-  String universityCount;
-  String countryId;
+  final String country;
+  final String universityCount;
+  final String countryId;
+  final String countryImg;
 
   DashboardCountryDetail({
     required this.country,
     required this.universityCount,
     required this.countryId,
+    required this.countryImg,
   });
 
   factory DashboardCountryDetail.fromJson(Map<String, dynamic> json) =>
@@ -57,21 +58,23 @@ class DashboardCountryDetail {
         country: json["Country"],
         universityCount: json["UniversityCount"],
         countryId: json["CountryId"],
+        countryImg: json["CountryImg"],
       );
 
   Map<String, dynamic> toJson() => {
         "Country": country,
         "UniversityCount": universityCount,
         "CountryId": countryId,
+        "CountryImg": countryImg,
       };
 }
 
 class DashboardCourseDetail {
-  String universityImage;
-  String course;
-  String university;
-  String fees;
-  String courseId;
+  final String universityImage;
+  final String course;
+  final String university;
+  final String fees;
+  final String courseId;
 
   DashboardCourseDetail({
     required this.universityImage,
@@ -83,11 +86,11 @@ class DashboardCourseDetail {
 
   factory DashboardCourseDetail.fromJson(Map<String, dynamic> json) =>
       DashboardCourseDetail(
-        universityImage: json["UniversityImage"],
-        course: json["Course"],
-        university: json["University"],
-        fees: json["Fees"],
-        courseId: json["CourseId"],
+        universityImage: json["UniversityImage"].toString(),
+        course: json["Course"].toString(),
+        university: json["University"].toString(),
+        fees: json["Fees"].toString(),
+        courseId: json["CourseId"].toString(),
       );
 
   Map<String, dynamic> toJson() => {
@@ -100,11 +103,11 @@ class DashboardCourseDetail {
 }
 
 class DashboardUniversityDetail {
-  String universityImage;
-  String country;
-  String university;
-  String universityId;
-  String countryId;
+  final String universityImage;
+  final Country country;
+  final String university;
+  final String universityId;
+  final String countryId;
 
   DashboardUniversityDetail({
     required this.universityImage,
@@ -116,18 +119,34 @@ class DashboardUniversityDetail {
 
   factory DashboardUniversityDetail.fromJson(Map<String, dynamic> json) =>
       DashboardUniversityDetail(
-        universityImage: json["UniversityImage"],
-        country: json["Country"],
-        university: json["University"],
-        universityId: json["UniversityId"],
-        countryId: json["CountryId"],
+        universityImage: json["UniversityImage"].toString(),
+        country: countryValues.map[json["Country"]]!,
+        university: json["University"].toString(),
+        universityId: json["UniversityId"].toString(),
+        countryId: json["CountryId"].toString(),
       );
 
   Map<String, dynamic> toJson() => {
         "UniversityImage": universityImage,
-        "Country": country,
+        "Country": countryValues.reverse[country],
         "University": university,
         "UniversityId": universityId,
         "CountryId": countryId,
       };
+}
+
+enum Country { CANADA }
+
+final countryValues = EnumValues({"Canada": Country.CANADA});
+
+class EnumValues<T> {
+  Map<String, T> map;
+  late Map<T, String> reverseMap;
+
+  EnumValues(this.map);
+
+  Map<T, String> get reverse {
+    reverseMap = map.map((k, v) => MapEntry(v, k));
+    return reverseMap;
+  }
 }

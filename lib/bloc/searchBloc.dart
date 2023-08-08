@@ -14,54 +14,50 @@ class SearchBloc {
   late StreamController<dynamic> getdashboardsearch;
   late StreamController<dynamic> coursemoredetails;
   late StreamController<Response<dynamic>> getfiltersearch;
+  late StreamController<Response<dynamic>> courseappliedEmail;
 
   StreamSink<dynamic> get getcountrysearchSink => getcountrysearch.sink;
-
   Stream<dynamic> get getcountrysearchStream => getcountrysearch.stream;
 
   //university
   StreamSink<dynamic> get getuniversitysearchSink => getuniversitysearch.sink;
-
   Stream<dynamic> get getuniversitysearchStream => getuniversitysearch.stream;
+
   //Location
-
   StreamSink<dynamic> get getlocationsearchSink => getlocationsearch.sink;
-
   Stream<dynamic> get getlocationsearchStream => getlocationsearch.stream;
+
   //Study Area
-
   StreamSink<dynamic> get getstudyareasearchSink => getstudyareasearch.sink;
-
   Stream<dynamic> get getstudyareasearchStream => getstudyareasearch.stream;
 
   //Discipline Area
-
   StreamSink<dynamic> get getdisciplineareasearchSink =>
       getdisciplineareasearch.sink;
-
   Stream<dynamic> get getdisciplineareasearchStream =>
       getdisciplineareasearch.stream;
 
   //Discipline Area
   StreamSink<Response<dynamic>> get getfiltersearchSink => getfiltersearch.sink;
-
   Stream<Response<dynamic>> get getfiltersearchStream => getfiltersearch.stream;
 
 //Pagenation
-
   StreamSink<dynamic> get getuniversitypagenationSink =>
       getuniversitypagenation.sink;
-
   Stream<dynamic> get getuniversitypagenationStream =>
       getuniversitypagenation.stream;
 
   StreamSink<dynamic> get getdashboardsearchSink => getdashboardsearch.sink;
-
   Stream<dynamic> get getdashboardsearchStream => getdashboardsearch.stream;
 
   StreamSink<dynamic> get coursemoredetailsSink => coursemoredetails.sink;
-
   Stream<dynamic> get coursemoredetailsStream => coursemoredetails.stream;
+
+  // courseApplied Email
+  StreamSink<Response<dynamic>> get courseappliedEmailSink =>
+      courseappliedEmail.sink;
+  Stream<Response<dynamic>> get courseappliedEmailStream =>
+      courseappliedEmail.stream;
 
   SearchBloc() {
     getcountrysearch = StreamController<dynamic>();
@@ -73,6 +69,7 @@ class SearchBloc {
     getuniversitypagenation = StreamController<dynamic>();
     getdashboardsearch = StreamController<dynamic>();
     coursemoredetails = StreamController<dynamic>();
+    courseappliedEmail = StreamController<Response<dynamic>>();
     courseRepo = CourseRepo();
   }
 
@@ -166,6 +163,16 @@ class SearchBloc {
     }
   }
 
+//course Applied Email
+  callCourseAppliedEmail(Map<String, dynamic> parameter) async {
+    try {
+      dynamic chuckCats = await courseRepo.courseAppliedEmail(parameter);
+      courseappliedEmailSink.add(Response.completed(chuckCats));
+    } catch (e) {
+      courseappliedEmailSink.add(Response.error(e.toString()));
+    }
+  }
+
   void dispose() {
     getcountrysearch.close();
     getuniversitysearch.close();
@@ -176,5 +183,6 @@ class SearchBloc {
     getuniversitypagenation.close();
     getdashboardsearch.close();
     coursemoredetails.close();
+    courseappliedEmail.close();
   }
 }

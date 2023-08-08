@@ -1,62 +1,3 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:global_student/utils/color.dart';
-// import 'package:global_student/utils/text_style.dart';
-
-// class InternetConnection extends StatefulWidget {
-//   const InternetConnection({super.key});
-
-//   @override
-//   State<InternetConnection> createState() => _InternetConnectionState();
-// }
-
-// class _InternetConnectionState extends State<InternetConnection> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Center(
-//         child: Column(
-//           children: [
-//             SizedBox(
-//               height: 200.h,
-//             ),
-//             Image.asset('assets/images/on1.png'),
-//             SizedBox(
-//               height: 60.h,
-//             ),
-//             Text(
-//               "No Connection Internet",
-//               style: H1TextStyle(AppColors.PrimaryBlackColor),
-//             )
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// import 'package:connectivity_plus/connectivity_plus.dart';
-// import 'package:flutter/material.dart';
-
-// class ConnectionChecker extends StatelessWidget {
-//   const ConnectionChecker({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return StreamBuilder<ConnectivityResult>(
-//       stream: Connectivity().onConnectivityChanged,
-//       builder: (BuildContext context, AsyncSnapshot snapshot) {
-//         return Scaffold(
-//           body: Center(
-//               child: snapshot.data == ConnectivityResult.none
-//                   ? Text("check internet")
-//                   : Text("connected")),
-//         );
-//       },
-//     );
-//   }
-// }
-
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -84,7 +25,6 @@ class _ConnectionCheckerState extends State<ConnectionChecker> {
       isConnected = true;
     } else {
       isConnected = false;
-      //ConnectionChecker();
     }
     setState(() {});
   }
@@ -100,28 +40,9 @@ class _ConnectionCheckerState extends State<ConnectionChecker> {
     subscription.cancel();
     super.dispose();
   }
-  // showDialogBox() {
-  //   showDialog(
-  //       barrierDismissible: false,
-  //       context: context,
-  //       builder: (context) => CupertinoAlertDialog(
-  //             title: const Text("No Internet"),
-  //             content: const Text("Please check your internet connection"),
-  //             actions: [
-  //               CupertinoButton.filled(
-  //                   child: const Text("Retry"),
-  //                   onPressed: () {
-  //                     Navigator.pop(context);
-  //                     checkInternet();
-  //                   }),
-  //             ],
-  //           )); // CupertinoAlertDialog
-  // }
 
   @override
   void initState() {
-    // TODO: implement initState
-
     startStreaming();
     super.initState();
   }
@@ -129,7 +50,6 @@ class _ConnectionCheckerState extends State<ConnectionChecker> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -169,22 +89,6 @@ class _ConnectionCheckerState extends State<ConnectionChecker> {
                       }),
                 )
               : Container(),
-          // SizedBox(
-          //     width: 150.w,
-          //     child: ButtonPrimary(
-          //         title: "Retry",
-          //         onPressed: () {
-          //           final snackBar = SnackBar(
-          //             content: const Text('No Internet Connection'),
-          //             backgroundColor: (Colors.black),
-          //             action: SnackBarAction(
-          //               textColor: AppColors.PrimaryWhiteColor,
-          //               label: 'Dismiss',
-          //               onPressed: () {},
-          //             ),
-          //           );
-          //           ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          //         }))
         ],
       ),
     );

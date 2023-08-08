@@ -32,13 +32,11 @@ class _PinInputState extends State<PinInput> {
   @override
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
-      //padding: EdgeInsets.all(30),
       margin: const EdgeInsets.all(10),
       width: 60.w,
       height: 60.h,
       textStyle: OtpText(AppColors.PrimaryBlackColor),
       decoration: BoxDecoration(
-        //color: AppColors.PrimaryGreyColor,
         border: Border.all(color: AppColors.PrimaryGreyColor),
         borderRadius: BorderRadius.circular(10.r),
       ),
@@ -58,20 +56,6 @@ class _PinInputState extends State<PinInput> {
                   AndroidSmsAutofillMethod.smsUserConsentApi,
               listenForMultipleSmsOnAndroid: true,
               defaultPinTheme: defaultPinTheme,
-              // validator: (value) {
-              //   return value == '2222' ? null : 'Pin is incorrect';
-              // },
-              // onClipboardFound: (value) {
-             
-              //   pinController.setText(value);
-              // },
-              // hapticFeedbackType: HapticFeedbackType.lightImpact,
-              // onCompleted: (pin) {
-            
-              // },
-              // onChanged: (value) {
-             
-              // },
               cursor: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -81,7 +65,6 @@ class _PinInputState extends State<PinInput> {
                     ),
                     width: 22,
                     height: 1,
-                    // color: focusedBorderColor,
                   ),
                 ],
               ),

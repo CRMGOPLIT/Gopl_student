@@ -95,7 +95,7 @@ TextStyle batchtext1(Color? color) {
       fontFamily: "Outfit",
       fontWeight: FontWeight.w500,
       // height: 1,
-      letterSpacing: 0.6,
+      letterSpacing: 0.2,
       fontSize: 12.sp);
 }
 
@@ -105,8 +105,8 @@ TextStyle batchtext2(Color? color) {
       fontFamily: "Outfit",
       fontWeight: FontWeight.w600,
       // height: 1.1,
-      letterSpacing: 0.6,
-      fontSize: 12.sp);
+      letterSpacing: 0.5.sp,
+      fontSize: 11.sp);
 }
 
 TextStyle location(Color? color) {

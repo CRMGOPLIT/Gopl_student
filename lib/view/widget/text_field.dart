@@ -34,6 +34,9 @@ class TextFormWidget extends StatelessWidget {
             style: FieldTextStyle(
               AppColors.PrimaryBlackColor,
             )),
+        SizedBox(
+          height: 5.h,
+        ),
         Container(
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(10)),
@@ -42,12 +45,9 @@ class TextFormWidget extends StatelessWidget {
             controller: controller,
             validator: validator,
             keyboardType: keyboardType,
-            // validator:((value) => {
-            //   valid();
-            // },
-            // [
+           
             style: batchtext2(AppColors.PrimaryMainColor),
-            // ],
+         
             cursorColor: AppColors.PrimaryBlackColor,
             decoration: InputDecoration(
               hintText: "$hint",
@@ -62,7 +62,7 @@ class TextFormWidget extends StatelessWidget {
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
                 borderSide: const BorderSide(
-                  color: Colors.transparent,
+                  color: AppColors.hintcolor,
                   width: 1.0,
                 ),
               ),

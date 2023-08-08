@@ -64,7 +64,7 @@ class _ApplicationStatusState extends State<ApplicationStatus> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(50.h),
         child: AppBarCustom(
-          title: "Application Status",
+          title: "My Application Status",
           onpress: () {
             Navigator.pushNamed(context, RoutesName.bottomnav);
           },
@@ -96,19 +96,19 @@ class _ApplicationStatusState extends State<ApplicationStatus> {
                               width: 250.w,
                               fit: BoxFit.contain,
                             )),
-                            Text("No Application Status",
+                            Text("No Application Found ?",
                                 style: H2TextStyle(AppColors.PrimaryMainColor)),
                             SizedBox(
                               height: 10.h,
                             ),
-                            Text("Contact to Your Counsellor.",
+                            Text("Contact To Your Counsellor.",
                                 style: batchtext2(AppColors.PrimaryMainColor)),
                             SizedBox(
                               height: 40.h,
                             ),
                             Container(
                               height: 50.h,
-                              width: 250.w,
+                              width: 185.w,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.r),
                                   gradient: const LinearGradient(
@@ -136,7 +136,7 @@ class _ApplicationStatusState extends State<ApplicationStatus> {
                                     Center(
                                       child:
                                           Text("Call Counsellor".toUpperCase(),
-                                              style: btntext(
+                                              style: batchtext2(
                                                 AppColors.PrimaryWhiteColor,
                                               )),
                                     ),
@@ -175,6 +175,9 @@ class _ApplicationStatusState extends State<ApplicationStatus> {
                                         application[i].fCreationdate.toString(),
                                     apistatus: application[i]
                                         .fApplicationStage
+                                        .toString(),
+                                    aremark: application[i]
+                                        .fApplicationRemark
                                         .toString(),
                                   )),
                           ],

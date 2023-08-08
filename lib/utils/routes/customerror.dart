@@ -8,15 +8,12 @@ import '../../view/widget/button.dart';
 
 class CustomErrorWidget extends StatelessWidget {
   const CustomErrorWidget({super.key});
- 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('Error'),
-      // ),
       body: Center(
-        child: Container(
+        child: SizedBox(
             height: 330.h,
             width: 250.w,
             child: Column(

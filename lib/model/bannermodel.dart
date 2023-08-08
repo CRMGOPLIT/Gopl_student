@@ -25,10 +25,10 @@ class Bannermodel {
   factory Bannermodel.fromJson(Map<String, dynamic> json) => Bannermodel(
         isVisaApplicable: json["IsVisaApplicable"],
         images: List<String>.from(json["Images"].map((x) => x)),
-        countryId: json["CountryId"],
-        studentId: json["StudentId"],
-        courseId: json["CourseId"],
-        countryName: json["CountryName"],
+        countryId: json["CountryId"].toString(),
+        studentId: json["StudentId"].toString(),
+        courseId: json["CourseId"].toString(),
+        countryName: json["CountryName"].toString(),
       );
 
   Map<String, dynamic> toJson() => {

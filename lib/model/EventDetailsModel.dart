@@ -18,12 +18,12 @@ class EvenetDetailsModel {
 
   factory EvenetDetailsModel.fromJson(Map<String, dynamic> json) =>
       EvenetDetailsModel(
-        event: json["Event"],
-        date: json["Date"],
-        time: json["Time"],
-        venue: json["Venue"],
-        branch: json["Branch"],
-        venueLocation: json["VenueLocation"],
+        event: json["Event"].toString(),
+        date: json["Date"].toString(),
+        time: json["Time"].toString(),
+        venue: json["Venue"].toString(),
+        branch: json["Branch"].toString(),
+        venueLocation: json["VenueLocation"].toString(),
       );
 
   Map<String, dynamic> toJson() => {

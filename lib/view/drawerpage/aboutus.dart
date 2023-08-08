@@ -43,8 +43,8 @@ class _AboutUsState extends State<AboutUs> {
               children: [
                 Image.asset(
                   "assets/images/bannerlogo.png",
-                  height: 40,
-                  width: 200,
+                  height: 40.h,
+                  width: 200.w,
                   fit: BoxFit.contain,
                 ),
                 SizedBox(

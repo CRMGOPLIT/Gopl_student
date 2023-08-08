@@ -33,9 +33,7 @@ class _DonePageState extends State<DonePage> {
   }
 
   _gethomeData() {
-    //dashBoardBloc.callBoardListApi();
     dashBoardBloc.callQualificationApi();
-    // dashBoardBloc.callQualificationListApi();
   }
 
   getUserDetails() async {
@@ -47,7 +45,7 @@ class _DonePageState extends State<DonePage> {
               QualificationSubmitModel.fromJson(event[i]);
           qualificationdatasubmit.add(qualificationSubmitModel);
         }
-        // Application.add(userData1);
+
         setState(() {
           loading2 = false;
         });
@@ -60,7 +58,7 @@ class _DonePageState extends State<DonePage> {
     return Scaffold(
         backgroundColor: AppColors.backgroungcolor,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(50.h), // here the desired height
+          preferredSize: Size.fromHeight(50.h),
           child: AppBarCustom(
             title: "Qualification ",
             onpress: () {
@@ -135,7 +133,7 @@ class _DonePageState extends State<DonePage> {
                                   ),
                                   Row(
                                     children: [
-                                      Text("Stream :-",
+                                      Text("Stream :- ",
                                           style: batchtext2(
                                               AppColors.PrimaryBlackColor)),
                                       SizedBox(
@@ -154,7 +152,7 @@ class _DonePageState extends State<DonePage> {
                                   ),
                                   Row(
                                     children: [
-                                      Text("Course Type :-",
+                                      Text("Course Type :- ",
                                           style: batchtext2(
                                               AppColors.PrimaryBlackColor)),
                                       SizedBox(
@@ -175,7 +173,7 @@ class _DonePageState extends State<DonePage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text("University/Board :-",
+                                      Text("University/Board :- ",
                                           style: batchtext2(
                                               AppColors.PrimaryBlackColor)),
                                       Flexible(
@@ -193,7 +191,7 @@ class _DonePageState extends State<DonePage> {
                                   ),
                                   Row(
                                     children: [
-                                      Text("Percentage/Grade :-",
+                                      Text("Percentage/Grade :- ",
                                           style: batchtext2(
                                               AppColors.PrimaryBlackColor)),
                                       SizedBox(
@@ -214,7 +212,7 @@ class _DonePageState extends State<DonePage> {
                                     children: [
                                       Row(
                                         children: [
-                                          Text("Start Year :-",
+                                          Text("Start Year :- ",
                                               style: batchtext2(
                                                   AppColors.PrimaryBlackColor)),
                                           Text(
@@ -230,7 +228,7 @@ class _DonePageState extends State<DonePage> {
                                       ),
                                       Row(
                                         children: [
-                                          Text("Start Month :-",
+                                          Text("Start Month :- ",
                                               style: batchtext2(
                                                   AppColors.PrimaryBlackColor)),
                                           Text(
@@ -266,7 +264,7 @@ class _DonePageState extends State<DonePage> {
                                       ),
                                       Row(
                                         children: [
-                                          Text("Pass Month :-",
+                                          Text("Pass Month :- ",
                                               style: batchtext2(
                                                   AppColors.PrimaryBlackColor)),
                                           Text(

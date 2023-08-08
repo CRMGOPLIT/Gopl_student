@@ -10,7 +10,6 @@ import 'package:global_student/view/widget/button.dart';
 import 'package:global_student/view/widget/loader.dart';
 import 'package:global_student/view/widget/otp_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../utils/routes/routes_name.dart';
 
 class OtpPage extends StatefulWidget {
@@ -40,14 +39,12 @@ class _OtpPageState extends State<OtpPage> {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor: Colors.green,
           content: Text(
-            "Login Successfully",
-            style: batchtext2(AppColors.PrimaryWhiteColor),
+            "Welcome to Global Opportunities",
+            style: batchtext1(AppColors.PrimaryWhiteColor),
           ),
         ));
-
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('stringValue', event.data['Token'].toString());
-
         // ignore: use_build_context_synchronously
         Navigator.pushNamedAndRemoveUntil(
           context,
@@ -110,29 +107,20 @@ class _OtpPageState extends State<OtpPage> {
   }
 
   void callResendOtp() {
-    // NetworkDialog.showLoadingDialog(context, _keyLoader);
     Map<String, String> data = {
       NetworkConstant.Mobile_Number: data2,
     };
     loginDataBloc.callPostLogin(data);
-
-    // debugger();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
-      // appBar: AppBar(
-      //   backgroundColor: Colors.transparent,
-      //   centerTitle: true,
-      //   title: Text(
-      //     "OTP",
-      //     style: H1TextStyle(AppColors.PrimaryWhiteColor),
-      //   ),
-      // ),
       body: SafeArea(
         child: SingleChildScrollView(
+          reverse: false,
           child: Padding(
             padding: EdgeInsets.only(left: 15.r, right: 15.r),
             child: Column(
@@ -141,10 +129,6 @@ class _OtpPageState extends State<OtpPage> {
                 SizedBox(
                   height: 25.h,
                 ),
-                // Text(
-                //   "OTP",
-                //   style: H1TextStyle(AppColors.PrimaryBlackColor),
-                // ),
                 Center(
                   child: Image.asset(
                     "assets/images/otpnew1.png",
@@ -199,7 +183,7 @@ class _OtpPageState extends State<OtpPage> {
                             setState(() {
                               resendotp = false;
                             });
-                            // Navigator.pushNamed(context, RoutesName.login);
+
                             callResendOtp();
                           },
                           child: Text(
@@ -220,6 +204,11 @@ class _OtpPageState extends State<OtpPage> {
                           ),
                         ),
                       ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: 150.h,
+                      bottom: MediaQuery.of(context).viewInsets.bottom),
+                )
               ],
             ),
           ),

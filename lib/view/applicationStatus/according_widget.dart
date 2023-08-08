@@ -1,3 +1,4 @@
+import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fadein/flutter_fadein.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,7 +8,6 @@ import 'package:global_student/view/widget/allpication_status_card.dart';
 
 // ignore: must_be_immutable
 class AccordingWidget extends StatefulWidget {
-  //AccordingLModel accordingData;
   String? country;
   String? institution;
   String? ug;
@@ -17,6 +17,7 @@ class AccordingWidget extends StatefulWidget {
   String? apidate;
   String? apistatus;
   String? apinumber;
+  String? aremark;
 
   AccordingWidget({
     super.key,
@@ -29,6 +30,7 @@ class AccordingWidget extends StatefulWidget {
     required this.apidate,
     required this.apistatus,
     required this.apinumber,
+    required this.aremark,
   });
 
   @override
@@ -42,7 +44,8 @@ class AccordingWidget extends StatefulWidget {
       preference: preference,
       apidate: apidate,
       apistatus: apistatus,
-      apinumber: apinumber);
+      apinumber: apinumber,
+      aremark: aremark);
 }
 
 class _AccordingWidgetState extends State<AccordingWidget> {
@@ -56,6 +59,8 @@ class _AccordingWidgetState extends State<AccordingWidget> {
   String? apidate;
   String? apistatus;
   String? apinumber;
+
+  String? aremark;
   _AccordingWidgetState({
     required this.country,
     required this.institution,
@@ -66,6 +71,7 @@ class _AccordingWidgetState extends State<AccordingWidget> {
     required this.apidate,
     required this.apistatus,
     required this.apinumber,
+    required this.aremark,
   });
 
   bool isExpanded = false;
@@ -96,7 +102,7 @@ class _AccordingWidgetState extends State<AccordingWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text("Application No :- " "$apinumber",
+                  Text(institution!,
                       style: FieldTextStyle(
                         AppColors.PrimaryWhiteColor,
                       )),
@@ -136,124 +142,145 @@ class _AccordingWidgetState extends State<AccordingWidget> {
                   duration: const Duration(milliseconds: 1000),
                   child: Column(
                     children: [
-                      Container(
-                        decoration: const BoxDecoration(
-                          color: AppColors.PrimaryWhiteColor,
-                        ),
-                        child: Column(
-                          children: [
-                            Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  ApplicationStatusCard(
-                                    title: "Country",
-                                    subtitle: country,
-                                  ),
-                                  ApplicationStatusCard(
-                                    title: "Institution",
-                                    subtitle: institution,
-                                  ),
-                                ]),
-                            Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  ApplicationStatusCard(
-                                    title: "UG/PG",
-                                    subtitle: ug,
-                                  ),
-                                  ApplicationStatusCard(
-                                    title: "Course",
-                                    subtitle: course,
-                                  ),
-                                ]),
-                            Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  ApplicationStatusCard(
-                                    title: "Chort",
-                                    subtitle: chort,
-                                  ),
-                                  ApplicationStatusCard(
-                                    title: "Preference",
-                                    subtitle: preference,
-                                  ),
-                                ]),
-                            Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  ApplicationStatusCard(
-                                    title: "Application Date",
-                                    subtitle: apidate,
-                                  ),
-                                  Container(
-                                    padding: EdgeInsets.only(
-                                        left: 25.r,
-                                        right: 25.r,
-                                        top: 20.r,
-                                        bottom: 20.r),
-                                    margin: EdgeInsets.all(10.r),
-                                    decoration: BoxDecoration(
-                                        color: AppColors.backgroungcolor,
-                                        boxShadow: const [
-                                          BoxShadow(
-                                              offset: Offset(
-                                                2,
-                                                2,
-                                              ),
-                                              color: Colors.black12,
-                                              blurRadius: 1.0,
-                                              spreadRadius: 0.0),
+                      FlipCard(
+                          front: SizedBox(
+                            width: 370.w,
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  side: const BorderSide(
+                                    color: AppColors.PrimaryMainColor,
+                                  )),
+                              elevation: 4,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    RichText(
+                                      text: TextSpan(
+                                        text: 'Country :- ',
+                                        style: batchtext2(
+                                            AppColors.PrimaryBlackColor),
+                                        children: [
+                                          TextSpan(
+                                              text: "$country",
+                                              style: batchtext1(
+                                                  AppColors.PrimaryBlackColor)),
                                         ],
-                                        borderRadius:
-                                            BorderRadius.circular(10.sp)),
-                                    child: Column(
-                                      children: [
-                                        SizedBox(
-                                          width: 85.w,
-                                          child: Text(
-                                            "Application Status",
-                                            textAlign: TextAlign.center,
-                                            style: FieldTextStyle(
-                                                AppColors.PrimaryBlackColor),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.all(5.r),
-                                          height: 1.h,
-                                          width: 70.w,
-                                          color: AppColors.PrimaryBlackColor,
-                                        ),
-                                        SizedBox(
-                                          width: 80.w,
-                                          child: Text(
-                                            "$apistatus",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Colors.green,
-                                                // fontFamily: Constant.font_poppins_bold,
-                                                fontWeight: FontWeight.w500,
-                                                height: 1.1.h,
-                                                fontSize: 12.sp),
-                                          ),
-                                        ),
-                                      ],
+                                      ),
                                     ),
-                                  ),
-                                  // ApplicationStatusCard(
-                                  //   title: "Application Status",
-                                  //   subtitle: "Visa Approved".toUpperCase(),
-                                  // ),
-                                ]),
-                            SizedBox(
-                              height: 15.h,
-                            )
-                          ],
-                        ),
-                      ),
+                                    SizedBox(height: 5.h),
+                                    ApplicationStatusCard(
+                                      title: "Course",
+                                      subtitle: course,
+                                    ),
+                                    SizedBox(height: 5.h),
+                                    Text("Application Status",
+                                        style: batchtext2(
+                                          AppColors.PrimaryBlackColor,
+                                        )),
+                                    SizedBox(height: 5.h),
+                                    Text(apistatus!,
+                                        style: batchtext1(Colors.green)),
+                                    SizedBox(
+                                      height: 5.h,
+                                    ),
+                                    Text("Application Remark",
+                                        style: batchtext2(
+                                          AppColors.PrimaryBlackColor,
+                                        )),
+                                    SizedBox(height: 5.h),
+                                    Text(aremark!,
+                                        style: batchtext1(Colors.red)),
+                                    Align(
+                                      alignment: Alignment.bottomRight,
+                                      child: Text(
+                                        "View More 👆",
+                                        style: TextStyle(
+                                          decoration: TextDecoration.underline,
+                                          fontSize: 9.sp,
+                                          color: AppColors.PrimaryMainColor,
+                                          fontFamily: "Outfit",
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          back: SizedBox(
+                            width: 370.w,
+                            child: Card(
+                              elevation: 4,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  side: const BorderSide(
+                                    color: AppColors.PrimaryMainColor,
+                                  )),
+                              child: Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 10.h,
+                                    ),
+                                    RichText(
+                                      text: TextSpan(
+                                        text: 'Preference :-  ',
+                                        style: batchtext2(
+                                            AppColors.PrimaryBlackColor),
+                                        children: [
+                                          TextSpan(
+                                              text: "My $preference preference",
+                                              style:
+                                                  FieldTextStyle(Colors.green)),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10.h,
+                                    ),
+                                    Text(
+                                      "Label of Study:- $ug",
+                                      style: batchtext2(
+                                          AppColors.PrimaryBlackColor),
+                                    ),
+                                    SizedBox(
+                                      height: 10.h,
+                                    ),
+                                    RichText(
+                                      text: TextSpan(
+                                        text: 'Application No :- ',
+                                        style: batchtext2(
+                                            AppColors.PrimaryBlackColor),
+                                        children: [
+                                          TextSpan(
+                                              text: "$apinumber",
+                                              style:
+                                                  FieldTextStyle(Colors.green)),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10.h,
+                                    ),
+                                    ApplicationStatusCard(
+                                      title: "Application Date",
+                                      subtitle: apidate,
+                                    ),
+                                    SizedBox(
+                                      height: 10.h,
+                                    ),
+                                    Text(
+                                      "My Intake:- $chort",
+                                      style: batchtext2(Colors.orange),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )),
                     ],
                   ),
                 )

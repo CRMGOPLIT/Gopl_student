@@ -27,7 +27,6 @@ class Graduation extends StatefulWidget {
 
 class _GraduationState extends State<Graduation> {
   String dropdownvalue = 'Item 1';
-
   QualificationModel? dropnqualification;
   BoardUniversityModel? dropboard;
   MonthModel? dropmonth;
@@ -40,13 +39,8 @@ class _GraduationState extends State<Graduation> {
   TextEditingController percentageEditingController = TextEditingController();
   TextEditingController courseStudiedEditingController =
       TextEditingController();
-  // TextEditingController textEditingController = TextEditingController();
-  //   TextEditingController textEditingController = TextEditingController();
-  //     TextEditingController textEditingController = TextEditingController();
-
   final GlobalKey<State> _keyLoader = GlobalKey<State>();
 
-  // List of items in our dropdown menu
   var course = [
     'Regular',
     'Distance',
@@ -66,33 +60,20 @@ class _GraduationState extends State<Graduation> {
   bool isSelected = false;
   bool isFileSelected = false;
   bool done = true;
-  // List<File> selectedBankStatements = [];
   File? file;
   final _registerkey = GlobalKey<FormState>();
 
   late DashBoardBloc dashBoardBloc;
   List<QualificationModel> qualificationlist = [];
   List<BoardUniversityModel> boarduniversity = [];
-
   List<QualificationSubmitModel> qualificationdatasubmit = [];
 
   List qualificationdata = [];
   List boarddata = [];
-
   bool loading = true;
   bool loading1 = true;
-
   List qualidata = [];
-
   bool loading2 = true;
-
-  // @override
-  // void initState() {
-  //   dashBoardBloc = DashBoardBloc();
-
-  //   // SaveName();
-  //   super.initState();
-  // }
 
   getUserDetails() {
     dashBoardBloc.getqualificationcontrollerStream.listen((event) {
@@ -103,7 +84,7 @@ class _GraduationState extends State<Graduation> {
               QualificationSubmitModel.fromJson(event[i]);
           qualificationdatasubmit.add(qualificationSubmitModel);
         }
-        // Application.add(userData1);
+
         setState(() {
           loading2 = false;
         });
@@ -116,11 +97,7 @@ class _GraduationState extends State<Graduation> {
     dashBoardBloc = DashBoardBloc();
     getQualificationList();
     getBoardUniversityList();
-
-    //userData1 = "" as UsersDetailsModel;
     _gethomeData();
-    //  callGetPromotersDetailsApi();
-
     showYear();
 
     dashBoardBloc.documentuploadControllerStream.listen((event) {
@@ -133,35 +110,17 @@ class _GraduationState extends State<Graduation> {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text("Document Submmited Succesfully"),
         ));
-        Navigator.pushNamed(context, RoutesName.donepage);
+
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          RoutesName.donepage,
+          (routes) => false,
+        );
+
         setState(() {
           done = false;
           getUserDetails();
         });
-
-        //IF Anything going wrong
-
-        // showDialog<void>(
-        //     context: context,
-        //     barrierColor: AppColors.PrimaryMainColor,
-        //     barrierDismissible: false,
-        //     builder: (BuildContext context) {
-        //       return ApiErrorDialog(
-        //           btnText: "Back To Home",
-        //           image: "assets/images/batch.png",
-        //           description: event.data['massage'].toString(),
-        //           onPressed: () {
-        //             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        //               content: Text(event.data['massage'].toString()),
-        //             ));
-        //             // Navigator.pop(context);
-        //             // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        //             //   content: Text(event.data['massage'].toString()),
-        //             // ));
-        //             // NavigationUtils().navigateOffAll(fileName: HomePage());
-        //             return false;
-        //           });
-        //     });
       } else {
         setState(() {
           done = true;
@@ -198,10 +157,6 @@ class _GraduationState extends State<Graduation> {
                           style: batchtext1(
                             AppColors.PrimaryWhiteColor,
                           )),
-                      //         TextStyle(fontSize: 15.sp, color: Colors.white),
-                      //     maxLines: 2,
-                      //     overflow: TextOverflow.ellipsis,
-                      //   ),
                     ],
                   ),
                 ),
@@ -209,22 +164,6 @@ class _GraduationState extends State<Graduation> {
             ),
           ),
         ));
-        // showDialog<void>(
-        //     context: context,
-        //     barrierColor: AppColors.PrimaryMainColor.withOpacity(0.1),
-        //     barrierDismissible: false,
-        //     builder: (BuildContext context) {
-        //       return ApiErrorDialog(
-        //           btnText: 'Retry',
-        //           image: "assets/images/batch.png",
-        //           description: event.data['massage'].toString(),
-        //           onPressed: () {
-        //             Navigator.pop(context);
-        //             //  getMaxAMountLoanDetails();
-
-        //             // Navigator.pushNamed(context, RoutesName.register);
-        //           });
-        //     });
       }
     });
     super.initState();
@@ -282,7 +221,6 @@ class _GraduationState extends State<Graduation> {
       NetworkConstant.pyear: droppassyear!.toString(),
       NetworkConstant.rdistance: dropcourse,
       NetworkConstant.dtype: NetworkConstant.bachelor,
-      // NetworkConstant.image: file!,
     };
 
     dashBoardBloc.callUploadDocumentApi(
@@ -302,1265 +240,1150 @@ class _GraduationState extends State<Graduation> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: AppColors.backgroungcolor,
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60.0),
-          child: AppBar(
-            backgroundColor: AppColors.PrimaryMainColor,
-            elevation: 0,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(0),
-                  bottomLeft: Radius.circular(0)),
-            ),
-            leading: const Text(""),
-            actions: [
-              InkWell(
-                onTap: () {
-                  Navigator.pushNamed(context, RoutesName.donepage);
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 10),
-                  child: Center(
-                    child: Container(
-                      alignment: Alignment.center,
-                      // color: AppColors.PrimaryBlackColor,
-                      height: 40,
-                      width: 80,
-                      child: Text(
-                        "skip",
-                        style: batchtext2(AppColors.PrimaryWhiteColor),
+    return WillPopScope(
+      onWillPop: () => _onbackbuttondoubleClick(context),
+      child: Scaffold(
+          backgroundColor: AppColors.backgroungcolor,
+          appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(60.0),
+            child: AppBar(
+              backgroundColor: AppColors.PrimaryMainColor,
+              elevation: 0,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(0),
+                    bottomLeft: Radius.circular(0)),
+              ),
+              leading: const Text(""),
+              actions: [
+                InkWell(
+                  onTap: () {
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      RoutesName.donepage,
+                      (routes) => false,
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: Center(
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 40,
+                        width: 80,
+                        child: Text(
+                          "skip",
+                          style: batchtext2(AppColors.PrimaryWhiteColor),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              )
-            ],
-            centerTitle: true,
-            title: const Text("Qualification"),
+                )
+              ],
+              centerTitle: true,
+              title: Text(
+                "Qualification",
+                style: OtpText(AppColors.PrimaryWhiteColor),
+              ),
+            ),
           ),
-        ),
-        body: loading
-            ? Center(
-                child: CircularProgressIndicator(
-                strokeWidth: 2.w,
-                color: AppColors.PrimaryMainColor,
-              ))
-            : SingleChildScrollView(
-                child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Form(
-                      key: _registerkey,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Text("Qualification",
-                          //     style: FieldTextStyle(
-                          //       AppColors.PrimaryBlackColor,
-                          //     )),
-                          // Container(
-                          //   height: 55,
-                          //   width: 450,
-                          //   decoration: BoxDecoration(
-                          //       color: Colors.white,
-                          //       borderRadius: BorderRadius.circular(10)),
-                          //   child: Padding(
-                          //     padding: EdgeInsets.all(20.sp),
-                          //     child: Text(
-                          //       "10th",
-                          //       // textAlign: TextAlign.center,
-                          //       style: batchtext2(AppColors.PrimaryMainColor),
-                          //     ),
-                          //   ),
-                          // ),
-                          //  Text(li_year[i].toString()),
-                          Text("Qualification",
-                              style: FieldTextStyle(
-                                AppColors.PrimaryBlackColor,
-                              )),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButtonFormField2(
-                                isDense: false,
-                                isExpanded: true,
-                                decoration: const InputDecoration(
-                                  // enabledBorder: OutlineInputBorder(
-                                  //   borderRadius: BorderRadius.circular(10),
-                                  //   // width: 0.0 produces a thin "hairline" border
-                                  //   borderSide: BorderSide(
-                                  //       color: AppColors.PrimaryMainColor, width: 1.0),
-                                  // ),
-                                  // errorBorder: new OutlineInputBorder(
-                                  //   borderRadius: BorderRadius.circular(10),
-                                  //   borderSide:
-                                  //       new BorderSide(color: Colors.red, width: 1.0),
-                                  // ),
-                                  isCollapsed: true,
-                                  border: InputBorder.none,
-                                ),
-                                validator: (value) {
-                                  if (value == null || value.name.isEmpty) {
-                                    return 'Please Select Qualification';
-                                  }
-                                  return null;
-                                },
-                                hint: Text(
-                                  'Please select Qualification',
-                                  style: batchtext2(AppColors.hintcolor),
-                                ),
-                                items: qualificationlist
-                                    .map((QualificationModel item) =>
-                                        DropdownMenuItem(
-                                          value: item,
-                                          child: Text(
-                                            item.name.toString(),
-                                            style: batchtext2(
-                                                AppColors.PrimaryMainColor),
-                                          ),
-                                        ))
-                                    .toList(growable: false),
-                                value: dropnqualification,
-                                onChanged: (QualificationModel? value) {
-                                  setState(() {
-                                    dropnqualification = value;
-                                    isSelected = true;
-                                    //  selectedSecurity = value!;
-                                    // accountTypeValidate = true;
-                                  });
-                                },
-                                buttonStyleData: ButtonStyleData(
-                                  height: 55,
-                                  // width: 450,
-                                  padding: EdgeInsets.all(10.r),
-                                ),
-                                dropdownStyleData: DropdownStyleData(
-                                    // isOverButton: true,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.sp),
-                                        color: AppColors.backgroungcolor,
-                                        border: Border.all()),
-                                    maxHeight: 300.h,
-                                    // width: 500.w,
-                                    elevation: 10),
-                                menuItemStyleData: const MenuItemStyleData(
-                                  padding: EdgeInsets.only(left: 10, right: 10),
-                                  height: 40,
-                                ),
-                                dropdownSearchData:
-                                    DropdownSearchData<QualificationModel>(
-                                  searchController: textEditingController,
-                                  searchInnerWidgetHeight: 200.h,
-                                  searchInnerWidget: Container(
-                                    height: 50,
-                                    padding: const EdgeInsets.only(
-                                      top: 8,
-                                      bottom: 4,
-                                      right: 8,
-                                      left: 8,
+          body: loading
+              ? Center(
+                  child: CircularProgressIndicator(
+                  strokeWidth: 2.w,
+                  color: AppColors.PrimaryMainColor,
+                ))
+              : SingleChildScrollView(
+                  child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Form(
+                        key: _registerkey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Qualification",
+                                style: FieldTextStyle(
+                                  AppColors.PrimaryBlackColor,
+                                )),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButtonFormField2(
+                                  isDense: false,
+                                  isExpanded: true,
+                                  decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: const BorderSide(
+                                          color: AppColors.hintcolor,
+                                          width: 1.0),
                                     ),
-                                    child: TextFormField(
-                                      style: batchtext2(
-                                          AppColors.PrimaryMainColor),
-                                      //expands: true,
-                                      maxLines: 1,
-                                      controller: textEditingController,
-                                      decoration: InputDecoration(
-                                        isDense: true,
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                          horizontal: 15,
-                                          vertical: 15,
-                                        ),
-                                        hintText: 'Search here...',
-                                        hintStyle: batchtext2(
-                                            AppColors.PrimaryMainColor),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                      ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: const BorderSide(
+                                          color: Colors.red, width: 1.0),
                                     ),
+                                    isCollapsed: true,
+                                    border: InputBorder.none,
                                   ),
-                                  searchMatchFn: (item, searchValue) {
-                                    // final myItem = qualificationlist.firstWhere((element) =>
-                                    //     element.name.toString() == item.value.toString());
-                                    return item.value!.name
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(searchValue);
+                                  validator: (value) {
+                                    if (value == null || value.name.isEmpty) {
+                                      return 'Please Select Qualification';
+                                    }
+                                    return null;
                                   },
-                                ),
-                                onMenuStateChange: (isOpen) {
-                                  if (isOpen) {
-                                    textEditingController.clear();
-                                  }
-                                },
-                                iconStyleData: const IconStyleData(
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_down,
-                                    color: AppColors.PrimaryMainColor,
+                                  hint: Text(
+                                    'Please select Qualification',
+                                    style: batchtext2(AppColors.hintcolor),
                                   ),
-                                  iconSize: 30,
-                                ),
-                              ),
-                            ),
-                          ),
-                          // Container(
-                          //   height: 50.h,
-                          //   width: 480.w,
-                          //   decoration: BoxDecoration(
-                          //       borderRadius: BorderRadius.circular(10.r)),
-                          //   child: DropdownButtonFormField(
-                          //     dropdownColor: AppColors.PrimaryGreyColor,
-                          //     elevation: 5,
-                          //     style: TextStyle(
-                          //         color: AppColors.PrimaryMainColor,
-                          //         fontWeight: FontWeight.w600),
-                          //     decoration: InputDecoration(
-                          //       enabledBorder: OutlineInputBorder(
-                          //         borderRadius: BorderRadius.circular(10.r),
-                          //         borderSide: const BorderSide(
-                          //             color: AppColors.PrimaryGreyColor, width: 1),
-                          //       ),
-                          //       focusedBorder: OutlineInputBorder(
-                          //         borderRadius: BorderRadius.circular(10.r),
-                          //         borderSide: const BorderSide(
-                          //           color: AppColors.PrimaryBlackColor,
-                          //           width: 1,
-                          //         ),
-                          //       ),
-                          //     ),
-                          //     value: dropdownvalue,
-                          //     isExpanded: false,
-                          //     icon: Padding(
-                          //       padding: EdgeInsets.only(right: 10.r),
-                          //       child: Icon(
-                          //         Icons.keyboard_arrow_down,
-                          //         size: 30.sp,
-                          //         color: AppColors.PrimaryMainColor,
-                          //       ),
-                          //     ),
-                          //     items: items.map((String items) {
-                          //       return DropdownMenuItem(
-                          //         alignment: AlignmentDirectional.centerStart,
-                          //         value: items,
-                          //         child: Text(items),
-                          //       );
-                          //     }).toList(),
-                          //     onChanged: (String? newValue) {
-                          //       setState(() {
-                          //         isSelected = true;
-                          //       });
-                          //     },
-                          //   ),
-                          // ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          TextFormWidget(
-                            hint: "Enter Your stream",
-                            title: "Stream",
-                            controller: streamEditingController,
-                            keyboardType: TextInputType.emailAddress,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter Your Stream';
-                              }
-                              return null;
-                            },
-                          ),
-
-                          // TextFormWidget(
-                          //   hint: "Enter Your Course Studied",
-                          //   title: "Course Studied",
-                          //   controller: courseStudiedEditingController,
-                          //   keyboardType: TextInputType.emailAddress,
-                          //   validator: (value) {
-                          //     if (value == null || value.isEmpty) {
-                          //       return 'Please enter Your email';
-                          //     }
-                          //     return null;
-                          //   },
-                          // ),
-
-                          Text("Course Type",
-                              style: FieldTextStyle(
-                                AppColors.PrimaryBlackColor,
-                              )),
-                          Container(
-                            height: 55,
-                            width: 450,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButtonFormField2(
-                                isDense: false,
-                                isExpanded: true,
-                                decoration: const InputDecoration(
-                                  // enabledBorder: OutlineInputBorder(
-                                  //   borderRadius: BorderRadius.circular(10),
-                                  //   // width: 0.0 produces a thin "hairline" border
-                                  //   // borderSide: BorderSide(
-                                  //   //     color: AppColors.PrimaryMainColor,
-                                  //   //     width: 1.0),
-                                  // ),
-                                  // errorBorder: new OutlineInputBorder(
-                                  //   borderRadius: BorderRadius.circular(10),
-                                  //   borderSide: new BorderSide(
-                                  //       color: Colors.red, width: 1.0),
-                                  // ),
-                                  isCollapsed: true,
-                                  border: InputBorder.none,
-                                ),
-                                validator: (value) {
-                                  if (value == null) {
-                                    return 'Please Select Branch';
-                                  }
-                                  return null;
-                                },
-                                hint: Text(
-                                  'Please select',
-                                  style: batchtext2(AppColors.hintcolor),
-                                ),
-                                items: course
-                                    .map((item) => DropdownMenuItem(
-                                          value: item,
-                                          child: Text(
-                                            item,
-                                            style: batchtext2(
-                                                AppColors.PrimaryMainColor),
-                                          ),
-                                        ))
-                                    .toList(),
-                                value: dropcourse,
-                                onChanged: (value) {
-                                  setState(() {
-                                    dropcourse = value;
-                                    isSelected = true;
-                                    //  selectedSecurity = value!;
-                                    // accountTypeValidate = true;
-                                  });
-                                },
-                                buttonStyleData: const ButtonStyleData(
-                                  height: 55,
-                                  width: 450,
-                                  padding: EdgeInsets.all(10),
-                                ),
-                                dropdownStyleData: DropdownStyleData(
-                                    isOverButton: true,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.sp),
-                                        color: AppColors.backgroungcolor,
-                                        border: Border.all()),
-                                    maxHeight: 200.h,
-                                    elevation: 10),
-                                menuItemStyleData: const MenuItemStyleData(
-                                  padding: EdgeInsets.only(left: 10, right: 10),
-                                  height: 40,
-                                ),
-                                iconStyleData: const IconStyleData(
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_down,
-                                    color: AppColors.PrimaryMainColor,
-                                  ),
-                                  iconSize: 30,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          Text("University/Board",
-                              style: FieldTextStyle(
-                                AppColors.PrimaryBlackColor,
-                              )),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButtonFormField2(
-                                isDense: false,
-                                isExpanded: true,
-                                decoration: InputDecoration(
-                                  // enabledBorder: OutlineInputBorder(
-                                  //   borderRadius: BorderRadius.circular(10),
-                                  //   // width: 0.0 produces a thin "hairline" border
-                                  //   borderSide: BorderSide(
-                                  //       color: AppColors.PrimaryMainColor, width: 1.0),
-                                  // ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: const BorderSide(
-                                        color: Colors.red, width: 1.0),
-                                  ),
-                                  isCollapsed: true,
-                                  border: InputBorder.none,
-                                ),
-                                validator: (value) {
-                                  if (value == null || value.name.isEmpty) {
-                                    return 'Please Select Qualification';
-                                  }
-                                  return null;
-                                },
-                                hint: Text(
-                                  'Please select Qualification',
-                                  style: batchtext2(AppColors.hintcolor),
-                                ),
-                                items: boarduniversity
-                                    .map((BoardUniversityModel item) =>
-                                        DropdownMenuItem(
-                                          value: item,
-                                          child: Text(
-                                            item.name.toString(),
-                                            style: batchtext2(
-                                                AppColors.PrimaryMainColor),
-                                          ),
-                                        ))
-                                    .toList(growable: false),
-                                value: dropboard,
-                                onChanged: (BoardUniversityModel? value) {
-                                  setState(() {
-                                    dropboard = value;
-                                    isSelected = true;
-                                    //  selectedSecurity = value!;
-                                    // accountTypeValidate = true;
-                                  });
-                                },
-                                buttonStyleData: ButtonStyleData(
-                                  height: 55,
-                                  // width: 450,
-                                  padding: EdgeInsets.all(10.r),
-                                ),
-                                dropdownStyleData: DropdownStyleData(
-                                    // isOverButton: true,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.sp),
-                                        color: AppColors.backgroungcolor,
-                                        border: Border.all()),
-                                    maxHeight: 300.h,
-                                    // width: 500.w,
-                                    elevation: 10),
-                                menuItemStyleData: const MenuItemStyleData(
-                                  padding: EdgeInsets.only(left: 10, right: 10),
-                                  height: 40,
-                                ),
-                                dropdownSearchData:
-                                    DropdownSearchData<BoardUniversityModel>(
-                                  searchController: textEditingController,
-                                  searchInnerWidgetHeight: 200.h,
-                                  searchInnerWidget: Container(
-                                    height: 50,
-                                    padding: const EdgeInsets.only(
-                                      top: 8,
-                                      bottom: 4,
-                                      right: 8,
-                                      left: 8,
-                                    ),
-                                    child: TextFormField(
-                                      style: batchtext2(
-                                          AppColors.PrimaryMainColor),
-                                      //expands: true,
-                                      maxLines: 1,
-                                      controller: textEditingController,
-                                      decoration: InputDecoration(
-                                        isDense: true,
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                          horizontal: 15,
-                                          vertical: 15,
-                                        ),
-                                        hintText: 'Search here...',
-                                        hintStyle: batchtext2(
-                                            AppColors.PrimaryMainColor),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  searchMatchFn: (item, searchValue) {
-                                    // final myItem = qualificationlist.firstWhere((element) =>
-                                    //     element.name.toString() == item.value.toString());
-                                    return item.value!.name
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(searchValue);
+                                  items: qualificationlist
+                                      .map((QualificationModel item) =>
+                                          DropdownMenuItem(
+                                            value: item,
+                                            child: Text(
+                                              item.name.toString(),
+                                              style: batchtext2(
+                                                  AppColors.PrimaryMainColor),
+                                            ),
+                                          ))
+                                      .toList(growable: false),
+                                  value: dropnqualification,
+                                  onChanged: (QualificationModel? value) {
+                                    setState(() {
+                                      dropnqualification = value;
+                                      isSelected = true;
+                                    });
                                   },
-                                ),
-                                onMenuStateChange: (isOpen) {
-                                  if (isOpen) {
-                                    textEditingController.clear();
-                                  }
-                                },
-                                iconStyleData: const IconStyleData(
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_down,
-                                    color: AppColors.PrimaryMainColor,
+                                  buttonStyleData: ButtonStyleData(
+                                    height: 55,
+                                    padding: EdgeInsets.all(10.r),
                                   ),
-                                  iconSize: 30,
-                                ),
-                              ),
-                            ),
-                          ),
-
-                          SizedBox(
-                            height: 10.h,
-                          ),
-
-                          TextFormWidget(
-                            hint: "Enter Your percentage",
-                            title: "Percentage/Grade",
-                            controller: percentageEditingController,
-                            keyboardType: TextInputType.emailAddress,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter Your Percentage/Grade';
-                              }
-                              return null;
-                            },
-                          ),
-
-                          Text("Starting Year",
-                              style: FieldTextStyle(
-                                AppColors.PrimaryBlackColor,
-                              )),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButtonFormField2(
-                                isDense: false,
-                                isExpanded: true,
-                                decoration: InputDecoration(
-                                  // enabledBorder: OutlineInputBorder(
-                                  //   borderRadius: BorderRadius.circular(10),
-                                  //   // width: 0.0 produces a thin "hairline" border
-                                  //   borderSide: BorderSide(
-                                  //       color: AppColors.PrimaryMainColor, width: 1.0),
-                                  // ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: const BorderSide(
-                                        color: Colors.red, width: 1.0),
-                                  ),
-                                  isCollapsed: true,
-                                  border: InputBorder.none,
-                                ),
-                                validator: (value) {
-                                  if (value == null) {
-                                    return 'Please Select Starting Year';
-                                  }
-                                  return null;
-                                },
-                                hint: Text(
-                                  'Starting Year',
-                                  style: batchtext2(AppColors.hintcolor),
-                                ),
-                                items: yearList
-                                    .map((item) => DropdownMenuItem(
-                                          value: item,
-                                          child: Text(
-                                            item.toString(),
-                                            style: batchtext2(
-                                                AppColors.PrimaryMainColor),
-                                          ),
-                                        ))
-                                    .toList(growable: false),
-                                value: yeardrop,
-                                onChanged: (value) {
-                                  setState(() {
-                                    yeardrop = value as int?;
-                                    isSelected = true;
-                                    //  selectedSecurity = value!;
-                                    // accountTypeValidate = true;
-                                  });
-                                },
-                                buttonStyleData: ButtonStyleData(
-                                  height: 55,
-                                  // width: 450,
-                                  padding: EdgeInsets.all(10.r),
-                                ),
-                                dropdownStyleData: DropdownStyleData(
-                                    // isOverButton: true,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.sp),
-                                        color: AppColors.backgroungcolor,
-                                        border: Border.all()),
-                                    maxHeight: 300.h,
-                                    // width: 500.w,
-                                    elevation: 10),
-                                menuItemStyleData: const MenuItemStyleData(
-                                  padding: EdgeInsets.only(left: 10, right: 10),
-                                  height: 40,
-                                ),
-                                dropdownSearchData: DropdownSearchData(
-                                  searchController: textEditingController,
-                                  searchInnerWidgetHeight: 200.h,
-                                  searchInnerWidget: Container(
-                                    height: 50,
-                                    padding: const EdgeInsets.only(
-                                      top: 8,
-                                      bottom: 4,
-                                      right: 8,
-                                      left: 8,
-                                    ),
-                                    child: TextFormField(
-                                      style: batchtext2(
-                                          AppColors.PrimaryMainColor),
-                                      //expands: true,
-                                      maxLines: 1,
-                                      controller: textEditingController,
-                                      decoration: InputDecoration(
-                                        isDense: true,
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                          horizontal: 15,
-                                          vertical: 15,
-                                        ),
-                                        hintText: 'Search here...',
-                                        hintStyle: batchtext2(
-                                            AppColors.PrimaryMainColor),
-                                        border: OutlineInputBorder(
+                                  dropdownStyleData: DropdownStyleData(
+                                      decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
+                                              BorderRadius.circular(10.sp),
+                                          color: AppColors.backgroungcolor,
+                                          border: Border.all()),
+                                      maxHeight: 300.h,
+                                      elevation: 10),
+                                  menuItemStyleData: const MenuItemStyleData(
+                                    padding:
+                                        EdgeInsets.only(left: 10, right: 10),
+                                    height: 40,
+                                  ),
+                                  dropdownSearchData:
+                                      DropdownSearchData<QualificationModel>(
+                                    searchController: textEditingController,
+                                    searchInnerWidgetHeight: 200.h,
+                                    searchInnerWidget: Container(
+                                      height: 50,
+                                      padding: const EdgeInsets.only(
+                                        top: 8,
+                                        bottom: 4,
+                                        right: 8,
+                                        left: 8,
                                       ),
-                                    ),
-                                  ),
-                                  searchMatchFn: (item, searchValue) {
-                                    // final myItem = qualificationlist.firstWhere((element) =>
-                                    //     element.name.toString() == item.value.toString());
-                                    return item.value!
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(searchValue);
-                                  },
-                                ),
-                                onMenuStateChange: (isOpen) {
-                                  if (isOpen) {
-                                    textEditingController.clear();
-                                  }
-                                },
-                                iconStyleData: const IconStyleData(
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_down,
-                                    color: AppColors.PrimaryMainColor,
-                                  ),
-                                  iconSize: 30,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          Text("Starting Month",
-                              style: FieldTextStyle(
-                                AppColors.PrimaryBlackColor,
-                              )),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButtonFormField2(
-                                isDense: false,
-                                isExpanded: true,
-                                decoration: InputDecoration(
-                                  // enabledBorder: OutlineInputBorder(
-                                  //   borderRadius: BorderRadius.circular(10),
-                                  //   // width: 0.0 produces a thin "hairline" border
-                                  //   borderSide: BorderSide(
-                                  //       color: AppColors.PrimaryMainColor, width: 1.0),
-                                  // ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: const BorderSide(
-                                        color: Colors.red, width: 1.0),
-                                  ),
-                                  isCollapsed: true,
-                                  border: InputBorder.none,
-                                ),
-                                validator: (value) {
-                                  if (value == null) {
-                                    return 'Please Select Starting Month';
-                                  }
-                                  return null;
-                                },
-                                hint: Text(
-                                  'Starting Month',
-                                  style: batchtext2(AppColors.hintcolor),
-                                ),
-                                items: months
-                                    .map((item) => DropdownMenuItem(
-                                          value: item,
-                                          child: Text(
-                                            item.name.toString(),
-                                            style: batchtext2(
-                                                AppColors.PrimaryMainColor),
-                                          ),
-                                        ))
-                                    .toList(growable: false),
-                                value: dropmonth,
-                                onChanged: (value) {
-                                  setState(() {
-                                    dropmonth = value;
-                                    isSelected = true;
-                                    //  selectedSecurity = value!;
-                                    // accountTypeValidate = true;
-                                  });
-                                },
-                                buttonStyleData: ButtonStyleData(
-                                  height: 55,
-                                  // width: 450,
-                                  padding: EdgeInsets.all(10.r),
-                                ),
-                                dropdownStyleData: DropdownStyleData(
-                                    // isOverButton: true,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.sp),
-                                        color: AppColors.backgroungcolor,
-                                        border: Border.all()),
-                                    maxHeight: 300.h,
-                                    // width: 500.w,
-                                    elevation: 10),
-                                menuItemStyleData: const MenuItemStyleData(
-                                  padding: EdgeInsets.only(left: 10, right: 10),
-                                  height: 40,
-                                ),
-                                dropdownSearchData:
-                                    DropdownSearchData<MonthModel>(
-                                  searchController: textEditingController,
-                                  searchInnerWidgetHeight: 200.h,
-                                  searchInnerWidget: Container(
-                                    height: 50,
-                                    padding: const EdgeInsets.only(
-                                      top: 8,
-                                      bottom: 4,
-                                      right: 8,
-                                      left: 8,
-                                    ),
-                                    child: TextFormField(
-                                      style: batchtext2(
-                                          AppColors.PrimaryMainColor),
-                                      //expands: true,
-                                      maxLines: 1,
-                                      controller: textEditingController,
-                                      decoration: InputDecoration(
-                                        isDense: true,
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                          horizontal: 15,
-                                          vertical: 15,
-                                        ),
-                                        hintText: 'Search here...',
-                                        hintStyle: batchtext2(
+                                      child: TextFormField(
+                                        style: batchtext2(
                                             AppColors.PrimaryMainColor),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  searchMatchFn: (item, searchValue) {
-                                    // final myItem = qualificationlist.firstWhere((element) =>
-                                    //     element.name.toString() == item.value.toString());
-                                    return item.value!.name
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(searchValue);
-                                  },
-                                ),
-                                onMenuStateChange: (isOpen) {
-                                  if (isOpen) {
-                                    textEditingController.clear();
-                                  }
-                                },
-                                iconStyleData: const IconStyleData(
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_down,
-                                    color: AppColors.PrimaryMainColor,
-                                  ),
-                                  iconSize: 30,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          Text("Passing Year",
-                              style: FieldTextStyle(
-                                AppColors.PrimaryBlackColor,
-                              )),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButtonFormField2(
-                                isDense: false,
-                                isExpanded: true,
-                                decoration: InputDecoration(
-                                  // enabledBorder: OutlineInputBorder(
-                                  //   borderRadius: BorderRadius.circular(10),
-                                  //   // width: 0.0 produces a thin "hairline" border
-                                  //   borderSide: BorderSide(
-                                  //       color: AppColors.PrimaryMainColor, width: 1.0),
-                                  // ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: const BorderSide(
-                                        color: Colors.red, width: 1.0),
-                                  ),
-                                  isCollapsed: true,
-                                  border: InputBorder.none,
-                                ),
-                                validator: (value) {
-                                  if (value == null) {
-                                    return 'Please Select Passing Year';
-                                  }
-                                  return null;
-                                },
-                                hint: Text(
-                                  'Passing Year',
-                                  style: batchtext2(AppColors.hintcolor),
-                                ),
-                                items: yearList
-                                    .map((item) => DropdownMenuItem(
-                                          value: item,
-                                          child: Text(
-                                            item.toString(),
-                                            style: batchtext2(
-                                                AppColors.PrimaryMainColor),
+                                        maxLines: 1,
+                                        controller: textEditingController,
+                                        decoration: InputDecoration(
+                                          isDense: true,
+                                          contentPadding:
+                                              const EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 15,
                                           ),
-                                        ))
-                                    .toList(growable: false),
-                                value: droppassyear,
-                                onChanged: (value) {
-                                  setState(() {
-                                    droppassyear = value as int?;
-                                    isSelected = true;
-                                    //  selectedSecurity = value!;
-                                    // accountTypeValidate = true;
-                                  });
-                                },
-                                buttonStyleData: ButtonStyleData(
-                                  height: 55,
-                                  // width: 450,
-                                  padding: EdgeInsets.all(10.r),
-                                ),
-                                dropdownStyleData: DropdownStyleData(
-                                    // isOverButton: true,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.sp),
-                                        color: AppColors.backgroungcolor,
-                                        border: Border.all()),
-                                    maxHeight: 300.h,
-                                    // width: 500.w,
-                                    elevation: 10),
-                                menuItemStyleData: const MenuItemStyleData(
-                                  padding: EdgeInsets.only(left: 10, right: 10),
-                                  height: 40,
-                                ),
-                                dropdownSearchData: DropdownSearchData(
-                                  searchController: textEditingController,
-                                  searchInnerWidgetHeight: 200.h,
-                                  searchInnerWidget: Container(
-                                    height: 50,
-                                    padding: const EdgeInsets.only(
-                                      top: 8,
-                                      bottom: 4,
-                                      right: 8,
-                                      left: 8,
-                                    ),
-                                    child: TextFormField(
-                                      style: batchtext2(
-                                          AppColors.PrimaryMainColor),
-                                      //expands: true,
-                                      maxLines: 1,
-                                      controller: textEditingController,
-                                      decoration: InputDecoration(
-                                        isDense: true,
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                          horizontal: 15,
-                                          vertical: 15,
-                                        ),
-                                        hintText: 'Search here...',
-                                        hintStyle: batchtext2(
-                                            AppColors.PrimaryMainColor),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  searchMatchFn: (item, searchValue) {
-                                    // final myItem = qualificationlist.firstWhere((element) =>
-                                    //     element.name.toString() == item.value.toString());
-                                    return item.value!
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(searchValue);
-                                  },
-                                ),
-                                onMenuStateChange: (isOpen) {
-                                  if (isOpen) {
-                                    textEditingController.clear();
-                                  }
-                                },
-                                iconStyleData: const IconStyleData(
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_down,
-                                    color: AppColors.PrimaryMainColor,
-                                  ),
-                                  iconSize: 30,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          Text("Passing Month",
-                              style: FieldTextStyle(
-                                AppColors.PrimaryBlackColor,
-                              )),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButtonFormField2(
-                                isDense: false,
-                                isExpanded: true,
-                                decoration: InputDecoration(
-                                  // enabledBorder: OutlineInputBorder(
-                                  //   borderRadius: BorderRadius.circular(10),
-                                  //   // width: 0.0 produces a thin "hairline" border
-                                  //   borderSide: BorderSide(
-                                  //       color: AppColors.PrimaryMainColor, width: 1.0),
-                                  // ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: const BorderSide(
-                                        color: Colors.red, width: 1.0),
-                                  ),
-                                  isCollapsed: true,
-                                  border: InputBorder.none,
-                                ),
-                                validator: (value) {
-                                  if (value == null) {
-                                    return 'Please Select Passing Month';
-                                  }
-                                  return null;
-                                },
-                                hint: Text(
-                                  'Passing Month',
-                                  style: batchtext2(AppColors.hintcolor),
-                                ),
-                                items: months
-                                    .map((item) => DropdownMenuItem(
-                                          value: item,
-                                          child: Text(
-                                            item.name.toString(),
-                                            style: batchtext2(
-                                                AppColors.PrimaryMainColor),
-                                          ),
-                                        ))
-                                    .toList(growable: false),
-                                value: droppassmonth,
-                                onChanged: (value) {
-                                  setState(() {
-                                    droppassmonth = value;
-                                    isSelected = true;
-                                  });
-                                },
-                                buttonStyleData: ButtonStyleData(
-                                  height: 55,
-                                  // width: 450,
-                                  padding: EdgeInsets.all(10.r),
-                                ),
-                                dropdownStyleData: DropdownStyleData(
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.sp),
-                                        color: AppColors.backgroungcolor,
-                                        border: Border.all()),
-                                    maxHeight: 300.h,
-                                    // width: 500.w,
-                                    elevation: 10),
-                                menuItemStyleData: const MenuItemStyleData(
-                                  padding: EdgeInsets.only(left: 10, right: 10),
-                                  height: 40,
-                                ),
-                                dropdownSearchData:
-                                    DropdownSearchData<MonthModel>(
-                                  searchController: textEditingController,
-                                  searchInnerWidgetHeight: 200.h,
-                                  searchInnerWidget: Container(
-                                    height: 50,
-                                    padding: const EdgeInsets.only(
-                                      top: 8,
-                                      bottom: 4,
-                                      right: 8,
-                                      left: 8,
-                                    ),
-                                    child: TextFormField(
-                                      style: batchtext2(
-                                          AppColors.PrimaryMainColor),
-                                      //expands: true,
-                                      maxLines: 1,
-                                      controller: textEditingController,
-                                      decoration: InputDecoration(
-                                        isDense: true,
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                          horizontal: 15,
-                                          vertical: 15,
-                                        ),
-                                        hintText: 'Search here...',
-                                        hintStyle: batchtext2(
-                                            AppColors.PrimaryMainColor),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  searchMatchFn: (item, searchValue) {
-                                    // final myItem = qualificationlist.firstWhere((element) =>
-                                    //     element.name.toString() == item.value.toString());
-                                    return item.value!.name
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(searchValue);
-                                  },
-                                ),
-                                onMenuStateChange: (isOpen) {
-                                  if (isOpen) {
-                                    textEditingController.clear();
-                                  }
-                                },
-                                iconStyleData: const IconStyleData(
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_down,
-                                    color: AppColors.PrimaryMainColor,
-                                  ),
-                                  iconSize: 30,
-                                ),
-                              ),
-                            ),
-                          ),
-
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          Text("Upload Graduation Marks",
-                              style: FieldTextStyle(
-                                AppColors.PrimaryBlackColor,
-                              )),
-                          GestureDetector(
-                            onTap: () {
-                              selectFiles();
-                            },
-                            child: Container(
-                                height: 50.h,
-                                width: 340.w,
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: AppColors.PrimaryWhiteColor),
-                                    borderRadius: BorderRadius.circular(10.r)),
-                                child: (file == null)
-                                    ? Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
+                                          hintText: 'Search here...',
+                                          hintStyle: batchtext2(
+                                              AppColors.PrimaryMainColor),
+                                          border: OutlineInputBorder(
                                             borderRadius:
-                                                BorderRadius.circular(10)),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Padding(
-                                                padding: EdgeInsets.only(
-                                                    left: 20.r, right: 0),
-                                                child: Row(children: [
-                                                  const Text("Upload File"),
-                                                  Center(
-                                                      child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.end,
-                                                    children: [
-                                                      Container(
-                                                          color: Colors
-                                                              .transparent,
-                                                          margin:
-                                                              EdgeInsets.only(
-                                                                  left: 10.r),
-                                                          width: 220.w,
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .end,
-                                                            children: [
-                                                              Container(
-                                                                height: 50,
-                                                                width: 2,
-                                                                color: AppColors
-                                                                    .PrimaryGreyColor,
-                                                              ),
-                                                              Container(
-                                                                height: 50.h,
-                                                                width: 100.w,
-                                                                decoration: const BoxDecoration(
-                                                                    color: Colors
-                                                                        .white),
-                                                                child: Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    const Icon(Icons
-                                                                        .attach_file),
-                                                                    Text(
-                                                                      "Attach",
-                                                                      style: btntext(
-                                                                          AppColors
-                                                                              .PrimaryBlackColor),
-                                                                    )
-                                                                  ],
+                                                BorderRadius.circular(8),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    searchMatchFn: (item, searchValue) {
+                                      return item.value!.name
+                                          .toString()
+                                          .toLowerCase()
+                                          .contains(searchValue);
+                                    },
+                                  ),
+                                  onMenuStateChange: (isOpen) {
+                                    if (isOpen) {
+                                      textEditingController.clear();
+                                    }
+                                  },
+                                  iconStyleData: const IconStyleData(
+                                    icon: Icon(
+                                      Icons.keyboard_arrow_down,
+                                      color: AppColors.PrimaryMainColor,
+                                    ),
+                                    iconSize: 30,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                            TextFormWidget(
+                              hint: "Enter Your stream",
+                              title: "Stream",
+                              controller: streamEditingController,
+                              keyboardType: TextInputType.emailAddress,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter Your Stream';
+                                }
+                                return null;
+                              },
+                            ),
+                            Text("Course Type",
+                                style: FieldTextStyle(
+                                  AppColors.PrimaryBlackColor,
+                                )),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Container(
+                              height: 55,
+                              width: 450,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButtonFormField2(
+                                  isDense: false,
+                                  isExpanded: true,
+                                  decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: const BorderSide(
+                                          color: AppColors.hintcolor,
+                                          width: 1.0),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: const BorderSide(
+                                          color: Colors.red, width: 1.0),
+                                    ),
+                                    isCollapsed: true,
+                                    border: InputBorder.none,
+                                  ),
+                                  validator: (value) {
+                                    if (value == null) {
+                                      return 'Please Select Branch';
+                                    }
+                                    return null;
+                                  },
+                                  hint: Text(
+                                    'Please select',
+                                    style: batchtext2(AppColors.hintcolor),
+                                  ),
+                                  items: course
+                                      .map((item) => DropdownMenuItem(
+                                            value: item,
+                                            child: Text(
+                                              item,
+                                              style: batchtext2(
+                                                  AppColors.PrimaryMainColor),
+                                            ),
+                                          ))
+                                      .toList(),
+                                  value: dropcourse,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      dropcourse = value;
+                                      isSelected = true;
+                                    });
+                                  },
+                                  buttonStyleData: const ButtonStyleData(
+                                    height: 55,
+                                    width: 450,
+                                    padding: EdgeInsets.all(10),
+                                  ),
+                                  dropdownStyleData: DropdownStyleData(
+                                      isOverButton: true,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.sp),
+                                          color: AppColors.backgroungcolor,
+                                          border: Border.all()),
+                                      maxHeight: 200.h,
+                                      elevation: 10),
+                                  menuItemStyleData: const MenuItemStyleData(
+                                    padding:
+                                        EdgeInsets.only(left: 10, right: 10),
+                                    height: 40,
+                                  ),
+                                  iconStyleData: const IconStyleData(
+                                    icon: Icon(
+                                      Icons.keyboard_arrow_down,
+                                      color: AppColors.PrimaryMainColor,
+                                    ),
+                                    iconSize: 30,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                            Text("University/Board",
+                                style: FieldTextStyle(
+                                  AppColors.PrimaryBlackColor,
+                                )),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButtonFormField2(
+                                  isDense: false,
+                                  isExpanded: true,
+                                  decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: const BorderSide(
+                                          color: AppColors.hintcolor,
+                                          width: 1.0),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: const BorderSide(
+                                          color: Colors.red, width: 1.0),
+                                    ),
+                                    isCollapsed: true,
+                                    border: InputBorder.none,
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.name.isEmpty) {
+                                      return 'Please Select Qualification';
+                                    }
+                                    return null;
+                                  },
+                                  hint: Text(
+                                    'Please select Qualification',
+                                    style: batchtext2(AppColors.hintcolor),
+                                  ),
+                                  items: boarduniversity
+                                      .map((BoardUniversityModel item) =>
+                                          DropdownMenuItem(
+                                            value: item,
+                                            child: Text(
+                                              item.name.toString(),
+                                              style: batchtext2(
+                                                  AppColors.PrimaryMainColor),
+                                            ),
+                                          ))
+                                      .toList(growable: false),
+                                  value: dropboard,
+                                  onChanged: (BoardUniversityModel? value) {
+                                    setState(() {
+                                      dropboard = value;
+                                      isSelected = true;
+                                    });
+                                  },
+                                  buttonStyleData: ButtonStyleData(
+                                    height: 55,
+                                    padding: EdgeInsets.all(10.r),
+                                  ),
+                                  dropdownStyleData: DropdownStyleData(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.sp),
+                                          color: AppColors.backgroungcolor,
+                                          border: Border.all()),
+                                      maxHeight: 300.h,
+                                      elevation: 10),
+                                  menuItemStyleData: const MenuItemStyleData(
+                                    padding:
+                                        EdgeInsets.only(left: 10, right: 10),
+                                    height: 40,
+                                  ),
+                                  dropdownSearchData:
+                                      DropdownSearchData<BoardUniversityModel>(
+                                    searchController: textEditingController,
+                                    searchInnerWidgetHeight: 200.h,
+                                    searchInnerWidget: Container(
+                                      height: 50,
+                                      padding: const EdgeInsets.only(
+                                        top: 8,
+                                        bottom: 4,
+                                        right: 8,
+                                        left: 8,
+                                      ),
+                                      child: TextFormField(
+                                        style: batchtext2(
+                                            AppColors.PrimaryMainColor),
+                                        //expands: true,
+                                        maxLines: 1,
+                                        controller: textEditingController,
+                                        decoration: InputDecoration(
+                                          isDense: true,
+                                          contentPadding:
+                                              const EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 15,
+                                          ),
+                                          hintText: 'Search here...',
+                                          hintStyle: batchtext2(
+                                              AppColors.PrimaryMainColor),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    searchMatchFn: (item, searchValue) {
+                                      return item.value!.name
+                                          .toString()
+                                          .toLowerCase()
+                                          .contains(searchValue);
+                                    },
+                                  ),
+                                  onMenuStateChange: (isOpen) {
+                                    if (isOpen) {
+                                      textEditingController.clear();
+                                    }
+                                  },
+                                  iconStyleData: const IconStyleData(
+                                    icon: Icon(
+                                      Icons.keyboard_arrow_down,
+                                      color: AppColors.PrimaryMainColor,
+                                    ),
+                                    iconSize: 30,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                            TextFormWidget(
+                              hint: "Enter Your percentage",
+                              title: "Percentage/Grade",
+                              controller: percentageEditingController,
+                              keyboardType: TextInputType.emailAddress,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter Your Percentage/Grade';
+                                }
+                                return null;
+                              },
+                            ),
+                            Text("Starting Year",
+                                style: FieldTextStyle(
+                                  AppColors.PrimaryBlackColor,
+                                )),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButtonFormField2(
+                                  isDense: false,
+                                  isExpanded: true,
+                                  decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: const BorderSide(
+                                          color: AppColors.hintcolor,
+                                          width: 1.0),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: const BorderSide(
+                                          color: Colors.red, width: 1.0),
+                                    ),
+                                    isCollapsed: true,
+                                    border: InputBorder.none,
+                                  ),
+                                  validator: (value) {
+                                    if (value == null) {
+                                      return 'Please Select Starting Year';
+                                    }
+                                    return null;
+                                  },
+                                  hint: Text(
+                                    'Starting Year',
+                                    style: batchtext2(AppColors.hintcolor),
+                                  ),
+                                  items: yearList
+                                      .map((item) => DropdownMenuItem(
+                                            value: item,
+                                            child: Text(
+                                              item.toString(),
+                                              style: batchtext2(
+                                                  AppColors.PrimaryMainColor),
+                                            ),
+                                          ))
+                                      .toList(growable: false),
+                                  value: yeardrop,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      yeardrop = value as int?;
+                                      isSelected = true;
+                                    });
+                                  },
+                                  buttonStyleData: ButtonStyleData(
+                                    height: 55.h,
+                                    padding: EdgeInsets.all(10.r),
+                                  ),
+                                  dropdownStyleData: DropdownStyleData(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.sp),
+                                          color: AppColors.backgroungcolor,
+                                          border: Border.all()),
+                                      maxHeight: 300.h,
+                                      elevation: 10),
+                                  menuItemStyleData: const MenuItemStyleData(
+                                    padding:
+                                        EdgeInsets.only(left: 10, right: 10),
+                                    height: 40,
+                                  ),
+                                  dropdownSearchData: DropdownSearchData(
+                                    searchController: textEditingController,
+                                    searchInnerWidgetHeight: 200.h,
+                                    searchInnerWidget: Container(
+                                      height: 50.h,
+                                      padding: const EdgeInsets.only(
+                                        top: 8,
+                                        bottom: 4,
+                                        right: 8,
+                                        left: 8,
+                                      ),
+                                      child: TextFormField(
+                                        style: batchtext2(
+                                            AppColors.PrimaryMainColor),
+                                        //expands: true,
+                                        maxLines: 1,
+                                        controller: textEditingController,
+                                        decoration: InputDecoration(
+                                          isDense: true,
+                                          contentPadding:
+                                              const EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 15,
+                                          ),
+                                          hintText: 'Search here...',
+                                          hintStyle: batchtext2(
+                                              AppColors.PrimaryMainColor),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    searchMatchFn: (item, searchValue) {
+                                      return item.value!
+                                          .toString()
+                                          .toLowerCase()
+                                          .contains(searchValue);
+                                    },
+                                  ),
+                                  onMenuStateChange: (isOpen) {
+                                    if (isOpen) {
+                                      textEditingController.clear();
+                                    }
+                                  },
+                                  iconStyleData: const IconStyleData(
+                                    icon: Icon(
+                                      Icons.keyboard_arrow_down,
+                                      color: AppColors.PrimaryMainColor,
+                                    ),
+                                    iconSize: 30,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                            Text("Starting Month",
+                                style: FieldTextStyle(
+                                  AppColors.PrimaryBlackColor,
+                                )),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButtonFormField2(
+                                  isDense: false,
+                                  isExpanded: true,
+                                  decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      // width: 0.0 produces a thin "hairline" border
+                                      borderSide: const BorderSide(
+                                          color: AppColors.hintcolor,
+                                          width: 1.0),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: const BorderSide(
+                                          color: Colors.red, width: 1.0),
+                                    ),
+                                    isCollapsed: true,
+                                    border: InputBorder.none,
+                                  ),
+                                  validator: (value) {
+                                    if (value == null) {
+                                      return 'Please Select Starting Month';
+                                    }
+                                    return null;
+                                  },
+                                  hint: Text(
+                                    'Starting Month',
+                                    style: batchtext2(AppColors.hintcolor),
+                                  ),
+                                  items: months
+                                      .map((item) => DropdownMenuItem(
+                                            value: item,
+                                            child: Text(
+                                              item.name.toString(),
+                                              style: batchtext2(
+                                                  AppColors.PrimaryMainColor),
+                                            ),
+                                          ))
+                                      .toList(growable: false),
+                                  value: dropmonth,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      dropmonth = value;
+                                      isSelected = true;
+                                    });
+                                  },
+                                  buttonStyleData: ButtonStyleData(
+                                    height: 55.h,
+                                    padding: EdgeInsets.all(10.r),
+                                  ),
+                                  dropdownStyleData: DropdownStyleData(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.sp),
+                                          color: AppColors.backgroungcolor,
+                                          border: Border.all()),
+                                      maxHeight: 300.h,
+                                      // width: 500.w,
+                                      elevation: 10),
+                                  menuItemStyleData: const MenuItemStyleData(
+                                    padding:
+                                        EdgeInsets.only(left: 10, right: 10),
+                                    height: 40,
+                                  ),
+                                  dropdownSearchData:
+                                      DropdownSearchData<MonthModel>(
+                                    searchController: textEditingController,
+                                    searchInnerWidgetHeight: 200.h,
+                                    searchInnerWidget: Container(
+                                      height: 50,
+                                      padding: const EdgeInsets.only(
+                                        top: 8,
+                                        bottom: 4,
+                                        right: 8,
+                                        left: 8,
+                                      ),
+                                      child: TextFormField(
+                                        style: batchtext2(
+                                            AppColors.PrimaryMainColor),
+                                        //expands: true,
+                                        maxLines: 1,
+                                        controller: textEditingController,
+                                        decoration: InputDecoration(
+                                          isDense: true,
+                                          contentPadding:
+                                              const EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 15,
+                                          ),
+                                          hintText: 'Search here...',
+                                          hintStyle: batchtext2(
+                                              AppColors.PrimaryMainColor),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    searchMatchFn: (item, searchValue) {
+                                      return item.value!.name
+                                          .toString()
+                                          .toLowerCase()
+                                          .contains(searchValue);
+                                    },
+                                  ),
+                                  onMenuStateChange: (isOpen) {
+                                    if (isOpen) {
+                                      textEditingController.clear();
+                                    }
+                                  },
+                                  iconStyleData: const IconStyleData(
+                                    icon: Icon(
+                                      Icons.keyboard_arrow_down,
+                                      color: AppColors.PrimaryMainColor,
+                                    ),
+                                    iconSize: 30,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                            Text("Passing Year",
+                                style: FieldTextStyle(
+                                  AppColors.PrimaryBlackColor,
+                                )),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButtonFormField2(
+                                  isDense: false,
+                                  isExpanded: true,
+                                  decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: const BorderSide(
+                                          color: AppColors.hintcolor,
+                                          width: 1.0),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: const BorderSide(
+                                          color: Colors.red, width: 1.0),
+                                    ),
+                                    isCollapsed: true,
+                                    border: InputBorder.none,
+                                  ),
+                                  validator: (value) {
+                                    if (value == null) {
+                                      return 'Please Select Passing Year';
+                                    }
+                                    return null;
+                                  },
+                                  hint: Text(
+                                    'Passing Year',
+                                    style: batchtext2(AppColors.hintcolor),
+                                  ),
+                                  items: yearList
+                                      .map((item) => DropdownMenuItem(
+                                            value: item,
+                                            child: Text(
+                                              item.toString(),
+                                              style: batchtext2(
+                                                  AppColors.PrimaryMainColor),
+                                            ),
+                                          ))
+                                      .toList(growable: false),
+                                  value: droppassyear,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      droppassyear = value as int?;
+                                      isSelected = true;
+                                    });
+                                  },
+                                  buttonStyleData: ButtonStyleData(
+                                    height: 55.h,
+                                    padding: EdgeInsets.all(10.r),
+                                  ),
+                                  dropdownStyleData: DropdownStyleData(
+                                      // isOverButton: true,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.sp),
+                                          color: AppColors.backgroungcolor,
+                                          border: Border.all()),
+                                      maxHeight: 300.h,
+                                      elevation: 10),
+                                  menuItemStyleData: const MenuItemStyleData(
+                                    padding:
+                                        EdgeInsets.only(left: 10, right: 10),
+                                    height: 40,
+                                  ),
+                                  dropdownSearchData: DropdownSearchData(
+                                    searchController: textEditingController,
+                                    searchInnerWidgetHeight: 200.h,
+                                    searchInnerWidget: Container(
+                                      height: 50,
+                                      padding: const EdgeInsets.only(
+                                        top: 8,
+                                        bottom: 4,
+                                        right: 8,
+                                        left: 8,
+                                      ),
+                                      child: TextFormField(
+                                        style: batchtext2(
+                                            AppColors.PrimaryMainColor),
+                                        maxLines: 1,
+                                        controller: textEditingController,
+                                        decoration: InputDecoration(
+                                          isDense: true,
+                                          contentPadding:
+                                              const EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 15,
+                                          ),
+                                          hintText: 'Search here...',
+                                          hintStyle: batchtext2(
+                                              AppColors.PrimaryMainColor),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    searchMatchFn: (item, searchValue) {
+                                      return item.value!
+                                          .toString()
+                                          .toLowerCase()
+                                          .contains(searchValue);
+                                    },
+                                  ),
+                                  onMenuStateChange: (isOpen) {
+                                    if (isOpen) {
+                                      textEditingController.clear();
+                                    }
+                                  },
+                                  iconStyleData: const IconStyleData(
+                                    icon: Icon(
+                                      Icons.keyboard_arrow_down,
+                                      color: AppColors.PrimaryMainColor,
+                                    ),
+                                    iconSize: 30,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                            Text("Passing Month",
+                                style: FieldTextStyle(
+                                  AppColors.PrimaryBlackColor,
+                                )),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButtonFormField2(
+                                  isDense: false,
+                                  isExpanded: true,
+                                  decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: const BorderSide(
+                                          color: AppColors.hintcolor,
+                                          width: 1.0),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: const BorderSide(
+                                          color: Colors.red, width: 1.0),
+                                    ),
+                                    isCollapsed: true,
+                                    border: InputBorder.none,
+                                  ),
+                                  validator: (value) {
+                                    if (value == null) {
+                                      return 'Please Select Passing Month';
+                                    }
+                                    return null;
+                                  },
+                                  hint: Text(
+                                    'Passing Month',
+                                    style: batchtext2(AppColors.hintcolor),
+                                  ),
+                                  items: months
+                                      .map((item) => DropdownMenuItem(
+                                            value: item,
+                                            child: Text(
+                                              item.name.toString(),
+                                              style: batchtext2(
+                                                  AppColors.PrimaryMainColor),
+                                            ),
+                                          ))
+                                      .toList(growable: false),
+                                  value: droppassmonth,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      droppassmonth = value;
+                                      isSelected = true;
+                                    });
+                                  },
+                                  buttonStyleData: ButtonStyleData(
+                                    height: 55.h,
+                                    padding: EdgeInsets.all(10.r),
+                                  ),
+                                  dropdownStyleData: DropdownStyleData(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.sp),
+                                          color: AppColors.backgroungcolor,
+                                          border: Border.all()),
+                                      maxHeight: 300.h,
+                                      elevation: 10),
+                                  menuItemStyleData: const MenuItemStyleData(
+                                    padding:
+                                        EdgeInsets.only(left: 10, right: 10),
+                                    height: 40,
+                                  ),
+                                  dropdownSearchData:
+                                      DropdownSearchData<MonthModel>(
+                                    searchController: textEditingController,
+                                    searchInnerWidgetHeight: 200.h,
+                                    searchInnerWidget: Container(
+                                      height: 50,
+                                      padding: const EdgeInsets.only(
+                                        top: 8,
+                                        bottom: 4,
+                                        right: 8,
+                                        left: 8,
+                                      ),
+                                      child: TextFormField(
+                                        style: batchtext2(
+                                            AppColors.PrimaryMainColor),
+                                        maxLines: 1,
+                                        controller: textEditingController,
+                                        decoration: InputDecoration(
+                                          isDense: true,
+                                          contentPadding:
+                                              const EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 15,
+                                          ),
+                                          hintText: 'Search here...',
+                                          hintStyle: batchtext2(
+                                              AppColors.PrimaryMainColor),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    searchMatchFn: (item, searchValue) {
+                                      return item.value!.name
+                                          .toString()
+                                          .toLowerCase()
+                                          .contains(searchValue);
+                                    },
+                                  ),
+                                  onMenuStateChange: (isOpen) {
+                                    if (isOpen) {
+                                      textEditingController.clear();
+                                    }
+                                  },
+                                  iconStyleData: const IconStyleData(
+                                    icon: Icon(
+                                      Icons.keyboard_arrow_down,
+                                      color: AppColors.PrimaryMainColor,
+                                    ),
+                                    iconSize: 30,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                            Text("Upload Graduation Marks",
+                                style: FieldTextStyle(
+                                  AppColors.PrimaryBlackColor,
+                                )),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                selectFiles();
+                              },
+                              child: Container(
+                                  height: 50.h,
+                                  width: 340.w,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: AppColors.hintcolor),
+                                      borderRadius:
+                                          BorderRadius.circular(10.r)),
+                                  child: (file == null)
+                                      ? Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Padding(
+                                                  padding: EdgeInsets.only(
+                                                      left: 20.r, right: 0),
+                                                  child: Row(children: [
+                                                    const Text("Upload File"),
+                                                    Center(
+                                                        child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment.end,
+                                                      children: [
+                                                        Container(
+                                                            color: Colors
+                                                                .transparent,
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    left: 10.r),
+                                                            width: 220.w,
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .end,
+                                                              children: [
+                                                                Container(
+                                                                  height: 50.h,
+                                                                  width: 2,
+                                                                  color: AppColors
+                                                                      .PrimaryGreyColor,
                                                                 ),
-                                                              )
-                                                            ],
-                                                          )
-                                                          //Text(file!.path!.split('/').last),
-                                                          ),
+                                                                Container(
+                                                                  height: 50.h,
+                                                                  width: 100.w,
+                                                                  decoration:
+                                                                      const BoxDecoration(
+                                                                          color:
+                                                                              Colors.white),
+                                                                  child: Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      const Icon(
+                                                                          Icons
+                                                                              .attach_file),
+                                                                      Text(
+                                                                        "Attach",
+                                                                        style: btntext(
+                                                                            AppColors.PrimaryBlackColor),
+                                                                      )
+                                                                    ],
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            )),
+                                                      ],
+                                                    )),
+                                                  ])),
+                                            ],
+                                          ),
+                                        )
+                                      : Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Padding(
+                                                  padding: EdgeInsets.only(
+                                                      left: 20.r, right: 0),
+                                                  child: Row(
+                                                    children: [
+                                                      const Icon(
+                                                        Icons.file_copy,
+                                                        color: AppColors
+                                                            .PrimaryMainColor,
+                                                      ),
+                                                      Center(
+                                                          child: Container(
+                                                        margin: EdgeInsets.only(
+                                                            left: 10.r),
+                                                        width: 250.w,
+                                                        child: Text(
+                                                          file!.path
+                                                              .split('/')
+                                                              .last,
+                                                          style: batchtext2(
+                                                              AppColors
+                                                                  .PrimaryMainColor),
+                                                        ),
+                                                      )),
                                                     ],
                                                   )),
-                                                ])),
-                                          ],
-                                        ),
-                                      )
-                                    : Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Padding(
-                                                padding: EdgeInsets.only(
-                                                    left: 20.r, right: 0),
-                                                //
-                                                child:
-                                                    //(file!.path.split(".pdf")[0] == "pdf")
-                                                    // ? Row(
-                                                    //     // mainAxisAlignment:
-                                                    //     //     MainAxisAlignment.end,
-                                                    //     children: [
-                                                    //         const Icon(
-                                                    //           Icons.picture_as_pdf,
-                                                    //           color: Colors.red,
-                                                    //         ),
-                                                    //         SizedBox(
-                                                    //           width: 10.w,
-                                                    //         ),
-                                                    //         Text(file!.path
-                                                    //             .split('/')
-                                                    //             .last),
-                                                    //       ])
-                                                    Row(
-                                                  children: [
-                                                    const Icon(
-                                                      Icons.file_copy,
-                                                      color: AppColors
-                                                          .PrimaryMainColor,
-                                                    ),
-                                                    Center(
-                                                        child: Container(
-                                                      margin: EdgeInsets.only(
-                                                          left: 10.r),
-                                                      width: 250.w,
-                                                      child: Text(
-                                                        file!.path
-                                                            .split('/')
-                                                            .last,
-                                                        style: batchtext2(AppColors
-                                                            .PrimaryMainColor),
-                                                      ),
-                                                    )),
-                                                  ],
-                                                )),
-                                          ],
-                                        ),
-                                      )),
-                          ),
-                        ],
-                      ),
-                    )),
-              ),
-        bottomNavigationBar: done == false
-            ? const Text("")
-            : Container(
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage(
-                          "assets/images/bgreg.jpeg",
-                        ))),
-                child: BottomAppBar(
-                    elevation: 0.0,
-                    color: Colors.transparent,
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                          bottom: 15.r, left: 15.r, right: 15.r),
-                      child: ButtonPrimary(
-                        title: "Submit",
-                        onPressed: () {
-                          if (_registerkey.currentState!.validate() &&
-                              file != null &&
-                              dropnqualification != null &&
-                              dropboard != null &&
-                              yeardrop != null &&
-                              droppassyear != null &&
-                              droppassmonth != null &&
-                              dropcourse != null) {
-                            callUploadDocumentApi();
-                            // use the email provided here
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              backgroundColor: Colors.red,
-                              content: Text(
-                                "Please Upload file ",
-                                style: batchtext2(AppColors.PrimaryWhiteColor),
-                              ),
-                            ));
-                          }
-                        },
-                      ),
-                    )),
-              ));
+                                            ],
+                                          ),
+                                        )),
+                            ),
+                          ],
+                        ),
+                      )),
+                ),
+          bottomNavigationBar: done == false
+              ? const Text("")
+              : BottomAppBar(
+                  elevation: 0.0,
+                  color: Colors.transparent,
+                  child: Padding(
+                    padding:
+                        EdgeInsets.only(bottom: 15.r, left: 15.r, right: 15.r),
+                    child: ButtonPrimary(
+                      title: "Submit",
+                      onPressed: () {
+                        if (_registerkey.currentState!.validate() &&
+                            file != null &&
+                            dropnqualification != null &&
+                            dropboard != null &&
+                            yeardrop != null &&
+                            droppassyear != null &&
+                            droppassmonth != null &&
+                            dropcourse != null) {
+                          callUploadDocumentApi();
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            backgroundColor: Colors.red,
+                            content: Text(
+                              "Please Upload file ",
+                              style: batchtext2(AppColors.PrimaryWhiteColor),
+                            ),
+                          ));
+                        }
+                      },
+                    ),
+                  ))),
+    );
   }
 
   void selectFiles() async {
@@ -1575,13 +1398,17 @@ class _GraduationState extends State<Graduation> {
         setState(() {
           file = File(result.files.single.path!);
         });
-      } else {
-        // User canceled the picker
       }
-    } catch (e) {
-      
-    }
+      // ignore: empty_catches
+    } catch (e) {}
+  }
+
+  Future<bool> _onbackbuttondoubleClick(BuildContext context) async {
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      RoutesName.bottomnav,
+      (routes) => false,
+    );
+    return false;
   }
 }
-
-// ignore: must_be_immutable

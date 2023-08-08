@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/text_style.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../utils/routes/routes_name.dart';
 
 // ignore: camel_case_types
@@ -43,10 +41,6 @@ class _drawerState extends State<drawer> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      // decoration: BoxDecoration(color: AppColors.PrimaryBlackColor
-      //     // border: Border.all(),
-      //     // borderRadius: BorderRadius.circular(40)
-      //     ),
       width: 230.w,
       child: ClipRRect(
         clipBehavior: Clip.antiAlias,
@@ -54,33 +48,14 @@ class _drawerState extends State<drawer> {
             topRight: const Radius.circular(35),
             bottomRight: Radius.circular(50.r)),
         child: Drawer(
-          // shape: borders,
-          //backgroundColor: AppColors.PrimaryWhiteColor,
           child: ListView(
-            //  clipBehavior: Clip.hardEdge,
             padding: const EdgeInsets.all(0.0),
             children: [
               UserAccountsDrawerHeader(
-                //decoration: BoxDecoration(color: AppColors.PrimaryMainColor),
                 accountName: Text(name.toString(),
                     style: batchtext2(
                       AppColors.PrimaryWhiteColor,
                     )),
-                // Column(
-                //   crossAxisAlignment: CrossAxisAlignment.start,
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     Text(name.toString(),
-                //         style: batchtext2(
-                //           AppColors.PrimaryWhiteColor,
-                //         )),
-                //     Text(email.toString(),
-                //         maxLines: 1,
-                //         style: batchtext1(
-                //           AppColors.PrimaryWhiteColor,
-                //         )),
-                //   ],
-                // ),
                 accountEmail: Text(email.toString(),
                     maxLines: 1,
                     style: batchtext1(
@@ -89,8 +64,8 @@ class _drawerState extends State<drawer> {
                 decoration: const BoxDecoration(
                   // color: AppColors.PrimaryMainColor,
                   image: DecorationImage(
-                    image: NetworkImage(
-                      'https://insidemusicschools.com/wp-content/uploads/2020/03/pexels-pixabay-267885-scaled.jpg',
+                    image: AssetImage(
+                      "assets/images/drawerimg.jpg",
                     ),
                     fit: BoxFit.cover,
                   ),
@@ -110,9 +85,11 @@ class _drawerState extends State<drawer> {
                   Get.back();
                 },
                 child: ListTile(
-                  leading: const Icon(
-                    CupertinoIcons.home,
-                    color: Colors.black,
+                  leading: Image.asset(
+                    "assets/images/b1.png",
+                    height: 20.h,
+                    color: AppColors.PrimaryBlackColor,
+                    fit: BoxFit.contain,
                   ),
                   title: Text("Home",
                       textScaleFactor: 1.0,
@@ -121,12 +98,15 @@ class _drawerState extends State<drawer> {
               ),
               InkWell(
                 onTap: () {
+                  Get.back();
                   Navigator.pushNamed(context, RoutesName.profilepage);
                 },
                 child: ListTile(
-                  leading: const Icon(
-                    Icons.person,
-                    color: Colors.black,
+                  leading: Image.asset(
+                    "assets/images/b4.png",
+                    height: 20.h,
+                    color: AppColors.PrimaryBlackColor,
+                    fit: BoxFit.contain,
                   ),
                   title: Text("Profile",
                       textScaleFactor: 1.0,
@@ -135,12 +115,14 @@ class _drawerState extends State<drawer> {
               ),
               InkWell(
                 onTap: () {
+                  Get.back();
+
                   Navigator.pushNamed(context, RoutesName.aboutpage);
                 },
                 child: ListTile(
                   leading: const Icon(
                     Icons.school,
-                    color: Colors.black,
+                    color: AppColors.PrimaryBlackColor,
                   ),
                   title: Text("About Us",
                       textScaleFactor: 1.0,
@@ -148,12 +130,15 @@ class _drawerState extends State<drawer> {
                 ),
               ),
               ListTile(
-                leading: const Icon(
-                  Icons.phone,
-                  color: Colors.black,
+                leading: Image.asset(
+                  "assets/images/b3.png",
+                  height: 20.h,
+                  color: AppColors.PrimaryBlackColor,
+                  fit: BoxFit.contain,
                 ),
                 title: GestureDetector(
                   onTap: () {
+                    Get.back();
                     Navigator.pushNamed(context, RoutesName.contactpage);
                   },
                   child: Text("Contact Us",
@@ -168,13 +153,10 @@ class _drawerState extends State<drawer> {
                 ),
                 title: GestureDetector(
                   onTap: () {
-                    // Navigator.pushNamed(context, '/signup');
                     Get.defaultDialog(
                         title: "Are You Sure Logout ?",
-                        // middleText: "Hello world!",
                         backgroundColor: AppColors.PrimaryWhiteColor,
                         titleStyle: btntext(AppColors.PrimaryMainColor),
-                        //middleTextStyle: TextStyle(color: Colors.white),
                         titlePadding: EdgeInsets.all(15.sp),
                         textConfirm: "Yes",
                         textCancel: "No",
@@ -185,7 +167,12 @@ class _drawerState extends State<drawer> {
                         radius: 10,
                         onConfirm: () {
                           removeValues();
-                          Navigator.pushNamed(context, RoutesName.login);
+
+                          Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            RoutesName.login,
+                            (routes) => false,
+                          );
                         },
                         content: Container());
                   },
@@ -194,10 +181,6 @@ class _drawerState extends State<drawer> {
                 ),
               ),
               ListTile(
-                // leading: const Icon(
-                //   Icons.phone,
-                //   color: Colors.black,
-                // ),
                 title: Text("Version 1.0.0",
                     textScaleFactor: 1.0,
                     style: batchtext2(AppColors.PrimaryBlackColor)),

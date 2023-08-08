@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 List<UniversityVisitModel> universityVisitModelFromJson(String str) =>
@@ -9,6 +8,24 @@ String universityVisitModelToJson(List<UniversityVisitModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class UniversityVisitModel {
+  final String countryVisitId;
+  final String dateOfVisit;
+  final String university;
+  final String branchName;
+  final String intake;
+  final String country;
+  final String fCountryid;
+  final String deligate;
+  final String timeFrom;
+  final String timeTo;
+  final String venue;
+  final String visitPurpose;
+  final String appointment;
+  final dynamic eventType;
+  final String venueLat;
+  final String venueLng;
+  final String logo;
+
   UniversityVisitModel({
     required this.countryVisitId,
     required this.dateOfVisit,
@@ -26,43 +43,28 @@ class UniversityVisitModel {
     required this.eventType,
     required this.venueLat,
     required this.venueLng,
+    required this.logo,
   });
-
-  final String countryVisitId;
-  final String dateOfVisit;
-  final String university;
-  final String branchName;
-  final String intake;
-  final String country;
-  final String fCountryid;
-  final String deligate;
-  final String timeFrom;
-  final String timeTo;
-  final String venue;
-  final String visitPurpose;
-  final String appointment;
-  final String eventType;
-  final String venueLat;
-  final String venueLng;
 
   factory UniversityVisitModel.fromJson(Map<String, dynamic> json) =>
       UniversityVisitModel(
-        countryVisitId: json["country_visit_id"],
-        dateOfVisit: json["date_of_visit"],
-        university: json["university"],
-        branchName: json["branch_name"],
-        intake: json["intake"],
-        country: json["country"],
-        fCountryid: json["f_countryid"],
-        deligate: json["deligate"],
-        timeFrom: json["time_from"],
-        timeTo: json["time_to"],
-        venue: json["venue"],
-        visitPurpose: json["visit_purpose"],
-        appointment: json["Appointment"],
+        countryVisitId: json["country_visit_id"].toString(),
+        dateOfVisit: json["date_of_visit"].toString(),
+        university: json["university"].toString(),
+        branchName: json["branch_name"].toString(),
+        intake: json["intake"].toString(),
+        country: json["country"].toString(),
+        fCountryid: json["f_countryid"].toString(),
+        deligate: json["deligate"].toString(),
+        timeFrom: json["time_from"].toString(),
+        timeTo: json["time_to"].toString(),
+        venue: json["venue"].toString(),
+        visitPurpose: json["visit_purpose"].toString(),
+        appointment: json["Appointment"].toString(),
         eventType: json["event_type"].toString(),
-        venueLat: json["venue_lat"],
-        venueLng: json["venue_lng"],
+        venueLat: json["venue_lat"].toString(),
+        venueLng: json["venue_lng"].toString(),
+        logo: json["Logo"].toString(),
       );
 
   Map<String, dynamic> toJson() => {
@@ -82,5 +84,6 @@ class UniversityVisitModel {
         "event_type": eventType,
         "venue_lat": venueLat,
         "venue_lng": venueLng,
+        "Logo": logo,
       };
 }

@@ -1,5 +1,4 @@
 
-
 import 'dart:convert';
 
 List<BoardUniversityModel> boardUniversityModelFromJson(String str) =>

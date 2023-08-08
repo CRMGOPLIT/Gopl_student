@@ -32,32 +32,27 @@ class ApiErrorDialog extends StatelessWidget {
         backgroundColor: Colors.white,
         children: [
           Padding(
-            padding: const EdgeInsets.all(24.0),
+            padding: const EdgeInsets.all(24.0).r,
             child: Container(
-              width: 300,
+              width: 300.w,
               decoration:
                   BoxDecoration(borderRadius: BorderRadius.circular(10)),
               child: Column(
-                // mainAxisSize: MainAxisSize.min,
-                // mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   SizedBox(
                     height: 16.h,
                   ),
                   Image.asset(
                     image,
-                    height: 94,
-                    width: 114,
+                    height: 94.h,
+                    width: 114.w,
                   ),
-
                   SizedBox(
                     height: 16.h,
                   ),
                   Text(description,
                       textAlign: TextAlign.center,
                       style: TextRegular(AppColors.PrimaryMainColor)),
-// SizedBox(height: 10,),
-
                   Padding(
                     padding: const EdgeInsets.only(
                         top: 24, left: 24, right: 24, bottom: 8),
@@ -69,8 +64,6 @@ class ApiErrorDialog extends StatelessWidget {
                       }),
                     ),
                   ),
-
-                  // SizedBox(height: 30),
                 ],
               ),
             ),

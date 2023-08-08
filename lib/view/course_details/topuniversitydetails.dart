@@ -44,13 +44,10 @@ class _TopUniversityListState extends State<TopUniversityList> {
   void dispose() {
     super.dispose();
     scrollController.dispose();
-    // getListofuniversity();
   }
 
   getListofuniversity() async {
     searchBloc.getfiltersearchStream.listen((event) {
-      // Navigator.pop(context);
-
       bool response =
           ApiResponseHelper().handleResponse(event: event, context: context);
 
@@ -277,56 +274,6 @@ class _TopUniversityListState extends State<TopUniversityList> {
                                                 SizedBox(
                                                   height: 5.h,
                                                 ),
-                                                // Row(
-                                                //   crossAxisAlignment:
-                                                //       CrossAxisAlignment.center,
-                                                //   mainAxisAlignment:
-                                                //       MainAxisAlignment.start,
-                                                //   children: [
-                                                //     Icon(
-                                                //       Icons.watch_later,
-                                                //       size: 20.h,
-                                                //       color: AppColors
-                                                //           .PrimaryMainColor,
-                                                //     ),
-                                                //     SizedBox(
-                                                //       width: 5.w,
-                                                //     ),
-                                                //     SizedBox(
-                                                //       width: 100.w,
-                                                //       child: Text(
-                                                //         objCourse[index]
-                                                //             .fDurationName
-                                                //             .toString(),
-                                                //         style: batchtext1(AppColors
-                                                //             .PrimaryBlackColor),
-                                                //       ),
-                                                //     ),
-                                                //     SizedBox(
-                                                //       width: 10.w,
-                                                //     ),
-                                                //     Icon(
-                                                //       Icons
-                                                //           .calendar_today_rounded,
-                                                //       size: 20.h,
-                                                //       color: AppColors
-                                                //           .PrimaryMainColor,
-                                                //     ),
-                                                //     SizedBox(
-                                                //       width: 5.w,
-                                                //     ),
-                                                //     Flexible(
-                                                //       // width: 100.w,
-                                                //       child: Text(
-                                                //         objCourse[index]
-                                                //             .fIntake
-                                                //             .toString(),
-                                                //         style: batchtext1(AppColors
-                                                //             .PrimaryBlackColor),
-                                                //       ),
-                                                //     )
-                                                //   ],
-                                                // ),
                                               ],
                                             )),
                                       ],
