@@ -102,11 +102,6 @@ class _CourseDetailsState extends State<CourseDetails> {
           );
         });
 
-        // Get.to(const OtpPage(), arguments: _mobileNumber.text);
-        // Get.to(OtpPage(), arguments: _mobileNumber.text);
-        // Navigator.pushNamedAndRemoveUntil(
-        //     context, RoutesName.otp, (routes) => false,
-        //     arguments: {_mobileNumber.text});
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor: Colors.transparent,

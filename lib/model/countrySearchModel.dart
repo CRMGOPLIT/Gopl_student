@@ -18,8 +18,8 @@ class CountrySearchModel {
 
   factory CountrySearchModel.fromJson(Map<String, dynamic> json) =>
       CountrySearchModel(
-        id: json["Id"],
-        name: json["Name"],
+        id: json["Id"].toString(),
+        name: json["Name"].toString(),
       );
 
   Map<String, dynamic> toJson() => {

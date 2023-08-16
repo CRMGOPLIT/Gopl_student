@@ -86,10 +86,10 @@ class StudentMorDocument {
 
   factory StudentMorDocument.fromJson(Map<String, dynamic> json) =>
       StudentMorDocument(
-        fDocumentName: json["f_document_name"],
-        fDocument: json["f_document"],
-        fMoreDocRemark: json["f_MoreDoc_Remark"],
-        fDocumentStatus: json["f_document_status"],
+        fDocumentName: json["f_document_name"].toString(),
+        fDocument: json["f_document"].toString(),
+        fMoreDocRemark: json["f_MoreDoc_Remark"].toString(),
+        fDocumentStatus: json["f_document_status"].toString(),
       );
 
   Map<String, dynamic> toJson() => {

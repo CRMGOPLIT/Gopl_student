@@ -472,15 +472,16 @@ class _HomePageState extends State<HomePage> {
                   onTap: () {
                     if (index == 7) {
                       bannermodeldata!.isVisaApplicable == "0"
-                          ? Get.to(const VisaNotApplicable(), arguments: [
+                          ? Get.to(() => const VisaNotApplicable(), arguments: [
                               bannermodeldata!.isVisaApplicable,
                             ])
                           : bannermodeldata!.isVisaApplicable == "2"
-                              ? Get.to(const VisaNotApplicable(), arguments: [
-                                  bannermodeldata!.isVisaApplicable,
-                                ])
+                              ? Get.to(() => const VisaNotApplicable(),
+                                  arguments: [
+                                      bannermodeldata!.isVisaApplicable,
+                                    ])
                               : Get.to(
-                                  const VisaPage(),
+                                  () => const VisaPage(),
                                   arguments: [
                                     bannermodeldata!.countryId,
                                     bannermodeldata!.countryName,

@@ -55,10 +55,10 @@ class DashboardCountryDetail {
 
   factory DashboardCountryDetail.fromJson(Map<String, dynamic> json) =>
       DashboardCountryDetail(
-        country: json["Country"],
-        universityCount: json["UniversityCount"],
-        countryId: json["CountryId"],
-        countryImg: json["CountryImg"],
+        country: json["Country"].toString(),
+        universityCount: json["UniversityCount"].toString(),
+        countryId: json["CountryId"].toString(),
+        countryImg: json["CountryImg"].toString(),
       );
 
   Map<String, dynamic> toJson() => {

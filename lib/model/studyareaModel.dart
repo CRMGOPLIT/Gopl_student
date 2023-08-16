@@ -19,7 +19,7 @@ class StudyAreaSearchModel {
   factory StudyAreaSearchModel.fromJson(Map<String, dynamic> json) =>
       StudyAreaSearchModel(
         id: json["Id"],
-        name: json["Name"],
+        name: json["Name"].toString(),
       );
 
   Map<String, dynamic> toJson() => {

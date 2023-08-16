@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
       isConnected = true;
     } else {
       isConnected = false;
-      Get.to(const ConnectionChecker());
+      Get.to(() => const ConnectionChecker());
     }
   }
 

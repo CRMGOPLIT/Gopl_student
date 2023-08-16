@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:get/get.dart';
 import 'package:global_student/networking/customException.dart';
@@ -24,10 +25,13 @@ class ApiProvider {
       final response = await http.get(
         Uri.parse(baseUrllocal + url),
       );
-
-      responseJson = _response(response);
+      if (response.statusCode == 200) {
+        responseJson = _response(response);
+      } else {
+        Get.to(() => const CustomErrorWidget());
+      }
     } catch (error) {
-      Get.to(const CustomErrorWidget());
+      Get.to(() => const CustomErrorWidget());
     }
     return responseJson;
   }
@@ -44,10 +48,13 @@ class ApiProvider {
           "Accept": "application/json"
         },
       );
-
-      responseJson = _response(response);
+      if (response.statusCode == 200) {
+        responseJson = _response(response);
+      } else {
+        Get.to(() => const CustomErrorWidget());
+      }
     } catch (e) {
-      Get.to(const CustomErrorWidget());
+      Get.to(() => const CustomErrorWidget());
     }
     return responseJson;
   }
@@ -64,10 +71,13 @@ class ApiProvider {
           "Accept": "application/json"
         },
       );
-
-      responseJson = _response(response);
+      if (response.statusCode == 200) {
+        responseJson = _response(response);
+      } else {
+        Get.to(() => const CustomErrorWidget());
+      }
     } catch (e) {
-      Get.to(const CustomErrorWidget());
+      Get.to(() => const CustomErrorWidget());
     }
     return responseJson;
   }
@@ -82,7 +92,7 @@ class ApiProvider {
 
       responseJson = _response(response);
     } catch (e) {
-      Get.to(const CustomErrorWidget());
+      Get.to(() => const CustomErrorWidget());
     }
     return responseJson;
   }
@@ -95,7 +105,7 @@ class ApiProvider {
 
       responseJson = _response(response);
     } catch (e) {
-      Get.to(const CustomErrorWidget());
+      Get.to(() => const CustomErrorWidget());
     }
     return responseJson;
   }
@@ -112,7 +122,7 @@ class ApiProvider {
 
       responseJson = _response(response);
     } catch (e) {
-      Get.to(const CustomErrorWidget());
+      Get.to(() => const CustomErrorWidget());
     }
     return responseJson;
   }
@@ -126,10 +136,13 @@ class ApiProvider {
       final response = await http.get(
         Uri.parse(baseUrllocal + url),
       );
-
-      responseJson = _response(response);
+      if (response.statusCode == 200) {
+        responseJson = _response(response);
+      } else {
+        Get.to(() => const CustomErrorWidget());
+      }
     } on SocketException {
-      Get.to(const CustomErrorWidget());
+      Get.to(() => const CustomErrorWidget());
     }
     return responseJson;
   }
@@ -168,7 +181,7 @@ class ApiProvider {
         });
       });
     } catch (e) {
-      Get.to(const CustomErrorWidget());
+      Get.to(() => const CustomErrorWidget());
     }
     return responseJson;
   }
@@ -193,7 +206,7 @@ class ApiProvider {
 
       responseJson = jsonDecode(response.body.toString());
     } catch (e) {
-      Get.to(const CustomErrorWidget());
+      Get.to(() => const CustomErrorWidget());
     }
     return responseJson;
   }
@@ -215,10 +228,13 @@ class ApiProvider {
           'Authorization': 'Bearer $token',
         },
       );
-
-      responseJson = jsonDecode(response.body.toString());
+      if (response.statusCode == 200) {
+        responseJson = jsonDecode(response.body.toString());
+      } else {
+        Get.to(() => const CustomErrorWidget());
+      }
     } catch (e) {
-      Get.to(const CustomErrorWidget());
+      Get.to(() => const CustomErrorWidget());
     }
     return responseJson;
   }
@@ -266,7 +282,7 @@ class ApiProvider {
         });
       });
     } catch (e) {
-      Get.to(const CustomErrorWidget());
+      Get.to(() => const CustomErrorWidget());
     }
     return responseJson;
   }
@@ -285,7 +301,7 @@ class ApiProvider {
       );
       responseJson = jsonDecode(response.body.toString());
     } catch (e) {
-      Get.to(const CustomErrorWidget());
+      Get.to(() => const CustomErrorWidget());
     }
     return responseJson;
   }

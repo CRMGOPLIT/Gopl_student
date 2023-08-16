@@ -19,8 +19,8 @@ class BoardUniversityModel {
 
   factory BoardUniversityModel.fromJson(Map<String, dynamic> json) =>
       BoardUniversityModel(
-        id: json["Id"],
-        name: json["Name"],
+        id: json["Id"].toString(),
+        name: json["Name"].toString(),
       );
 
   Map<String, dynamic> toJson() => {

@@ -94,8 +94,8 @@ class DdlCountryIntrested {
   late final String IntrestedCountryName;
 
   DdlCountryIntrested.fromJson(Map<String, dynamic> json) {
-    IntrestedCountryId = json['IntrestedCountryId'];
-    IntrestedCountryName = json['IntrestedCountryName'];
+    IntrestedCountryId = json['IntrestedCountryId'].toString();
+    IntrestedCountryName = json['IntrestedCountryName'].toString();
   }
 
   Map<String, dynamic> toJson() {
@@ -115,8 +115,8 @@ class DdlLocation {
   late final String LocationName;
 
   DdlLocation.fromJson(Map<String, dynamic> json) {
-    LocationId = json['LocationId'];
-    LocationName = json['LocationName'];
+    LocationId = json['LocationId'].toString();
+    LocationName = json['LocationName'].toString();
   }
 
   Map<String, dynamic> toJson() {
@@ -136,8 +136,8 @@ class DdlState {
   late final String StateName;
 
   DdlState.fromJson(Map<String, dynamic> json) {
-    StateId = json['StateId'];
-    StateName = json['StateName'];
+    StateId = json['StateId'].toString();
+    StateName = json['StateName'].toString();
   }
 
   Map<String, dynamic> toJson() {

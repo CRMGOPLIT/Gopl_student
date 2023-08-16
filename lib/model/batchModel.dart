@@ -54,7 +54,7 @@ class BatchDetailsModel {
         fIsLaunchBatch: json["f_IsLaunchBatch"].toString(),
         confirmedWithFullPayment: json["ConfirmedWithFullPayment"],
         confirmedWithPartialPayment: json["ConfirmedWithPartialPayment"],
-        fFacultyImag: json["f_FacultyImag"],
+        fFacultyImag: json["f_FacultyImag"].toString(),
       );
 
   Map<String, dynamic> toJson() => {

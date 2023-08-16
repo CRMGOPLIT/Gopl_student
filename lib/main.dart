@@ -17,18 +17,14 @@ void main() async {
   ]);
   SharedPreferences prefs = await SharedPreferences.getInstance();
   screenboard = prefs.getBool('screenboard') ?? false;
-
   ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
-    return const CustomErrorWidget(); // Replace CustomErrorWidget with your own error screen widget
+    return const CustomErrorWidget(); 
   };
-
-  // isViewed = prefs.getInt('onBoard');
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -40,9 +36,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Global Opportunities',
           theme: ThemeData(
-            // primarySwatch: Colors.blue,
             appBarTheme: const AppBarTheme(
-              //  iconTheme: IconThemeData(color: Colors.black),
               color: AppColors.PrimaryMainColor,
               foregroundColor: Colors.black,
               systemOverlayStyle: SystemUiOverlayStyle(

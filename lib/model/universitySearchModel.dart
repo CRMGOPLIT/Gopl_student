@@ -19,8 +19,8 @@ class UniversitySearchModel {
 
   factory UniversitySearchModel.fromJson(Map<String, dynamic> json) =>
       UniversitySearchModel(
-        id: json["Id"],
-        name: json["Name"],
+        id: json["Id"].toString(),
+        name: json["Name"].toString(),
       );
 
   Map<String, dynamic> toJson() => {

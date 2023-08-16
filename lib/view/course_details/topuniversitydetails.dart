@@ -156,7 +156,7 @@ class _TopUniversityListState extends State<TopUniversityList> {
                             return InkWell(
                               onTap: () {
                                 Get.to(
-                                  const CourseDetails(),
+                                  () => const CourseDetails(),
                                   arguments: [
                                     objCourse[index].fCourseDetailId,
                                   ],

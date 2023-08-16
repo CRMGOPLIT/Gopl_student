@@ -19,7 +19,7 @@ class VisaresponseModel {
       VisaresponseModel(
         requiredDocuments:
             List<String>.from(json["RequiredDocuments"].map((x) => x)),
-        status: json["Status"],
+        status: json["Status"].toString(),
       );
 
   Map<String, dynamic> toJson() => {

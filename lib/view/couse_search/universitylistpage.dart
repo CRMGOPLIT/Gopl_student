@@ -41,8 +41,8 @@ class _UniversityListPageState extends State<UniversityListPage> {
 
   @override
   void dispose() {
-    super.dispose();
     scrollController.dispose();
+    super.dispose();
   }
 
   getListofuniversity() async {
@@ -157,7 +157,7 @@ class _UniversityListPageState extends State<UniversityListPage> {
                               return InkWell(
                                 onTap: () {
                                   Get.to(
-                                    const CourseDetails(),
+                                    () => const CourseDetails(),
                                     arguments: [
                                       objCourse[index].fCourseDetailId,
                                     ],

@@ -10,8 +10,6 @@ class ConnectionChecker extends StatefulWidget {
 
   @override
   State<ConnectionChecker> createState() => _ConnectionCheckerState();
-
-  static void init() {}
 }
 
 class _ConnectionCheckerState extends State<ConnectionChecker> {

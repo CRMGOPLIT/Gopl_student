@@ -1701,7 +1701,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                       return InkWell(
                         onTap: () {
                           Get.to(
-                            const CourseDetails(),
+                            () => const CourseDetails(),
                             arguments: [
                               objCourse[index].fCourseDetailId,
                             ],

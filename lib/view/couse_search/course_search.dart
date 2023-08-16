@@ -187,7 +187,7 @@ class _CourseSerachState extends State<CourseSerach> {
                           return InkWell(
                             onTap: () {
                               Get.to(
-                                const CourseDetails(),
+                                () => const CourseDetails(),
                                 arguments: [
                                   dashboardCourseDetail[index].courseId,
                                 ],
@@ -316,7 +316,7 @@ class _CourseSerachState extends State<CourseSerach> {
                           return InkWell(
                             onTap: () {
                               Get.to(
-                                const TopUniversityList(),
+                                () => const TopUniversityList(),
                                 arguments: [
                                   dashboardUniversityDetail[index].countryId,
                                   dashboardUniversityDetail[index].universityId,
@@ -404,7 +404,7 @@ class _CourseSerachState extends State<CourseSerach> {
                               InkWell(
                                 onTap: () {
                                   Get.to(
-                                    const UniversityListPage(),
+                                    () => const UniversityListPage(),
                                     arguments: [
                                       dashboardCountryDetail[index].countryId,
                                       dashboardCountryDetail[index].country

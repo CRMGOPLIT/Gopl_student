@@ -39,7 +39,7 @@ class ApplicationStatusModel {
   factory ApplicationStatusModel.fromJson(Map<String, dynamic> json) =>
       ApplicationStatusModel(
         fCourcesAppliedId: json["f_cources_applied_id"],
-        country: json["country"],
+        country: json["country"].toString(),
         fIntake: json["f_intake"].toString(),
         fCourcesApplied: json["f_cources_applied"].toString(),
         university: json["university"].toString(),

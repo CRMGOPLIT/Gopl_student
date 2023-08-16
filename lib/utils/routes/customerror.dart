@@ -11,37 +11,54 @@ class CustomErrorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: SizedBox(
-            height: 330.h,
-            width: 250.w,
-            child: Column(
-              children: [
-                Image.asset(
-                  'assets/images/net.png',
-                  fit: BoxFit.cover,
-                ),
-                Text(
-                  "Oops! Something went wrong.",
-                  style: batchtext2(AppColors.PrimaryMainColor),
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
-                SizedBox(
-                  width: 150.w,
-                  child: ButtonPrimary(
-                      title: "Retry",
-                      onPressed: () {
-                        Future.delayed(const Duration(seconds: 0), () {
-                          Navigator.pushNamed(context, RoutesName.splash);
-                        });
-                      }),
-                )
-              ],
-            )),
+    return WillPopScope(
+      onWillPop: () => _onbackbuttondoubleClick(context),
+      child: Scaffold(
+        body: Center(
+          child: SizedBox(
+              height: 280.h,
+              // width: 280.w,
+              child: Column(
+                children: [
+                  Image.asset(
+                    'assets/images/error.png',
+                    height: 150.h,
+                    width: 150.w,
+                    fit: BoxFit.fill,
+                  ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  Text(
+                    "Oops! Something's Not Right.",
+                    style: batchtext2(AppColors.PrimaryMainColor),
+                  ),
+                  SizedBox(
+                    height: 30.h,
+                  ),
+                  SizedBox(
+                    width: 150.w,
+                    child: ButtonPrimary(
+                        title: "Try Again",
+                        onPressed: () {
+                          Future.delayed(const Duration(seconds: 0), () {
+                            Navigator.pushNamed(context, RoutesName.splash);
+                          });
+                        }),
+                  )
+                ],
+              )),
+        ),
       ),
     );
+  }
+
+  Future<bool> _onbackbuttondoubleClick(BuildContext context) async {
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      RoutesName.bottomnav,
+      (routes) => false,
+    );
+    return false;
   }
 }
