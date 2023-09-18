@@ -31,14 +31,6 @@ TextStyle FieldTextStyle(Color? color) {
       fontSize: 12.sp);
 }
 
-// TextStyle H2TextStyle(Color? color) {
-//   return TextStyle(
-//       color: color ?? AppColors.PrimaryBlackColor,
-//       fontFamily: Constant.font_poppins_bold,
-//       fontWeight: FontWeight.w600,
-//       height: 1.1,
-//       fontSize: 26);
-// }
 
 // ignore: non_constant_identifier_names
 TextStyle TextRegular(Color? color) {

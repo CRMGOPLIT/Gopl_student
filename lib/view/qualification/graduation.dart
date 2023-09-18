@@ -1220,7 +1220,7 @@ class _GraduationState extends State<Graduation> {
                             SizedBox(
                               height: 10.h,
                             ),
-                            Text("Upload Graduation Marks",
+                            Text("Upload Graduation MarkSheet",
                                 style: FieldTextStyle(
                                   AppColors.PrimaryBlackColor,
                                 )),

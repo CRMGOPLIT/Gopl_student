@@ -78,8 +78,8 @@ class NetworkDialog {
                         Padding(
                           padding: const EdgeInsets.only(left: 0),
                           child: SizedBox(
-                              height: 50,
-                              width: 50,
+                              height: 50.h,
+                              width: 50.w,
                               child: Lottie.asset("assets/images/loder.json")),
                         ),
                         SizedBox(
@@ -109,7 +109,7 @@ class NetworkDialogLoading {
               child: Center(
                 child: CircularProgressIndicator(
                   color: AppColors.PrimaryMainColor,
-                  strokeWidth: 3.w,
+                  strokeWidth: 2.w,
                 ),
               ));
         });

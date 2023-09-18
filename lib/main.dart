@@ -18,8 +18,9 @@ void main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   screenboard = prefs.getBool('screenboard') ?? false;
   ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
-    return const CustomErrorWidget(); 
+    return const CustomErrorWidget();
   };
+
   runApp(const MyApp());
 }
 
@@ -35,12 +36,13 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Global Opportunities',
+
           theme: ThemeData(
             appBarTheme: const AppBarTheme(
               color: AppColors.PrimaryMainColor,
               foregroundColor: Colors.black,
               systemOverlayStyle: SystemUiOverlayStyle(
-                statusBarColor: AppColors.PrimaryMainColor,
+                statusBarColor: AppColors.PrimaryWhiteColor,
                 statusBarIconBrightness: Brightness.light,
                 statusBarBrightness: Brightness.light,
               ),

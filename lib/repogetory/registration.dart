@@ -7,7 +7,6 @@ class Registrationget {
   Future<dynamic> getRegistraionDetailsApi() async {
     final response = await _apiProvider
         .get(NetworkConstant.END_POINT_Get_REGISTRATIONDETAILS);
-
     return response;
   }
 

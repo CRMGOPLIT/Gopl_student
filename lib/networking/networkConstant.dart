@@ -2,11 +2,8 @@ class NetworkConstant {
   // ignore: constant_identifier_names
   static const String BASE_URL = "http://crmapi.global-opportunities.co.in/Api";
 
-  // ignore: constant_identifier_names
-  static const String BASE_URL_LOCAl =
-      "http://crmdemoapi.global-opportunities.co.in/Api";
 
-  // static const String BASE_URL_LOCAl = "http://192.168.1.151:8080/Api";
+  
 
   //post field Register
   // ignore: constant_identifier_names

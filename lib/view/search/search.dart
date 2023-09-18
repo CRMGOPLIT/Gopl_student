@@ -1,7 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_fadein/flutter_fadein.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:global_student/bloc/searchBloc.dart';
@@ -56,10 +55,8 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
       showloader ? Navigator.pop(context) : "";
       bool response =
           ApiResponseHelper().handleResponse(event: event, context: context);
-
       if (response == true) {
         FilterSeach filterSeach = FilterSeach.fromJson(event.data);
-
         if (filterSeach.objCourse.isNotEmpty) {
           objCourse.addAll(filterSeach.objCourse);
         } else {
@@ -496,11 +493,12 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                                                       ).toList();
                                                     },
                                                     buttonStyleData:
-                                                        const ButtonStyleData(
-                                                      height: 55,
+                                                        ButtonStyleData(
+                                                      height: 55.h,
                                                       width: 450,
                                                       padding:
-                                                          EdgeInsets.all(10),
+                                                          const EdgeInsets.all(
+                                                              10),
                                                     ),
                                                     dropdownStyleData: DropdownStyleData(
                                                         decoration: BoxDecoration(
@@ -685,11 +683,12 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                                                       ).toList();
                                                     },
                                                     buttonStyleData:
-                                                        const ButtonStyleData(
-                                                      height: 55,
+                                                        ButtonStyleData(
+                                                      height: 55.h,
                                                       width: 450,
                                                       padding:
-                                                          EdgeInsets.all(10),
+                                                          const EdgeInsets.all(
+                                                              10),
                                                     ),
                                                     dropdownStyleData: DropdownStyleData(
                                                         isOverButton: true,
@@ -876,11 +875,12 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                                                       ).toList();
                                                     },
                                                     buttonStyleData:
-                                                        const ButtonStyleData(
-                                                      height: 55,
+                                                        ButtonStyleData(
+                                                      height: 55.h,
                                                       width: 450,
                                                       padding:
-                                                          EdgeInsets.all(10),
+                                                          const EdgeInsets.all(
+                                                              10),
                                                     ),
                                                     dropdownStyleData: DropdownStyleData(
                                                         isOverButton: true,
@@ -1506,9 +1506,9 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                                                                             color:
                                                                                 AppColors.PrimaryMainColor,
                                                                           ),
-                                                                    const SizedBox(
-                                                                        width:
-                                                                            10),
+                                                                    SizedBox(
+                                                                        width: 10
+                                                                            .w),
                                                                     Flexible(
                                                                       child:
                                                                           Text(
@@ -1640,6 +1640,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                                             () {
                                               hasmore = true;
                                               objCourse.clear();
+                                              showloader = true;
                                             },
                                           );
                                           if (_filtersearch.currentState!
@@ -1752,7 +1753,11 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                                                                       .toString() ==
                                                                   "")
                                                           ? child
-                                                          : const CircularProgressIndicator(),
+                                                          : CircularProgressIndicator(
+                                                              strokeWidth: 2.w,
+                                                              color: AppColors
+                                                                  .PrimaryMainColor,
+                                                            ),
                                                   errorBuilder: (context, error,
                                                           stackTrace) =>
                                                       Container(
@@ -1959,7 +1964,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
     List<Widget> chips = [];
     for (int i = 0; i < _chipsList.length; i++) {
       Widget item = Padding(
-        padding: const EdgeInsets.only(left: 10, right: 5),
+        padding: EdgeInsets.only(left: 10.r, right: 5.r, top: 5.r),
         child: FilterChip(
           elevation: 6,
           autofocus: true,
@@ -2000,7 +2005,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
     List<Widget> chips = [];
     for (int i = 0; i < _requirementList.length; i++) {
       Widget item = Padding(
-        padding: const EdgeInsets.only(left: 10, right: 5),
+        padding: EdgeInsets.only(left: 10.r, right: 5.r, top: 5.r),
         child: FilterChip(
           elevation: 6,
           autofocus: true,
@@ -2085,9 +2090,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
         for (int i = 0; i < cuntrydata.length; i++) {
           CountrySearchModel countrySearchModel =
               CountrySearchModel.fromJson(event[i]);
-
           countrySearchdata.add(countrySearchModel);
-
           setState(() {
             loanding = false;
           });
@@ -2096,12 +2099,10 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
       searchBloc.getuniversitysearchStream.listen((event) {
         if (event != null) {
           universitydata = event;
-
           for (int i = 0; i < universitydata.length; i++) {
             UniversitySearchModel universitySearchModel =
                 UniversitySearchModel.fromJson(event[i]);
             universitySearchdata.add(universitySearchModel);
-
             setState(() {
               loanding = false;
             });
@@ -2111,14 +2112,11 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
       searchBloc.getlocationsearchStream.listen((event) {
         if (event != null) {
           locationdata = event;
-
           for (int i = 0; i < locationdata.length; i++) {
             LocationSearchModel locationSearchModel =
                 LocationSearchModel.fromJson(event[i]);
-
             setState(() {
               locationSearchdata.add(locationSearchModel);
-
               loanding = false;
             });
           }
@@ -2269,7 +2267,6 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
       NetworkConstant.fRequest: "CRM",
       NetworkConstant.crmAccessRequest: "Country Manager",
     };
-
     searchBloc.callGetFilterSearch(filterdata);
   }
 }
@@ -2278,7 +2275,6 @@ class ItemModel {
   String label;
   Color color;
   bool isSelected;
-
   ItemModel(this.label, this.color, this.isSelected);
 }
 
@@ -2289,1316 +2285,4 @@ class ItemModelwithValue {
   String valuefilter;
 
   ItemModelwithValue(this.label, this.color, this.isSelected, this.valuefilter);
-}
-
-class MyBottomSheet extends StatefulWidget {
-  const MyBottomSheet({super.key});
-
-  @override
-  // ignore: library_private_types_in_public_api
-  _MyBottomSheetState createState() => _MyBottomSheetState();
-}
-
-class _MyBottomSheetState extends State<MyBottomSheet> {
-  String? selectedValue;
-
-  bool selected = false;
-  bool selectedrequire = false;
-
-  List<String> selectedItems = [];
-  List<String> selecteduniversity = [];
-  List<String> selectedlocation = [];
-  List<String> selectedintake = [];
-  List<String> selectedstudyarea = [];
-  List<String> selecteddisciplinearea = [];
-
-  bool selectindex = false;
-  final List<ItemModel> _chipsList = [
-    ItemModel("UG", AppColors.PrimaryWhiteColor, false),
-    ItemModel("Twinning Programmes (UG)", AppColors.PrimaryWhiteColor, false),
-    ItemModel("Foundation", AppColors.PrimaryWhiteColor, false),
-    ItemModel("Short Term Programs", AppColors.PrimaryWhiteColor, false),
-    ItemModel("High School (11th-12th)", AppColors.PrimaryWhiteColor, false),
-    ItemModel("Pathway Programs", AppColors.PrimaryWhiteColor, false),
-    ItemModel("PG Diploma/Certificate", AppColors.PrimaryWhiteColor, false),
-    ItemModel("PHD", AppColors.PrimaryWhiteColor, false),
-    ItemModel("PG", AppColors.PrimaryWhiteColor, false),
-    ItemModel("Twinning Programmes (PG)", AppColors.PrimaryWhiteColor, false),
-    ItemModel("UG Diploma/ Certificate/ Associate  Degreee",
-        AppColors.PrimaryWhiteColor, false),
-    ItemModel("UG+PG (Accelerated) Degree", AppColors.PrimaryWhiteColor, false),
-  ];
-
-  final List<ItemModel> _requirementList = [
-    ItemModel("IELTS", AppColors.PrimaryWhiteColor, false),
-    ItemModel("ACT", AppColors.PrimaryWhiteColor, false),
-    ItemModel("TOEFL iBT", AppColors.PrimaryWhiteColor, false),
-    ItemModel("GRE", AppColors.PrimaryWhiteColor, false),
-    ItemModel("PTE", AppColors.PrimaryWhiteColor, false),
-    ItemModel("GMAT", AppColors.PrimaryWhiteColor, false),
-    ItemModel("SAT", AppColors.PrimaryWhiteColor, false),
-    ItemModel("Without GRE", AppColors.PrimaryWhiteColor, false),
-    ItemModel("Without SAT", AppColors.PrimaryWhiteColor, false),
-    ItemModel("without GMAT", AppColors.PrimaryWhiteColor, false),
-    ItemModel("Without ACT", AppColors.PrimaryWhiteColor, false),
-    ItemModel("Without IELTS", AppColors.PrimaryWhiteColor, false),
-    ItemModel("Placement", AppColors.PrimaryWhiteColor, false),
-    ItemModel("Without Placement", AppColors.PrimaryWhiteColor, false),
-    ItemModel("Conditional", AppColors.PrimaryWhiteColor, false),
-    ItemModel("Without Conditional", AppColors.PrimaryWhiteColor, false),
-    ItemModel("Deadline Available", AppColors.PrimaryWhiteColor, false),
-    ItemModel("Scholarship Available", AppColors.PrimaryWhiteColor, false),
-    ItemModel("with 15 Years Of Education", AppColors.PrimaryWhiteColor, false),
-  ];
-
-  List chiparray = [];
-  List requirement = [];
-  List<Widget> filterChipsList(index, StateSetter setState) {
-    List<Widget> chips = [];
-    for (int i = 0; i < _chipsList.length; i++) {
-      Widget item = Padding(
-        padding: const EdgeInsets.only(left: 10, right: 5),
-        child: FilterChip(
-          elevation: 6,
-          autofocus: true,
-          checkmarkColor: AppColors.PrimaryWhiteColor,
-          selectedColor: AppColors.PrimaryMainColor,
-          disabledColor: AppColors.PrimaryBlackColor,
-          label: _chipsList[i].isSelected
-              ? Text(
-                  _chipsList[i].label,
-                  style: batchtext1(AppColors.PrimaryWhiteColor),
-                )
-              : Text(
-                  _chipsList[i].label,
-                  style: batchtext1(AppColors.PrimaryBlackColor),
-                ),
-          labelStyle: const TextStyle(color: Colors.white, fontSize: 16),
-          backgroundColor:
-              selected ? AppColors.PrimaryMainColor : _chipsList[i].color,
-          selected: _chipsList[i].isSelected,
-          onSelected: (bool value) {
-            setState(() {
-              _chipsList[i].isSelected = value;
-              if (chiparray.contains(_chipsList[i].label)) {
-                chiparray.remove(_chipsList[i].label);
-              } else {
-                chiparray.add(_chipsList[i].label);
-              }
-            });
-          },
-        ),
-      );
-      chips.add(item);
-    }
-    return chips;
-  }
-
-  List<Widget> requireChipsList(index, StateSetter setState) {
-    List<Widget> chips = [];
-    for (int i = 0; i < _requirementList.length; i++) {
-      Widget item = Padding(
-        padding: const EdgeInsets.only(left: 10, right: 5),
-        child: FilterChip(
-          elevation: 6,
-          autofocus: true,
-          checkmarkColor: AppColors.PrimaryWhiteColor,
-          selectedColor: AppColors.PrimaryMainColor,
-          disabledColor: AppColors.PrimaryBlackColor,
-          label: _requirementList[i].isSelected
-              ? Text(
-                  _requirementList[i].label,
-                  style: batchtext1(AppColors.PrimaryWhiteColor),
-                )
-              : Text(
-                  _requirementList[i].label,
-                  style: batchtext1(AppColors.PrimaryBlackColor),
-                ),
-          labelStyle: const TextStyle(color: Colors.white, fontSize: 16),
-          backgroundColor:
-              selected ? AppColors.PrimaryMainColor : _requirementList[i].color,
-          selected: _requirementList[i].isSelected,
-          onSelected: (bool value) {
-            setState(() {
-              _requirementList[i].isSelected = value;
-              if (requirement.contains(_requirementList[i].label)) {
-                requirement.remove(_requirementList[i].label);
-              } else {
-                requirement.add(_requirementList[i].label);
-              }
-            });
-          },
-        ),
-      );
-      chips.add(item);
-    }
-    return chips;
-  }
-
-  optionSelect(index, StateSetter setState) {
-    return SingleChildScrollView(
-      child: Wrap(
-        spacing: 8,
-        direction: Axis.horizontal,
-        children: requireChipsList(index, setState),
-      ),
-    );
-  }
-
-  requireSelect(index, StateSetter setState) {
-    return SingleChildScrollView(
-      child: Wrap(
-        spacing: 8,
-        direction: Axis.horizontal,
-        children: filterChipsList(index, setState),
-      ),
-    );
-  }
-
-  bool isSelected = false;
-
-  @override
-  void initState() {
-    searchBloc = SearchBloc();
-    super.initState();
-
-    getdata();
-
-    getSearchCountry();
-    getSearchUniversity();
-    getBranchDetails();
-  }
-
-  List<ObjCourse> objCourse = [];
-
-  getBranchDetails() async {
-    searchBloc.getfiltersearchStream.listen((event) {
-      bool response =
-          ApiResponseHelper().handleResponse(event: event, context: context);
-
-      if (response == true) {
-        FilterSeach filterSeach = FilterSeach.fromJson(event.data);
-
-        if (filterSeach.objCourse.isNotEmpty) {
-          objCourse.addAll(filterSeach.objCourse);
-        } else {
-          setState(() {});
-        }
-      } else {}
-
-      setState(() {});
-    });
-  }
-
-  late SearchBloc searchBloc;
-  bool loanding = false;
-  List<CountrySearchModel> countrySearchdata = [];
-  List<UniversitySearchModel> universitySearchdata = [];
-  List<LocationSearchModel> locationSearchdata = [];
-  List<StudyAreaSearchModel> studyareaSearchdata = [];
-  List<DiscplineareaSearchModel> disciplineareaSearchdata = [];
-
-  MonthModel? dropmonth;
-
-  DurationModel? dropduration;
-
-  List cuntrydata = [];
-  List universitydata = [];
-  List locationdata = [];
-  List studyareadata = [];
-  List disciplineareadata = [];
-
-  getSearchCountry() async {
-    searchBloc.getcountrysearchStream.listen((event) {
-      if (event != null) {
-        cuntrydata = event;
-
-        for (int i = 0; i < cuntrydata.length; i++) {
-          CountrySearchModel countrySearchModel =
-              CountrySearchModel.fromJson(event[i]);
-
-          countrySearchdata.add(countrySearchModel);
-
-          setState(() {
-            loanding = false;
-          });
-        }
-      }
-      searchBloc.getuniversitysearchStream.listen((event) {
-        if (event != null) {
-          universitydata = event;
-
-          for (int i = 0; i < universitydata.length; i++) {
-            UniversitySearchModel universitySearchModel =
-                UniversitySearchModel.fromJson(event[i]);
-
-            setState(() {
-              universitySearchdata.add(universitySearchModel);
-
-              loanding = false;
-            });
-          }
-        }
-      });
-      searchBloc.getlocationsearchStream.listen((event) {
-        if (event != null) {
-          locationdata = event;
-
-          for (int i = 0; i < locationdata.length; i++) {
-            LocationSearchModel locationSearchModel =
-                LocationSearchModel.fromJson(event[i]);
-
-            setState(() {
-              locationSearchdata.add(locationSearchModel);
-
-              loanding = false;
-            });
-          }
-        }
-      });
-
-      searchBloc.getstudyareasearchStream.listen((event) {
-        if (event != null) {
-          studyareadata = event;
-
-          for (int i = 0; i < studyareadata.length; i++) {
-            StudyAreaSearchModel studyAreaSearchModel =
-                StudyAreaSearchModel.fromJson(event[i]);
-
-            setState(() {
-              studyareaSearchdata.add(studyAreaSearchModel);
-
-              loanding = false;
-            });
-          }
-        }
-      });
-    });
-    searchBloc.getdisciplineareasearchStream.listen((event) {
-      if (event != null) {
-        disciplineareadata = event;
-
-        for (int i = 0; i < disciplineareadata.length; i++) {
-          DiscplineareaSearchModel discplineareaSearchModel =
-              DiscplineareaSearchModel.fromJson(event[i]);
-
-          setState(() {
-            disciplineareaSearchdata.add(discplineareaSearchModel);
-            loanding = false;
-          });
-        }
-      }
-    });
-  }
-
-  getSearchUniversity() {}
-
-  getdata() {
-    searchBloc.callGetCountrySearchApi();
-    searchBloc.callGetStudyAreaSearchApi();
-  }
-
-  getuniverstty() {
-    String spselcected = selectedItems.join(",");
-
-    Map<String, dynamic> data = {"countryId": spselcected};
-    searchBloc.callGetUniversitySearchApi(data);
-  }
-
-  getDisciplineArea() {
-    String spdispline = selectedstudyarea.join(",");
-    Map<String, dynamic> data = {"Id": spdispline};
-    searchBloc.callGetDisciplineSearchApi(data);
-  }
-
-  getlocation() {
-    String spselcected = selectedItems.join(",");
-    String uniselected = selecteduniversity.join(",");
-    Map<String, String> locationdropdata = {
-      "countryId": spselcected,
-      "University": uniselected,
-    };
-    searchBloc.callGetLocationSearchApi(locationdropdata);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 600,
-      child: DefaultTabController(
-        length: 3,
-        initialIndex: 0,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 10.h,
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: FadeIn(
-                curve: Curves.elasticInOut,
-                duration: const Duration(seconds: 2),
-                child: Text("Advanced Search",
-                    style: FieldTextStyle(
-                      AppColors.PrimaryBlackColor,
-                    )),
-              ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: Container(
-                height: 2.h,
-                width: 380.w,
-                decoration: BoxDecoration(
-                  color: AppColors.PrimaryMainColor,
-                  borderRadius: BorderRadius.circular(10.sp),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Container(
-              height: 50,
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(20)),
-              child: TabBar(
-                isScrollable: true,
-                labelColor: AppColors.PrimaryWhiteColor,
-                indicatorColor: AppColors.PrimaryBlackColor,
-                unselectedLabelColor: AppColors.PrimaryMainColor,
-                padding: EdgeInsets.only(left: 10.r, right: 10.r, bottom: 10.r),
-                indicator: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: AppColors.PrimaryMainColor),
-                tabs: const [
-                  Tab(
-                    child: Text(
-                      "Advanced",
-                    ),
-                  ),
-                  Tab(
-                    child: Text(
-                      "Program Level",
-                    ),
-                  ),
-                  Tab(
-                    child: Text(
-                      "Requirements",
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Expanded(
-              child: TabBarView(
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(15.sp),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Country",
-                              style: FieldTextStyle(
-                                AppColors.PrimaryBlackColor,
-                              )),
-                          SizedBox(
-                            height: 5.h,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton2(
-                                isExpanded: true,
-                                hint: Text(
-                                  'Please Select Country',
-                                  style: batchtext2(AppColors.hintcolor),
-                                ),
-                                items: countrySearchdata.map((item) {
-                                  return DropdownMenuItem<String>(
-                                    value: item.id,
-                                    enabled: false,
-                                    child: StatefulBuilder(
-                                      builder: (context, menuSetState) {
-                                        final isSelected =
-                                            selectedItems.contains(item.id);
-                                        return InkWell(
-                                          onTap: () {
-                                            isSelected
-                                                ? selectedItems.remove(item.id)
-                                                : selectedItems.add(item.id);
-
-                                            setState(() {});
-                                            universitySearchdata.clear();
-                                            locationSearchdata.clear();
-                                            selecteduniversity.clear();
-                                            getuniverstty();
-
-                                            menuSetState(() {});
-                                          },
-                                          child: Container(
-                                            height: double.infinity,
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 16.0),
-                                            child: Row(
-                                              children: [
-                                                isSelected
-                                                    ? const Icon(
-                                                        Icons
-                                                            .check_box_outlined,
-                                                        color: AppColors
-                                                            .PrimaryMainColor,
-                                                      )
-                                                    : const Icon(
-                                                        Icons
-                                                            .check_box_outline_blank,
-                                                        color: AppColors
-                                                            .PrimaryMainColor,
-                                                      ),
-                                                SizedBox(width: 16.w),
-                                                Text(
-                                                  item.name,
-                                                  style: batchtext2(AppColors
-                                                      .PrimaryMainColor),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  );
-                                }).toList(),
-                                value: selectedItems.isEmpty
-                                    ? null
-                                    : selectedItems.last,
-                                onChanged: (value) {
-                                  selectedItems.last = value!;
-
-                                  setState(() {});
-                                },
-                                selectedItemBuilder: (context) {
-                                  return countrySearchdata.map(
-                                    (item) {
-                                      return Container(
-                                        alignment: AlignmentDirectional.center,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16.0),
-                                        child: Text(
-                                          "Selected ${selectedItems.length}",
-                                          style: batchtext2(
-                                              AppColors.PrimaryMainColor),
-                                          maxLines: 1,
-                                        ),
-                                      );
-                                    },
-                                  ).toList();
-                                },
-                                buttonStyleData: const ButtonStyleData(
-                                  height: 55,
-                                  width: 450,
-                                  padding: EdgeInsets.all(10),
-                                ),
-                                dropdownStyleData: DropdownStyleData(
-                                    isOverButton: true,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.sp),
-                                        color: AppColors.backgroungcolor,
-                                        border: Border.all()),
-                                    maxHeight: 200.h,
-                                    elevation: 10),
-                                menuItemStyleData: const MenuItemStyleData(
-                                  padding: EdgeInsets.only(left: 10, right: 10),
-                                  height: 40,
-                                ),
-                                iconStyleData: const IconStyleData(
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_down,
-                                    color: AppColors.PrimaryMainColor,
-                                  ),
-                                  iconSize: 30,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          Text("University",
-                              style: FieldTextStyle(
-                                AppColors.PrimaryBlackColor,
-                              )),
-                          SizedBox(
-                            height: 5.h,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton2(
-                                isExpanded: true,
-                                isDense: true,
-                                hint: Text(
-                                  'Please Select University',
-                                  style: batchtext2(AppColors.hintcolor),
-                                ),
-                                items: universitySearchdata.map((item) {
-                                  return DropdownMenuItem<String>(
-                                    value: item.id,
-                                    enabled: false,
-                                    child: StatefulBuilder(
-                                      builder: (context, menuSetState) {
-                                        final isSelected0 = selecteduniversity
-                                            .contains(item.id);
-                                        return InkWell(
-                                          onTap: () {
-                                            isSelected0
-                                                ? selecteduniversity
-                                                    .remove(item.id)
-                                                : selecteduniversity
-                                                    .add(item.id);
-                                            setState(() {});
-                                            locationSearchdata.clear();
-                                            selectedlocation.clear();
-                                            getlocation();
-                                            menuSetState(() {});
-                                          },
-                                          child: Container(
-                                            height: double.infinity,
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 16.0),
-                                            child: Row(
-                                              children: [
-                                                isSelected0
-                                                    ? const Icon(
-                                                        Icons
-                                                            .check_box_outlined,
-                                                        color: AppColors
-                                                            .PrimaryMainColor,
-                                                      )
-                                                    : const Icon(
-                                                        Icons
-                                                            .check_box_outline_blank,
-                                                        color: AppColors
-                                                            .PrimaryMainColor,
-                                                      ),
-                                                const SizedBox(width: 10),
-                                                Flexible(
-                                                  child: Text(
-                                                    item.name,
-                                                    maxLines: 2,
-                                                    style: batchtext2(AppColors
-                                                        .PrimaryMainColor),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  );
-                                }).toList(),
-                                value: selecteduniversity.isEmpty
-                                    ? null
-                                    : selecteduniversity.last,
-                                onChanged: (value) {
-                                  selecteduniversity.last = value!;
-
-                                  setState(() {});
-                                },
-                                selectedItemBuilder: (context) {
-                                  return universitySearchdata.map(
-                                    (item) {
-                                      return Container(
-                                        alignment: AlignmentDirectional.center,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16.0),
-                                        child: Text(
-                                          "University ${selecteduniversity.length}",
-                                          style: batchtext2(
-                                              AppColors.PrimaryMainColor),
-                                          maxLines: 1,
-                                        ),
-                                      );
-                                    },
-                                  ).toList();
-                                },
-                                buttonStyleData: const ButtonStyleData(
-                                  height: 55,
-                                  width: 450,
-                                  padding: EdgeInsets.all(10),
-                                ),
-                                dropdownStyleData: DropdownStyleData(
-                                    isOverButton: true,
-                                    scrollPadding: const EdgeInsets.all(10).w,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.sp),
-                                        color: AppColors.backgroungcolor,
-                                        border: Border.all()),
-                                    maxHeight: 200.h,
-                                    elevation: 10),
-                                menuItemStyleData: const MenuItemStyleData(
-                                  padding: EdgeInsets.only(left: 10, right: 10),
-                                  height: 40,
-                                ),
-                                iconStyleData: const IconStyleData(
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_down,
-                                    color: AppColors.PrimaryMainColor,
-                                  ),
-                                  iconSize: 30,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          Text("Location",
-                              style: FieldTextStyle(
-                                AppColors.PrimaryBlackColor,
-                              )),
-                          SizedBox(
-                            height: 5.h,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton2(
-                                isExpanded: true,
-                                isDense: true,
-                                hint: Text(
-                                  'Please Select Location',
-                                  style: batchtext2(AppColors.hintcolor),
-                                ),
-                                items: locationSearchdata.map((item) {
-                                  return DropdownMenuItem<String>(
-                                    value: item.id,
-                                    enabled: false,
-                                    child: StatefulBuilder(
-                                      builder: (context, menuSetState) {
-                                        final isSelected1 =
-                                            selectedlocation.contains(item.id);
-                                        return InkWell(
-                                          onTap: () {
-                                            isSelected1
-                                                ? selectedlocation
-                                                    .remove(item.id)
-                                                : selectedlocation.add(item.id);
-
-                                            setState(() {});
-
-                                            menuSetState(() {});
-                                          },
-                                          child: Container(
-                                            height: double.infinity,
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 16.0),
-                                            child: Row(
-                                              children: [
-                                                isSelected1
-                                                    ? const Icon(
-                                                        Icons
-                                                            .check_box_outlined,
-                                                        color: AppColors
-                                                            .PrimaryMainColor,
-                                                      )
-                                                    : const Icon(
-                                                        Icons
-                                                            .check_box_outline_blank,
-                                                        color: AppColors
-                                                            .PrimaryMainColor,
-                                                      ),
-                                                const SizedBox(width: 10),
-                                                Flexible(
-                                                  child: Text(
-                                                    item.name,
-                                                    maxLines: 2,
-                                                    style: batchtext2(AppColors
-                                                        .PrimaryMainColor),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  );
-                                }).toList(),
-                                value: selectedlocation.isEmpty
-                                    ? null
-                                    : selectedlocation.last,
-                                onChanged: (value) {
-                                  selectedlocation.last = value!;
-
-                                  setState(() {});
-                                },
-                                selectedItemBuilder: (context) {
-                                  return locationSearchdata.map(
-                                    (item) {
-                                      return Container(
-                                        alignment: AlignmentDirectional.center,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16.0),
-                                        child: Text(
-                                          "Location ${selectedlocation.length}",
-                                          style: batchtext2(
-                                              AppColors.PrimaryMainColor),
-                                          maxLines: 1,
-                                        ),
-                                      );
-                                    },
-                                  ).toList();
-                                },
-                                buttonStyleData: const ButtonStyleData(
-                                  height: 55,
-                                  width: 450,
-                                  padding: EdgeInsets.all(10),
-                                ),
-                                dropdownStyleData: DropdownStyleData(
-                                    isOverButton: true,
-                                    scrollPadding: const EdgeInsets.all(10).w,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.sp),
-                                        color: AppColors.backgroungcolor,
-                                        border: Border.all()),
-                                    maxHeight: 200.h,
-                                    elevation: 10),
-                                menuItemStyleData: const MenuItemStyleData(
-                                  padding: EdgeInsets.only(left: 10, right: 10),
-                                  height: 40,
-                                ),
-                                iconStyleData: const IconStyleData(
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_down,
-                                    color: AppColors.PrimaryMainColor,
-                                  ),
-                                  iconSize: 30,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          Text("Intake",
-                              style: FieldTextStyle(
-                                AppColors.PrimaryBlackColor,
-                              )),
-                          SizedBox(
-                            height: 5.h,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton2(
-                                isExpanded: true,
-                                isDense: true,
-                                hint: Text(
-                                  'Please Select Intake',
-                                  style: batchtext2(AppColors.hintcolor),
-                                ),
-                                items: months.map((item) {
-                                  return DropdownMenuItem<String>(
-                                    value: item.id,
-                                    enabled: false,
-                                    child: StatefulBuilder(
-                                      builder: (context, menuSetState) {
-                                        final isSelected2 = selectedintake
-                                            .contains(item.id.toString());
-                                        return InkWell(
-                                          onTap: () {
-                                            isSelected2
-                                                ? selectedintake.remove(item.id)
-                                                : selectedintake
-                                                    .add(item.id.toString());
-
-                                            setState(() {});
-
-                                            menuSetState(() {});
-                                          },
-                                          child: Container(
-                                            height: double.infinity,
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 16.0),
-                                            child: Row(
-                                              children: [
-                                                isSelected2
-                                                    ? const Icon(
-                                                        Icons
-                                                            .check_box_outlined,
-                                                        color: AppColors
-                                                            .PrimaryMainColor,
-                                                      )
-                                                    : const Icon(
-                                                        Icons
-                                                            .check_box_outline_blank,
-                                                        color: AppColors
-                                                            .PrimaryMainColor,
-                                                      ),
-                                                const SizedBox(width: 10),
-                                                Flexible(
-                                                  child: Text(
-                                                    item.name.toString(),
-                                                    maxLines: 2,
-                                                    style: batchtext2(AppColors
-                                                        .PrimaryMainColor),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  );
-                                }).toList(),
-                                value: selectedintake.isEmpty
-                                    ? null
-                                    : selectedintake.last,
-                                onChanged: (value) {
-                                  selectedintake.last = value!;
-
-                                  setState(() {});
-                                },
-                                selectedItemBuilder: (context) {
-                                  return months.map(
-                                    (item) {
-                                      return Container(
-                                        alignment: AlignmentDirectional.center,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16.0),
-                                        child: Text(
-                                          "Intake ${selectedintake.length}",
-                                          style: batchtext2(
-                                              AppColors.PrimaryMainColor),
-                                          maxLines: 1,
-                                        ),
-                                      );
-                                    },
-                                  ).toList();
-                                },
-                                buttonStyleData: const ButtonStyleData(
-                                  height: 55,
-                                  width: 450,
-                                  padding: EdgeInsets.all(10),
-                                ),
-                                dropdownStyleData: DropdownStyleData(
-                                    isOverButton: true,
-                                    scrollPadding: const EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.sp),
-                                        color: AppColors.backgroungcolor,
-                                        border: Border.all()),
-                                    maxHeight: 200.h,
-                                    elevation: 10),
-                                menuItemStyleData: const MenuItemStyleData(
-                                  padding: EdgeInsets.only(left: 10, right: 10),
-                                  height: 40,
-                                ),
-                                iconStyleData: const IconStyleData(
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_down,
-                                    color: AppColors.PrimaryMainColor,
-                                  ),
-                                  iconSize: 30,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          Text("Duration",
-                              style: FieldTextStyle(
-                                AppColors.PrimaryBlackColor,
-                              )),
-                          SizedBox(
-                            height: 5.h,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButtonFormField2(
-                                isDense: false,
-                                isExpanded: true,
-                                decoration: const InputDecoration(
-                                  isCollapsed: true,
-                                  border: InputBorder.none,
-                                ),
-                                hint: Text(
-                                  'Please select Duration',
-                                  style: batchtext2(AppColors.hintcolor),
-                                ),
-                                items: duration
-                                    .map((item) => DropdownMenuItem(
-                                          value: item,
-                                          child: Text(
-                                            item.name.toString(),
-                                            style: batchtext2(
-                                                AppColors.PrimaryMainColor),
-                                          ),
-                                        ))
-                                    .toList(),
-                                value: dropduration,
-                                onChanged: (value) {
-                                  setState(() {
-                                    dropduration = value!;
-                                    isSelected = true;
-                                  });
-                                },
-                                buttonStyleData: const ButtonStyleData(
-                                  height: 55,
-                                  width: 450,
-                                  padding: EdgeInsets.all(10),
-                                ),
-                                dropdownStyleData: DropdownStyleData(
-                                    isOverButton: true,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.sp),
-                                        color: AppColors.backgroungcolor,
-                                        border: Border.all()),
-                                    maxHeight: 200.h,
-                                    elevation: 10),
-                                menuItemStyleData: const MenuItemStyleData(
-                                  padding: EdgeInsets.only(left: 10, right: 10),
-                                  height: 40,
-                                ),
-                                iconStyleData: const IconStyleData(
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_down,
-                                    color: AppColors.PrimaryMainColor,
-                                  ),
-                                  iconSize: 30,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          Text("Study Area",
-                              style: FieldTextStyle(
-                                AppColors.PrimaryBlackColor,
-                              )),
-                          SizedBox(
-                            height: 5.h,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton2(
-                                isExpanded: true,
-                                isDense: true,
-                                hint: Text(
-                                  'Please Select Study Area',
-                                  style: batchtext2(AppColors.hintcolor),
-                                ),
-                                items: studyareaSearchdata.map((item) {
-                                  return DropdownMenuItem<String>(
-                                    value: item.id.toString(),
-                                    enabled: false,
-                                    child: StatefulBuilder(
-                                      builder: (context, menuSetState) {
-                                        final isSelected3 = selectedstudyarea
-                                            .contains(item.id.toString());
-                                        return InkWell(
-                                          onTap: () {
-                                            isSelected3
-                                                ? selectedstudyarea
-                                                    .remove(item.id.toString())
-                                                : selectedstudyarea
-                                                    .add(item.id.toString());
-                                            setState(() {});
-                                            getDisciplineArea();
-                                            disciplineareaSearchdata.clear();
-                                            selecteddisciplinearea.clear();
-                                            menuSetState(() {});
-                                          },
-                                          child: Container(
-                                            height: double.infinity,
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 16.0),
-                                            child: Row(
-                                              children: [
-                                                isSelected3
-                                                    ? const Icon(
-                                                        Icons
-                                                            .check_box_outlined,
-                                                        color: AppColors
-                                                            .PrimaryMainColor,
-                                                      )
-                                                    : const Icon(
-                                                        Icons
-                                                            .check_box_outline_blank,
-                                                        color: AppColors
-                                                            .PrimaryMainColor,
-                                                      ),
-                                                const SizedBox(width: 10),
-                                                Flexible(
-                                                  child: Text(
-                                                    item.name.toString(),
-                                                    maxLines: 2,
-                                                    style: batchtext2(AppColors
-                                                        .PrimaryMainColor),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  );
-                                }).toList(),
-                                value: selectedstudyarea.isEmpty
-                                    ? null
-                                    : selectedstudyarea.last,
-                                onChanged: (value) {
-                                  selectedstudyarea.last = value!;
-
-                                  setState(() {});
-                                },
-                                selectedItemBuilder: (context) {
-                                  return studyareaSearchdata.map(
-                                    (item) {
-                                      return Container(
-                                        alignment: AlignmentDirectional.center,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16.0),
-                                        child: Text(
-                                          "Study Area ${selectedstudyarea.length}",
-                                          style: batchtext2(
-                                              AppColors.PrimaryMainColor),
-                                          maxLines: 1,
-                                        ),
-                                      );
-                                    },
-                                  ).toList();
-                                },
-                                buttonStyleData: ButtonStyleData(
-                                  height: 55.h,
-                                  width: 450.w,
-                                  padding: EdgeInsets.all(10.r),
-                                ),
-                                dropdownStyleData: DropdownStyleData(
-                                    isOverButton: true,
-                                    scrollPadding: const EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.sp),
-                                        color: AppColors.backgroungcolor,
-                                        border: Border.all()),
-                                    maxHeight: 200.h,
-                                    elevation: 10),
-                                menuItemStyleData: MenuItemStyleData(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, right: 10),
-                                  height: 40.h,
-                                ),
-                                iconStyleData: const IconStyleData(
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_down,
-                                    color: AppColors.PrimaryMainColor,
-                                  ),
-                                  iconSize: 30,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          Text("Discipline Area",
-                              style: FieldTextStyle(
-                                AppColors.PrimaryBlackColor,
-                              )),
-                          SizedBox(
-                            height: 5.h,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton2(
-                                isExpanded: true,
-                                isDense: true,
-                                hint: Text(
-                                  'Please Select Discipline Area',
-                                  style: batchtext2(AppColors.hintcolor),
-                                ),
-                                items: disciplineareaSearchdata.map((item) {
-                                  return DropdownMenuItem<String>(
-                                    value: item.id.toString(),
-                                    enabled: false,
-                                    child: StatefulBuilder(
-                                      builder: (context, menuSetState) {
-                                        final isSelected4 =
-                                            selecteddisciplinearea
-                                                .contains(item.id);
-                                        return InkWell(
-                                          onTap: () {
-                                            isSelected4
-                                                ? selecteddisciplinearea
-                                                    .remove(item.id)
-                                                : selecteddisciplinearea
-                                                    .add(item.id);
-                                            setState(() {});
-                                            menuSetState(() {});
-                                          },
-                                          child: Container(
-                                            height: double.infinity,
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 16.0),
-                                            child: Row(
-                                              children: [
-                                                isSelected4
-                                                    ? const Icon(
-                                                        Icons
-                                                            .check_box_outlined,
-                                                        color: AppColors
-                                                            .PrimaryMainColor,
-                                                      )
-                                                    : const Icon(
-                                                        Icons
-                                                            .check_box_outline_blank,
-                                                        color: AppColors
-                                                            .PrimaryMainColor,
-                                                      ),
-                                                const SizedBox(width: 10),
-                                                Flexible(
-                                                  child: Text(
-                                                    item.name.toString(),
-                                                    maxLines: 2,
-                                                    style: batchtext2(AppColors
-                                                        .PrimaryMainColor),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  );
-                                }).toList(),
-                                value: selecteddisciplinearea.isEmpty
-                                    ? null
-                                    : selecteddisciplinearea.last,
-                                onChanged: (value) {
-                                  selecteddisciplinearea.last = value!;
-
-                                  setState(() {});
-                                },
-                                selectedItemBuilder: (context) {
-                                  return disciplineareaSearchdata.map(
-                                    (item) {
-                                      return Container(
-                                        alignment: AlignmentDirectional.center,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16.0),
-                                        child: Text(
-                                          "Discipline Area ${selecteddisciplinearea.length}",
-                                          style: batchtext2(
-                                              AppColors.PrimaryMainColor),
-                                          maxLines: 1,
-                                        ),
-                                      );
-                                    },
-                                  ).toList();
-                                },
-                                buttonStyleData: ButtonStyleData(
-                                  height: 55.h,
-                                  width: 450.w,
-                                  padding: EdgeInsets.all(10.r),
-                                ),
-                                dropdownStyleData: DropdownStyleData(
-                                    isOverButton: true,
-                                    scrollPadding: const EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.sp),
-                                        color: AppColors.backgroungcolor,
-                                        border: Border.all()),
-                                    maxHeight: 200.h,
-                                    elevation: 10),
-                                menuItemStyleData: const MenuItemStyleData(
-                                  padding: EdgeInsets.only(left: 10, right: 10),
-                                  height: 40,
-                                ),
-                                iconStyleData: const IconStyleData(
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_down,
-                                    color: AppColors.PrimaryMainColor,
-                                  ),
-                                  iconSize: 30,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  StatefulBuilder(
-                    builder: (BuildContext context, setState1) {
-                      return requireSelect(1, setState1);
-                    },
-                  ),
-                  StatefulBuilder(
-                    builder: (BuildContext context, setState1) {
-                      return optionSelect(1, setState1);
-                    },
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: FloatingActionButton.extended(
-                  elevation: 0,
-                  backgroundColor: AppColors.PrimaryMainColor,
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  label: const Text("Search")),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }

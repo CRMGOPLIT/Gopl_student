@@ -25,7 +25,7 @@
 </queries>
     
    <application
-        android:label="global_student"
+        android:label="Global Opportunities"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         

@@ -1004,7 +1004,7 @@ class _InterSchoolState extends State<InterSchool> {
                         SizedBox(
                           height: 10.h,
                         ),
-                        Text("Upload 12th Marks",
+                        Text("Upload 12th MarkSheet",
                             style: FieldTextStyle(
                               AppColors.PrimaryBlackColor,
                             )),

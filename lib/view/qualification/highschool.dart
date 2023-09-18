@@ -1,3 +1,4 @@
+
 import 'dart:io';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:file_picker/file_picker.dart';
@@ -98,16 +99,16 @@ class _HighSchoolState extends State<HighSchool> {
           duration: const Duration(milliseconds: 1000),
           content: Container(
             padding: const EdgeInsets.all(8),
-            height: 60,
+            height: 70.h,
             decoration: BoxDecoration(
               color: Colors.red.withOpacity(0.9),
               borderRadius: const BorderRadius.all(Radius.circular(15)),
             ),
             child: Row(
               children: [
-                const SizedBox(
-                  width: 30,
-                ),
+                // const SizedBox(
+                //   width: 30,
+                // ),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -973,7 +974,7 @@ class _HighSchoolState extends State<HighSchool> {
                       SizedBox(
                         height: 10.h,
                       ),
-                      Text("Upload 10th Marks",
+                      Text("Upload 10th MarkSheet",
                           style: FieldTextStyle(
                             AppColors.PrimaryBlackColor,
                           )),

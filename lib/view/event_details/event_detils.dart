@@ -409,43 +409,30 @@ class _EventDetailsState extends State<EventDetails> {
                                               SizedBox(
                                                 height: 5.h,
                                               ),
-                                              InkWell(
-                                                onTap: () async {
-                                                  // final Uri url = Uri.parse(
-                                                  //     data[index]
-                                                  //         .venueLocation);
-                                                  // if (!await launchUrl(url,
-                                                  //     mode: LaunchMode
-                                                  //         .externalApplication)) {
-                                                  //   throw Exception(
-                                                  //       'Could not launch $url');
-                                                  // }
-                                                },
-                                                child: Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Icon(
-                                                      Icons.location_on,
-                                                      size: 20.sp,
-                                                      color: AppColors
-                                                          .PrimaryMainColor,
+                                              Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Icon(
+                                                    Icons.location_on,
+                                                    size: 20.sp,
+                                                    color: AppColors
+                                                        .PrimaryMainColor,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 10.h,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 280.w,
+                                                    child: Text(
+                                                      universitydetails[index]
+                                                          .venue
+                                                          .toString(),
+                                                      style: batchtext1(AppColors
+                                                          .PrimaryMainColor),
                                                     ),
-                                                    SizedBox(
-                                                      width: 10.h,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 280.w,
-                                                      child: Text(
-                                                        universitydetails[index]
-                                                            .venue
-                                                            .toString(),
-                                                        style: location(AppColors
-                                                            .PrimaryMainColor),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
+                                                  )
+                                                ],
                                               ),
                                             ],
                                           ),
@@ -525,7 +512,7 @@ class _EventDetailsState extends State<EventDetails> {
                                                             BorderRadius
                                                                 .circular(5.r),
                                                         image: DecorationImage(
-                                                            fit: BoxFit.cover,
+                                                            fit: BoxFit.fill,
                                                             image: AssetImage(
                                                                 "assets/images/evh.png"
                                                                     .toString()))),

@@ -62,7 +62,7 @@ class RoutesName {
 
   //visanotapplicable
   static const String visanotapplicable = 'visanotapplicable';
-
+  
   //Batch List
   static const String batchlist = 'batchlist';
 }

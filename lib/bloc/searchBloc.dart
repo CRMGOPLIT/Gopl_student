@@ -7,7 +7,7 @@ class SearchBloc {
   late CourseRepo courseRepo;
   late StreamController<dynamic> getcountrysearch;
   late StreamController<dynamic> getuniversitysearch;
-  late StreamController<dynamic> getlocationsearch;
+  late StreamController<dynamic> getlocationsearch; 
   late StreamController<dynamic> getstudyareasearch;
   late StreamController<dynamic> getdisciplineareasearch;
   late StreamController<dynamic> getuniversitypagenation;
@@ -48,7 +48,7 @@ class SearchBloc {
       getuniversitypagenation.stream;
 
   StreamSink<dynamic> get getdashboardsearchSink => getdashboardsearch.sink;
-  Stream<dynamic> get getdashboardsearchStream => getdashboardsearch.stream;
+  Stream<dynamic> get getdashboardsearchStream => getdashboardsearch.stream; 
 
   StreamSink<dynamic> get coursemoredetailsSink => coursemoredetails.sink;
   Stream<dynamic> get coursemoredetailsStream => coursemoredetails.stream;

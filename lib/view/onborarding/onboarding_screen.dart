@@ -33,7 +33,7 @@ class _OnbordingState extends State<Onbording> {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: AppColors.backgroungcolor,
+      // backgroundColor: AppColors.backgroungcolor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
@@ -118,7 +118,7 @@ class _OnbordingState extends State<Onbording> {
                   ),
                 ),
                 SizedBox(
-                  height: 50.h,
+                  height: 30.h,
                 ),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,

@@ -16,7 +16,7 @@ List<IntroModel> contents = [
     title: 'Visa',
     image: 'assets/images/visaimg1.png',
     discription:
-        'Our ex-visa officials always know the shortest route to process the Visa faster.',
+        'Our visa expert always know the shortest route to process the Visa faster.',
   ),
   IntroModel(
     title: 'Our Services',

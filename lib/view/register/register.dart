@@ -73,7 +73,7 @@ class _RegisterPageState extends State<RegisterPage> {
           duration: const Duration(milliseconds: 1000),
           content: Container(
             padding: const EdgeInsets.all(8),
-            height: 60,
+            height: 60.h,
             decoration: BoxDecoration(
               color: Colors.red.withOpacity(0.9),
               borderRadius: const BorderRadius.all(Radius.circular(15)),

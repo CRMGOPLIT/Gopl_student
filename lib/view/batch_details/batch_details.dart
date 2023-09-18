@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -85,8 +83,6 @@ class _ListBatchState extends State<ListBatch> {
 
   getBranchDetails() async {
     dashBoardBloc.batchControllerStream.listen((event) {
-      // debugger();
-      // print(event);
       if (event != null) {
         batchData = event;
         for (int i = 0; i < batchData.length; i++) {

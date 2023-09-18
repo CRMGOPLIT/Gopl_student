@@ -86,6 +86,7 @@ class _CourseSerachState extends State<CourseSerach> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppColors.backgroungcolor,
       appBar: PreferredSize(
@@ -142,9 +143,10 @@ class _CourseSerachState extends State<CourseSerach> {
                                 SizedBox(
                                   width: 10.w,
                                 ),
-                                const Icon(
+                                Icon(
                                   Icons.search,
                                   color: AppColors.hintcolor,
+                                  size: 15.sp,
                                 ),
                                 SizedBox(
                                   width: 20.w,
@@ -178,7 +180,7 @@ class _CourseSerachState extends State<CourseSerach> {
                     ),
                   ),
                   SizedBox(
-                    height: 215.h,
+                    height: 200.h,
                     child: ListView.builder(
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
@@ -193,99 +195,112 @@ class _CourseSerachState extends State<CourseSerach> {
                                 ],
                               );
                             },
-                            child: Container(
-                              margin: EdgeInsets.only(
-                                left: 10.r,
-                                bottom: 10.h,
-                                top: 10.h,
-                              ),
-                              width: 220.w,
-                              decoration: BoxDecoration(
-                                  color: AppColors.PrimaryWhiteColor,
-                                  borderRadius: BorderRadius.circular(10.r),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                        offset: Offset(
-                                          3,
-                                          3,
-                                        ),
-                                        color: Colors.black12,
-                                        blurRadius: 1.0,
-                                        spreadRadius: 0.0),
-                                  ]),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Image.network(
-                                      dashboardCourseDetail[index]
-                                          .universityImage,
-                                      loadingBuilder: (context, child,
-                                              loadingProgress) =>
-                                          (loadingProgress == null ||
-                                                  dashboardCourseDetail[index]
-                                                          .universityImage ==
-                                                      "")
-                                              ? child
-                                              : const CircularProgressIndicator(),
-                                      errorBuilder:
-                                          (context, error, stackTrace) =>
-                                              Container(
-                                        height: 80,
-                                        width: 300,
-                                        color: AppColors.PrimaryWhiteColor,
-                                        child: Center(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              dashboardCourseDetail[index]
-                                                  .university
-                                                  .toString(),
-                                              maxLines: 2,
-                                              style: OtpText(
-                                                  AppColors.PrimaryBlackColor),
+                            child: SizedBox(
+                              width: 230.w,
+                              // decoration: BoxDecoration(
+                              //     color: AppColors.PrimaryWhiteColor,
+                              //     borderRadius: BorderRadius.circular(10.r),
+                              //     boxShadow: const [
+                              //       BoxShadow(
+                              //           offset: Offset(
+                              //             3,
+                              //             3,
+                              //           ),
+                              //           color: Colors.black12,
+                              //           blurRadius: 1.0,
+                              //           spreadRadius: 0.0),
+                              //     ]),
+                              child: Card(
+                                shape: RoundedRectangleBorder(
+                                    //<-- SEE HERE
+                                    borderRadius: BorderRadius.circular(10)
+                                    // side: BorderSide(
+                                    //   color: AppColors.hintcolor,
+                                    // ),
+                                    ),
+                                margin: EdgeInsets.only(
+                                  left: 10.r,
+                                  bottom: 10.h,
+                                  top: 10.h,
+                                ),
+                                // width: 220.w,
+
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Image.network(
+                                        dashboardCourseDetail[index]
+                                            .universityImage,
+                                        loadingBuilder: (context, child,
+                                                loadingProgress) =>
+                                            (loadingProgress == null ||
+                                                    dashboardCourseDetail[index]
+                                                            .universityImage ==
+                                                        "")
+                                                ? child
+                                                : const CircularProgressIndicator(),
+                                        errorBuilder:
+                                            (context, error, stackTrace) =>
+                                                Container(
+                                          height: 80.h,
+                                          width: 300.w,
+                                          color: AppColors.PrimaryWhiteColor,
+                                          child: Center(
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                dashboardCourseDetail[index]
+                                                    .university
+                                                    .toString(),
+                                                maxLines: 2,
+                                                style: OtpText(AppColors
+                                                    .PrimaryBlackColor),
+                                              ),
                                             ),
                                           ),
                                         ),
+                                        height: 80.h,
+                                        width: 300.w,
+                                        fit: BoxFit.fill,
                                       ),
-                                      height: 80.h,
-                                      width: 300.w,
-                                      fit: BoxFit.fill,
-                                    ),
-                                    SizedBox(
-                                      height: 2.h,
-                                    ),
-                                    Text(
-                                      dashboardCourseDetail[index]
-                                          .course
-                                          .toString(),
-                                      maxLines: 3,
-                                      style: batchtext2(
-                                          AppColors.PrimaryMainColor),
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      dashboardCourseDetail[index]
-                                          .university
-                                          .toString(),
-                                      maxLines: 2,
-                                      style: batchtext1(
-                                          AppColors.PrimaryBlackColor),
-                                    ),
-                                    SizedBox(
-                                      height: 5.h,
-                                    ),
-                                    Text(
-                                      dashboardCourseDetail[index]
-                                          .fees
-                                          .toString(),
-                                      style: batchtext2(
-                                          AppColors.PrimaryBlackColor),
-                                    ),
-                                  ],
+                                      SizedBox(
+                                        height: 2.h,
+                                      ),
+                                      Text(
+                                        dashboardCourseDetail[index]
+                                            .course
+                                            .toString(),
+                                        maxLines: 2,
+                                        style: batchtext2(
+                                            AppColors.PrimaryMainColor),
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        dashboardCourseDetail[index]
+                                            .university
+                                            .toString(),
+                                        maxLines: 1,
+                                        style: batchtext1(
+                                            AppColors.PrimaryBlackColor),
+                                      ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      Text(
+                                        dashboardCourseDetail[index]
+                                            .fees
+                                            .toString(),
+                                        style: batchtext2(
+                                            AppColors.PrimaryBlackColor),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),

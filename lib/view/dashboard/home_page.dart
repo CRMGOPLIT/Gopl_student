@@ -58,9 +58,6 @@ class _HomePageState extends State<HomePage> {
     const BatchList(),
     const EventDetails(),
     const BranchLocation(),
-    // Container(),
-    // VisaPage(arguments:[] ),
-    //VisaPage(countryId: bannermodeldata!.isVisaApplicable.toString(), isVisaApplicable: , ),
   ];
 
   bool loanding = true;
@@ -85,7 +82,6 @@ class _HomePageState extends State<HomePage> {
     _gethomeData();
     getUserDetailsdone();
     getUniversityDetails();
-
     setState(() {
       getUserDetails();
     });
@@ -120,15 +116,12 @@ class _HomePageState extends State<HomePage> {
     dashBoardBloc.userControllerStream.listen((event) async {
       if (event != null) {
         userData1 = UsersDetailsModel.fromJson(event[0]);
-
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('Name', userData1.fFirstName.toString());
         prefs.setString('Email', userData1.fStudentEmail.toString());
         prefs.setString('studentId', userData1.fStudentId.toString());
         prefs.setString(
             'counsellorcall', userData1.fCounsellorMobile.toString());
-
-        // userData1.add(userData);
         setState(() {
           name = prefs.getString('Name');
           loanding1 = false;
@@ -141,11 +134,8 @@ class _HomePageState extends State<HomePage> {
     dashBoardBloc.bannersControllerStream.listen((event) {
       if (event != null) {
         Bannermodel bannermodel = Bannermodel.fromJson(event);
-
         bannerimages.addAll(bannermodel.images);
-
         bannermodeldata = bannermodel;
-
         setState(() {
           loanding = false;
         });
@@ -163,7 +153,6 @@ class _HomePageState extends State<HomePage> {
               UniversityVisitModel.fromJson(event[i]);
           universitydetails.add(universityVisitModel);
         }
-
         setState(() {
           loanding3 = false;
         });
@@ -191,14 +180,13 @@ class _HomePageState extends State<HomePage> {
       const Color(0xffFFF6EE),
       const Color(0xffF3FCFF),
     ];
-    // Shuffle the colors randomly
+
     colorList.shuffle(Random());
     return colorList;
   }
 
   Color getRandomColor() {
     if (colors.isEmpty) {
-      // Regenerate colors if the list is empty
       colors = generateRandomColors();
     }
     return colors.removeLast();
@@ -310,7 +298,7 @@ class _HomePageState extends State<HomePage> {
                     )),
               ),
               SizedBox(
-                height: 75.h,
+                height: 80.h,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
@@ -322,7 +310,7 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             Card(
                               child: Container(
-                                  height: 70.h,
+                                  height: 80.h,
                                   width: 320.w,
                                   decoration: BoxDecoration(
                                       border: Border.all(
@@ -380,7 +368,7 @@ class _HomePageState extends State<HomePage> {
                                                             .PrimaryBlackColor),
                                                       ),
                                                       SizedBox(
-                                                        height: 5.h,
+                                                        height: 2.h,
                                                       ),
                                                       Text(
                                                         universitydetails[index]

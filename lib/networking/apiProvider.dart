@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 import 'package:get/get.dart';
 import 'package:global_student/networking/customException.dart';
@@ -13,7 +12,6 @@ import 'package:path/path.dart';
 class ApiProvider {
   final String baseUrl = NetworkConstant.BASE_URL;
   final String beforeAuth = "";
-  final String baseUrllocal = NetworkConstant.BASE_URL_LOCAl;
 
   String? token;
   var responseJson;
@@ -23,7 +21,7 @@ class ApiProvider {
     var responseJson;
     try {
       final response = await http.get(
-        Uri.parse(baseUrllocal + url),
+        Uri.parse(baseUrl + url),
       );
       if (response.statusCode == 200) {
         responseJson = _response(response);
@@ -42,7 +40,7 @@ class ApiProvider {
     var responseJson;
     try {
       final response = await http.get(
-        Uri.parse(baseUrllocal + url),
+        Uri.parse(baseUrl + url),
         headers: {
           'Authorization': 'Bearer $token',
           "Accept": "application/json"
@@ -65,7 +63,7 @@ class ApiProvider {
     var responseJson;
     try {
       final response = await http.get(
-        Uri.parse(baseUrllocal + url),
+        Uri.parse(baseUrl + url),
         headers: {
           'Authorization': 'Bearer $token',
           "Accept": "application/json"
@@ -85,10 +83,8 @@ class ApiProvider {
   Future<dynamic> postBeforeAuth(Map parameter, String url) async {
     var responseJson;
     try {
-      final response = await http.post(
-          Uri.parse(baseUrllocal + beforeAuth + url),
-          headers: {"Accept": "application/json"},
-          body: parameter);
+      final response = await http.post(Uri.parse(baseUrl + beforeAuth + url),
+          headers: {"Accept": "application/json"}, body: parameter);
 
       responseJson = _response(response);
     } catch (e) {
@@ -100,7 +96,7 @@ class ApiProvider {
   Future<dynamic> postlogin(Map parameter, String url) async {
     var responseJson;
     try {
-      final response = await http.post(Uri.parse(baseUrllocal + url),
+      final response = await http.post(Uri.parse(baseUrl + url),
           headers: {"Accept": "application/json"}, body: parameter);
 
       responseJson = _response(response);
@@ -113,7 +109,7 @@ class ApiProvider {
   Future<dynamic> postWithToken(Map parameter, String url) async {
     var responseJson;
     try {
-      final response = await http.post(Uri.parse(baseUrllocal + url),
+      final response = await http.post(Uri.parse(baseUrl + url),
           headers: {
             'Authorization': 'Bearer $token',
             "Accept": "application/json"
@@ -134,7 +130,7 @@ class ApiProvider {
     token = prefs.getString('stringValue');
     try {
       final response = await http.get(
-        Uri.parse(baseUrllocal + url),
+        Uri.parse(baseUrl + url),
       );
       if (response.statusCode == 200) {
         responseJson = _response(response);
@@ -159,8 +155,7 @@ class ApiProvider {
     };
 
     try {
-      final response =
-          http.MultipartRequest("POST", Uri.parse(baseUrllocal + url));
+      final response = http.MultipartRequest("POST", Uri.parse(baseUrl + url));
       response.headers.addAll(headers);
       for (var i = 0; i < parameter.length; i++) {
         response.fields[parameter.keys.elementAt(i)] =
@@ -197,7 +192,7 @@ class ApiProvider {
 
     try {
       final response = await http.post(
-        Uri.parse(baseUrllocal + url).replace(queryParameters: parameter),
+        Uri.parse(baseUrl + url).replace(queryParameters: parameter),
         headers: {
           "Content-Type": "application/json",
           'Authorization': 'Bearer $token',
@@ -212,7 +207,7 @@ class ApiProvider {
   }
 
 /////////////drop params///////
-  ///
+
   Future<dynamic> getDropdownParams(
       Map<String, dynamic> parameter, String url) async {
     var responseJson;
@@ -222,7 +217,7 @@ class ApiProvider {
 
     try {
       final response = await http.get(
-        Uri.parse(baseUrllocal + url).replace(queryParameters: parameter),
+        Uri.parse(baseUrl + url).replace(queryParameters: parameter),
         headers: {
           "Content-Type": "application/json",
           'Authorization': 'Bearer $token',
@@ -252,8 +247,7 @@ class ApiProvider {
     };
 
     try {
-      final response =
-          http.MultipartRequest("POST", Uri.parse(baseUrllocal + url));
+      final response = http.MultipartRequest("POST", Uri.parse(baseUrl + url));
       response.headers.addAll(headers);
       for (var i = 0; i < parameter.length; i++) {
         response.fields[parameter.keys.elementAt(i)] =
@@ -293,7 +287,7 @@ class ApiProvider {
 
     try {
       final response = await http.get(
-        Uri.parse("$baseUrllocal$url?_page=$_page&_limit=$_limit")
+        Uri.parse("$baseUrl$url?_page=$_page&_limit=$_limit")
             .replace(queryParameters: parameter),
         headers: {
           "Content-Type": "application/json",
@@ -320,23 +314,6 @@ dynamic _response(http.Response response) {
       throw UnauthorisedException(response.body.toString());
     case 404:
       throw BadRequestException(response.body.toString());
-    case 500:
-    default:
-      throw FetchDataException(
-          'Error occured while Communication with Server with StatusCode : ${response.statusCode}');
-  }
-}
-
-dynamic _responseFromStream(http.Response response) {
-  switch (response.statusCode) {
-    case 200:
-      var responseJson = json.decode(response.body.toString());
-      return responseJson;
-    case 400:
-      throw BadRequestException(response.body.toString());
-    case 401:
-    case 403:
-      throw UnauthorisedException(response.body.toString());
     case 500:
     default:
       throw FetchDataException(

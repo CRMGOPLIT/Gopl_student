@@ -85,14 +85,6 @@ class _CourseDetailsState extends State<CourseDetails> {
           ApiResponseHelper().handleResponse(event: event, context: context);
 
       if (response == true && event.data['Status'] == 'Success') {
-        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        //   backgroundColor: Colors.green,
-        //   duration: const Duration(seconds: 1),
-        //   content: Text(
-        //     "Otp send your Mobile Number",
-        //     style: batchtext2(AppColors.PrimaryWhiteColor),
-        //   ),
-        // ));
         sucess();
         Timer(const Duration(milliseconds: 3000), () {
           Navigator.pushNamedAndRemoveUntil(
@@ -101,7 +93,6 @@ class _CourseDetailsState extends State<CourseDetails> {
             (routes) => false,
           );
         });
-
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor: Colors.transparent,
@@ -690,26 +681,29 @@ class _CourseDetailsState extends State<CourseDetails> {
                                 style: batchtext1(AppColors.PrimaryBlackColor),
                               ),
                               // Image.asset("assets/images/sucess.gif"),
-                              Center(
-                                child: InkWell(
-                                  onTap: () {
-                                    searchFilter();
-                                    // sucess();
-                                  },
-                                  child: Container(
-                                      height: 40.h,
-                                      width: 100.w,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(5.sp),
-                                          color: Colors.green),
-                                      child: Center(
-                                        child: Text(
-                                          "Apply Now",
-                                          style: batchtext2(
-                                              AppColors.PrimaryWhiteColor),
-                                        ),
-                                      )),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0).r,
+                                child: Center(
+                                  child: InkWell(
+                                    onTap: () {
+                                      searchFilter();
+                                      // sucess();
+                                    },
+                                    child: Container(
+                                        height: 40.h,
+                                        width: 100.w,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(5.sp),
+                                            color: Colors.green),
+                                        child: Center(
+                                          child: Text(
+                                            "Apply Now",
+                                            style: batchtext2(
+                                                AppColors.PrimaryWhiteColor),
+                                          ),
+                                        )),
+                                  ),
                                 ),
                               )
                             ],
@@ -741,7 +735,7 @@ class _CourseDetailsState extends State<CourseDetails> {
           ],
         ),
         content: Text(
-          "Your Query is submitted to counsellor.",
+          "Your Query is submitted to counsellor🤗",
           style: batchtext2(AppColors.PrimaryMainColor),
         ),
       ),
@@ -782,8 +776,6 @@ class StanderedTest extends StatelessWidget {
                 animationDuration: 3600,
                 radius: 25.0.r,
                 lineWidth: 3.0,
-
-                // header: new Text("Icon header"),
                 center: Text(
                   coursemoredetails,
                   style: batchtext2(AppColors.PrimaryBlackColor),
