@@ -80,4 +80,10 @@ class CourseRepo {
         parameter, NetworkConstant.END_POINT_COURSE_APPLIED_EMAIL);
     return response;
   }
+
+  Future<dynamic> deleteAccount() async {
+    final response = await _apiProvider
+        .deleteaccountPost(NetworkConstant.END_POINT_DELETE_ACCOUNT);
+    return response;
+  }
 }

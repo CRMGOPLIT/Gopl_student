@@ -11,7 +11,7 @@ import 'package:global_student/utils/text_style.dart';
 import 'package:global_student/view/course_details/course_details.dart';
 import 'package:global_student/view/course_details/topuniversitydetails.dart';
 import 'package:global_student/view/couse_search/universitylistpage.dart';
-import 'package:global_student/view/widget/app_bar.dart';
+import 'package:global_student/view/widget/app_bar.dart'; 
 
 class CourseSerach extends StatefulWidget {
   const CourseSerach({super.key});
@@ -86,7 +86,6 @@ class _CourseSerachState extends State<CourseSerach> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppColors.backgroungcolor,
       appBar: PreferredSize(

@@ -62,7 +62,10 @@ class RoutesName {
 
   //visanotapplicable
   static const String visanotapplicable = 'visanotapplicable';
-  
+
   //Batch List
   static const String batchlist = 'batchlist';
+
+  // Delete Account
+  static const String deleteaccount = 'deleteaccount';
 }

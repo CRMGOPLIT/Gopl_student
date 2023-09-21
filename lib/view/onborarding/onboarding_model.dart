@@ -10,7 +10,7 @@ List<IntroModel> contents = [
     title: 'Career Counselling',
     image: 'assets/images/on1.png',
     discription:
-        'Global Opportunities has an expert team of counsellors with a long years of experience. ',
+        'Global Opportunities Pvt Ltd has experienced counselors with years of expertise.',
   ),
   IntroModel(
     title: 'Visa',

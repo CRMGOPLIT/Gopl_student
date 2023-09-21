@@ -73,8 +73,8 @@ class _drawerState extends State<drawer> {
               ),
               Image.asset(
                 "assets/images/bannerlogo.png",
-                height: 30,
-                width: 100,
+                height: 30.h,
+                width: 100.w,
                 fit: BoxFit.contain,
               ),
               SizedBox(
@@ -120,8 +120,9 @@ class _drawerState extends State<drawer> {
                   Navigator.pushNamed(context, RoutesName.aboutpage);
                 },
                 child: ListTile(
-                  leading: const Icon(
+                  leading: Icon(
                     Icons.school,
+                    size: 20.sp,
                     color: AppColors.PrimaryBlackColor,
                   ),
                   title: Text("About Us",
@@ -147,8 +148,25 @@ class _drawerState extends State<drawer> {
                 ),
               ),
               ListTile(
-                leading: const Icon(
+                leading: Icon(
+                  Icons.delete,
+                  size: 20.sp,
+                  color: AppColors.PrimaryBlackColor,
+                ),
+                title: InkWell(
+                  onTap: () {
+                    Get.back();
+                    Navigator.pushNamed(context, RoutesName.deleteaccount);
+                  },
+                  child: Text("Delete Account",
+                      textScaleFactor: 1.0,
+                      style: batchtext2(AppColors.PrimaryBlackColor)),
+                ),
+              ),
+              ListTile(
+                leading: Icon(
                   Icons.logout,
+                  size: 20.sp,
                   color: Colors.red,
                 ),
                 title: GestureDetector(

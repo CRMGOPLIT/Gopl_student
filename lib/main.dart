@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
               color: AppColors.PrimaryMainColor,
               foregroundColor: Colors.black,
               systemOverlayStyle: SystemUiOverlayStyle(
-                statusBarColor: AppColors.PrimaryWhiteColor,
+                statusBarColor: AppColors.PrimaryMainColor,
                 statusBarIconBrightness: Brightness.light,
                 statusBarBrightness: Brightness.light,
               ),

@@ -205,6 +205,31 @@ class ApiProvider {
     }
     return responseJson;
   }
+//delete account
+
+  Future<dynamic> deleteaccountPost(String url) async {
+    var responseJson;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    token = prefs.getString('stringValue');
+
+    try {
+      final response = await http.post(
+        Uri.parse(baseUrl + url),
+        headers: {
+          'Authorization': 'Bearer $token',
+          "Accept": "application/json"
+        },
+      );
+
+      responseJson = _response(response);
+
+      // responseJson = jsonDecode(response.body.toString());
+    } catch (e) {
+      Get.to(() => const CustomErrorWidget());
+    }
+    return responseJson;
+  }
 
 /////////////drop params///////
 

@@ -7,7 +7,7 @@ class SearchBloc {
   late CourseRepo courseRepo;
   late StreamController<dynamic> getcountrysearch;
   late StreamController<dynamic> getuniversitysearch;
-  late StreamController<dynamic> getlocationsearch; 
+  late StreamController<dynamic> getlocationsearch;
   late StreamController<dynamic> getstudyareasearch;
   late StreamController<dynamic> getdisciplineareasearch;
   late StreamController<dynamic> getuniversitypagenation;
@@ -15,6 +15,7 @@ class SearchBloc {
   late StreamController<dynamic> coursemoredetails;
   late StreamController<Response<dynamic>> getfiltersearch;
   late StreamController<Response<dynamic>> courseappliedEmail;
+  late StreamController<Response<dynamic>> deleteaccount;
 
   StreamSink<dynamic> get getcountrysearchSink => getcountrysearch.sink;
   Stream<dynamic> get getcountrysearchStream => getcountrysearch.stream;
@@ -48,7 +49,7 @@ class SearchBloc {
       getuniversitypagenation.stream;
 
   StreamSink<dynamic> get getdashboardsearchSink => getdashboardsearch.sink;
-  Stream<dynamic> get getdashboardsearchStream => getdashboardsearch.stream; 
+  Stream<dynamic> get getdashboardsearchStream => getdashboardsearch.stream;
 
   StreamSink<dynamic> get coursemoredetailsSink => coursemoredetails.sink;
   Stream<dynamic> get coursemoredetailsStream => coursemoredetails.stream;
@@ -58,6 +59,10 @@ class SearchBloc {
       courseappliedEmail.sink;
   Stream<Response<dynamic>> get courseappliedEmailStream =>
       courseappliedEmail.stream;
+
+  // Delete Account
+  StreamSink<Response<dynamic>> get deleteaccountSink => deleteaccount.sink;
+  Stream<Response<dynamic>> get deleteaccountStream => deleteaccount.stream;
 
   SearchBloc() {
     getcountrysearch = StreamController<dynamic>();
@@ -70,6 +75,7 @@ class SearchBloc {
     getdashboardsearch = StreamController<dynamic>();
     coursemoredetails = StreamController<dynamic>();
     courseappliedEmail = StreamController<Response<dynamic>>();
+    deleteaccount = StreamController<Response<dynamic>>();
     courseRepo = CourseRepo();
   }
 
@@ -173,6 +179,16 @@ class SearchBloc {
     }
   }
 
+  //Delete Account
+  callDeleteAccount() async {
+    try {
+      dynamic chuckCats = await courseRepo.deleteAccount();
+      courseappliedEmailSink.add(Response.completed(chuckCats));
+    } catch (e) {
+      courseappliedEmailSink.add(Response.error(e.toString()));
+    }
+  }
+
   void dispose() {
     getcountrysearch.close();
     getuniversitysearch.close();
@@ -184,5 +200,6 @@ class SearchBloc {
     getdashboardsearch.close();
     coursemoredetails.close();
     courseappliedEmail.close();
+    deleteaccount.close();
   }
 }

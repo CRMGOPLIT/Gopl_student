@@ -137,6 +137,7 @@ class _CourseDetailsState extends State<CourseDetails> {
     });
   }
 
+ 
   void getCourseData() async {
     if (!isloadingmore && hasmore) {
       isloadingmore = true;
@@ -791,7 +792,7 @@ class StanderedTest extends StatelessWidget {
               padding: const EdgeInsets.all(5.0).r,
               child: Text(
                 title,
-                maxLines: 2,
+                maxLines: 1,
                 style: batchtext2(AppColors.PrimaryBlackColor),
               ),
             ),

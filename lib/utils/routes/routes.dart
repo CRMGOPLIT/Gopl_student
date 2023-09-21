@@ -10,6 +10,7 @@ import 'package:global_student/view/couse_search/universitylistpage.dart';
 import 'package:global_student/view/dashboard/home_page.dart';
 import 'package:global_student/view/drawerpage/aboutus.dart';
 import 'package:global_student/view/drawerpage/contactus.dart';
+import 'package:global_student/view/drawerpage/delete_account.dart';
 import 'package:global_student/view/drawerpage/profile_page.dart';
 import 'package:global_student/view/event_details/event_detils.dart';
 import 'package:global_student/view/login/login_page.dart';
@@ -137,6 +138,10 @@ class Routes {
       case RoutesName.batchlist:
         return MaterialPageRoute(
             builder: (BuildContext context) => const BatchList());
+            
+             case RoutesName.deleteaccount:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const DeleteAccount());
 
       default:
         return MaterialPageRoute(builder: (_) {

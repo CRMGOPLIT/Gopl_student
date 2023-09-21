@@ -2,9 +2,6 @@ class NetworkConstant {
   // ignore: constant_identifier_names
   static const String BASE_URL = "http://crmapi.global-opportunities.co.in/Api";
 
-
-  
-
   //post field Register
   // ignore: constant_identifier_names
   static const String NAME = 'NAME';
@@ -183,4 +180,8 @@ class NetworkConstant {
   // ignore: constant_identifier_names
   static const String END_POINT_COURSE_APPLIED_EMAIL =
       "/DocumentUpload/AppStudent_SendCourse";
+
+  // ignore: constant_identifier_names
+  static const String END_POINT_DELETE_ACCOUNT =
+      "/GopAndroid/DeactivateStudent";
 }
