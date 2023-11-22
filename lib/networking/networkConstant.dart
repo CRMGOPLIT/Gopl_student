@@ -1,6 +1,7 @@
 class NetworkConstant {
   // ignore: constant_identifier_names
-  static const String BASE_URL = "http://crmapi.global-opportunities.co.in/Api";
+  static const String BASE_URL = "http://192.168.1.69/Api";
+  // static const String BASE_URL = "http://crmapi.global-opportunities.co.in/Api";
 
   //post field Register
   // ignore: constant_identifier_names
@@ -184,4 +185,29 @@ class NetworkConstant {
   // ignore: constant_identifier_names
   static const String END_POINT_DELETE_ACCOUNT =
       "/GopAndroid/DeactivateStudent";
+
+  // ignore: constant_identifier_names
+  static const String END_POINT_APPOINTMENT_DETAILS =
+      "/GoFair/GetAppointmentDetails";
+
+  // ignore: constant_identifier_names
+  static const String END_POINT_GOFAIR_DETAILS = "/GoFair/GetStudentDetails";
+
+  // ignore: constant_identifier_names
+  static const String END_POINT_GOFAIR_DROPDOWN = "/GoFair/GetuniversityVisit";
+
+  // ignore: constant_identifier_names
+  static const String END_POINT_GOFAIR_POSTDATA =
+      "/GoFair/AppointmentGoFairinsertdata";
+
+  // ignore: constant_identifier_names
+  static const String END_POINT_GOFAIR_WALKIN =
+      "/GoFair/UpdateFairAppointmentStatus";
+
+  static const String END_POINT_GOFAIR_DOCUMENT =
+      "/GoFair/StudentDocumentUpload_app";
+
+  static const String END_POINT_GOFAIR_DOCUMENT_GET = "/GoFair/ShowDocApp";
+
+  // http://192.168.1.69/Api/GoFair/GetAppointmentDetails
 }

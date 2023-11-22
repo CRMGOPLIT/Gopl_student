@@ -55,6 +55,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
       showloader ? Navigator.pop(context) : "";
       bool response =
           ApiResponseHelper().handleResponse(event: event, context: context);
+
       if (response == true) {
         FilterSeach filterSeach = FilterSeach.fromJson(event.data);
         if (filterSeach.objCourse.isNotEmpty) {

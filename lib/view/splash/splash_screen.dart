@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/view/widget/internetconnection.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+// import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../utils/routes/routes_name.dart';
@@ -20,23 +21,21 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  late StreamSubscription subscription;
+  bool isDeviceConnected = false;
+  bool isAlertSet = false;
   String? _connectionStatus;
   String? check;
   String? token;
 
-  bool isDeviceConnected = false;
-  bool isAlertSet = false;
-
   late ConnectivityResult result;
-  late StreamSubscription subscription;
-  var isConnected = false;
 
   checkInternet() async {
     result = await Connectivity().checkConnectivity();
     if (result != ConnectivityResult.none) {
-      isConnected = true;
+      isDeviceConnected = true;
     } else {
-      isConnected = false;
+      isDeviceConnected = false;
       Get.to(() => const ConnectionChecker());
     }
   }
@@ -47,16 +46,16 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
-  getConnectivity() =>
-      subscription = Connectivity().onConnectivityChanged.listen(
-        (ConnectivityResult result) async {
-          isDeviceConnected = await InternetConnectionChecker().hasConnection;
-          if (!isDeviceConnected && isAlertSet == false) {
-            const ConnectionChecker();
-            setState(() => isAlertSet = true);
-          }
-        },
-      );
+  // getConnectivity() =>
+  //     subscription = Connectivity().onConnectivityChanged.listen(
+  //       (ConnectivityResult result) async {
+  //         isDeviceConnected = await InternetConnectionChecker().hasConnection;
+  //         if (!isDeviceConnected && isAlertSet == false) {
+  //           showDialogBox();
+  //           setState(() => isAlertSet = true);
+  //         }
+  //       },
+  //     );
 
   @override
   void dispose() {
@@ -67,59 +66,61 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future _checkInternetConnection() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.mobile ||
-        connectivityResult == ConnectivityResult.wifi) {
-      setState(() {
-        _connectionStatus = 'Connected';
-        check = _connectionStatus;
-      });
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      bool seen = (prefs.getBool('seen') ?? false);
-      token = prefs.getString('stringValue');
+    // if (connectivityResult == ConnectivityResult.mobile ||
+    //     connectivityResult == ConnectivityResult.wifi) {
+    // setState(() {
+    //   _connectionStatus = 'Connected';
+    //   check = _connectionStatus;
+    // });
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool seen = (prefs.getBool('seen') ?? false);
+    token = prefs.getString('stringValue');
 
-      if (seen && token != null) {
+    if (seen && token != null) {
+      Future.delayed(const Duration(seconds: 3), () {
+        Navigator.pushNamed(context, RoutesName.bottomnav);
+        // getConnectivity();
+      });
+    } else {
+      await prefs.setBool('seen', true);
+      if (seen == true && token == null) {
         Future.delayed(const Duration(seconds: 3), () {
-          Navigator.pushNamed(context, RoutesName.bottomnav);
-          getConnectivity();
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            RoutesName.login,
+            (routes) => false,
+          );
+          //  getConnectivity();
         });
       } else {
-        await prefs.setBool('seen', true);
-        if (seen == true && token == null) {
-          Future.delayed(const Duration(seconds: 3), () {
-            Navigator.pushNamedAndRemoveUntil(
-              context,
-              RoutesName.login,
-              (routes) => false,
-            );
-            getConnectivity();
-          });
-        } else {
-          Future.delayed(const Duration(seconds: 3), () {
-            Navigator.pushNamedAndRemoveUntil(
-              context,
-              RoutesName.onbording,
-              (routes) => false,
-            );
+        Future.delayed(const Duration(seconds: 3), () {
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            RoutesName.onbording,
+            (routes) => false,
+          );
 
-            getConnectivity();
-          });
-        }
+          //  getConnectivity();
+        });
       }
-    } else {
-      setState(() {
-        _connectionStatus = 'Not connected';
-        check = _connectionStatus;
-      });
-      checkInternet();
-      showDialogwBox();
-
-      getConnectivity();
     }
+    //  }
+    // else {
+    //   setState(() {
+    //     _connectionStatus = 'Not connected';
+    //     check = _connectionStatus;
+    //   });
+    //   // checkInternet();
+    //   // showDialogwBox();
+
+    //   //   getConnectivity();
+    // }
   }
 
   @override
   initState() {
     startStreaming();
+
     _checkInternetConnection();
     super.initState();
   }
@@ -162,26 +163,49 @@ class _SplashScreenState extends State<SplashScreen> {
           );
   }
 
-  Widget errmsg(String text, bool show) {
-    if (show == true) {
-      return Container(
-        padding: const EdgeInsets.all(10.00),
-        margin: const EdgeInsets.only(bottom: 10.00),
-        color: Colors.red,
-        child: Row(children: [
-          Container(
-            margin: const EdgeInsets.only(right: 6.00),
-            child: const Icon(Icons.info, color: Colors.white),
-          ),
-          Text(text, style: const TextStyle(color: Colors.white)),
-        ]),
-      );
-    } else {
-      return Container();
-    }
-  }
+  // Widget errmsg(String text, bool show) {
+  //   if (show == true) {
+  //     return Container(
+  //       padding: const EdgeInsets.all(10.00),
+  //       margin: const EdgeInsets.only(bottom: 10.00),
+  //       color: Colors.red,
+  //       child: Row(children: [
+  //         Container(
+  //           margin: const EdgeInsets.only(right: 6.00),
+  //           child: const Icon(Icons.info, color: Colors.white),
+  //         ),
+  //         Text(text, style: const TextStyle(color: Colors.white)),
+  //       ]),
+  //     );
+  //   } else {
+  //     return Container();
+  //   }
+  // }
 
-  showDialogwBox() => showCupertinoDialog<String>(
+  // showDialogwBox() => showCupertinoDialog<String>(
+  //       context: context,
+  //       builder: (BuildContext context) => CupertinoAlertDialog(
+  //         title: const Text('No Connection'),
+  //         content: const Text('Please check your internet connectivity'),
+  //         actions: <Widget>[
+  //           TextButton(
+  //             onPressed: () async {
+  //               Navigator.pop(context, 'Cancel');
+  //               setState(() => isAlertSet = false);
+  //               isDeviceConnected =
+  //                   await InternetConnectionChecker().hasConnection;
+  //               if (!isDeviceConnected && isAlertSet == false) {
+  //                 showDialogwBox();
+  //                 setState(() => isAlertSet = true);
+  //               }
+  //             },
+  //             child: const Text('OK'),
+  //           ),
+  //         ],
+  //       ),
+  //     );
+
+  showDialogBox() => showCupertinoDialog<String>(
         context: context,
         builder: (BuildContext context) => CupertinoAlertDialog(
           title: const Text('No Connection'),
@@ -194,7 +218,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 isDeviceConnected =
                     await InternetConnectionChecker().hasConnection;
                 if (!isDeviceConnected && isAlertSet == false) {
-                  showDialogwBox();
+                  showDialogBox();
                   setState(() => isAlertSet = true);
                 }
               },

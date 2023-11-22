@@ -68,4 +68,16 @@ class RoutesName {
 
   // Delete Account
   static const String deleteaccount = 'deleteaccount';
+
+  //Go fair
+
+  static const String gofair = 'gofair';
+
+  //Book appointment
+
+  static const String bookappointment = 'bookappointment';
+
+  //Student Fair Details
+
+  static const String studentfairdetails = 'studentfairdetails';
 }

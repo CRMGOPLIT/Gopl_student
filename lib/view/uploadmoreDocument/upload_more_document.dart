@@ -550,7 +550,8 @@ class _UploadmoreDialogState extends State<UploadmoreDialog> {
   final _registerkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Form(
+    return 
+    Form(
       key: _registerkey,
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -721,6 +722,7 @@ class _UploadmoreDialogState extends State<UploadmoreDialog> {
         ],
       ),
     );
+ 
   }
 
   void selectFile() async {
@@ -811,6 +813,7 @@ class _UploadmoreDialogState extends State<UploadmoreDialog> {
     }
   }
 
+ 
   Widget bankStatementWidget(int index) {
     return Padding(
       padding: const EdgeInsets.all(5),

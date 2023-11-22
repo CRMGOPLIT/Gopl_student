@@ -1,4 +1,6 @@
+import 'dart:developer';
 import 'dart:math';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
@@ -14,13 +16,17 @@ import 'package:global_student/view/applicationStatus/application_status.dart';
 import 'package:global_student/view/branch_location/branch_location.dart';
 import 'package:global_student/view/couse_search/course_search.dart';
 import 'package:global_student/view/dashboard/dash_grid_model.dart';
+import 'package:global_student/view/drawerpage/profile_page.dart';
 import 'package:global_student/view/event_details/event_detils.dart';
+import 'package:global_student/view/fairmodule/gofairpage.dart';
 import 'package:global_student/view/qualification/completeeducation.dart';
 import 'package:global_student/view/uploadmoreDocument/upload_more_document.dart';
 import 'package:global_student/view/visa/visa_page.dart';
 import 'package:global_student/view/widget/drawer.dart';
 import 'package:global_student/view/widget/visanotapplicalble.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../bloc/gofairbloc.dart';
+import '../../model/gofairdetails.dart';
 import '../../model/universityvisitModel.dart';
 import '../batch_details/batchlist.dart';
 import '../qualification/highschool.dart';
@@ -38,6 +44,7 @@ class _HomePageState extends State<HomePage> {
       GlobalKey<ScaffoldState>();
 
   List<Color> color = [
+    const Color(0xffCEA279),
     const Color(0xff5D88C6),
     const Color(0xffCE7983),
     const Color(0xff908BCB),
@@ -51,6 +58,7 @@ class _HomePageState extends State<HomePage> {
   Bannermodel? bannermodeldata;
 
   List page = [
+    const GoFairPage(),
     const HighSchool(),
     const UploadMoreDocument(),
     const CourseSerach(),
@@ -64,6 +72,7 @@ class _HomePageState extends State<HomePage> {
   bool loanding1 = true;
   bool loanding3 = true;
   late DashBoardBloc dashBoardBloc;
+  late GoFairBloc goFairBloc;
   List data = [];
   List dataUser = [];
 
@@ -72,8 +81,10 @@ class _HomePageState extends State<HomePage> {
   List<String> bannerimages = [];
 
   List<UniversityVisitModel> universitydetails = [];
+  Gofairdetails? getfairModel;
 
   List universityData = [];
+  bool loading1 = true;
 
   @override
   void initState() {
@@ -85,6 +96,10 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       getUserDetails();
     });
+
+    goFairBloc = GoFairBloc();
+    getgofairDetails();
+    _getgofairData();
     colors = generateRandomColors();
 
     super.initState();
@@ -158,6 +173,25 @@ class _HomePageState extends State<HomePage> {
         });
       }
     });
+  }
+
+  getgofairDetails() {
+    goFairBloc.gofairdetailsStream.listen((event) {
+      if (event != null) {
+        setState(() {
+          getfairModel = Gofairdetails.fromJson(event);
+
+          loading1 = false;
+        });
+      }
+    });
+  }
+
+  _getgofairData() {
+    Map<String, dynamic> data = {
+      "f_student_id": "2334965",
+    };
+    goFairBloc.callGofairdetailsDetails(data);
   }
 
   _gethomeData() {
@@ -289,6 +323,35 @@ class _HomePageState extends State<HomePage> {
         : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Center(
+              //       child: Text(
+              //     "Go Fair Started Book Now",
+              //     style: OtpText(Colors.green),
+              //   )),
+              // ),
+
+              Container(
+                height: 25.h,
+                padding: EdgeInsets.all(5.h),
+                child: Center(
+                  child: AnimatedTextKit(
+                    isRepeatingAnimation: true,
+                    repeatForever: true,
+                    animatedTexts: [
+                      TypewriterAnimatedText(
+                          'Global Opportunities Fair Started...',
+                          textStyle: FieldTextStyle(Colors.red)),
+                      TypewriterAnimatedText('Book your Appointment Now 👆',
+                          textStyle: batchtext2(Colors.green)),
+                    ],
+                    onTap: () {
+                      Get.to(() => const GoFairPage());
+                    },
+                  ),
+                ),
+              ),
               Padding(
                 padding: EdgeInsets.only(left: 10.r),
                 child: Text("University Visit",
@@ -458,7 +521,7 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (BuildContext context, int index) {
                 return InkWell(
                   onTap: () {
-                    if (index == 7) {
+                    if (index == 8) {
                       bannermodeldata!.isVisaApplicable == "0"
                           ? Get.to(() => const VisaNotApplicable(), arguments: [
                               bannermodeldata!.isVisaApplicable,
@@ -479,7 +542,7 @@ class _HomePageState extends State<HomePage> {
                                   ],
                                 );
                     } else {
-                      index == 0
+                      index == 1
                           ? Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -489,10 +552,14 @@ class _HomePageState extends State<HomePage> {
                                           : qualificationdatasubmit.length == 1
                                               ? const InterSchool()
                                               : const DonePage()))
-                          : Navigator.push(
-                              context,
-                              FadeInPageRoute(page: page[index]),
-                            );
+                          : index == 0
+                              ? Navigator.push(
+                                  context,
+                                  getfairModel!.isTodayFair == "Yes"
+                                      ? FadeInPageRoute(page: page[0])
+                                      : FadeInPageRoute(page: ProfilePage()))
+                              : Navigator.push(
+                                  context, FadeInPageRoute(page: page[index]));
                     }
                   },
                   child: Card(

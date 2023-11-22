@@ -13,6 +13,9 @@ import 'package:global_student/view/drawerpage/contactus.dart';
 import 'package:global_student/view/drawerpage/delete_account.dart';
 import 'package:global_student/view/drawerpage/profile_page.dart';
 import 'package:global_student/view/event_details/event_detils.dart';
+import 'package:global_student/view/fairmodule/bookappointmentpage.dart';
+import 'package:global_student/view/fairmodule/gofairpage.dart';
+import 'package:global_student/view/fairmodule/student_fair_details.dart';
 import 'package:global_student/view/login/login_page.dart';
 import 'package:global_student/view/qualification/completeeducation.dart';
 import 'package:global_student/view/qualification/graduation.dart';
@@ -138,10 +141,22 @@ class Routes {
       case RoutesName.batchlist:
         return MaterialPageRoute(
             builder: (BuildContext context) => const BatchList());
-            
-             case RoutesName.deleteaccount:
+
+      case RoutesName.deleteaccount:
         return MaterialPageRoute(
             builder: (BuildContext context) => const DeleteAccount());
+
+      case RoutesName.gofair:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const GoFairPage());
+
+      case RoutesName.bookappointment:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const BookAppointment());
+
+      case RoutesName.studentfairdetails:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const StudentFairDetails());
 
       default:
         return MaterialPageRoute(builder: (_) {

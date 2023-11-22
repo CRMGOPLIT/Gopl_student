@@ -118,7 +118,7 @@ class ApiProvider {
 
       responseJson = _response(response);
     } catch (e) {
-      Get.to(() => const CustomErrorWidget());
+     // Get.to(() => const CustomErrorWidget());
     }
     return responseJson;
   }
@@ -251,10 +251,10 @@ class ApiProvider {
       if (response.statusCode == 200) {
         responseJson = jsonDecode(response.body.toString());
       } else {
-        Get.to(() => const CustomErrorWidget());
+        //  Get.to(() => const CustomErrorWidget());
       }
     } catch (e) {
-      Get.to(() => const CustomErrorWidget());
+      // Get.to(() => const CustomErrorWidget());
     }
     return responseJson;
   }

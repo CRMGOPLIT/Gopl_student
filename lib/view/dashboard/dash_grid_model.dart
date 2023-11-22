@@ -14,6 +14,10 @@ class GridModel {
 
 List<GridModel> dashgrid = [
   GridModel(
+      title: 'Go Fair',
+      image: 'assets/images/eventic.png',
+      color: const Color(0xffF4F3FF)),
+  GridModel(
       title: 'My Qualifications',
       image: 'assets/images/addnew1.png',
       color: const Color(0xffEEF5FF)),
@@ -47,6 +51,7 @@ List<GridModel> dashgrid = [
       color: const Color(0xffF3FCFF)),
 ];
 
+// ignore: non_constant_identifier_names
 List<GridModel> Countrycourse = [
   GridModel(
     title: 'Uk',
@@ -87,4 +92,23 @@ List<GridModel> batchlist = [
       title: 'PTE',
       image: 'assets/images/PTE.png',
       color: const Color(0xffF9F2F6)),
+];
+
+List<GridModel> gofairlist = [
+  GridModel(
+      title: 'Book Appointment',
+      image: 'assets/images/bookapi.png',
+      color: const Color(0xffF3FCFF)),
+  GridModel(
+      title: 'Go Fair',
+      image: 'assets/images/gofair.png',
+      color: const Color(0xffFFEEF0)),
+  GridModel(
+      title: 'Token',
+      image: 'assets/images/token.png',
+      color: const Color(0xffFFEEF0)),
+  GridModel(
+      title: 'Appointment History',
+      image: 'assets/images/history-book.png',
+      color: const Color(0xffF2F9F6)),
 ];

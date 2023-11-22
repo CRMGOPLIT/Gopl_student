@@ -91,3 +91,77 @@ List<DurationModel> duration = [
     name: '4 and above Years',
   ),
 ];
+
+class Timeappointment {
+  String? name;
+  String? id;
+
+  Timeappointment({
+    this.name,
+    this.id,
+  });
+}
+
+List<Timeappointment> timeappointment = [
+  Timeappointment(
+    id: '9-10',
+    name: '9 To 10 AM',
+  ),
+  Timeappointment(
+    id: '10-11',
+    name: '10 To 11 AM',
+  ),
+  Timeappointment(
+    id: '11-12',
+    name: '11 To 12 AM',
+  ),
+  Timeappointment(
+    id: '12-1',
+    name: '12 To 1 PM',
+  ),
+  Timeappointment(
+    id: '1-2',
+    name: '1 To 2 PM',
+  ),
+  Timeappointment(
+    id: '2-3',
+    name: '2 To 3 PM',
+  ),
+  Timeappointment(
+    id: '3-4',
+    name: '3 To 4 PM',
+  ),
+  Timeappointment(
+    id: '4-5',
+    name: '4 To 5 PM',
+  ),
+  Timeappointment(
+    id: '5-6',
+    name: '5 To 6 PM',
+  ),
+];
+
+class Actiontype {
+  String? name;
+  String? id;
+
+  Actiontype({
+    this.name,
+    this.id,
+  });
+}
+
+List<Actiontype> actiontype = [
+  Actiontype(
+    id: '1',
+    name: "University Visit",
+  ),
+  Actiontype(
+    id: '2',
+    name: "Go Fair",
+  ),
+  Actiontype(
+    id: '3',
+    name: "Office Walk in",
+  ),
+];

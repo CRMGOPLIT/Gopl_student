@@ -207,12 +207,35 @@ class _EventDetailsState extends State<EventDetails> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Text(
-                                                universitydetails[index]
-                                                    .branchName
-                                                    .toString(),
-                                                style: OtpText(
-                                                    AppColors.PrimaryMainColor),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                                right: 10)
+                                                            .r,
+                                                    child: Image.network(
+                                                      universitydetails[index]
+                                                          .logo
+                                                          .toString(),
+                                                      height: 50.h,
+                                                      width: 120.w,
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    universitydetails[index]
+                                                        .branchName
+                                                        .toString(),
+                                                    style: OtpText(AppColors
+                                                        .PrimaryMainColor),
+                                                  ),
+                                                ],
                                               ),
                                               SizedBox(
                                                 height: 5.h,

@@ -36,7 +36,6 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Global Opportunities',
-
           theme: ThemeData(
             appBarTheme: const AppBarTheme(
               color: AppColors.PrimaryMainColor,
@@ -48,7 +47,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
-          // home: MyPage(),
+          //  home: MyFileList(),
           initialRoute: RoutesName.splash,
           onGenerateRoute: Routes.generateRoute,
         );
