@@ -192,11 +192,11 @@ class _ContactUsState extends State<ContactUs> {
   }
 
   whatsapp() async {
-    var contact = "+919205689041";
+    var contact = "+919667747216";
     final androidUrl =
-        "whatsapp://send?phone=$contact&text= Hi, I need some help";
+        "whatsapp://send?phone=$contact&text= Hi, I need some help regarding abroad education";
     final iosUrl =
-        "https://wa.me/$contact?text=${Uri.parse('Hi, I need some help regarding Abroad Education.')}";
+        "https://wa.me/$contact?text=${Uri.parse('Hi, I need some help regarding abroad education.')}";
 
     try {
       if (Platform.isIOS) {

@@ -160,8 +160,8 @@ List<Actiontype> actiontype = [
     id: '2',
     name: "Go Fair",
   ),
-  Actiontype(
-    id: '3',
-    name: "Office Walk in",
-  ),
+  // Actiontype(
+  //   id: '3',
+  //   name: "Office Walk in",
+  // ),
 ];

@@ -742,6 +742,7 @@ class _CourseDetailsState extends State<CourseDetails> {
       ),
     );
   }
+
 }
 
 class StanderedTest extends StatelessWidget {

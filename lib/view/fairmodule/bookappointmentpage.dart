@@ -3,9 +3,11 @@ import 'dart:math';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:global_student/model/getpendintAppointment.dart';
 import 'package:global_student/utils/text_style.dart';
 import 'package:global_student/view/widget/loader.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../bloc/gofairbloc.dart';
 import '../../model/getfairdocumentmodel.dart';
 import '../../model/getfairdropmodel.dart';
@@ -23,6 +25,7 @@ class BookAppointment extends StatefulWidget {
 }
 
 class _BookAppointmentState extends State<BookAppointment> {
+  String? studentid;
   List<String> selecteduniversity = [];
 
   Timeappointment? timedrop;
@@ -142,6 +145,7 @@ class _BookAppointmentState extends State<BookAppointment> {
 
         //   getAppointmentPendingData();
         // });
+
         Navigator.pushNamed(context, RoutesName.bookappointment);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -192,36 +196,43 @@ class _BookAppointmentState extends State<BookAppointment> {
     });
   }
 
-  callAppointmentpending() {
+  callAppointmentpending() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    studentid = prefs.getString("studentId");
     Map<String, dynamic> data = {
-      "f_student_id": "2002751",
+      "f_student_id": studentid.toString(),
       "f_appointment_status": "NotUpdated"
     };
     goFairBloc.callAppointmentPendingDetails(data);
   }
 
-  getgofairdrop() {
+  getgofairdrop() async {
     NetworkDialog.showLoadingDialog(context, _keyLoader);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    studentid = prefs.getString("studentId");
+
     Map<String, String> data = {
       "flag": actiondrop!.name.toString(),
       "userid": "",
       "branchid": "",
-      "f_Student_id": "2002751"
+      "f_Student_id": studentid.toString(),
     };
 
     goFairBloc.callgofairdrop(data);
   }
 
-  bookappointmentdata() {
+  bookappointmentdata() async {
     NetworkDialog.showLoadingDialog(context, _keyLoader);
-
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    studentid = prefs.getString("studentId");
     Map<String, String> data = {
-      "f_Student_id": 2002751.toString(),
+      "f_Student_id": studentid.toString(),
       "AppointmentType": actiondrop!.id.toString(),
       "f_university_visit": universitydrop!.id.toString(),
       "f_applointment_time": timedrop!.id.toString()
     };
-
+    // debugger();
+    // print(data);
     goFairBloc.callbookappointmentdata(data);
   }
 
@@ -281,581 +292,561 @@ class _BookAppointmentState extends State<BookAppointment> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    getAppointmentpending.isEmpty
-                        ? Form(
-                            key: _appointmentfrop,
-                            child: Container(
-                              width: 400.w,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  side: const BorderSide(
-                                    color: AppColors.PrimaryMainColor,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10.0).r,
-                                ),
-                                elevation: 5,
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        height: 20.h,
-                                      ),
-                                      Center(
-                                        child: Image.asset(
-                                          "assets/images/bannerlogo.png",
-                                          height: 40.h,
-                                          width: 300.w,
-                                          fit: BoxFit.contain,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Text("Action Type",
-                                            style: FieldTextStyle(
-                                              AppColors.PrimaryBlackColor,
-                                            )),
-                                      ),
-                                      Container(
-                                        padding: EdgeInsets.only(
-                                            left: 10.r, right: 10.r),
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        child: DropdownButtonHideUnderline(
-                                          child: DropdownButtonFormField2(
-                                            isDense: false,
-                                            isExpanded: true,
-                                            decoration: InputDecoration(
-                                              enabledBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                borderSide: const BorderSide(
-                                                    color: AppColors.hintcolor,
-                                                    width: 1.0),
-                                              ),
-                                              isCollapsed: true,
-                                              border: InputBorder.none,
-                                            ),
-                                            validator: (value) {
-                                              if (value == null) {
-                                                return 'Please Select Action Type';
-                                              }
-                                              return null;
-                                            },
-                                            hint: Text(
-                                              'Please Select Action Type',
-                                              style: batchtext2(
-                                                  AppColors.hintcolor),
-                                            ),
-                                            items: actiontype
-                                                .map((item) => DropdownMenuItem(
-                                                      value: item,
-                                                      child: Text(
-                                                        item.name.toString(),
-                                                        style: batchtext2(AppColors
-                                                            .PrimaryMainColor),
-                                                      ),
-                                                    ))
-                                                .toList(growable: false),
-                                            value: actiondrop,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                actiondrop = value;
-                                                universitydrop = null;
-                                                gofairdropmodel.clear();
-
-                                                getgofairdrop();
-                                              });
-                                            },
-                                            buttonStyleData: ButtonStyleData(
-                                              height: 55.h,
-                                              padding: EdgeInsets.all(10.r),
-                                            ),
-                                            dropdownStyleData:
-                                                DropdownStyleData(
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                                    10.sp),
-                                                        color: AppColors
-                                                            .PrimaryWhiteColor,
-                                                        border: Border.all()),
-                                                    maxHeight: 300.h,
-                                                    elevation: 10),
-                                            menuItemStyleData:
-                                                MenuItemStyleData(
-                                              padding: const EdgeInsets.only(
-                                                  left: 10, right: 10),
-                                              height: 40.h,
-                                            ),
-                                            onMenuStateChange: (isOpen) {
-                                              if (isOpen) {
-                                                // textEditingController.clear();
-                                              }
-                                            },
-                                            iconStyleData: const IconStyleData(
-                                              icon: Icon(
-                                                Icons.keyboard_arrow_down,
-                                                color:
-                                                    AppColors.PrimaryMainColor,
-                                              ),
-                                              iconSize: 30,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Text("University Visit",
-                                            style: FieldTextStyle(
-                                              AppColors.PrimaryBlackColor,
-                                            )),
-                                      ),
-                                      Container(
-                                        padding: EdgeInsets.only(
-                                            left: 10.r, right: 10.r),
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        child: DropdownButtonHideUnderline(
-                                          child: DropdownButtonFormField2(
-                                            isDense: false,
-                                            isExpanded: true,
-                                            decoration: InputDecoration(
-                                              enabledBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                borderSide: const BorderSide(
-                                                    color: AppColors.hintcolor,
-                                                    width: 1.0),
-                                              ),
-                                              isCollapsed: true,
-                                              border: InputBorder.none,
-                                            ),
-                                            validator: (value) {
-                                              if (value == null) {
-                                                return 'Please Select University Visit';
-                                              }
-                                              return null;
-                                            },
-                                            hint: Text(
-                                              'Please Select University Visit',
-                                              style: batchtext2(
-                                                  AppColors.hintcolor),
-                                            ),
-                                            items: gofairdropmodel
-                                                .map((item) => DropdownMenuItem(
-                                                      value: item,
-                                                      child: Text(
-                                                        item.name.toString(),
-                                                        style: batchtext2(AppColors
-                                                            .PrimaryMainColor),
-                                                      ),
-                                                    ))
-                                                .toList(growable: false),
-                                            value: universitydrop,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                universitydrop = value;
-
-                                                // print(
-                                                //     universitydrop?.name.toString());
-                                                // print(gofairlistdata.length);
-
-                                                // isSelected = true;
-                                              });
-                                            },
-                                            buttonStyleData: ButtonStyleData(
-                                              height: 55.h,
-                                              padding: EdgeInsets.all(10.r),
-                                            ),
-                                            dropdownStyleData:
-                                                DropdownStyleData(
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                                    10.sp),
-                                                        color: AppColors
-                                                            .PrimaryWhiteColor,
-                                                        border: Border.all()),
-                                                    maxHeight: 300.h,
-                                                    elevation: 10),
-                                            menuItemStyleData:
-                                                MenuItemStyleData(
-                                              padding: const EdgeInsets.only(
-                                                  left: 10, right: 10),
-                                              height: 40.h,
-                                            ),
-                                            onMenuStateChange: (isOpen) {
-                                              if (isOpen) {
-                                                // textEditingController.clear();
-                                              }
-                                            },
-                                            iconStyleData: const IconStyleData(
-                                              icon: Icon(
-                                                Icons.keyboard_arrow_down,
-                                                color:
-                                                    AppColors.PrimaryMainColor,
-                                              ),
-                                              iconSize: 30,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Text("Appointment Date",
-                                            style: FieldTextStyle(
-                                              AppColors.PrimaryBlackColor,
-                                            )),
-                                      ),
-                                      SizedBox(
-                                        height: 5.h,
-                                      ),
-                                      Container(
-                                        padding: EdgeInsets.only(
-                                            left: 10.r, right: 10.r),
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        child: DropdownButtonHideUnderline(
-                                          child: DropdownButtonFormField2(
-                                            isDense: false,
-                                            isExpanded: true,
-                                            decoration: InputDecoration(
-                                              enabledBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                borderSide: const BorderSide(
-                                                    color: AppColors.hintcolor,
-                                                    width: 1.0),
-                                              ),
-                                              isCollapsed: true,
-                                              border: InputBorder.none,
-                                            ),
-                                            validator: (value) {
-                                              if (value == null) {
-                                                return 'Please Select year';
-                                              }
-                                              return null;
-                                            },
-                                            hint: Text(
-                                              'Please Select Appointment Date',
-                                              style: batchtext2(
-                                                  AppColors.hintcolor),
-                                            ),
-                                            items: gofairdropmodel
-                                                .map((item) => DropdownMenuItem(
-                                                      value: item,
-                                                      child: Text(
-                                                        item.dateOfVisit
-                                                            .toString()
-                                                            .split(" ")[0]
-                                                            .toString(),
-                                                        style: batchtext2(AppColors
-                                                            .PrimaryMainColor),
-                                                      ),
-                                                    ))
-                                                .toList(growable: false),
-                                            value: datedrop,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                datedrop = value;
-                                                // isSelected = true;
-                                              });
-                                            },
-                                            buttonStyleData: ButtonStyleData(
-                                              height: 55.h,
-                                              padding: EdgeInsets.all(10.r),
-                                            ),
-                                            dropdownStyleData:
-                                                DropdownStyleData(
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                                    10.sp),
-                                                        color: AppColors
-                                                            .PrimaryWhiteColor,
-                                                        border: Border.all()),
-                                                    maxHeight: 300.h,
-                                                    elevation: 10),
-                                            menuItemStyleData:
-                                                MenuItemStyleData(
-                                              padding: const EdgeInsets.only(
-                                                  left: 10, right: 10),
-                                              height: 40.h,
-                                            ),
-                                            onMenuStateChange: (isOpen) {
-                                              if (isOpen) {
-                                                // textEditingController.clear();
-                                              }
-                                            },
-                                            iconStyleData: const IconStyleData(
-                                              icon: Icon(
-                                                Icons.keyboard_arrow_down,
-                                                color:
-                                                    AppColors.PrimaryMainColor,
-                                              ),
-                                              iconSize: 30,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Text("Appointment Time",
-                                            style: FieldTextStyle(
-                                              AppColors.PrimaryBlackColor,
-                                            )),
-                                      ),
-                                      SizedBox(
-                                        height: 5.h,
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.only(
-                                                left: 10, right: 10)
-                                            .r,
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        child: DropdownButtonHideUnderline(
-                                          child: DropdownButtonFormField2(
-                                            isDense: false,
-                                            isExpanded: true,
-                                            decoration: InputDecoration(
-                                              enabledBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                borderSide: const BorderSide(
-                                                    color: AppColors.hintcolor,
-                                                    width: 1.0),
-                                              ),
-                                              isCollapsed: true,
-                                              border: InputBorder.none,
-                                            ),
-                                            validator: (value) {
-                                              if (value == null) {
-                                                return 'Please Select Appointment Time';
-                                              }
-                                              return null;
-                                            },
-                                            hint: Text(
-                                              'Please Select Appointment Time',
-                                              style: batchtext2(
-                                                  AppColors.hintcolor),
-                                            ),
-                                            items: timeappointment
-                                                .map((item) => DropdownMenuItem(
-                                                      value: item,
-                                                      child: Text(
-                                                        "${item.name}  ⏰",
-                                                        style: batchtext2(AppColors
-                                                            .PrimaryMainColor),
-                                                      ),
-                                                    ))
-                                                .toList(growable: false),
-                                            value: timedrop,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                timedrop = value;
-                                                // isSelected = true;
-                                              });
-                                            },
-                                            buttonStyleData: ButtonStyleData(
-                                              height: 55.h,
-                                              padding: EdgeInsets.all(10.r),
-                                            ),
-                                            dropdownStyleData:
-                                                DropdownStyleData(
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                                    10.sp),
-                                                        color: AppColors
-                                                            .PrimaryWhiteColor,
-                                                        border: Border.all()),
-                                                    maxHeight: 150.h,
-                                                    elevation: 10),
-                                            menuItemStyleData:
-                                                MenuItemStyleData(
-                                              padding: const EdgeInsets.only(
-                                                  left: 10, right: 10),
-                                              height: 40.h,
-                                            ),
-                                            onMenuStateChange: (isOpen) {
-                                              if (isOpen) {
-                                                // textEditingController.clear();
-                                              }
-                                            },
-                                            iconStyleData: IconStyleData(
-                                              icon: const Icon(
-                                                Icons.keyboard_arrow_down,
-                                                color:
-                                                    AppColors.PrimaryMainColor,
-                                              ),
-                                              iconSize: 30.sp,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 20.h,
-                                      ),
-                                      Center(
-                                          child: SizedBox(
-                                        height: 40.h,
-                                        width: 150.w,
-                                        child: ButtonPrimary(
-                                          onPressed: () {
-                                            if (_appointmentfrop.currentState!
-                                                .validate()) {
-                                              bookappointmentdata();
-                                            } else {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(SnackBar(
-                                                backgroundColor: Colors.red,
-                                                content: Text(
-                                                  "Please select year and Country",
-                                                  style: batchtext2(AppColors
-                                                      .PrimaryWhiteColor),
-                                                ),
-                                              ));
-                                            }
-                                          },
-                                          title: "Book Now",
-                                        ),
-                                      )),
-                                      SizedBox(
-                                        height: 10.h,
-                                      ),
-                                    ]),
-                              ),
+                    // getAppointmentpending.isEmpty
+                    //     ?
+                    Form(
+                      key: _appointmentfrop,
+                      child: Container(
+                        width: 400.w,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            side: const BorderSide(
+                              color: AppColors.PrimaryMainColor,
                             ),
-                          )
-                        : Padding(
-                            padding: const EdgeInsets.only(bottom: 8),
-                            child: Card(
-                              elevation: 10,
-                              color: getRandomColor(),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15)),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  for (int i = 0;
-                                      i < getAppointmentpending.length;
-                                      i++)
-                                    Container(
-                                      width: double.infinity,
-                                      height: 20.h,
-                                      decoration: BoxDecoration(
-                                          //color: AppColors.PrimaryMainColor,
-                                          borderRadius: BorderRadius.only(
-                                        topRight: const Radius.circular(10).r,
-                                        topLeft: const Radius.circular(10).r,
-                                      )),
-                                      child: Center(
-                                        child: Text(
-                                          "Appointment Details",
-                                          style: batchtext2(
-                                              AppColors.PrimaryBlackColor),
-                                        ),
-                                      ),
-                                    ),
-                                  SizedBox(
-                                    height: 5.h,
-                                  ),
-                                  Container(
-                                    height: 0.5.h,
-                                    color: AppColors.PrimaryBlackColor,
-                                  ),
-                                  ListTile(
-                                    dense: true,
-                                    visualDensity: const VisualDensity(
-                                        horizontal: 0, vertical: -4),
-                                    leading: const Icon(
-                                      Icons.school,
-                                      color: AppColors.PrimaryMainColor,
-                                    ),
-                                    title: Text(
-                                      getAppointmentpending[i].universityVisit,
-                                      style: batchtext2(
-                                          AppColors.PrimaryBlackColor),
-                                    ),
-                                  ),
-                                  ListTile(
-                                      dense: true,
-                                      visualDensity: const VisualDensity(
-                                          horizontal: 0, vertical: -4),
-                                      leading: const Icon(
-                                        Icons.person_2_outlined,
-                                        color: AppColors.PrimaryMainColor,
-                                      ),
-                                      title: Text(
-                                        getAppointmentpending[i].studentName,
-                                        style: batchtext2(
-                                            AppColors.PrimaryBlackColor),
-                                      )),
-                                  ListTile(
-                                      dense: true,
-                                      visualDensity: const VisualDensity(
-                                          horizontal: 0, vertical: -4),
-                                      leading: const Icon(
-                                        Icons.date_range,
-                                        color: AppColors.PrimaryMainColor,
-                                      ),
-                                      title: Text(
-                                        getAppointmentpending[i]
-                                            .appointmentDate,
-                                        style: batchtext2(
-                                            AppColors.PrimaryBlackColor),
-                                      )),
-                                  ListTile(
-                                    visualDensity: const VisualDensity(
-                                        horizontal: 0, vertical: -4),
-                                    dense: true,
-                                    leading: const Icon(
-                                      Icons.watch_later_rounded,
-                                      color: AppColors.PrimaryMainColor,
-                                    ),
-                                    title: Text(
-                                      getAppointmentpending[i].appointmentTime,
-                                      style: batchtext2(
-                                          AppColors.PrimaryBlackColor),
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const Icon(Icons.directions_walk_rounded,
-                                          color: AppColors.PrimaryBlackColor),
-                                      SizedBox(
-                                        width: 10.w,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Text(
-                                          "Active",
-                                          style: batchtext2(Colors.green),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
+                            borderRadius: BorderRadius.circular(10.0).r,
                           ),
+                          elevation: 5,
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                Center(
+                                  child: Image.asset(
+                                    "assets/images/bannerlogo.png",
+                                    height: 40.h,
+                                    width: 300.w,
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text("Action Type",
+                                      style: FieldTextStyle(
+                                        AppColors.PrimaryBlackColor,
+                                      )),
+                                ),
+                                Container(
+                                  padding:
+                                      EdgeInsets.only(left: 10.r, right: 10.r),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButtonFormField2(
+                                      isDense: false,
+                                      isExpanded: true,
+                                      decoration: InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: const BorderSide(
+                                              color: AppColors.hintcolor,
+                                              width: 1.0),
+                                        ),
+                                        isCollapsed: true,
+                                        border: InputBorder.none,
+                                      ),
+                                      validator: (value) {
+                                        if (value == null) {
+                                          return 'Please Select Action Type';
+                                        }
+                                        return null;
+                                      },
+                                      hint: Text(
+                                        'Please Select Action Type',
+                                        style: batchtext2(AppColors.hintcolor),
+                                      ),
+                                      items: actiontype
+                                          .map((item) => DropdownMenuItem(
+                                                value: item,
+                                                child: Text(
+                                                  item.name.toString(),
+                                                  style: batchtext2(AppColors
+                                                      .PrimaryMainColor),
+                                                ),
+                                              ))
+                                          .toList(growable: false),
+                                      value: actiondrop,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          actiondrop = value;
+                                          universitydrop = null;
+                                          gofairdropmodel.clear();
+
+                                          getgofairdrop();
+                                        });
+                                      },
+                                      buttonStyleData: ButtonStyleData(
+                                        height: 55.h,
+                                        padding: EdgeInsets.all(10.r),
+                                      ),
+                                      dropdownStyleData: DropdownStyleData(
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.sp),
+                                              color:
+                                                  AppColors.PrimaryWhiteColor,
+                                              border: Border.all()),
+                                          maxHeight: 300.h,
+                                          elevation: 10),
+                                      menuItemStyleData: MenuItemStyleData(
+                                        padding: const EdgeInsets.only(
+                                            left: 10, right: 10),
+                                        height: 40.h,
+                                      ),
+                                      onMenuStateChange: (isOpen) {
+                                        if (isOpen) {
+                                          // textEditingController.clear();
+                                        }
+                                      },
+                                      iconStyleData: const IconStyleData(
+                                        icon: Icon(
+                                          Icons.keyboard_arrow_down,
+                                          color: AppColors.PrimaryMainColor,
+                                        ),
+                                        iconSize: 30,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text("University Visit",
+                                      style: FieldTextStyle(
+                                        AppColors.PrimaryBlackColor,
+                                      )),
+                                ),
+                                Container(
+                                  padding:
+                                      EdgeInsets.only(left: 10.r, right: 10.r),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButtonFormField2(
+                                      isDense: false,
+                                      isExpanded: true,
+                                      decoration: InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: const BorderSide(
+                                              color: AppColors.hintcolor,
+                                              width: 1.0),
+                                        ),
+                                        isCollapsed: true,
+                                        border: InputBorder.none,
+                                      ),
+                                      validator: (value) {
+                                        if (value == null) {
+                                          return 'Please Select University Visit';
+                                        }
+                                        return null;
+                                      },
+                                      hint: Text(
+                                        'Please Select University Visit',
+                                        style: batchtext2(AppColors.hintcolor),
+                                      ),
+                                      items: gofairdropmodel
+                                          .map((item) => DropdownMenuItem(
+                                                value: item,
+                                                child: Text(
+                                                  item.name.toString(),
+                                                  style: batchtext2(AppColors
+                                                      .PrimaryMainColor),
+                                                ),
+                                              ))
+                                          .toList(growable: false),
+                                      value: universitydrop,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          universitydrop = value;
+
+                                          // print(
+                                          //     universitydrop?.name.toString());
+                                          // print(gofairlistdata.length);
+
+                                          // isSelected = true;
+                                        });
+                                      },
+                                      buttonStyleData: ButtonStyleData(
+                                        height: 55.h,
+                                        padding: EdgeInsets.all(10.r),
+                                      ),
+                                      dropdownStyleData: DropdownStyleData(
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.sp),
+                                              color:
+                                                  AppColors.PrimaryWhiteColor,
+                                              border: Border.all()),
+                                          maxHeight: 300.h,
+                                          elevation: 10),
+                                      menuItemStyleData: MenuItemStyleData(
+                                        padding: const EdgeInsets.only(
+                                            left: 10, right: 10),
+                                        height: 40.h,
+                                      ),
+                                      onMenuStateChange: (isOpen) {
+                                        if (isOpen) {
+                                          // textEditingController.clear();
+                                        }
+                                      },
+                                      iconStyleData: const IconStyleData(
+                                        icon: Icon(
+                                          Icons.keyboard_arrow_down,
+                                          color: AppColors.PrimaryMainColor,
+                                        ),
+                                        iconSize: 30,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text("Appointment Date",
+                                      style: FieldTextStyle(
+                                        AppColors.PrimaryBlackColor,
+                                      )),
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                Container(
+                                  padding:
+                                      EdgeInsets.only(left: 10.r, right: 10.r),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButtonFormField2(
+                                      isDense: false,
+                                      isExpanded: true,
+                                      decoration: InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: const BorderSide(
+                                              color: AppColors.hintcolor,
+                                              width: 1.0),
+                                        ),
+                                        isCollapsed: true,
+                                        border: InputBorder.none,
+                                      ),
+                                      validator: (value) {
+                                        if (value == null) {
+                                          return 'Please Select year';
+                                        }
+                                        return null;
+                                      },
+                                      hint: Text(
+                                        'Please Select Appointment Date',
+                                        style: batchtext2(AppColors.hintcolor),
+                                      ),
+                                      items: gofairdropmodel
+                                          .map((item) => DropdownMenuItem(
+                                                value: item,
+                                                child: Text(
+                                                  item.dateOfVisit
+                                                      .toString()
+                                                      .split(" ")[0]
+                                                      .toString(),
+                                                  style: batchtext2(AppColors
+                                                      .PrimaryMainColor),
+                                                ),
+                                              ))
+                                          .toList(growable: false),
+                                      value: datedrop,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          datedrop = value;
+                                          // isSelected = true;
+                                        });
+                                      },
+                                      buttonStyleData: ButtonStyleData(
+                                        height: 55.h,
+                                        padding: EdgeInsets.all(10.r),
+                                      ),
+                                      dropdownStyleData: DropdownStyleData(
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.sp),
+                                              color:
+                                                  AppColors.PrimaryWhiteColor,
+                                              border: Border.all()),
+                                          maxHeight: 300.h,
+                                          elevation: 10),
+                                      menuItemStyleData: MenuItemStyleData(
+                                        padding: const EdgeInsets.only(
+                                            left: 10, right: 10),
+                                        height: 40.h,
+                                      ),
+                                      onMenuStateChange: (isOpen) {
+                                        if (isOpen) {
+                                          // textEditingController.clear();
+                                        }
+                                      },
+                                      iconStyleData: const IconStyleData(
+                                        icon: Icon(
+                                          Icons.keyboard_arrow_down,
+                                          color: AppColors.PrimaryMainColor,
+                                        ),
+                                        iconSize: 30,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text("Appointment Time",
+                                      style: FieldTextStyle(
+                                        AppColors.PrimaryBlackColor,
+                                      )),
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                Container(
+                                  padding:
+                                      const EdgeInsets.only(left: 10, right: 10)
+                                          .r,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButtonFormField2(
+                                      isDense: false,
+                                      isExpanded: true,
+                                      decoration: InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: const BorderSide(
+                                              color: AppColors.hintcolor,
+                                              width: 1.0),
+                                        ),
+                                        isCollapsed: true,
+                                        border: InputBorder.none,
+                                      ),
+                                      validator: (value) {
+                                        if (value == null) {
+                                          return 'Please Select Appointment Time';
+                                        }
+                                        return null;
+                                      },
+                                      hint: Text(
+                                        'Please Select Appointment Time',
+                                        style: batchtext2(AppColors.hintcolor),
+                                      ),
+                                      items: timeappointment
+                                          .map((item) => DropdownMenuItem(
+                                                value: item,
+                                                child: Text(
+                                                  "${item.name}  ⏰",
+                                                  style: batchtext2(AppColors
+                                                      .PrimaryMainColor),
+                                                ),
+                                              ))
+                                          .toList(growable: false),
+                                      value: timedrop,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          timedrop = value;
+                                          // isSelected = true;
+                                        });
+                                      },
+                                      buttonStyleData: ButtonStyleData(
+                                        height: 55.h,
+                                        padding: EdgeInsets.all(10.r),
+                                      ),
+                                      dropdownStyleData: DropdownStyleData(
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.sp),
+                                              color:
+                                                  AppColors.PrimaryWhiteColor,
+                                              border: Border.all()),
+                                          maxHeight: 150.h,
+                                          elevation: 10),
+                                      menuItemStyleData: MenuItemStyleData(
+                                        padding: const EdgeInsets.only(
+                                            left: 10, right: 10),
+                                        height: 40.h,
+                                      ),
+                                      onMenuStateChange: (isOpen) {
+                                        if (isOpen) {
+                                          // textEditingController.clear();
+                                        }
+                                      },
+                                      iconStyleData: IconStyleData(
+                                        icon: const Icon(
+                                          Icons.keyboard_arrow_down,
+                                          color: AppColors.PrimaryMainColor,
+                                        ),
+                                        iconSize: 30.sp,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                Center(
+                                    child: SizedBox(
+                                  height: 40.h,
+                                  width: 150.w,
+                                  child: ButtonPrimary(
+                                    onPressed: () {
+                                      if (_appointmentfrop.currentState!
+                                          .validate()) {
+                                        bookappointmentdata();
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                          backgroundColor: Colors.red,
+                                          content: Text(
+                                            "Please select year and Country",
+                                            style: batchtext2(
+                                                AppColors.PrimaryWhiteColor),
+                                          ),
+                                        ));
+                                      }
+                                    },
+                                    title: "Book Now",
+                                  ),
+                                )),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                              ]),
+                        ),
+                      ),
+                    )
+                    // :
+
+                    // Padding(
+                    //     padding: const EdgeInsets.only(bottom: 8),
+                    //     child: Card(
+                    //       elevation: 10,
+                    //       color: getRandomColor(),
+                    //       shape: RoundedRectangleBorder(
+                    //           borderRadius: BorderRadius.circular(15)),
+                    //       child: Column(
+                    //         crossAxisAlignment: CrossAxisAlignment.start,
+                    //         children: [
+                    //           for (int i = 0;
+                    //               i < getAppointmentpending.length;
+                    //               i++)
+                    //             Container(
+                    //               width: double.infinity,
+                    //               height: 20.h,
+                    //               decoration: BoxDecoration(
+                    //                   //color: AppColors.PrimaryMainColor,
+                    //                   borderRadius: BorderRadius.only(
+                    //                 topRight: const Radius.circular(10).r,
+                    //                 topLeft: const Radius.circular(10).r,
+                    //               )),
+                    //               child: Center(
+                    //                 child: Text(
+                    //                   "Appointment Details",
+                    //                   style: batchtext2(
+                    //                       AppColors.PrimaryBlackColor),
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //           SizedBox(
+                    //             height: 5.h,
+                    //           ),
+                    //           Container(
+                    //             height: 0.5.h,
+                    //             color: AppColors.PrimaryBlackColor,
+                    //           ),
+                    //           ListTile(
+                    //             dense: true,
+                    //             visualDensity: const VisualDensity(
+                    //                 horizontal: 0, vertical: -4),
+                    //             leading: const Icon(
+                    //               Icons.school,
+                    //               color: AppColors.PrimaryMainColor,
+                    //             ),
+                    //             title: Text(
+                    //               getAppointmentpending[i]
+                    //                   .universityVisit,
+                    //               style: batchtext2(
+                    //                   AppColors.PrimaryBlackColor),
+                    //             ),
+                    //           ),
+                    //           ListTile(
+                    //               dense: true,
+                    //               visualDensity: const VisualDensity(
+                    //                   horizontal: 0, vertical: -4),
+                    //               leading: const Icon(
+                    //                 Icons.person_2_outlined,
+                    //                 color: AppColors.PrimaryMainColor,
+                    //               ),
+                    //               title: Text(
+                    //                 getAppointmentpending[i].studentName,
+                    //                 style: batchtext2(
+                    //                     AppColors.PrimaryBlackColor),
+                    //               )),
+                    //           ListTile(
+                    //               dense: true,
+                    //               visualDensity: const VisualDensity(
+                    //                   horizontal: 0, vertical: -4),
+                    //               leading: const Icon(
+                    //                 Icons.date_range,
+                    //                 color: AppColors.PrimaryMainColor,
+                    //               ),
+                    //               title: Text(
+                    //                 getAppointmentpending[i]
+                    //                     .appointmentDate,
+                    //                 style: batchtext2(
+                    //                     AppColors.PrimaryBlackColor),
+                    //               )),
+                    //           ListTile(
+                    //             visualDensity: const VisualDensity(
+                    //                 horizontal: 0, vertical: -4),
+                    //             dense: true,
+                    //             leading: const Icon(
+                    //               Icons.watch_later_rounded,
+                    //               color: AppColors.PrimaryMainColor,
+                    //             ),
+                    //             title: Text(
+                    //               getAppointmentpending[i]
+                    //                   .appointmentTime,
+                    //               style: batchtext2(
+                    //                   AppColors.PrimaryBlackColor),
+                    //             ),
+                    //           ),
+                    //           Row(
+                    //             mainAxisAlignment:
+                    //                 MainAxisAlignment.center,
+                    //             children: [
+                    //               const Icon(
+                    //                   Icons.directions_walk_rounded,
+                    //                   color: AppColors.PrimaryBlackColor),
+                    //               SizedBox(
+                    //                 width: 10.w,
+                    //               ),
+                    //               Padding(
+                    //                 padding: const EdgeInsets.all(10.0),
+                    //                 child: Text(
+                    //                   "Active",
+                    //                   style: batchtext2(Colors.green),
+                    //                 ),
+                    //               ),
+                    //             ],
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ),
+
+                    ,
                     SizedBox(
                       height: 10.h,
                     ),
@@ -866,3 +857,12 @@ class _BookAppointmentState extends State<BookAppointment> {
     );
   }
 }
+
+// Future<bool> _onbackbuttondoubleClick(BuildContext context) async {
+//   Navigator.pushNamedAndRemoveUntil(
+//     context,
+//     RoutesName.gofair,
+//     (routes) => false,
+//   );
+//   return false;
+// }

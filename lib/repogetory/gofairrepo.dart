@@ -58,7 +58,7 @@ class GofairRepo {
   Future<dynamic> fairdocumentget(
     Map<String, dynamic> parameter,
   ) async {
-    final response = await _apiProvider.courseEmailPost(
+    final response = await _apiProvider.getDropdownParams(
         parameter, NetworkConstant.END_POINT_GOFAIR_DOCUMENT_GET);
     return response;
   }

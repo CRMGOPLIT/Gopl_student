@@ -97,18 +97,18 @@ List<GridModel> batchlist = [
 List<GridModel> gofairlist = [
   GridModel(
       title: 'Book Appointment',
-      image: 'assets/images/bookapi.png',
+      image: 'assets/images/booking.png',
       color: const Color(0xffF3FCFF)),
   GridModel(
       title: 'Go Fair',
-      image: 'assets/images/gofair.png',
+      image: 'assets/images/gpfairnew.png',
       color: const Color(0xffFFEEF0)),
-  GridModel(
-      title: 'Token',
-      image: 'assets/images/token.png',
-      color: const Color(0xffFFEEF0)),
+  // GridModel(
+  //     title: 'Token',
+  //     image: 'assets/images/token.png',
+  //     color: const Color(0xffFFEEF0)),
   GridModel(
       title: 'Appointment History',
-      image: 'assets/images/history-book.png',
+      image: 'assets/images/folder.png',
       color: const Color(0xffF2F9F6)),
 ];

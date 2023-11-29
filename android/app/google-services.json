@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1098090942382",
+    "project_id": "global-opportunities-8e722",
+    "storage_bucket": "global-opportunities-8e722.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1098090942382:android:fa25e72698b2d8250d823f",
+        "android_client_info": {
+          "package_name": "com.appgopl.globalopportunities"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkLBWEelYJCz8UHclFtxzcjdWO48IbSjA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

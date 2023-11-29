@@ -14,7 +14,7 @@ class GoFairBloc {
   late StreamController<Response<dynamic>> bookappointmentdata;
   late StreamController<Response<dynamic>> updatefairappointment;
   late StreamController<Response<dynamic>> uploadfairdocumentcontroller;
-  late StreamController<Response<dynamic>> getfairdocumetlist;
+  late StreamController<dynamic> getfairdocumetlist;
 
   StreamSink<dynamic> get gofairappointmentSink => gofairappointment.sink;
   Stream<dynamic> get gofairappointmentStream => gofairappointment.stream;
@@ -45,10 +45,8 @@ class GoFairBloc {
   Stream<Response<dynamic>> get uploadfairdocumentcontrollerStream =>
       uploadfairdocumentcontroller.stream;
 
-  StreamSink<Response<dynamic>> get getfairdocumetlistSink =>
-      getfairdocumetlist.sink;
-  Stream<Response<dynamic>> get getfairdocumetlistStream =>
-      getfairdocumetlist.stream;
+  StreamSink<dynamic> get getfairdocumetlistSink => getfairdocumetlist.sink;
+  Stream<dynamic> get getfairdocumetlistStream => getfairdocumetlist.stream;
 
   GoFairBloc() {
     gofairappointment = StreamController<dynamic>();
@@ -59,7 +57,7 @@ class GoFairBloc {
     updatefairappointment = StreamController<Response<dynamic>>();
     uploadfairdocumentcontroller = StreamController<Response<dynamic>>();
 
-    getfairdocumetlist = StreamController<Response<dynamic>>();
+    getfairdocumetlist = StreamController<dynamic>();
     gofairRepo = GofairRepo();
   }
 
@@ -139,9 +137,9 @@ class GoFairBloc {
   callfairdocumentlist(Map<String, dynamic> parameter) async {
     try {
       dynamic chuckCats = await gofairRepo.fairdocumentget(parameter);
-      getfairdocumetlistSink.add(Response.completed(chuckCats));
+      getfairdocumetlistSink.add(chuckCats);
     } catch (e) {
-      getfairdocumetlistSink.add(Response.error(e.toString()));
+      getfairdocumetlistSink.add('error');
     }
   }
 
@@ -154,6 +152,5 @@ class GoFairBloc {
     updatefairappointment.close();
     uploadfairdocumentcontroller.close();
     getfairdocumetlist.close();
-    
   }
 }

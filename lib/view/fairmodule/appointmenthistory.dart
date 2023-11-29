@@ -1,7 +1,10 @@
+import 'dart:developer';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:global_student/bloc/gofairbloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../model/getappointmentmodel.dart';
 import '../../model/getpendintAppointment.dart';
 import '../../utils/color.dart';
@@ -28,7 +31,10 @@ class _AppointmentHistoryState extends State<AppointmentHistory> {
   List appointmentdata = [];
 
   List appointmentdatapending = [];
-
+  // String studentid = Get.arguments;
+  String? studentid;
+  bool? loading = true;
+  bool? loading2 = true;
   List<Color> generateRandomColors() {
     List<Color> colorList = [
       const Color(0xffEEF5FF),
@@ -74,7 +80,7 @@ class _AppointmentHistoryState extends State<AppointmentHistory> {
         }
 
         setState(() {
-          // loanding = false;
+          loading2 = false;
         });
       }
     });
@@ -92,25 +98,30 @@ class _AppointmentHistoryState extends State<AppointmentHistory> {
         }
 
         setState(() {
-          // loanding = false;
+          loading = false;
         });
       }
     });
   }
 
-  callAppointmentDetails() {
+  callAppointmentDetails() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    studentid = prefs.getString("studentId");
     Map<String, dynamic> data = {
-      "f_student_id": "2002751",
+      "f_student_id": studentid.toString(),
       "f_appointment_status": "Visited"
     };
     goFairBloc.callAppointmentDetails(data);
   }
 
-  callAppointmentpending() {
+  callAppointmentpending() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    studentid = prefs.getString("studentId");
     Map<String, dynamic> data = {
-      "f_student_id": "2002751",
+      "f_student_id": studentid.toString(),
       "f_appointment_status": "NotUpdated"
     };
+
     goFairBloc.callAppointmentPendingDetails(data);
   }
 
@@ -172,396 +183,721 @@ class _AppointmentHistoryState extends State<AppointmentHistory> {
                     ),
                     Expanded(
                       child: TabBarView(children: [
-                        ListView.builder(
-                            itemCount: getAppointmentpending.length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.only(bottom: 8),
-                                child: Card(
-                                  elevation: 10,
-                                  color: getRandomColor(),
-                                  shape: RoundedRectangleBorder(
-                                      //<-- SEE HERE
-                                      // side: const BorderSide(
-                                      //   color: AppColors.PrimaryMainColor,
-                                      // ),
-                                      borderRadius: BorderRadius.circular(15)),
-                                  child: Column(
+                        loading == true
+                            ? Center(
+                                child: CircularProgressIndicator(
+                                strokeWidth: 2.w,
+                                color: AppColors.PrimaryMainColor,
+                              ))
+                            : getAppointmentpending.isNotEmpty
+                                ? ListView.builder(
+                                    itemCount: getAppointmentpending.length,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 8),
+                                        child: Card(
+                                          elevation: 10,
+                                          // color: Colors.white,
+                                          color: getRandomColor(),
+                                          shape: RoundedRectangleBorder(
+                                              //<-- SEE HERE
+                                              side: const BorderSide(
+                                                color:
+                                                    AppColors.PrimaryMainColor,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                width: double.infinity,
+                                                height: 20.h,
+                                                decoration: BoxDecoration(
+                                                    //color: AppColors.PrimaryMainColor,
+
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                  topRight:
+                                                      const Radius.circular(10)
+                                                          .r,
+                                                  topLeft:
+                                                      const Radius.circular(10)
+                                                          .r,
+                                                )),
+                                                child: Center(
+                                                  child: Row(
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                    left: 10.h,
+                                                                    top: 5.h)
+                                                                .r,
+                                                        child: Icon(
+                                                          Icons.circle_rounded,
+                                                          color: Colors.green,
+                                                          size: 15.sp,
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 90.w,
+                                                      ),
+                                                      Text(
+                                                        "Appointment Details",
+                                                        style: FieldTextStyle(
+                                                            AppColors
+                                                                .PrimaryBlackColor),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 5.h,
+                                              ),
+                                              Container(
+                                                height: 0.5.h,
+                                                color:
+                                                    AppColors.PrimaryBlackColor,
+                                              ),
+                                              ListTile(
+                                                dense: true,
+                                                visualDensity:
+                                                    const VisualDensity(
+                                                        horizontal: 0,
+                                                        vertical: -4),
+                                                leading: const Icon(
+                                                  Icons.school,
+                                                  color: AppColors
+                                                      .PrimaryMainColor,
+                                                ),
+                                                title: Text(
+                                                  getAppointmentpending[index]
+                                                      .universityVisit,
+                                                  style: batchtext2(AppColors
+                                                      .PrimaryBlackColor),
+                                                ),
+                                              ),
+                                              // Padding(
+                                              //   padding: const EdgeInsets.only(
+                                              //       left: 8, top: 8),
+                                              //   child: Row(
+                                              //     children: [
+                                              //       Icon(
+                                              //         Icons.school,
+                                              //         color: AppColors.PrimaryMainColor,
+                                              //       ),
+                                              //       SizedBox(
+                                              //         width: 20.w,
+                                              //       ),
+                                              //       Text(
+                                              //         "Abc university",
+                                              //         style: batchtext2(
+                                              //             AppColors.PrimaryBlackColor),
+                                              //       )
+                                              //     ],
+                                              //   ),
+                                              // ),
+
+                                              ListTile(
+                                                  dense: true,
+                                                  visualDensity:
+                                                      const VisualDensity(
+                                                          horizontal: 0,
+                                                          vertical: -4),
+                                                  leading: const Icon(
+                                                    Icons.person_2_outlined,
+                                                    color: AppColors
+                                                        .PrimaryMainColor,
+                                                  ),
+                                                  title: Text(
+                                                    getAppointmentpending[index]
+                                                        .studentName,
+                                                    style: batchtext2(AppColors
+                                                        .PrimaryBlackColor),
+                                                  )),
+                                              // Padding(
+                                              //   padding: const EdgeInsets.only(
+                                              //       left: 8, top: 8),
+                                              //   child: Row(
+                                              //     children: [
+                                              //       Icon(
+                                              //         Icons.person,
+                                              //         color: AppColors.PrimaryMainColor,
+                                              //       ),
+                                              //       Text(
+                                              //         "Mohit Kumar",
+                                              //         style: batchtext2(
+                                              //             AppColors.PrimaryBlackColor),
+                                              //       )
+                                              //     ],
+                                              //   ),
+                                              // ),
+
+                                              ListTile(
+                                                  dense: true,
+                                                  visualDensity:
+                                                      const VisualDensity(
+                                                          horizontal: 0,
+                                                          vertical: -4),
+                                                  leading: const Icon(
+                                                    Icons.date_range,
+                                                    color: AppColors
+                                                        .PrimaryMainColor,
+                                                  ),
+                                                  title: Text(
+                                                    getAppointmentpending[index]
+                                                        .appointmentDate,
+                                                    style: batchtext2(AppColors
+                                                        .PrimaryBlackColor),
+                                                  )),
+                                              // Padding(
+                                              //   padding: const EdgeInsets.only(
+                                              //       left: 8, top: 8),
+                                              //   child: Row(
+                                              //     children: [
+                                              //       Icon(
+                                              //         Icons.date_range,
+                                              //         color: AppColors.PrimaryMainColor,
+                                              //       ),
+                                              //       SizedBox(
+                                              //         width: 20.w,
+                                              //       ),
+
+                                              //       Text(
+                                              //         "12/24/56",
+                                              //         style: batchtext2(
+                                              //             AppColors.PrimaryBlackColor),
+                                              //       )
+                                              //     ],
+                                              //   ),
+                                              // ),
+
+                                              ListTile(
+                                                visualDensity:
+                                                    const VisualDensity(
+                                                        horizontal: 0,
+                                                        vertical: -4),
+                                                dense: true,
+                                                leading: const Icon(
+                                                  Icons.watch_later_rounded,
+                                                  color: AppColors
+                                                      .PrimaryMainColor,
+                                                ),
+                                                title: Text(
+                                                  getAppointmentpending[index]
+                                                      .appointmentTime,
+                                                  style: batchtext2(AppColors
+                                                      .PrimaryBlackColor),
+                                                ),
+                                              ),
+                                              // Align(
+                                              //   alignment: Alignment.center,
+                                              //   child: ListTile(
+                                              //     visualDensity: VisualDensity(
+                                              //         horizontal: 0, vertical: -4),
+                                              //     dense: true,
+                                              //     leading: Icon(
+                                              //       Icons.watch_later_rounded,
+                                              //       color: AppColors.PrimaryMainColor,
+                                              //     ),
+                                              //     title: Text(
+                                              //       "Pending",
+                                              //       style: batchtext2(
+                                              //           AppColors.PrimaryBlackColor),
+                                              //     ),
+                                              //   ),
+                                              // )
+                                              SizedBox(
+                                                width: 10.w,
+                                              ),
+                                              Align(
+                                                alignment:
+                                                    Alignment.bottomRight,
+                                                child: Image.asset(
+                                                  "assets/images/nofair.png",
+                                                  height: 70.h,
+                                                  width: 180.w,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    })
+                                : Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Container(
-                                        width: double.infinity,
-                                        height: 20.h,
-                                        decoration: BoxDecoration(
-                                            //color: AppColors.PrimaryMainColor,
-                                            borderRadius: BorderRadius.only(
-                                          topRight: const Radius.circular(10).r,
-                                          topLeft: const Radius.circular(10).r,
-                                        )),
-                                        child: Center(
-                                          child: Text(
-                                            "Appointment Details",
-                                            style: batchtext2(
-                                                AppColors.PrimaryBlackColor),
-                                          ),
-                                        ),
+                                      Image.asset(
+                                        "assets/images/notcomlete.png",
+                                        height: 200.h,
+                                        width: 400.w,
                                       ),
-                                      SizedBox(
-                                        height: 5.h,
-                                      ),
-                                      Container(
-                                        height: 0.5.h,
-                                        color: AppColors.PrimaryBlackColor,
-                                      ),
-                                      ListTile(
-                                        dense: true,
-                                        visualDensity: const VisualDensity(
-                                            horizontal: 0, vertical: -4),
-                                        leading: const Icon(
-                                          Icons.school,
-                                          color: AppColors.PrimaryMainColor,
-                                        ),
-                                        title: Text(
-                                          getAppointmentpending[index]
-                                              .universityVisit,
-                                          style: batchtext2(
-                                              AppColors.PrimaryBlackColor),
-                                        ),
-                                      ),
-                                      // Padding(
-                                      //   padding: const EdgeInsets.only(
-                                      //       left: 8, top: 8),
-                                      //   child: Row(
-                                      //     children: [
-                                      //       Icon(
-                                      //         Icons.school,
-                                      //         color: AppColors.PrimaryMainColor,
-                                      //       ),
-                                      //       SizedBox(
-                                      //         width: 20.w,
-                                      //       ),
-                                      //       Text(
-                                      //         "Abc university",
-                                      //         style: batchtext2(
-                                      //             AppColors.PrimaryBlackColor),
-                                      //       )
-                                      //     ],
-                                      //   ),
-                                      // ),
-
-                                      ListTile(
-                                          dense: true,
-                                          visualDensity: const VisualDensity(
-                                              horizontal: 0, vertical: -4),
-                                          leading: const Icon(
-                                            Icons.person_2_outlined,
-                                            color: AppColors.PrimaryMainColor,
-                                          ),
-                                          title: Text(
-                                            getAppointmentpending[index]
-                                                .studentName,
-                                            style: batchtext2(
-                                                AppColors.PrimaryBlackColor),
-                                          )),
-                                      // Padding(
-                                      //   padding: const EdgeInsets.only(
-                                      //       left: 8, top: 8),
-                                      //   child: Row(
-                                      //     children: [
-                                      //       Icon(
-                                      //         Icons.person,
-                                      //         color: AppColors.PrimaryMainColor,
-                                      //       ),
-                                      //       Text(
-                                      //         "Mohit Kumar",
-                                      //         style: batchtext2(
-                                      //             AppColors.PrimaryBlackColor),
-                                      //       )
-                                      //     ],
-                                      //   ),
-                                      // ),
-
-                                      ListTile(
-                                          dense: true,
-                                          visualDensity: const VisualDensity(
-                                              horizontal: 0, vertical: -4),
-                                          leading: const Icon(
-                                            Icons.date_range,
-                                            color: AppColors.PrimaryMainColor,
-                                          ),
-                                          title: Text(
-                                            getAppointmentpending[index]
-                                                .appointmentDate,
-                                            style: batchtext2(
-                                                AppColors.PrimaryBlackColor),
-                                          )),
-                                      // Padding(
-                                      //   padding: const EdgeInsets.only(
-                                      //       left: 8, top: 8),
-                                      //   child: Row(
-                                      //     children: [
-                                      //       Icon(
-                                      //         Icons.date_range,
-                                      //         color: AppColors.PrimaryMainColor,
-                                      //       ),
-                                      //       SizedBox(
-                                      //         width: 20.w,
-                                      //       ),
-
-                                      //       Text(
-                                      //         "12/24/56",
-                                      //         style: batchtext2(
-                                      //             AppColors.PrimaryBlackColor),
-                                      //       )
-                                      //     ],
-                                      //   ),
-                                      // ),
-
-                                      ListTile(
-                                        visualDensity: const VisualDensity(
-                                            horizontal: 0, vertical: -4),
-                                        dense: true,
-                                        leading: const Icon(
-                                          Icons.watch_later_rounded,
-                                          color: AppColors.PrimaryMainColor,
-                                        ),
-                                        title: Text(
-                                          getAppointmentpending[index]
-                                              .appointmentTime,
-                                          style: batchtext2(
-                                              AppColors.PrimaryBlackColor),
-                                        ),
-                                      ),
-                                      // Align(
-                                      //   alignment: Alignment.center,
-                                      //   child: ListTile(
-                                      //     visualDensity: VisualDensity(
-                                      //         horizontal: 0, vertical: -4),
-                                      //     dense: true,
-                                      //     leading: Icon(
-                                      //       Icons.watch_later_rounded,
-                                      //       color: AppColors.PrimaryMainColor,
-                                      //     ),
-                                      //     title: Text(
-                                      //       "Pending",
-                                      //       style: batchtext2(
-                                      //           AppColors.PrimaryBlackColor),
-                                      //     ),
-                                      //   ),
-                                      // )
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          const Icon(
-                                              Icons.directions_walk_rounded,
-                                              color:
-                                                  AppColors.PrimaryBlackColor),
-                                          SizedBox(
-                                            width: 10.w,
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(10.0),
-                                            child: Text(
-                                              "Pending",
-                                              style: batchtext2(Colors.red),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                      Text(
+                                        "Plese Wait... ",
+                                        style: batchtext2(
+                                            AppColors.PrimaryBlackColor),
+                                      )
                                     ],
                                   ),
-                                ),
-                              );
-                            }),
 
-                        ListView.builder(
-                            itemCount: getAppointmentModel.length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.only(bottom: 8),
-                                child: Card(
-                                  elevation: 10,
-                                  color: getRandomColor(),
-                                  shape: RoundedRectangleBorder(
-                                      //<-- SEE HERE
-                                      // side: const BorderSide(
-                                      //   color: AppColors.PrimaryMainColor,
-                                      // ),
-                                      borderRadius: BorderRadius.circular(15)),
-                                  child: Column(
+                        loading2 == true
+                            ? Center(
+                                child: CircularProgressIndicator(
+                                strokeWidth: 2.w,
+                                color: AppColors.PrimaryMainColor,
+                              ))
+                            : getAppointmentModel.isNotEmpty
+                                ? ListView.builder(
+                                    itemCount: getAppointmentModel.length,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 8),
+                                        child: Card(
+                                          elevation: 10,
+                                          // color: Colors.white,
+                                          color: getRandomColor(),
+                                          shape: RoundedRectangleBorder(
+                                              //<-- SEE HERE
+                                              side: const BorderSide(
+                                                color:
+                                                    AppColors.PrimaryMainColor,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                width: double.infinity,
+                                                height: 20.h,
+                                                decoration: BoxDecoration(
+                                                    //color: AppColors.PrimaryMainColor,
+
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                  topRight:
+                                                      const Radius.circular(10)
+                                                          .r,
+                                                  topLeft:
+                                                      const Radius.circular(10)
+                                                          .r,
+                                                )),
+                                                child: Center(
+                                                  child: Row(
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                    left: 10.h,
+                                                                    top: 5.h)
+                                                                .r,
+                                                        child: Icon(
+                                                          Icons.circle_rounded,
+                                                          color: Colors.red,
+                                                          size: 15.sp,
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 90.w,
+                                                      ),
+                                                      Text(
+                                                        "Appointment Details",
+                                                        style: FieldTextStyle(
+                                                            AppColors
+                                                                .PrimaryBlackColor),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 5.h,
+                                              ),
+                                              Container(
+                                                height: 0.5.h,
+                                                color:
+                                                    AppColors.PrimaryBlackColor,
+                                              ),
+                                              ListTile(
+                                                dense: true,
+                                                visualDensity:
+                                                    const VisualDensity(
+                                                        horizontal: 0,
+                                                        vertical: -4),
+                                                leading: const Icon(
+                                                  Icons.school,
+                                                  color: AppColors
+                                                      .PrimaryMainColor,
+                                                ),
+                                                title: Text(
+                                                  getAppointmentModel[index]
+                                                      .universityVisit,
+                                                  style: batchtext2(AppColors
+                                                      .PrimaryBlackColor),
+                                                ),
+                                              ),
+                                              // Padding(
+                                              //   padding: const EdgeInsets.only(
+                                              //       left: 8, top: 8),
+                                              //   child: Row(
+                                              //     children: [
+                                              //       Icon(
+                                              //         Icons.school,
+                                              //         color: AppColors.PrimaryMainColor,
+                                              //       ),
+                                              //       SizedBox(
+                                              //         width: 20.w,
+                                              //       ),
+                                              //       Text(
+                                              //         "Abc university",
+                                              //         style: batchtext2(
+                                              //             AppColors.PrimaryBlackColor),
+                                              //       )
+                                              //     ],
+                                              //   ),
+                                              // ),
+
+                                              ListTile(
+                                                  dense: true,
+                                                  visualDensity:
+                                                      const VisualDensity(
+                                                          horizontal: 0,
+                                                          vertical: -4),
+                                                  leading: const Icon(
+                                                    Icons.person_2_outlined,
+                                                    color: AppColors
+                                                        .PrimaryMainColor,
+                                                  ),
+                                                  title: Text(
+                                                    getAppointmentModel[index]
+                                                        .studentName,
+                                                    style: batchtext2(AppColors
+                                                        .PrimaryBlackColor),
+                                                  )),
+                                              // Padding(
+                                              //   padding: const EdgeInsets.only(
+                                              //       left: 8, top: 8),
+                                              //   child: Row(
+                                              //     children: [
+                                              //       Icon(
+                                              //         Icons.person,
+                                              //         color: AppColors.PrimaryMainColor,
+                                              //       ),
+                                              //       Text(
+                                              //         "Mohit Kumar",
+                                              //         style: batchtext2(
+                                              //             AppColors.PrimaryBlackColor),
+                                              //       )
+                                              //     ],
+                                              //   ),
+                                              // ),
+
+                                              ListTile(
+                                                  dense: true,
+                                                  visualDensity:
+                                                      const VisualDensity(
+                                                          horizontal: 0,
+                                                          vertical: -4),
+                                                  leading: const Icon(
+                                                    Icons.date_range,
+                                                    color: AppColors
+                                                        .PrimaryMainColor,
+                                                  ),
+                                                  title: Text(
+                                                    getAppointmentModel[index]
+                                                        .appointmentDate,
+                                                    style: batchtext2(AppColors
+                                                        .PrimaryBlackColor),
+                                                  )),
+                                              // Padding(
+                                              //   padding: const EdgeInsets.only(
+                                              //       left: 8, top: 8),
+                                              //   child: Row(
+                                              //     children: [
+                                              //       Icon(
+                                              //         Icons.date_range,
+                                              //         color: AppColors.PrimaryMainColor,
+                                              //       ),
+                                              //       SizedBox(
+                                              //         width: 20.w,
+                                              //       ),
+
+                                              //       Text(
+                                              //         "12/24/56",
+                                              //         style: batchtext2(
+                                              //             AppColors.PrimaryBlackColor),
+                                              //       )
+                                              //     ],
+                                              //   ),
+                                              // ),
+
+                                              ListTile(
+                                                visualDensity:
+                                                    const VisualDensity(
+                                                        horizontal: 0,
+                                                        vertical: -4),
+                                                dense: true,
+                                                leading: const Icon(
+                                                  Icons.watch_later_rounded,
+                                                  color: AppColors
+                                                      .PrimaryMainColor,
+                                                ),
+                                                title: Text(
+                                                  getAppointmentModel[index]
+                                                      .appointmentTime,
+                                                  style: batchtext2(AppColors
+                                                      .PrimaryBlackColor),
+                                                ),
+                                              ),
+                                              // Align(
+                                              //   alignment: Alignment.center,
+                                              //   child: ListTile(
+                                              //     visualDensity: VisualDensity(
+                                              //         horizontal: 0, vertical: -4),
+                                              //     dense: true,
+                                              //     leading: Icon(
+                                              //       Icons.watch_later_rounded,
+                                              //       color: AppColors.PrimaryMainColor,
+                                              //     ),
+                                              //     title: Text(
+                                              //       "Pending",
+                                              //       style: batchtext2(
+                                              //           AppColors.PrimaryBlackColor),
+                                              //     ),
+                                              //   ),
+                                              // )
+                                              SizedBox(
+                                                width: 10.w,
+                                              ),
+                                              Align(
+                                                alignment:
+                                                    Alignment.bottomRight,
+                                                child: Image.asset(
+                                                  "assets/images/thankyou.png",
+                                                  height: 60.h,
+                                                  width: 150.w,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    })
+                                : Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Container(
-                                        width: double.infinity,
-                                        height: 20.h,
-                                        decoration: BoxDecoration(
-                                            //color: AppColors.PrimaryMainColor,
-                                            borderRadius: BorderRadius.only(
-                                          topRight: const Radius.circular(10).r,
-                                          topLeft: const Radius.circular(10).r,
-                                        )),
-                                        child: Center(
-                                          child: Text(
-                                            "Canaday Application Day",
-                                            style: batchtext2(
-                                                AppColors.PrimaryBlackColor),
-                                          ),
-                                        ),
+                                      Image.asset(
+                                        "assets/images/notcomlete.png",
+                                        height: 200.h,
+                                        width: 400.w,
                                       ),
-                                      SizedBox(
-                                        height: 5.h,
-                                      ),
-                                      Container(
-                                        height: 0.5.h,
-                                        color: AppColors.PrimaryBlackColor,
-                                      ),
-                                      ListTile(
-                                        dense: true,
-                                        visualDensity: const VisualDensity(
-                                            horizontal: 0, vertical: -4),
-                                        leading: const Icon(
-                                          Icons.school,
-                                          color: AppColors.PrimaryMainColor,
-                                        ),
-                                        title: Text(
-                                          "Abc university",
-                                          style: batchtext2(
-                                              AppColors.PrimaryBlackColor),
-                                        ),
-                                      ),
-                                      // Padding(
-                                      //   padding: const EdgeInsets.only(
-                                      //       left: 8, top: 8),
-                                      //   child: Row(
-                                      //     children: [
-                                      //       Icon(
-                                      //         Icons.school,
-                                      //         color: AppColors.PrimaryMainColor,
-                                      //       ),
-                                      //       SizedBox(
-                                      //         width: 20.w,
-                                      //       ),
-                                      //       Text(
-                                      //         "Abc university",
-                                      //         style: batchtext2(
-                                      //             AppColors.PrimaryBlackColor),
-                                      //       )
-                                      //     ],
-                                      //   ),
-                                      // ),
-
-                                      ListTile(
-                                          dense: true,
-                                          visualDensity: const VisualDensity(
-                                              horizontal: 0, vertical: -4),
-                                          leading: const Icon(
-                                            Icons.person_2_outlined,
-                                            color: AppColors.PrimaryMainColor,
-                                          ),
-                                          title: Text(
-                                            getAppointmentModel[index]
-                                                .studentName,
-                                            style: batchtext2(
-                                                AppColors.PrimaryBlackColor),
-                                          )),
-                                      // Padding(
-                                      //   padding: const EdgeInsets.only(
-                                      //       left: 8, top: 8),
-                                      //   child: Row(
-                                      //     children: [
-                                      //       Icon(
-                                      //         Icons.person,
-                                      //         color: AppColors.PrimaryMainColor,
-                                      //       ),
-                                      //       Text(
-                                      //         "Mohit Kumar",
-                                      //         style: batchtext2(
-                                      //             AppColors.PrimaryBlackColor),
-                                      //       )
-                                      //     ],
-                                      //   ),
-                                      // ),
-
-                                      ListTile(
-                                          dense: true,
-                                          visualDensity: const VisualDensity(
-                                              horizontal: 0, vertical: -4),
-                                          leading: const Icon(
-                                            Icons.date_range,
-                                            color: AppColors.PrimaryMainColor,
-                                          ),
-                                          title: Text(
-                                            getAppointmentModel[index]
-                                                .appointmentDate,
-                                            style: batchtext2(
-                                                AppColors.PrimaryBlackColor),
-                                          )),
-                                      // Padding(
-                                      //   padding: const EdgeInsets.only(
-                                      //       left: 8, top: 8),
-                                      //   child: Row(
-                                      //     children: [
-                                      //       Icon(
-                                      //         Icons.date_range,
-                                      //         color: AppColors.PrimaryMainColor,
-                                      //       ),
-                                      //       SizedBox(
-                                      //         width: 20.w,
-                                      //       ),
-
-                                      //       Text(
-                                      //         "12/24/56",
-                                      //         style: batchtext2(
-                                      //             AppColors.PrimaryBlackColor),
-                                      //       )
-                                      //     ],
-                                      //   ),
-                                      // ),
-
-                                      ListTile(
-                                        visualDensity: const VisualDensity(
-                                            horizontal: 0, vertical: -4),
-                                        dense: true,
-                                        leading: const Icon(
-                                          Icons.watch_later_rounded,
-                                          color: AppColors.PrimaryMainColor,
-                                        ),
-                                        title: Text(
-                                          getAppointmentModel[index]
-                                              .appointmentTime,
-                                          style: batchtext2(
-                                              AppColors.PrimaryBlackColor),
-                                        ),
-                                      ),
-
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          const Icon(
-                                              Icons.directions_walk_rounded,
-                                              color:
-                                                  AppColors.PrimaryBlackColor),
-                                          SizedBox(
-                                            width: 10.w,
-                                          ),
-                                          Text(
-                                            "Completed",
-                                            style: batchtext2(Colors.green),
-                                          ),
-                                          SizedBox(
-                                            height: 40.h,
-                                          )
-                                        ],
-                                      ),
+                                      Text(
+                                        "Please Wait... ",
+                                        style: batchtext2(
+                                            AppColors.PrimaryBlackColor),
+                                      )
                                     ],
                                   ),
-                                ),
-                              );
-                            })
+
+                        // ListView.builder(
+                        //     itemCount: getAppointmentModel.length,
+                        //     itemBuilder: (context, index) {
+                        //       return Padding(
+                        //         padding: const EdgeInsets.only(bottom: 8),
+                        //         child: Card(
+                        //           elevation: 10,
+                        //           color: getRandomColor(),
+                        //           shape: RoundedRectangleBorder(
+                        //               //<-- SEE HERE
+                        //               // side: const BorderSide(
+                        //               //   color: AppColors.PrimaryMainColor,
+                        //               // ),
+                        //               borderRadius: BorderRadius.circular(15)),
+                        //           child: Column(
+                        //             crossAxisAlignment:
+                        //                 CrossAxisAlignment.start,
+                        //             children: [
+                        //               Container(
+                        //                 width: double.infinity,
+                        //                 height: 20.h,
+                        //                 decoration: BoxDecoration(
+                        //                     //color: AppColors.PrimaryMainColor,
+                        //                     borderRadius: BorderRadius.only(
+                        //                   topRight: const Radius.circular(10).r,
+                        //                   topLeft: const Radius.circular(10).r,
+                        //                 )),
+                        //                 child: Center(
+                        //                   child: Text(
+                        //                     getAppointmentModel[index]
+                        //                         .universityVisit,
+                        //                     style: batchtext2(
+                        //                         AppColors.PrimaryBlackColor),
+                        //                   ),
+                        //                 ),
+                        //               ),
+                        //               SizedBox(
+                        //                 height: 5.h,
+                        //               ),
+                        //               Container(
+                        //                 height: 0.5.h,
+                        //                 color: AppColors.PrimaryBlackColor,
+                        //               ),
+                        //               ListTile(
+                        //                 dense: true,
+                        //                 visualDensity: const VisualDensity(
+                        //                     horizontal: 0, vertical: -4),
+                        //                 leading: const Icon(
+                        //                   Icons.school,
+                        //                   color: AppColors.PrimaryMainColor,
+                        //                 ),
+                        //                 title: Text(
+                        //                   getAppointmentModel[index]
+                        //                       .description,
+                        //                   style: batchtext2(
+                        //                       AppColors.PrimaryBlackColor),
+                        //                 ),
+                        //               ),
+                        //               // Padding(
+                        //               //   padding: const EdgeInsets.only(
+                        //               //       left: 8, top: 8),
+                        //               //   child: Row(
+                        //               //     children: [
+                        //               //       Icon(
+                        //               //         Icons.school,
+                        //               //         color: AppColors.PrimaryMainColor,
+                        //               //       ),
+                        //               //       SizedBox(
+                        //               //         width: 20.w,
+                        //               //       ),
+                        //               //       Text(
+                        //               //         "Abc university",
+                        //               //         style: batchtext2(
+                        //               //             AppColors.PrimaryBlackColor),
+                        //               //       )
+                        //               //     ],
+                        //               //   ),
+                        //               // ),
+
+                        //               ListTile(
+                        //                   dense: true,
+                        //                   visualDensity: const VisualDensity(
+                        //                       horizontal: 0, vertical: -4),
+                        //                   leading: const Icon(
+                        //                     Icons.person_2_outlined,
+                        //                     color: AppColors.PrimaryMainColor,
+                        //                   ),
+                        //                   title: Text(
+                        //                     getAppointmentModel[index]
+                        //                         .studentName,
+                        //                     style: batchtext2(
+                        //                         AppColors.PrimaryBlackColor),
+                        //                   )),
+                        //               // Padding(
+                        //               //   padding: const EdgeInsets.only(
+                        //               //       left: 8, top: 8),
+                        //               //   child: Row(
+                        //               //     children: [
+                        //               //       Icon(
+                        //               //         Icons.person,
+                        //               //         color: AppColors.PrimaryMainColor,
+                        //               //       ),
+                        //               //       Text(
+                        //               //         "Mohit Kumar",
+                        //               //         style: batchtext2(
+                        //               //             AppColors.PrimaryBlackColor),
+                        //               //       )
+                        //               //     ],
+                        //               //   ),
+                        //               // ),
+
+                        //               ListTile(
+                        //                   dense: true,
+                        //                   visualDensity: const VisualDensity(
+                        //                       horizontal: 0, vertical: -4),
+                        //                   leading: const Icon(
+                        //                     Icons.date_range,
+                        //                     color: AppColors.PrimaryMainColor,
+                        //                   ),
+                        //                   title: Text(
+                        //                     getAppointmentModel[index]
+                        //                         .appointmentDate,
+                        //                     style: batchtext2(
+                        //                         AppColors.PrimaryBlackColor),
+                        //                   )),
+                        //               // Padding(
+                        //               //   padding: const EdgeInsets.only(
+                        //               //       left: 8, top: 8),
+                        //               //   child: Row(
+                        //               //     children: [
+                        //               //       Icon(
+                        //               //         Icons.date_range,
+                        //               //         color: AppColors.PrimaryMainColor,
+                        //               //       ),
+                        //               //       SizedBox(
+                        //               //         width: 20.w,
+                        //               //       ),
+
+                        //               //       Text(
+                        //               //         "12/24/56",
+                        //               //         style: batchtext2(
+                        //               //             AppColors.PrimaryBlackColor),
+                        //               //       )
+                        //               //     ],
+                        //               //   ),
+                        //               // ),
+
+                        //               ListTile(
+                        //                 visualDensity: const VisualDensity(
+                        //                     horizontal: 0, vertical: -4),
+                        //                 dense: true,
+                        //                 leading: const Icon(
+                        //                   Icons.watch_later_rounded,
+                        //                   color: AppColors.PrimaryMainColor,
+                        //                 ),
+                        //                 title: Text(
+                        //                   getAppointmentModel[index]
+                        //                       .appointmentTime,
+                        //                   style: batchtext2(
+                        //                       AppColors.PrimaryBlackColor),
+                        //                 ),
+                        //               ),
+
+                        //               Row(
+                        //                 mainAxisAlignment:
+                        //                     MainAxisAlignment.center,
+                        //                 children: [
+                        //                   const Icon(
+                        //                       Icons.directions_walk_rounded,
+                        //                       color:
+                        //                           AppColors.PrimaryBlackColor),
+                        //                   SizedBox(
+                        //                     width: 10.w,
+                        //                   ),
+                        //                   Text(
+                        //                     "Completed",
+                        //                     style: batchtext2(Colors.green),
+                        //                   ),
+                        //                   SizedBox(
+                        //                     height: 40.h,
+                        //                   )
+                        //                 ],
+                        //               ),
+                        //             ],
+                        //           ),
+                        //         ),
+                        //       );
+                        //     })
+
                         // Text(
                         //   "denkljnej;rknoi",
                         //   style: batchtext2(AppColors.PrimaryBlackColor),

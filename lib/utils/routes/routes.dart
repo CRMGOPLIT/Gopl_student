@@ -152,11 +152,11 @@ class Routes {
 
       case RoutesName.bookappointment:
         return MaterialPageRoute(
-            builder: (BuildContext context) => const BookAppointment());
+            builder: (BuildContext context) => BookAppointment());
 
       case RoutesName.studentfairdetails:
         return MaterialPageRoute(
-            builder: (BuildContext context) => const StudentFairDetails());
+            builder: (BuildContext context) => StudentFairDetails());
 
       default:
         return MaterialPageRoute(builder: (_) {

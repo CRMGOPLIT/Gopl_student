@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/view/widget/internetconnection.dart';
+import 'package:global_student/view/widget/notificationservices.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 // import 'package:internet_connection_checker/internet_connection_checker.dart';
 
@@ -22,6 +23,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   late StreamSubscription subscription;
+  NotificationServices notificationServices = NotificationServices();
   bool isDeviceConnected = false;
   bool isAlertSet = false;
   String? _connectionStatus;
@@ -59,13 +61,22 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void dispose() {
+    notificationServices.requestNotificationPermission();
+    notificationServices.forgroundMessage();
+    notificationServices.firebaseInit(context);
+    notificationServices.setupInteractMessage(context);
+    notificationServices.isTokenRefresh();
+    notificationServices.getDeviceToken().then((value) {
+      print('device token');
+      print(value);
+    });
     subscription.cancel();
 
     super.dispose();
   }
 
   Future _checkInternetConnection() async {
-    var connectivityResult = await (Connectivity().checkConnectivity());
+    // var connectivityResult = await (Connectivity().checkConnectivity());
     // if (connectivityResult == ConnectivityResult.mobile ||
     //     connectivityResult == ConnectivityResult.wifi) {
     // setState(() {

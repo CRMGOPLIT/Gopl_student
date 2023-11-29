@@ -552,14 +552,14 @@ class _HomePageState extends State<HomePage> {
                                           : qualificationdatasubmit.length == 1
                                               ? const InterSchool()
                                               : const DonePage()))
-                          : index == 0
-                              ? Navigator.push(
-                                  context,
-                                  getfairModel!.isTodayFair == "Yes"
-                                      ? FadeInPageRoute(page: page[0])
-                                      : FadeInPageRoute(page: ProfilePage()))
-                              : Navigator.push(
-                                  context, FadeInPageRoute(page: page[index]));
+                          // : index == 0
+                          //     ? Navigator.push(
+                          //         context,
+                          //         getfairModel!.isTodayFair == "Yes"
+                          //             ? FadeInPageRoute(page: page[0])
+                          //             : FadeInPageRoute(page: ProfilePage()))
+                          : Navigator.push(
+                              context, FadeInPageRoute(page: page[index]));
                     }
                   },
                   child: Card(
