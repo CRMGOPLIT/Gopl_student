@@ -17,43 +17,33 @@ class DashBoardBloc {
   late StreamController<dynamic> boarduniversityController;
   late StreamController<dynamic> getmoredocumentcontroller;
   late StreamController<Response<dynamic>> uploadmoredocumentcontroller;
-
   late StreamController<dynamic> getqualificationcontroller;
-
   late StreamController<dynamic> getvisadetailscontroller;
-
   late StreamController<Response<dynamic>> uploadviscontroller;
-
   late StreamController<Response<dynamic>> finalvisasubmitcontroller;
 
 //Event Controller
   StreamSink<dynamic> get getEventDetailsSink => streamController.sink;
-
   Stream<dynamic> get getEventDetailsStream => streamController.stream;
 
   //University Event
   StreamSink<dynamic> get universityControllerSink => universityController.sink;
-
   Stream<dynamic> get universityControllerStream => universityController.stream;
 
 //branch Controller
   StreamSink<dynamic> get branchControllerSink => branchController.sink;
-
   Stream<dynamic> get branchControllerStream => branchController.stream;
 
   //batch Controller
   StreamSink<dynamic> get batchControllerSink => batchController.sink;
-
   Stream<dynamic> get batchControllerStream => batchController.stream;
 
   // Banners Controllers
   StreamSink<dynamic> get bannersControllerSink => bannersController.sink;
-
   Stream<dynamic> get bannersControllerStream => bannersController.stream;
 
   //User Controller
   StreamSink<dynamic> get userControllerSink => userController.sink;
-
   Stream<dynamic> get userControllerStream => userController.stream;
 
   //Application Status
@@ -261,6 +251,8 @@ class DashBoardBloc {
       getmoredocumentcontrollerSink.add('error');
     }
   }
+
+  
 // Get Qualification
 
   callQualificationApi() async {

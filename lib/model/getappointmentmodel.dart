@@ -1,3 +1,6 @@
+// To parse this JSON data, do
+//
+//     final getAppointmentModel = getAppointmentModelFromJson(jsonString);
 
 import 'dart:convert';
 
@@ -9,78 +12,132 @@ String getAppointmentModelToJson(List<GetAppointmentModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class GetAppointmentModel {
-  final String studentId;
-  final String studentName;
-  final String email;
-  final String mobile;
-  final String mode;
-  final String intake;
-  final String country;
-  final String course;
-  final String stage;
-  final String appointmentDate;
-  final String appointmentBy;
-  final String branch;
-  final String counsellor;
+  final String? studentId;
+  final String? studentName;
+  final String? email;
+  final String? mobile;
+  final String? mode;
+  final String? intake;
+  final String? country;
+  final String? course;
+  final String? stage;
+  final String? appointmentDate;
+  final String? appointmentBy;
+  final String? branch;
+  final String? counsellor;
   final dynamic requestStatus;
-  final String appointmentId;
-  final String reConfirmStatus;
-  final String firstName;
-  final String lastName;
-  final String confirmDate;
-  final String universityVisit;
-  final String description;
-  final String appointmentTime;
+  final String? appointmentId;
+  final String? reConfirmStatus;
+  final String? firstName;
+  final String? lastName;
+  final String? confirmDate;
+  final String? universityVisit;
+  final String? description;
+  final String? appointmentTime;
+  final String? statusData;
 
   GetAppointmentModel({
-    required this.studentId,
-    required this.studentName,
-    required this.email,
-    required this.mobile,
-    required this.mode,
-    required this.intake,
-    required this.country,
-    required this.course,
-    required this.stage,
-    required this.appointmentDate,
-    required this.appointmentBy,
-    required this.branch,
-    required this.counsellor,
-    required this.requestStatus,
-    required this.appointmentId,
-    required this.reConfirmStatus,
-    required this.firstName,
-    required this.lastName,
-    required this.confirmDate,
-    required this.universityVisit,
-    required this.description,
-    required this.appointmentTime,
+    this.studentId,
+    this.studentName,
+    this.email,
+    this.mobile,
+    this.mode,
+    this.intake,
+    this.country,
+    this.course,
+    this.stage,
+    this.appointmentDate,
+    this.appointmentBy,
+    this.branch,
+    this.counsellor,
+    this.requestStatus,
+    this.appointmentId,
+    this.reConfirmStatus,
+    this.firstName,
+    this.lastName,
+    this.confirmDate,
+    this.universityVisit,
+    this.description,
+    this.appointmentTime,
+    this.statusData,
   });
+
+  GetAppointmentModel copyWith({
+    String? studentId,
+    String? studentName,
+    String? email,
+    String? mobile,
+    String? mode,
+    String? intake,
+    String? country,
+    String? course,
+    String? stage,
+    String? appointmentDate,
+    String? appointmentBy,
+    String? branch,
+    String? counsellor,
+    dynamic requestStatus,
+    String? appointmentId,
+    String? reConfirmStatus,
+    String? firstName,
+    String? lastName,
+    String? confirmDate,
+    String? universityVisit,
+    String? description,
+    String? appointmentTime,
+    String? statusData,
+  }) =>
+      GetAppointmentModel(
+        studentId: studentId ?? this.studentId,
+        studentName: studentName ?? this.studentName,
+        email: email ?? this.email,
+        mobile: mobile ?? this.mobile,
+        mode: mode ?? this.mode,
+        intake: intake ?? this.intake,
+        country: country ?? this.country,
+        course: course ?? this.course,
+        stage: stage ?? this.stage,
+        appointmentDate: appointmentDate ?? this.appointmentDate,
+        appointmentBy: appointmentBy ?? this.appointmentBy,
+        branch: branch ?? this.branch,
+        counsellor: counsellor ?? this.counsellor,
+        requestStatus: requestStatus ?? this.requestStatus,
+        appointmentId: appointmentId ?? this.appointmentId,
+        reConfirmStatus: reConfirmStatus ?? this.reConfirmStatus,
+        firstName: firstName ?? this.firstName,
+        lastName: lastName ?? this.lastName,
+        confirmDate: confirmDate ?? this.confirmDate,
+        universityVisit: universityVisit ?? this.universityVisit,
+        description: description ?? this.description,
+        appointmentTime: appointmentTime ?? this.appointmentTime,
+        statusData: statusData ?? this.statusData,
+      );
 
   factory GetAppointmentModel.fromJson(Map<String, dynamic> json) =>
       GetAppointmentModel(
-        studentId: json["StudentId"],
-        studentName: json["StudentName"],
-        email: json["Email"],
-        mobile: json["Mobile"],
-        mode: json["Mode"],
-        intake: json["Intake"],
-        country: json["Country"],
-        course: json["Course"],
-        stage: json["Stage"],
-        appointmentDate: json["AppointmentDate"],
-        appointmentBy: json["AppointmentBy"],
-        branch: json["Branch"],
-        counsellor: json["Counsellor"],
-        requestStatus: json["RequestStatus"],
-        appointmentId: json["AppointmentId"],
-        reConfirmStatus: json["ReConfirmStatus"],
-        firstName: json["FirstName"],
-        lastName: json["LastName"],
-        confirmDate: json["ConfirmDate"],
-        universityVisit: json["UniversityVisit"],
-        description: json["Description"],
-        appointmentTime: json["AppointmentTime"],
+        studentId: json["StudentId"].toString(),
+        studentName: json["StudentName"].toString(),
+        email: json["Email"].toString(),
+        mobile: json["Mobile"].toString(),
+        mode: json["Mode"].toString(),
+        intake: json["Intake"].toString(),
+        country: json["Country"].toString(),
+        course: json["Course"].toString(),
+        stage: json["Stage"].toString(),
+        appointmentDate: json["AppointmentDate"].toString(),
+        appointmentBy: json["AppointmentBy"].toString(),
+        branch: json["Branch"].toString(),
+        counsellor: json["Counsellor"].toString(),
+        requestStatus: json["RequestStatus"].toString(),
+        appointmentId: json["AppointmentId"].toString(),
+        reConfirmStatus: json["ReConfirmStatus"].toString(),
+        firstName: json["FirstName"].toString(),
+        lastName: json["LastName"].toString(),
+        confirmDate: json["ConfirmDate"].toString(),
+        universityVisit: json["UniversityVisit"].toString(),
+        description: json["Description"].toString(),
+        appointmentTime: json["AppointmentTime"].toString(),
+        statusData: json["StatusData"].toString(),
       );
 
   Map<String, dynamic> toJson() => {
@@ -106,5 +163,6 @@ class GetAppointmentModel {
         "UniversityVisit": universityVisit,
         "Description": description,
         "AppointmentTime": appointmentTime,
+        "StatusData": statusData,
       };
 }

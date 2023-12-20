@@ -1,7 +1,10 @@
 class NetworkConstant {
   // ignore: constant_identifier_names
-  static const String BASE_URL = "http://192.168.1.69/Api";
-  // static const String BASE_URL = "http://crmapi.global-opportunities.co.in/Api";
+  //static const String BASE_URL = "http://192.168.1.69/Api";
+
+  // static const String BASE_URL =
+  //     "http://crmdemoapi.global-opportunities.co.in/Api";
+  static const String BASE_URL = "http://crmapi.global-opportunities.co.in/Api";
 
   //post field Register
   // ignore: constant_identifier_names
@@ -209,5 +212,10 @@ class NetworkConstant {
 
   static const String END_POINT_GOFAIR_DOCUMENT_GET = "/GoFair/ShowDocApp";
 
+  static const String END_POINT_SEND_TOKEN = "/GopAndroid/SaveDeviceToken";
+
+  static const String END_POINT_VERSION = "/Login/GetVersion";
+
   // http://192.168.1.69/Api/GoFair/GetAppointmentDetails
+  
 }

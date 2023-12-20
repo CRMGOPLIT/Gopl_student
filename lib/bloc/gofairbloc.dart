@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:global_student/repogetory/gofairrepo.dart';
-
 import '../networking/response.dart';
 
 class GoFairBloc {
@@ -14,7 +12,11 @@ class GoFairBloc {
   late StreamController<Response<dynamic>> bookappointmentdata;
   late StreamController<Response<dynamic>> updatefairappointment;
   late StreamController<Response<dynamic>> uploadfairdocumentcontroller;
+
+  late StreamController<Response<dynamic>> sendtokencontroller;
   late StreamController<dynamic> getfairdocumetlist;
+
+  late StreamController<dynamic> versiondetails;
 
   StreamSink<dynamic> get gofairappointmentSink => gofairappointment.sink;
   Stream<dynamic> get gofairappointmentStream => gofairappointment.stream;
@@ -48,6 +50,14 @@ class GoFairBloc {
   StreamSink<dynamic> get getfairdocumetlistSink => getfairdocumetlist.sink;
   Stream<dynamic> get getfairdocumetlistStream => getfairdocumetlist.stream;
 
+  StreamSink<Response<dynamic>> get sendtokencontrollerSink =>
+      sendtokencontroller.sink;
+  Stream<Response<dynamic>> get sendtokencontrollerStream =>
+      sendtokencontroller.stream;
+
+  StreamSink<dynamic> get versiondetailsSink => versiondetails.sink;
+  Stream<dynamic> get versiondetailsStream => versiondetails.stream;
+
   GoFairBloc() {
     gofairappointment = StreamController<dynamic>();
     gofairappointmentpending = StreamController<dynamic>();
@@ -56,15 +66,15 @@ class GoFairBloc {
     bookappointmentdata = StreamController<Response<dynamic>>();
     updatefairappointment = StreamController<Response<dynamic>>();
     uploadfairdocumentcontroller = StreamController<Response<dynamic>>();
-
+    sendtokencontroller = StreamController<Response<dynamic>>();
     getfairdocumetlist = StreamController<dynamic>();
+    versiondetails = StreamController<dynamic>();
     gofairRepo = GofairRepo();
   }
 
   callAppointmentDetails(Map<String, dynamic> parameter) async {
     try {
       dynamic chuckCats = await gofairRepo.getappointmentdetails(parameter);
-
       gofairappointmentSink.add(chuckCats);
     } catch (e) {
       gofairappointmentSink.add('error');
@@ -74,7 +84,6 @@ class GoFairBloc {
   callAppointmentPendingDetails(Map<String, dynamic> parameter) async {
     try {
       dynamic chuckCats = await gofairRepo.getappointmentdetails(parameter);
-
       gofairappointmentpendingSink.add(chuckCats);
     } catch (e) {
       gofairappointmentpendingSink.add('error');
@@ -84,14 +93,13 @@ class GoFairBloc {
   callGofairdetailsDetails(Map<String, dynamic> parameter) async {
     try {
       dynamic chuckCats = await gofairRepo.getfairdetailsdetails(parameter);
-
       gofairdetailsSink.add(chuckCats);
     } catch (e) {
       gofairdetailsSink.add('error');
     }
   }
 
-  //post otp
+  //post
   callgofairdrop(Map<String, dynamic> parameter) async {
     try {
       dynamic chuckCats = await gofairRepo.gofairdrop(parameter);
@@ -101,7 +109,7 @@ class GoFairBloc {
     }
   }
 
-  //post otp
+  //post
   callbookappointmentdata(Map<String, dynamic> parameter) async {
     try {
       dynamic chuckCats = await gofairRepo.bookappointmentdata(parameter);
@@ -111,7 +119,7 @@ class GoFairBloc {
     }
   }
 
-  //post otp
+  //post
   callupdatefairappointment(Map<String, dynamic> parameter) async {
     try {
       dynamic chuckCats = await gofairRepo.updatefairappointment(parameter);
@@ -143,6 +151,25 @@ class GoFairBloc {
     }
   }
 
+  //Token send
+  callSendToken(Map<String, dynamic> parameter) async {
+    try {
+      dynamic chuckCats = await gofairRepo.sendToken(parameter);
+      sendtokencontrollerSink.add(Response.completed(chuckCats));
+    } catch (e) {
+      sendtokencontrollerSink.add(Response.error(e.toString()));
+    }
+  }
+
+  callversionDetailsApi() async {
+    try {
+      dynamic chuckCats = await gofairRepo.getVersionDetails();
+      versiondetailsSink.add(chuckCats);
+    } catch (e) {
+      versiondetailsSink.add('error');
+    }
+  }
+
   dispose() {
     gofairappointment.close();
     gofairappointmentpending.close();
@@ -152,5 +179,6 @@ class GoFairBloc {
     updatefairappointment.close();
     uploadfairdocumentcontroller.close();
     getfairdocumetlist.close();
+    versiondetails.close();
   }
 }

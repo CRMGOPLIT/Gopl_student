@@ -1,15 +1,12 @@
-import 'dart:developer';
 import 'dart:math';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:global_student/model/getpendintAppointment.dart';
 import 'package:global_student/utils/text_style.dart';
 import 'package:global_student/view/widget/loader.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../bloc/gofairbloc.dart';
-import '../../model/getfairdocumentmodel.dart';
 import '../../model/getfairdropmodel.dart';
 import '../../model/monthModel.dart';
 import '../../utils/color.dart';
@@ -65,15 +62,6 @@ class _BookAppointmentState extends State<BookAppointment> {
     "4 To 5",
     "5 To 6",
   ];
-  // TimeOfDay? selectedTime;
-  // Future<void> _selectTime(BuildContext context) async {
-  //   selectedTime = await showTimePicker(
-  //     context: context,
-  //     initialTime: TimeOfDay.now(),
-  //   );
-
-  //   setState(() {});
-  // }
 
   List<Color> generateRandomColors() {
     List<Color> colorList = [
@@ -140,11 +128,6 @@ class _BookAppointmentState extends State<BookAppointment> {
             style: batchtext1(AppColors.PrimaryWhiteColor),
           ),
         ));
-        // setState(() {
-        //   check = 1;
-
-        //   getAppointmentPendingData();
-        // });
 
         Navigator.pushNamed(context, RoutesName.bookappointment);
       } else {
@@ -155,10 +138,10 @@ class _BookAppointmentState extends State<BookAppointment> {
           duration: const Duration(milliseconds: 1000),
           content: Container(
             padding: const EdgeInsets.all(8),
-            height: 60.h,
+            height: 40.h,
             decoration: BoxDecoration(
               color: Colors.red.withOpacity(0.9),
-              borderRadius: const BorderRadius.all(Radius.circular(15)),
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
             ),
             child: Row(
               children: [
@@ -169,13 +152,6 @@ class _BookAppointmentState extends State<BookAppointment> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Oops Error!',
-                        style: TextStyle(fontSize: 18.sp, color: Colors.white),
-                      ),
-                      SizedBox(
-                        height: 5.h,
-                      ),
                       event.data == false
                           ? Text("Appointment Already Book",
                               style: batchtext1(
@@ -231,8 +207,7 @@ class _BookAppointmentState extends State<BookAppointment> {
       "f_university_visit": universitydrop!.id.toString(),
       "f_applointment_time": timedrop!.id.toString()
     };
-    // debugger();
-    // print(data);
+
     goFairBloc.callbookappointmentdata(data);
   }
 
@@ -292,8 +267,6 @@ class _BookAppointmentState extends State<BookAppointment> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // getAppointmentpending.isEmpty
-                    //     ?
                     Form(
                       key: _appointmentfrop,
                       child: Container(
@@ -324,10 +297,19 @@ class _BookAppointmentState extends State<BookAppointment> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(10.0),
-                                  child: Text("Action Type",
+                                  child: RichText(
+                                    text: TextSpan(
+                                      text: 'Action Type ',
                                       style: FieldTextStyle(
                                         AppColors.PrimaryBlackColor,
-                                      )),
+                                      ),
+                                      children: [
+                                        TextSpan(
+                                            text: ' * ',
+                                            style: FieldTextStyle(Colors.red)),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                                 Container(
                                   padding:
@@ -399,26 +381,33 @@ class _BookAppointmentState extends State<BookAppointment> {
                                         height: 40.h,
                                       ),
                                       onMenuStateChange: (isOpen) {
-                                        if (isOpen) {
-                                          // textEditingController.clear();
-                                        }
+                                        if (isOpen) {}
                                       },
-                                      iconStyleData: const IconStyleData(
-                                        icon: Icon(
+                                      iconStyleData: IconStyleData(
+                                        icon: const Icon(
                                           Icons.keyboard_arrow_down,
                                           color: AppColors.PrimaryMainColor,
                                         ),
-                                        iconSize: 30,
+                                        iconSize: 30.sp,
                                       ),
                                     ),
                                   ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(10.0),
-                                  child: Text("University Visit",
+                                  child: RichText(
+                                    text: TextSpan(
+                                      text: 'University Visit ',
                                       style: FieldTextStyle(
                                         AppColors.PrimaryBlackColor,
-                                      )),
+                                      ),
+                                      children: [
+                                        TextSpan(
+                                            text: '*',
+                                            style: FieldTextStyle(Colors.red)),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                                 Container(
                                   padding:
@@ -465,12 +454,6 @@ class _BookAppointmentState extends State<BookAppointment> {
                                       onChanged: (value) {
                                         setState(() {
                                           universitydrop = value;
-
-                                          // print(
-                                          //     universitydrop?.name.toString());
-                                          // print(gofairlistdata.length);
-
-                                          // isSelected = true;
                                         });
                                       },
                                       buttonStyleData: ButtonStyleData(
@@ -492,26 +475,33 @@ class _BookAppointmentState extends State<BookAppointment> {
                                         height: 40.h,
                                       ),
                                       onMenuStateChange: (isOpen) {
-                                        if (isOpen) {
-                                          // textEditingController.clear();
-                                        }
+                                        if (isOpen) {}
                                       },
-                                      iconStyleData: const IconStyleData(
-                                        icon: Icon(
+                                      iconStyleData: IconStyleData(
+                                        icon: const Icon(
                                           Icons.keyboard_arrow_down,
                                           color: AppColors.PrimaryMainColor,
                                         ),
-                                        iconSize: 30,
+                                        iconSize: 30.sp,
                                       ),
                                     ),
                                   ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(10.0),
-                                  child: Text("Appointment Date",
+                                  child: RichText(
+                                    text: TextSpan(
+                                      text: 'Appointment Date ',
                                       style: FieldTextStyle(
                                         AppColors.PrimaryBlackColor,
-                                      )),
+                                      ),
+                                      children: [
+                                        TextSpan(
+                                            text: '*',
+                                            style: FieldTextStyle(Colors.red)),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                                 SizedBox(
                                   height: 5.h,
@@ -564,7 +554,6 @@ class _BookAppointmentState extends State<BookAppointment> {
                                       onChanged: (value) {
                                         setState(() {
                                           datedrop = value;
-                                          // isSelected = true;
                                         });
                                       },
                                       buttonStyleData: ButtonStyleData(
@@ -586,26 +575,33 @@ class _BookAppointmentState extends State<BookAppointment> {
                                         height: 40.h,
                                       ),
                                       onMenuStateChange: (isOpen) {
-                                        if (isOpen) {
-                                          // textEditingController.clear();
-                                        }
+                                        if (isOpen) {}
                                       },
-                                      iconStyleData: const IconStyleData(
+                                      iconStyleData: IconStyleData(
                                         icon: Icon(
                                           Icons.keyboard_arrow_down,
                                           color: AppColors.PrimaryMainColor,
                                         ),
-                                        iconSize: 30,
+                                        iconSize: 30.sp,
                                       ),
                                     ),
                                   ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(10.0),
-                                  child: Text("Appointment Time",
+                                  child: RichText(
+                                    text: TextSpan(
+                                      text: 'Appointment Time ',
                                       style: FieldTextStyle(
                                         AppColors.PrimaryBlackColor,
-                                      )),
+                                      ),
+                                      children: [
+                                        TextSpan(
+                                            text: '*',
+                                            style: FieldTextStyle(Colors.red)),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                                 SizedBox(
                                   height: 5.h,
@@ -656,7 +652,6 @@ class _BookAppointmentState extends State<BookAppointment> {
                                       onChanged: (value) {
                                         setState(() {
                                           timedrop = value;
-                                          // isSelected = true;
                                         });
                                       },
                                       buttonStyleData: ButtonStyleData(
@@ -670,7 +665,7 @@ class _BookAppointmentState extends State<BookAppointment> {
                                               color:
                                                   AppColors.PrimaryWhiteColor,
                                               border: Border.all()),
-                                          maxHeight: 150.h,
+                                          maxHeight: 300.h,
                                           elevation: 10),
                                       menuItemStyleData: MenuItemStyleData(
                                         padding: const EdgeInsets.only(
@@ -678,9 +673,7 @@ class _BookAppointmentState extends State<BookAppointment> {
                                         height: 40.h,
                                       ),
                                       onMenuStateChange: (isOpen) {
-                                        if (isOpen) {
-                                          // textEditingController.clear();
-                                        }
+                                        if (isOpen) {}
                                       },
                                       iconStyleData: IconStyleData(
                                         icon: const Icon(
@@ -709,14 +702,14 @@ class _BookAppointmentState extends State<BookAppointment> {
                                             .showSnackBar(SnackBar(
                                           backgroundColor: Colors.red,
                                           content: Text(
-                                            "Please select year and Country",
+                                            "Please select All Fields",
                                             style: batchtext2(
                                                 AppColors.PrimaryWhiteColor),
                                           ),
                                         ));
                                       }
                                     },
-                                    title: "Book Now",
+                                    title: "Book Now ",
                                   ),
                                 )),
                                 SizedBox(
@@ -725,128 +718,7 @@ class _BookAppointmentState extends State<BookAppointment> {
                               ]),
                         ),
                       ),
-                    )
-                    // :
-
-                    // Padding(
-                    //     padding: const EdgeInsets.only(bottom: 8),
-                    //     child: Card(
-                    //       elevation: 10,
-                    //       color: getRandomColor(),
-                    //       shape: RoundedRectangleBorder(
-                    //           borderRadius: BorderRadius.circular(15)),
-                    //       child: Column(
-                    //         crossAxisAlignment: CrossAxisAlignment.start,
-                    //         children: [
-                    //           for (int i = 0;
-                    //               i < getAppointmentpending.length;
-                    //               i++)
-                    //             Container(
-                    //               width: double.infinity,
-                    //               height: 20.h,
-                    //               decoration: BoxDecoration(
-                    //                   //color: AppColors.PrimaryMainColor,
-                    //                   borderRadius: BorderRadius.only(
-                    //                 topRight: const Radius.circular(10).r,
-                    //                 topLeft: const Radius.circular(10).r,
-                    //               )),
-                    //               child: Center(
-                    //                 child: Text(
-                    //                   "Appointment Details",
-                    //                   style: batchtext2(
-                    //                       AppColors.PrimaryBlackColor),
-                    //                 ),
-                    //               ),
-                    //             ),
-                    //           SizedBox(
-                    //             height: 5.h,
-                    //           ),
-                    //           Container(
-                    //             height: 0.5.h,
-                    //             color: AppColors.PrimaryBlackColor,
-                    //           ),
-                    //           ListTile(
-                    //             dense: true,
-                    //             visualDensity: const VisualDensity(
-                    //                 horizontal: 0, vertical: -4),
-                    //             leading: const Icon(
-                    //               Icons.school,
-                    //               color: AppColors.PrimaryMainColor,
-                    //             ),
-                    //             title: Text(
-                    //               getAppointmentpending[i]
-                    //                   .universityVisit,
-                    //               style: batchtext2(
-                    //                   AppColors.PrimaryBlackColor),
-                    //             ),
-                    //           ),
-                    //           ListTile(
-                    //               dense: true,
-                    //               visualDensity: const VisualDensity(
-                    //                   horizontal: 0, vertical: -4),
-                    //               leading: const Icon(
-                    //                 Icons.person_2_outlined,
-                    //                 color: AppColors.PrimaryMainColor,
-                    //               ),
-                    //               title: Text(
-                    //                 getAppointmentpending[i].studentName,
-                    //                 style: batchtext2(
-                    //                     AppColors.PrimaryBlackColor),
-                    //               )),
-                    //           ListTile(
-                    //               dense: true,
-                    //               visualDensity: const VisualDensity(
-                    //                   horizontal: 0, vertical: -4),
-                    //               leading: const Icon(
-                    //                 Icons.date_range,
-                    //                 color: AppColors.PrimaryMainColor,
-                    //               ),
-                    //               title: Text(
-                    //                 getAppointmentpending[i]
-                    //                     .appointmentDate,
-                    //                 style: batchtext2(
-                    //                     AppColors.PrimaryBlackColor),
-                    //               )),
-                    //           ListTile(
-                    //             visualDensity: const VisualDensity(
-                    //                 horizontal: 0, vertical: -4),
-                    //             dense: true,
-                    //             leading: const Icon(
-                    //               Icons.watch_later_rounded,
-                    //               color: AppColors.PrimaryMainColor,
-                    //             ),
-                    //             title: Text(
-                    //               getAppointmentpending[i]
-                    //                   .appointmentTime,
-                    //               style: batchtext2(
-                    //                   AppColors.PrimaryBlackColor),
-                    //             ),
-                    //           ),
-                    //           Row(
-                    //             mainAxisAlignment:
-                    //                 MainAxisAlignment.center,
-                    //             children: [
-                    //               const Icon(
-                    //                   Icons.directions_walk_rounded,
-                    //                   color: AppColors.PrimaryBlackColor),
-                    //               SizedBox(
-                    //                 width: 10.w,
-                    //               ),
-                    //               Padding(
-                    //                 padding: const EdgeInsets.all(10.0),
-                    //                 child: Text(
-                    //                   "Active",
-                    //                   style: batchtext2(Colors.green),
-                    //                 ),
-                    //               ),
-                    //             ],
-                    //           ),
-                    //         ],
-                    //       ),
-                    //     ),
-                    //   ),
-
-                    ,
+                    ),
                     SizedBox(
                       height: 10.h,
                     ),
@@ -857,12 +729,3 @@ class _BookAppointmentState extends State<BookAppointment> {
     );
   }
 }
-
-// Future<bool> _onbackbuttondoubleClick(BuildContext context) async {
-//   Navigator.pushNamedAndRemoveUntil(
-//     context,
-//     RoutesName.gofair,
-//     (routes) => false,
-//   );
-//   return false;
-// }

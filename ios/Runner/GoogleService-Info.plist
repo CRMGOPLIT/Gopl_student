@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.appgopl.globalopportunities</string>
+	<string>com.appgopl.global</string>
 	<key>PROJECT_ID</key>
 	<string>global-opportunities-8e722</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1098090942382:ios:28829e8682d6bee20d823f</string>
+	<string>1:1098090942382:ios:d3c4de3ab60aba9e0d823f</string>
 </dict>
 </plist>

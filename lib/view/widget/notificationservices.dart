@@ -1,10 +1,10 @@
 import 'dart:io';
-
 import 'package:app_settings/app_settings.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+import '../splash/splash_screen.dart';
 
 class NotificationServices {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -12,7 +12,6 @@ class NotificationServices {
   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  //function to initialise flutter local notification plugin to show notifications for android when app is active
   void initLocalNotifications(
       BuildContext context, RemoteMessage message) async {
     var androidInitializationSettings =
@@ -40,34 +39,17 @@ class NotificationServices {
     );
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      if (kDebugMode) {
-        print('user granted permission');
-      }
     } else if (settings.authorizationStatus ==
         AuthorizationStatus.provisional) {
-      if (kDebugMode) {
-        print('user granted provisional permission');
-      }
     } else {
       AppSettings.openAppSettings();
-      // appsetting.AppSettings.openNotificationSettings();
-      if (kDebugMode) {
-        print('user denied permission');
-      }
     }
   }
 
   void firebaseInit(BuildContext context) {
     FirebaseMessaging.onMessage.listen((message) {
-      RemoteNotification? notification = message.notification;
-      // AndroidNotification? android = message.notification!.android;
-
-      if (kDebugMode) {
-        print("notifications title:${notification!.title}");
-        print("notifications body:${notification.body}");
-      }
-
       if (Platform.isIOS) {
+        initLocalNotifications(context, message);
         forgroundMessage();
       }
 
@@ -91,20 +73,22 @@ class NotificationServices {
 
     AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails(
-      "pushnotificationgoplapp", channel.name.toString(),
+      "pushnotificationgoplapp",
+      channel.name.toString(),
       channelDescription: 'your channel description',
       importance: Importance.high,
       priority: Priority.high,
       playSound: true,
       ticker: 'ticker',
-      // sound: channel.sound
-      //     sound: RawResourceAndroidNotificationSound('jetsons_doorbell')
-      //  icon: largeIconPath
     );
 
     const DarwinNotificationDetails darwinNotificationDetails =
         DarwinNotificationDetails(
-            presentAlert: true, presentBadge: true, presentSound: true);
+            presentAlert: true,
+            presentBadge: true,
+            presentSound: true,
+            presentBanner: true,
+            presentList: true);
 
     NotificationDetails notificationDetails = NotificationDetails(
         android: androidNotificationDetails, iOS: darwinNotificationDetails);
@@ -134,7 +118,6 @@ class NotificationServices {
       handleMessage(context, event);
     });
   }
-  //handle tap on notification when app is in background or terminated
 
   //function to get device token on which we will send the notifications
   Future<String> getDeviceToken() async {
@@ -145,20 +128,13 @@ class NotificationServices {
   void isTokenRefresh() async {
     messaging.onTokenRefresh.listen((event) {
       event.toString();
-      if (kDebugMode) {
-        print('refresh');
-      }
     });
   }
 
   void handleMessage(BuildContext context, RemoteMessage message) {
     if (message.data['type'] == 'msj') {
-      // Navigator.push(context,
-      //     MaterialPageRoute(builder: (context) => MessageScreen(
-      //       id: message.data['id'] ,
-      //     )
-      //     )
-      //     );
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const SplashScreen()));
     }
   }
 
@@ -170,38 +146,4 @@ class NotificationServices {
       sound: true,
     );
   }
-
-  // Future<void> sendFCMMessage() async {
-  //   final String serverKey = 'YOUR_SERVER_KEY';
-  //   final List<String> deviceTokens = ['DEVICE_TOKEN_1', 'DEVICE_TOKEN_2'];
-
-  //   final Map<String, dynamic> payload = {
-  //     'registration_ids': deviceTokens,
-  //     'notification': {
-  //       'title': 'Your Title',
-  //       'body': 'Your Message Body',
-  //     },
-  //     'data': {
-  //       'key1': 'value1',
-  //       'key2': 'value2',
-  //     }
-  //   };
-
-  //   final response = await http.post(
-  //     Uri.parse('https://fcm.googleapis.com/fcm/send'),
-  //     headers: {
-  //       'Authorization': 'key=$serverKey',
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: json.encode(payload),
-  //   );
-
-  //   if (response.statusCode == 200) {
-  //     print('Message sent successfully');
-  //     print(response.body);
-  //   } else {
-  //     print('Error sending message: ${response.statusCode}');
-  //     print(response.body);
-  //   }
-  // }
 }

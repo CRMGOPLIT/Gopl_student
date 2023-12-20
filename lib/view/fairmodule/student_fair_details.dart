@@ -1,14 +1,11 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:global_student/utils/text_style.dart';
 import 'package:global_student/view/widget/button.dart';
 import 'package:global_student/view/widget/loader.dart';
-import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../bloc/gofairbloc.dart';
@@ -29,8 +26,6 @@ class StudentFairDetails extends StatefulWidget {
 class _StudentFairDetailsState extends State<StudentFairDetails> {
   late GoFairBloc goFairBloc;
 
-  var studentid = Get.arguments;
-
   Gofairdetails? getfairModel;
   List<Getfairdocumentlist> getfairdocumentlist = [];
 
@@ -39,7 +34,8 @@ class _StudentFairDetailsState extends State<StudentFairDetails> {
   String? token = "";
 
   final GlobalKey<State> _keyLoader = GlobalKey<State>();
-  // File? file;
+
+  final sendfilename = GlobalKey<FormState>();
 
   List applicationdata = [];
 
@@ -55,12 +51,6 @@ class _StudentFairDetailsState extends State<StudentFairDetails> {
   List<String> selectedItems = [];
 
   String? studentiddata;
-
-  setdata() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    studentiddata = prefs.getString("studentId");
-  }
 
   List<Timeappointment> timeappointment = [
     Timeappointment(
@@ -80,7 +70,7 @@ class _StudentFairDetailsState extends State<StudentFairDetails> {
   @override
   void initState() {
     goFairBloc = GoFairBloc();
-    setdata();
+
     getgofairDetails();
     _getgofairData();
     getfairdocumentdata();
@@ -275,6 +265,7 @@ class _StudentFairDetailsState extends State<StudentFairDetails> {
       "DocumentName": spselcected,
       "DocumentType": selectedItems.length > 1 ? "Combine" : "Individual"
     };
+
     goFairBloc.callUploadfairdocumentApi(
       data,
       selectedFile,
@@ -290,7 +281,6 @@ class _StudentFairDetailsState extends State<StudentFairDetails> {
     goFairBloc.callfairdocumentlist(data);
   }
 
-  String tok = "1";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -326,8 +316,8 @@ class _StudentFairDetailsState extends State<StudentFairDetails> {
                           height: 20.h,
                         ),
                         Text(
-                          "Please Come On Fair Date ",
-                          style: batchtext2(AppColors.PrimaryBlackColor),
+                          "Visit Global Opportunities Education Fair On Time. ",
+                          style: batchtext2(AppColors.PrimaryMainColor),
                         )
                       ]),
                 )
@@ -384,37 +374,26 @@ class _StudentFairDetailsState extends State<StudentFairDetails> {
                                               check == 0
                                           ? Container(
                                               decoration: BoxDecoration(
-                                                  //  color: Color(0xffF0CED2),
                                                   border: Border.all(
                                                       color: AppColors
                                                           .PrimaryMainColor),
                                                   borderRadius:
                                                       BorderRadius.circular(10)
-                                                  // borderRadius: BorderRadius.only(
-                                                  //   bottomLeft: Radius.circular(20),
-                                                  //   bottomRight: Radius.circular(20),
-                                                  // )
-                                                  ),
+                                                          .r),
                                               child: Card(
                                                 child: Column(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Container(
-                                                      height: 90.h,
+                                                      height: 95.h,
                                                       width: 400.w,
                                                       decoration: BoxDecoration(
-                                                          //color: AppColors.PrimaryGreyColor,
                                                           borderRadius:
                                                               BorderRadius
                                                                       .circular(
                                                                           10)
-                                                                  .r
-                                                          // borderRadius: BorderRadius.only(
-                                                          //   bottomLeft: Radius.circular(20),
-                                                          //   bottomRight: Radius.circular(20),
-                                                          // )
-                                                          ),
+                                                                  .r),
                                                       child: Padding(
                                                         padding:
                                                             const EdgeInsets
@@ -430,28 +409,6 @@ class _StudentFairDetailsState extends State<StudentFairDetails> {
                                                                     CrossAxisAlignment
                                                                         .start,
                                                                 children: [
-                                                                  // SizedBox(
-                                                                  //   height: 5.h,
-                                                                  // ),
-
-                                                                  // AnimatedTextKit(
-                                                                  //   isRepeatingAnimation: true,
-                                                                  //   repeatForever: true,
-                                                                  //   animatedTexts: [
-                                                                  //     TyperAnimatedText(
-                                                                  //         'Current Priority Pass :-  G O L D',
-                                                                  //         textStyle: batchtext2(
-                                                                  //             AppColors.PrimaryWhiteColor)),
-                                                                  //   ],
-                                                                  //   pause: const Duration(milliseconds: 2000),
-                                                                  //   displayFullTextOnTap: true,
-                                                                  //   stopPauseOnTap: true,
-                                                                  // ),
-                                                                  // Text(
-                                                                  //   "Current Priority Pass :- Gold",
-                                                                  //   style:
-                                                                  //       batchtext2(AppColors.PrimaryWhiteColor),
-                                                                  // ),
                                                                   SizedBox(
                                                                     height: 5.h,
                                                                   ),
@@ -521,22 +478,6 @@ class _StudentFairDetailsState extends State<StudentFairDetails> {
                                                                                 width: 100.w,
                                                                                 fit: BoxFit.contain,
                                                                               ),
-                                                                // getfairModel?.stuCat ==
-                                                                //         "BRONZE"
-                                                                //     ? Image.asset(
-                                                                //         "assets/images/bronze.png",
-                                                                //         height: 60.h,
-                                                                //         width: 100.w,
-                                                                //         fit: BoxFit
-                                                                //             .contain,
-                                                                //       )
-                                                                //     : Container(),
-                                                                Text(
-                                                                  "342345",
-                                                                  style: batchtext2(
-                                                                      AppColors
-                                                                          .PrimaryMainColor),
-                                                                )
                                                               ],
                                                             ),
                                                           ],
@@ -726,7 +667,6 @@ class _StudentFairDetailsState extends State<StudentFairDetails> {
                                               decoration: BoxDecoration(
                                                   color: AppColors
                                                       .PrimaryWhiteColor,
-                                                  //Color.fromARGB(255, 2, 75, 2),
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           10)),
@@ -790,10 +730,6 @@ class _StudentFairDetailsState extends State<StudentFairDetails> {
                               children: [
                                 Container(
                                   width: 400.w,
-
-                                  // decoration: BoxDecoration(
-                                  //     border:
-                                  //         Border.all(color: AppColors.PrimaryMainColor)),
                                   padding: const EdgeInsets.all(8.0).r,
                                   child: Text(
                                     "Upload Your Document ",
@@ -802,406 +738,389 @@ class _StudentFairDetailsState extends State<StudentFairDetails> {
                                         AppColors.PrimaryBlackColor),
                                   ),
                                 ),
+                                Form(
+                                  key: sendfilename,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                      top: 5.r,
+                                    ),
+                                    child: Container(
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          border: Border.all(
+                                              color:
+                                                  AppColors.PrimaryMainColor),
+                                          borderRadius:
+                                              BorderRadius.circular(10).r),
+                                      padding: const EdgeInsets.all(8).r,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0).r,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              height: 50.h,
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color: AppColors
+                                                          .PrimaryMainColor),
+                                                  borderRadius:
+                                                      BorderRadius.circular(8)),
+                                              child:
+                                                  DropdownButtonHideUnderline(
+                                                child: DropdownButtonFormField2(
+                                                  decoration: InputDecoration(
+                                                    enabledBorder:
+                                                        OutlineInputBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10),
+                                                            borderSide:
+                                                                BorderSide
+                                                                    .none),
+                                                    isCollapsed: true,
+                                                    border: InputBorder.none,
+                                                  ),
+                                                  isExpanded: true,
+                                                  validator: (value) {
+                                                    if (value == null) {
+                                                      return 'Please Select file name';
+                                                    }
+                                                    return null;
+                                                  },
+                                                  hint: Text(
+                                                    'Please Select File Name',
+                                                    style: batchtext2(
+                                                        AppColors.hintcolor),
+                                                  ),
+                                                  items: timeappointment
+                                                      .map((item) {
+                                                    return DropdownMenuItem<
+                                                        String>(
+                                                      value: item.name,
+                                                      enabled: false,
+                                                      child: StatefulBuilder(
+                                                        builder: (context,
+                                                            menuSetState) {
+                                                          final isSelected =
+                                                              selectedItems
+                                                                  .contains(item
+                                                                      .name);
+                                                          return InkWell(
+                                                            onTap: () {
+                                                              isSelected
+                                                                  ? selectedItems
+                                                                      .remove(item
+                                                                          .name)
+                                                                  : selectedItems
+                                                                      .add(item
+                                                                          .name
+                                                                          .toString());
 
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                    top: 5.r,
-                                  ),
-                                  child: Container(
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(
-                                            color: AppColors.PrimaryMainColor),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    // padding: const EdgeInsets.all(8.0),
-                                    padding: const EdgeInsets.all(8).r,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            height: 50.h,
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: AppColors
-                                                        .PrimaryMainColor),
-                                                borderRadius:
-                                                    BorderRadius.circular(8)),
-                                            child: DropdownButtonHideUnderline(
-                                              child: DropdownButton2(
-                                                isExpanded: true,
-                                                hint: Text(
-                                                  'Please Select File Name',
-                                                  style: batchtext2(
-                                                      AppColors.hintcolor),
-                                                ),
-                                                items:
-                                                    timeappointment.map((item) {
-                                                  return DropdownMenuItem<
-                                                      String>(
-                                                    value: item.name,
-                                                    enabled: false,
-                                                    child: StatefulBuilder(
-                                                      builder: (context,
-                                                          menuSetState) {
-                                                        final isSelected =
-                                                            selectedItems
-                                                                .contains(
-                                                                    item.name);
-                                                        return InkWell(
-                                                          onTap: () {
-                                                            isSelected
-                                                                ? selectedItems
-                                                                    .remove(item
-                                                                        .name)
-                                                                : selectedItems
-                                                                    .add(item
-                                                                        .name
-                                                                        .toString());
+                                                              setState(() {});
 
-                                                            setState(() {});
-
-                                                            menuSetState(() {});
-                                                          },
-                                                          child: Container(
-                                                            height:
-                                                                double.infinity,
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .symmetric(
-                                                                    horizontal:
-                                                                        16.0),
-                                                            child: Row(
-                                                              children: [
-                                                                isSelected
-                                                                    ? const Icon(
-                                                                        Icons
-                                                                            .check_box_outlined,
-                                                                        color: AppColors
-                                                                            .PrimaryMainColor,
-                                                                      )
-                                                                    : const Icon(
-                                                                        Icons
-                                                                            .check_box_outline_blank,
-                                                                        color: AppColors
-                                                                            .PrimaryMainColor,
-                                                                      ),
-                                                                const SizedBox(
-                                                                    width: 16),
-                                                                // item.name != null
-                                                                //     ? Flexible(
-                                                                //     child: RichText(
-                                                                //     text: TextSpan(
-                                                                //       text: item.id,
-                                                                //       style: batchtext2(
-                                                                //           AppColors
-                                                                //               .PrimaryMainColor),
-                                                                //       children: [
-                                                                //         TextSpan(
-                                                                //             text:
-                                                                //                 ' * ',
-                                                                //             style: batchtext2(
-                                                                //                 Colors.red)),
-                                                                //       ],
-                                                                //     ),
-                                                                //   ))
-                                                                // :
-                                                                Flexible(
-                                                                  child: Text(
-                                                                    item.name
-                                                                        .toString(),
-                                                                    style: batchtext2(
-                                                                        AppColors
-                                                                            .PrimaryMainColor),
+                                                              menuSetState(
+                                                                  () {});
+                                                            },
+                                                            child: Container(
+                                                              height: double
+                                                                  .infinity,
+                                                              padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      16.0),
+                                                              child: Row(
+                                                                children: [
+                                                                  isSelected
+                                                                      ? const Icon(
+                                                                          Icons
+                                                                              .check_box_outlined,
+                                                                          color:
+                                                                              AppColors.PrimaryMainColor,
+                                                                        )
+                                                                      : const Icon(
+                                                                          Icons
+                                                                              .check_box_outline_blank,
+                                                                          color:
+                                                                              AppColors.PrimaryMainColor,
+                                                                        ),
+                                                                  const SizedBox(
+                                                                      width:
+                                                                          16),
+                                                                  Flexible(
+                                                                    child: Text(
+                                                                      item.name
+                                                                          .toString(),
+                                                                      style: batchtext2(
+                                                                          AppColors
+                                                                              .PrimaryMainColor),
+                                                                    ),
                                                                   ),
-                                                                ),
-                                                              ],
+                                                                ],
+                                                              ),
                                                             ),
+                                                          );
+                                                        },
+                                                      ),
+                                                    );
+                                                  }).toList(),
+                                                  value: selectedItems.isEmpty
+                                                      ? null
+                                                      : selectedItems.last,
+                                                  onChanged: (value) {
+                                                    selectedItems.last = value!;
+
+                                                    setState(() {});
+                                                  },
+                                                  selectedItemBuilder:
+                                                      (context) {
+                                                    return timeappointment.map(
+                                                      (item) {
+                                                        return Container(
+                                                          alignment:
+                                                              AlignmentDirectional
+                                                                  .center,
+                                                          padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      16.0)
+                                                              .r,
+                                                          child: Text(
+                                                            "Selected ${selectedItems.length}",
+                                                            style: batchtext2(
+                                                                AppColors
+                                                                    .PrimaryMainColor),
+                                                            maxLines: 1,
                                                           ),
                                                         );
                                                       },
-                                                    ),
-                                                  );
-                                                }).toList(),
-                                                value: selectedItems.isEmpty
-                                                    ? null
-                                                    : selectedItems.last,
-                                                onChanged: (value) {
-                                                  selectedItems.last = value!;
-
-                                                  setState(() {});
-                                                },
-                                                selectedItemBuilder: (context) {
-                                                  return timeappointment.map(
-                                                    (item) {
-                                                      return Container(
-                                                        alignment:
-                                                            AlignmentDirectional
-                                                                .center,
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .symmetric(
-                                                                horizontal:
-                                                                    16.0),
-                                                        child: Text(
-                                                          "Selected ${selectedItems.length}",
-                                                          // timedrop.name.toString(),
-                                                          style: batchtext2(
-                                                              AppColors
-                                                                  .PrimaryMainColor),
-                                                          maxLines: 1,
-                                                        ),
-                                                      );
-                                                    },
-                                                  ).toList();
-                                                },
-                                                buttonStyleData:
-                                                    ButtonStyleData(
-                                                  height: 55.h,
-                                                  width: 450.w,
-                                                  padding:
-                                                      const EdgeInsets.all(10)
-                                                          .r,
-                                                ),
-                                                dropdownStyleData: DropdownStyleData(
-                                                    isOverButton: true,
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8.sp),
-                                                        color: AppColors
-                                                            .PrimaryWhiteColor,
-                                                        border: Border.all()),
-                                                    maxHeight: 180.h,
-                                                    elevation: 10),
-                                                menuItemStyleData:
-                                                    MenuItemStyleData(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                              left: 10,
-                                                              right: 10)
-                                                          .r,
-                                                  height: 40.h,
-                                                ),
-                                                iconStyleData:
-                                                    const IconStyleData(
-                                                  icon: Icon(
-                                                    Icons.keyboard_arrow_down,
-                                                    color: AppColors
-                                                        .PrimaryMainColor,
+                                                    ).toList();
+                                                  },
+                                                  buttonStyleData:
+                                                      ButtonStyleData(
+                                                    height: 55.h,
+                                                    width: 450.w,
+                                                    padding:
+                                                        const EdgeInsets.all(10)
+                                                            .r,
                                                   ),
-                                                  iconSize: 30,
+                                                  dropdownStyleData: DropdownStyleData(
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.sp),
+                                                          color: AppColors
+                                                              .backgroungcolor,
+                                                          border: Border.all()),
+                                                      maxHeight: 300.h,
+                                                      elevation: 10),
+                                                  menuItemStyleData:
+                                                      MenuItemStyleData(
+                                                    padding: EdgeInsets.only(
+                                                            left: 10.h,
+                                                            right: 10.h)
+                                                        .r,
+                                                    height: 40.h,
+                                                  ),
+                                                  iconStyleData: IconStyleData(
+                                                    icon: const Icon(
+                                                      Icons.keyboard_arrow_down,
+                                                      color: AppColors
+                                                          .PrimaryMainColor,
+                                                    ),
+                                                    iconSize: 30.sp,
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-
-                                          // Container
-                                          // (
-                                          //   //width: 400.w,
-                                          //   decoration: BoxDecoration(
-                                          //       border: Border.all(),
-                                          //       borderRadius:
-                                          //           BorderRadius.circular(8.r)),
-                                          //   height: 50.h,
-                                          //   child: Center(
-                                          //       child: Text("Choose file Name")),
-                                          // ),
-                                          SizedBox(
-                                            height: 5.h,
-                                          ),
-                                          selectedFile.isEmpty
-                                              ? InkWell(
-                                                  onTap: () {
-                                                    selectFile();
-                                                  },
-                                                  child: Column(
-                                                    children: [
-                                                      Image.asset(
-                                                        "assets/images/uploadimg.png",
-                                                        height: 80.h,
-                                                        width: 80.w,
-                                                      ),
-                                                      Text(
-                                                        "Select File",
-                                                        style: batchtext2(AppColors
-                                                            .PrimaryMainColor),
-                                                      ),
-                                                      SizedBox(
-                                                        height: 5.h,
-                                                      ),
-                                                      Text(
-                                                        "Supported file format(s): PDF or Dox 8 MB Max",
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: batchtext1(
-                                                            AppColors
-                                                                .hintcolor),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                )
-                                              : Container(
-                                                  width: 400.w,
-                                                  height: 150.h,
-
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      border: Border.all(
-                                                          color: AppColors
-                                                              .PrimaryMainColor),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                                  10)
-                                                              .r),
-                                                  // padding: const EdgeInsets.all(8.0),
-                                                  padding:
-                                                      const EdgeInsets.all(16),
-                                                  child: SizedBox(
+                                            SizedBox(
+                                              height: 5.h,
+                                            ),
+                                            selectedFile.isEmpty
+                                                ? InkWell(
+                                                    onTap: () {
+                                                      selectFile();
+                                                    },
+                                                    child: Column(
+                                                      children: [
+                                                        Image.asset(
+                                                          "assets/images/uploadimg.png",
+                                                          height: 80.h,
+                                                          width: 80.w,
+                                                        ),
+                                                        Text(
+                                                          "Select File",
+                                                          style: batchtext2(
+                                                              AppColors
+                                                                  .PrimaryMainColor),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 5.h,
+                                                        ),
+                                                        Text(
+                                                          "Supported file format(s): PDF or Dox 8 MB Max",
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: batchtext1(
+                                                              AppColors
+                                                                  .hintcolor),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )
+                                                : Container(
                                                     width: 400.w,
-                                                    // height: 150.h,
-                                                    child:
-                                                        SingleChildScrollView(
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          for (int i = 0;
-                                                              i <
-                                                                  selectedFile
-                                                                      .length;
-                                                              i++)
-                                                            selectedFile
-                                                                    .isNotEmpty
-                                                                ? Container(
-                                                                    margin: EdgeInsets
-                                                                        .all(5),
-                                                                    padding:
-                                                                        const EdgeInsets.all(5)
-                                                                            .r,
-                                                                    height:
-                                                                        50.h,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(8).r,
-                                                                            border: Border.all(
-                                                                              color: AppColors.PrimaryBlackColor,
-                                                                            )),
-                                                                    child: Row(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceBetween,
-                                                                      children: [
-                                                                        SizedBox(
-                                                                          width:
-                                                                              160.w,
-                                                                          child:
-                                                                              Text(
-                                                                            selectedFile[i].path.split("/").last.toString(),
-                                                                            style:
-                                                                                batchtext2(AppColors.PrimaryMainColor),
-                                                                          ),
-                                                                        ),
-                                                                        SizedBox(
-                                                                          width:
-                                                                              10.w,
-                                                                        ),
-                                                                        InkWell(
-                                                                          onTap:
-                                                                              () {
-                                                                            selectedFile.removeAt(i);
-                                                                            setState(() {});
-                                                                          },
-                                                                          child:
-                                                                              SizedBox(
+                                                    height: 150.h,
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        border: Border.all(
+                                                            color: AppColors
+                                                                .PrimaryMainColor),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                    .circular(
+                                                                        10)
+                                                                .r),
+                                                    padding:
+                                                        const EdgeInsets.all(16)
+                                                            .r,
+                                                    child: SizedBox(
+                                                      width: 400.w,
+                                                      child:
+                                                          SingleChildScrollView(
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            for (int i = 0;
+                                                                i <
+                                                                    selectedFile
+                                                                        .length;
+                                                                i++)
+                                                              selectedFile
+                                                                      .isNotEmpty
+                                                                  ? Container(
+                                                                      margin:
+                                                                          const EdgeInsets.all(5)
+                                                                              .r,
+                                                                      padding:
+                                                                          const EdgeInsets.all(5)
+                                                                              .r,
+                                                                      height:
+                                                                          50.h,
+                                                                      decoration: BoxDecoration(
+                                                                          borderRadius: BorderRadius.circular(8).r,
+                                                                          border: Border.all(
+                                                                            color:
+                                                                                AppColors.PrimaryBlackColor,
+                                                                          )),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          SizedBox(
                                                                             width:
-                                                                                25.w,
-                                                                            height:
-                                                                                40.h,
+                                                                                160.w,
                                                                             child:
-                                                                                Container(
-                                                                              alignment: Alignment.center,
-                                                                              child: Icon(
-                                                                                Icons.cancel_outlined,
-                                                                                size: 30,
-                                                                                color: Colors.red.withOpacity(0.8),
+                                                                                Text(
+                                                                              selectedFile[i].path.split("/").last.toString(),
+                                                                              style: batchtext2(AppColors.PrimaryMainColor),
+                                                                            ),
+                                                                          ),
+                                                                          SizedBox(
+                                                                            width:
+                                                                                10.w,
+                                                                          ),
+                                                                          InkWell(
+                                                                            onTap:
+                                                                                () {
+                                                                              selectedFile.removeAt(i);
+                                                                              setState(() {});
+                                                                            },
+                                                                            child:
+                                                                                SizedBox(
+                                                                              width: 25.w,
+                                                                              height: 40.h,
+                                                                              child: Container(
+                                                                                alignment: Alignment.center,
+                                                                                child: Icon(
+                                                                                  Icons.cancel_outlined,
+                                                                                  size: 30,
+                                                                                  color: Colors.red.withOpacity(0.8),
+                                                                                ),
                                                                               ),
                                                                             ),
                                                                           ),
-                                                                        ),
-                                                                      ],
+                                                                        ],
+                                                                      ),
+                                                                    )
+                                                                  : Text(
+                                                                      "Supported file format(s): PDF or Dox 8 MB Max",
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                      style: batchtext1(
+                                                                          AppColors
+                                                                              .hintcolor),
                                                                     ),
-                                                                  )
-                                                                : Text(
-                                                                    "Supported file format(s): PDF or Dox 8 MB Max",
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                    style: batchtext1(
-                                                                        AppColors
-                                                                            .hintcolor),
-                                                                  ),
-                                                          SizedBox(
-                                                            height: 20.h,
-                                                          ),
-                                                        ],
+                                                            SizedBox(
+                                                              height: 20.h,
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                          SizedBox(
-                                            height: 10.h,
-                                          ),
-                                          selectedFile.isNotEmpty
-                                              ? SizedBox(
-                                                  height: 40.h,
-                                                  width: 150.w,
-                                                  child: ButtonPrimary2(
-                                                      title: " Upload ",
-                                                      onPressed: () {
-                                                        callUploadDocumentApi();
-                                                        setState(() {});
+                                            SizedBox(
+                                              height: 10.h,
+                                            ),
+                                            selectedFile.isNotEmpty
+                                                ? SizedBox(
+                                                    height: 40.h,
+                                                    width: 150.w,
+                                                    child: ButtonPrimary2(
+                                                        title: " Upload ",
+                                                        onPressed: () {
+                                                          if (sendfilename
+                                                              .currentState!
+                                                              .validate()) {
+                                                            callUploadDocumentApi();
+                                                          } else {
+                                                            ScaffoldMessenger
+                                                                    .of(context)
+                                                                .showSnackBar(
+                                                                    SnackBar(
+                                                              backgroundColor:
+                                                                  Colors.red,
+                                                              content: Text(
+                                                                "Please select file name",
+                                                                style: batchtext2(
+                                                                    AppColors
+                                                                        .PrimaryWhiteColor),
+                                                              ),
+                                                            ));
+                                                          }
 
-                                                        // callUploadDocumentApi(
-                                                        //     applicationid.toString(),
-                                                        //     documentname.toString().trim(),
-                                                        //     documentid.toString());
-                                                      }))
-                                              : Container(),
-                                        ],
+                                                          setState(() {});
+                                                        }))
+                                                : Container(),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-
                                 SizedBox(
                                   height: 10.h,
                                 ),
-
-                                //selectedFile.isEmpty
-                                // ? Container()
-                                // : SizedBox(
-                                //     height: 35.h,
-                                //     width: 130.w,
-                                //     child: ButtonPrimary2(
-                                //         title: " Upload ",
-                                //         onPressed: () {
-                                //           setState(() {});
-
-                                //           // callUploadDocumentApi(
-                                //           //     applicationid.toString(),
-                                //           //     documentname.toString().trim(),
-                                //           //     documentid.toString());
-                                //         })),
-
                                 Text(
                                   "Your Uploaded File",
                                   style:
@@ -1235,6 +1154,7 @@ class _StudentFairDetailsState extends State<StudentFairDetails> {
                                                   const EdgeInsets.only(top: 10)
                                                       .r,
                                               child: Container(
+                                                  padding: EdgeInsets.all(4.r),
                                                   decoration: BoxDecoration(
                                                       color: AppColors
                                                           .PrimaryWhiteColor,
@@ -1251,12 +1171,8 @@ class _StudentFairDetailsState extends State<StudentFairDetails> {
                                                       Icons.file_copy,
                                                       color: AppColors
                                                           .PrimaryMainColor,
-                                                      size: 25.sp,
+                                                      size: 20.sp,
                                                     ),
-                                                    // Image.asset(
-                                                    //   "assets/images/file.png",
-                                                    //   height: 25.h,
-                                                    // ),
                                                     title: Text(
                                                       getfairdocumentlist[i]
                                                           .fDocumentName
@@ -1268,10 +1184,8 @@ class _StudentFairDetailsState extends State<StudentFairDetails> {
                                                       Icons.download,
                                                       color:
                                                           AppColors.hintcolor,
-                                                      size: 30.sp,
+                                                      size: 20.sp,
                                                     ),
-                                                    // subtitle:
-                                                    //     const Text("upload file name"),
                                                   )),
                                             ),
                                           ),
@@ -1291,12 +1205,9 @@ class _StudentFairDetailsState extends State<StudentFairDetails> {
 
   void selectFile() async {
     if (selectedFile.length == 1) {
-      SnackBar(
-        content: Text("djnkj"),
+      const SnackBar(
+        content: Text("Please Select file"),
       );
-      print("wkjnjke");
-      // ToastHelper()
-      //     .showErrorToast(message: 'File Cannot Select more than 12.');
     } else {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         allowMultiple: true,
@@ -1305,17 +1216,7 @@ class _StudentFairDetailsState extends State<StudentFairDetails> {
       );
 
       if (result != null) {
-        //    List<File> files = result.paths.map((path) => File(path!)).toList();
-        // PlatformFile file = result.files.single;
-        // if (file.extension == 'pdf' || file.extension == 'docx') {
-        //   if (file.size <= 8 * 1024 * 1024) {
         List<File> files = result.paths.map((path) => File(path!)).toList();
-        // List<String> files = result.files
-        //     .map((file) => file.path!)
-        //     .where((path) =>
-        //         path.toLowerCase().endsWith('.pdf') ||
-        //         path.toLowerCase().endsWith('.docx'))
-        //     .toList();
 
         setState(() {
           selectedFile.addAll(files);
@@ -1381,13 +1282,5 @@ class _StudentFairDetailsState extends State<StudentFairDetails> {
         );
       }
     }
-  }
-
-  void downloadFile() async {
-    var time = DateTime.now().millisecondsSinceEpoch;
-    var path = "/storage/emulated/0/Download/image-$time.jpg";
-    var file = File(path);
-    var res = await get(Uri.parse("https://source.unsplash.com/random"));
-    file.writeAsBytes(res.bodyBytes);
   }
 }

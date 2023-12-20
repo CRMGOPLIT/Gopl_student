@@ -72,18 +72,18 @@ class Getfairdocumentlist {
   factory Getfairdocumentlist.fromJson(Map<String, dynamic> json) =>
       Getfairdocumentlist(
         id: json["Id"],
-        fStudentId: json["f_Student_id"],
-        fBranchId: json["f_Branch_id"],
-        fCounsellorId: json["f_Counsellor_Id"],
+        fStudentId: json["f_Student_id"].toString(),
+        fBranchId: json["f_Branch_id"].toString(),
+        fCounsellorId: json["f_Counsellor_Id"].toString(),
         fDocumentName: json["f_DocumentName"].toString(),
         fDocument: json["f_Document"].toString(),
-        fDocumentStatus: json["f_DocumentStatus"],
-        fEntryDate: json["f_EntryDate"],
-        fIsTransferredToMain: json["f_IsTransferredToMain"],
-        fDescription: json["f_Description"],
-        fOperationDate: json["f_OperationDate"],
-        mainId: json["Main_id"],
-        fDocumentType: json["f_DocumentType"],
+        fDocumentStatus: json["f_DocumentStatus"].toString(),
+        fEntryDate: json["f_EntryDate"].toString(),
+        fIsTransferredToMain: json["f_IsTransferredToMain"].toString(),
+        fDescription: json["f_Description"].toString(),
+        fOperationDate: json["f_OperationDate"].toString(),
+        mainId: json["Main_id"].toString(),
+        fDocumentType: json["f_DocumentType"].toString(),
       );
 
   Map<String, dynamic> toJson() => {

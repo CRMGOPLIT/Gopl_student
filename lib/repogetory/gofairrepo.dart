@@ -62,4 +62,19 @@ class GofairRepo {
         parameter, NetworkConstant.END_POINT_GOFAIR_DOCUMENT_GET);
     return response;
   }
+
+  Future<dynamic> sendToken(
+    Map<String, dynamic> parameter,
+  ) async {
+    final response = await _apiProvider.courseEmailPost(
+        parameter, NetworkConstant.END_POINT_SEND_TOKEN);
+    return response;
+  }
+
+  //Get Users
+  Future<dynamic> getVersionDetails() async {
+    final response =
+        await _apiProvider.getAfterAuth(NetworkConstant.END_POINT_VERSION);
+    return response;
+  }
 }

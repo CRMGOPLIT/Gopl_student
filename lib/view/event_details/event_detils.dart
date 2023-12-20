@@ -525,20 +525,31 @@ class _EventDetailsState extends State<EventDetails> {
                                                 alignment: Alignment.topRight,
                                                 clipBehavior: Clip.none,
                                                 children: [
+                                                  // "assets/images/evh.png"
                                                   Container(
                                                     height: 120.h,
                                                     width: 320.w,
                                                     decoration: BoxDecoration(
-                                                        color: AppColors
-                                                            .PrimaryMainColor,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.r),
-                                                        image: DecorationImage(
-                                                            fit: BoxFit.fill,
-                                                            image: AssetImage(
-                                                                "assets/images/evh.png"
-                                                                    .toString()))),
+                                                      color: AppColors
+                                                          .PrimaryMainColor,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5.r),
+                                                      image: data[index]
+                                                                  .eventlocationImage ==
+                                                              ""
+                                                          ? DecorationImage(
+                                                              fit: BoxFit.fill,
+                                                              image: AssetImage(
+                                                                  "assets/images/evh.png"
+                                                                      .toString()))
+                                                          : DecorationImage(
+                                                              fit: BoxFit.fill,
+                                                              image: NetworkImage(data[
+                                                                      index]
+                                                                  .eventlocationImage
+                                                                  .toString())),
+                                                    ),
                                                   ),
                                                   Positioned(
                                                     left: 175.h,

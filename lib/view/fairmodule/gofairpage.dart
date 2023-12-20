@@ -1,13 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:global_student/view/drawerpage/profile_page.dart';
 import 'package:global_student/view/fairmodule/appointmenthistory.dart';
 import 'package:global_student/view/fairmodule/bookappointmentpage.dart';
 import 'package:global_student/view/fairmodule/student_fair_details.dart';
-import 'package:global_student/view/fairmodule/tokenhistory.dart';
-import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../bloc/gofairbloc.dart';
 import '../../model/gofairdetails.dart';
@@ -27,21 +22,14 @@ class GoFairPage extends StatefulWidget {
 class _GoFairPageState extends State<GoFairPage> {
   late GoFairBloc goFairBloc;
   List<dynamic> page = [
-    BookAppointment(),
-    StudentFairDetails(),
-    // const TokenHistory(),
+    const BookAppointment(),
+    const StudentFairDetails(),
     const AppointmentHistory()
   ];
 
   Gofairdetails? getfairModel;
   String? studentid;
   bool loading1 = true;
-
-  // setdata() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   studentid = prefs.getString("studentId");
-  //   setState(() {});
-  // }
 
   @override
   void initState() {
@@ -53,11 +41,9 @@ class _GoFairPageState extends State<GoFairPage> {
 
   getgofairDetails() {
     goFairBloc.gofairdetailsStream.listen((event) {
-      // debugger();
-      // print(event);
       if (event != null) {
+        getfairModel = Gofairdetails.fromJson(event);
         setState(() {
-          getfairModel = Gofairdetails.fromJson(event);
           loading1 = false;
         });
       }
@@ -80,7 +66,7 @@ class _GoFairPageState extends State<GoFairPage> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(50.h),
         child: AppBarCustom(
-          title: "Go-Fair",
+          title: "Education Fair",
           onpress: () {
             Navigator.pushNamed(context, RoutesName.bottomnav
                 // (routes) => false,
@@ -108,50 +94,6 @@ class _GoFairPageState extends State<GoFairPage> {
                   itemBuilder: (BuildContext context, int index) {
                     return InkWell(
                       onTap: () {
-                        setState(() {});
-                        // index == 0
-                        //     ? Navigator.push(
-                        //         context,
-                        //         MaterialPageRoute(
-                        //             builder: (context) => BookAppointment(
-                        //                   studentid: studentid,
-                        //                 )))
-                        //     : index == 1
-                        //         ? Navigator.push(
-                        //             context,
-                        //             MaterialPageRoute(
-                        //                 builder: (context) =>
-                        //                     StudentFairDetails(
-                        //                       studentid: studentid,
-                        //                     )))
-                        //         : index == 2
-                        //             ? Navigator.push(
-                        //                 context,
-                        //                 MaterialPageRoute(
-                        //                     builder: (context) =>
-                        //                         TokenHistory()))
-                        //             : index == 3
-                        //                 ? Navigator.push(
-                        //                     context,
-                        //                     MaterialPageRoute(
-                        //                         builder: (context) =>
-                        //                             AppointmentHistory()))
-                        //                 : Container();
-
-                        // Get.to(
-                        //   page[index],
-                        //   arguments: studentid.toString(),
-                        // );
-
-                        // index == 1
-                        //     ? Navigator.push(
-                        //         context,
-                        //         MaterialPageRoute(
-                        //             builder: (context) =>
-                        //                 (getfairModel!.isTodayFair == "Yes"
-                        //                     ? page[1]
-                        //                     : Container())))
-                        //     :
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -180,8 +122,6 @@ class _GoFairPageState extends State<GoFairPage> {
                                     shape: BoxShape.circle),
                                 child: Image.asset(
                                   gofairlist[index].image!,
-                                  // height: 60.h,
-                                  // width: 60.w,
                                   fit: BoxFit.contain,
                                 ),
                               ),

@@ -1,4 +1,4 @@
-import 'dart:developer';
+import 'dart:io';
 import 'dart:math';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flip_card/flip_card.dart';
@@ -10,13 +10,13 @@ import 'package:global_student/bloc/dashboardBloc.dart';
 import 'package:global_student/model/bannermodel.dart';
 import 'package:global_student/model/qualificationsubmitModel.dart';
 import 'package:global_student/model/usersModel.dart';
+import 'package:global_student/model/versioncontrol.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/text_style.dart';
 import 'package:global_student/view/applicationStatus/application_status.dart';
 import 'package:global_student/view/branch_location/branch_location.dart';
 import 'package:global_student/view/couse_search/course_search.dart';
 import 'package:global_student/view/dashboard/dash_grid_model.dart';
-import 'package:global_student/view/drawerpage/profile_page.dart';
 import 'package:global_student/view/event_details/event_detils.dart';
 import 'package:global_student/view/fairmodule/gofairpage.dart';
 import 'package:global_student/view/qualification/completeeducation.dart';
@@ -24,7 +24,9 @@ import 'package:global_student/view/uploadmoreDocument/upload_more_document.dart
 import 'package:global_student/view/visa/visa_page.dart';
 import 'package:global_student/view/widget/drawer.dart';
 import 'package:global_student/view/widget/visanotapplicalble.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../bloc/gofairbloc.dart';
 import '../../model/gofairdetails.dart';
 import '../../model/universityvisitModel.dart';
@@ -78,6 +80,8 @@ class _HomePageState extends State<HomePage> {
 
   late UsersDetailsModel userData1;
 
+  Versioncontrol? versioncontrol;
+
   List<String> bannerimages = [];
 
   List<UniversityVisitModel> universitydetails = [];
@@ -85,24 +89,26 @@ class _HomePageState extends State<HomePage> {
 
   List universityData = [];
   bool loading1 = true;
+  bool loading3 = true;
+
+  String versioncont = "";
 
   @override
   void initState() {
     dashBoardBloc = DashBoardBloc();
+    goFairBloc = GoFairBloc();
     getBannersDetails();
     _gethomeData();
     getUserDetailsdone();
     getUniversityDetails();
-    setState(() {
-      getUserDetails();
-    });
+    sendtokennotification();
+    getUserDetails();
 
-    goFairBloc = GoFairBloc();
-    getgofairDetails();
-    _getgofairData();
     colors = generateRandomColors();
-
     super.initState();
+
+    getversionDetails();
+    versioncall();
   }
 
   List<QualificationSubmitModel> qualificationdatasubmit = [];
@@ -175,23 +181,19 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  getgofairDetails() {
-    goFairBloc.gofairdetailsStream.listen((event) {
-      if (event != null) {
-        setState(() {
-          getfairModel = Gofairdetails.fromJson(event);
+  String? studentid;
+  String? tokensend;
+  sendtokennotification() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    studentid = prefs.getString("studentId");
+    tokensend = prefs.getString("token");
 
-          loading1 = false;
-        });
-      }
-    });
-  }
-
-  _getgofairData() {
-    Map<String, dynamic> data = {
-      "f_student_id": "2334965",
+    Map<String, String> courseAppliedemail = {
+      "token": tokensend.toString(),
+      "studentid": studentid.toString() == "null" ? "" : studentid.toString(),
     };
-    goFairBloc.callGofairdetailsDetails(data);
+
+    goFairBloc.callSendToken(courseAppliedemail);
   }
 
   _gethomeData() {
@@ -199,6 +201,26 @@ class _HomePageState extends State<HomePage> {
     dashBoardBloc.callGetUsersDetailsApi();
     dashBoardBloc.callQualificationApi();
     dashBoardBloc.callGetUniversityDetailsApi();
+    goFairBloc.callversionDetailsApi();
+  }
+
+  versioncall() {
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      checkForUpdate(context);
+    });
+  }
+
+  getversionDetails() async {
+    goFairBloc.versiondetailsStream.listen((event) async {
+      if (event != null) {
+        versioncontrol = Versioncontrol.fromJson(event);
+
+        setState(() {
+          versioncont = versioncontrol!.version.toString();
+          loading3 = false;
+        });
+      }
+    });
   }
 
   List<Color> colors = [];
@@ -301,19 +323,123 @@ class _HomePageState extends State<HomePage> {
                         autoPlayInterval: 3000,
                         isLoop: true,
                         children: List.generate(bannerimages.length, (index) {
-                          return Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.sp),
-                              image: DecorationImage(
-                                  image: NetworkImage(bannerimages[index]),
-                                  fit: BoxFit.fill),
-                            ),
-                          );
+                          return index == 3
+                              ? InkWell(
+                                  onTap: () {
+                                    Get.to(() => const GoFairPage());
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.circular(10.sp),
+                                      image: DecorationImage(
+                                          image:
+                                              NetworkImage(bannerimages[index]),
+                                          fit: BoxFit.fill),
+                                    ),
+                                  ),
+                                )
+                              : Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.sp),
+                                    image: DecorationImage(
+                                        image:
+                                            NetworkImage(bannerimages[index]),
+                                        fit: BoxFit.fill),
+                                  ),
+                                );
                         }))),
             Expanded(child: homeBoard()),
           ],
         ),
       ),
+    );
+  }
+
+  Future<String> getCurrentAppVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    return packageInfo.version;
+  }
+
+  // Future<String> getLatestAppVersion() async {
+  //   // SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   // String? ver = prefs.getString("version");
+  //   String pack = versioncont;
+  //   return pack;
+  // }
+
+  void checkForUpdate(BuildContext context) async {
+    String currentVersion = await getCurrentAppVersion();
+    String latestVersion = versioncont;
+
+    // debugger();
+    // print(latestVersion);
+    if (latestVersion.compareTo(currentVersion) > 0) {
+      showUpdateDialog(context);
+    } else {
+      // No updates available, show a different dialog or perform another action
+      // showDialog(
+      //   context: context,
+      //   builder: (BuildContext context) {
+      //     return AlertDialog(
+      //       title: Text('No Updates'),
+      //       content: Text('You are using the latest version of the app.'),
+      //       actions: <Widget>[
+      //         TextButton(
+      //           child: Text('OK'),
+      //           onPressed: () {
+      //             Navigator.pop(context); // Close the dialog
+      //           },
+      //         ),
+      //       ],
+      //     );
+      //   },
+      // );
+    }
+  }
+
+  void showUpdateDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'Update Available',
+            style: batchtext2(AppColors.PrimaryMainColor),
+          ),
+          content: Text(
+            'A new version of the app is available. Please update to continue using the app.',
+            style: batchtext1(AppColors.PrimaryBlackColor),
+          ),
+          actions: [
+            Center(
+              child: TextButton(
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: AppColors.PrimaryMainColor,
+                      borderRadius: BorderRadius.circular(5).r),
+                  padding: const EdgeInsets.all(10).r,
+                  child: Text(
+                    'Update Now',
+                    style: batchtext2(AppColors.PrimaryWhiteColor),
+                  ),
+                ),
+                onPressed: () async {
+                  final Uri url = Platform.isIOS
+                      ? Uri.parse(
+                          "https://apps.apple.com/np/app/global-opportunities/id6466146185")
+                      : Uri.parse(
+                          "https://play.google.com/store/apps/details?id=com.appgopl.globalopportunities");
+                  if (!await launchUrl(url,
+                      mode: LaunchMode.externalApplication)) {
+                    throw Exception('Could not launch $url');
+                  }
+                },
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -323,17 +449,8 @@ class _HomePageState extends State<HomePage> {
         : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: Center(
-              //       child: Text(
-              //     "Go Fair Started Book Now",
-              //     style: OtpText(Colors.green),
-              //   )),
-              // ),
-
               Container(
-                height: 25.h,
+                height: 28.h,
                 padding: EdgeInsets.all(5.h),
                 child: Center(
                   child: AnimatedTextKit(
@@ -552,12 +669,6 @@ class _HomePageState extends State<HomePage> {
                                           : qualificationdatasubmit.length == 1
                                               ? const InterSchool()
                                               : const DonePage()))
-                          // : index == 0
-                          //     ? Navigator.push(
-                          //         context,
-                          //         getfairModel!.isTodayFair == "Yes"
-                          //             ? FadeInPageRoute(page: page[0])
-                          //             : FadeInPageRoute(page: ProfilePage()))
                           : Navigator.push(
                               context, FadeInPageRoute(page: page[index]));
                     }
@@ -566,6 +677,9 @@ class _HomePageState extends State<HomePage> {
                     elevation: 4,
                     borderOnForeground: true,
                     shape: RoundedRectangleBorder(
+                      side: const BorderSide(
+                        color: AppColors.PrimaryGreyColor,
+                      ),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     color: dashgrid[index].color,
@@ -575,16 +689,11 @@ class _HomePageState extends State<HomePage> {
                           Container(
                             padding: EdgeInsets.all(10.sp),
                             alignment: Alignment.center,
-                            height: 55.h,
-                            width: 55.w,
-                            decoration: BoxDecoration(
-                                color: color[index], shape: BoxShape.circle),
                             child: Image.asset(
                               dashgrid[index].image!,
+                              height: 50.h,
+                              width: 75.w,
                             ),
-                          ),
-                          SizedBox(
-                            height: 10.h,
                           ),
                           Text(dashgrid[index].title!,
                               textAlign: TextAlign.center,

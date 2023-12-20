@@ -15,4 +15,5 @@ class AppColors {
 
   static const backgroungcolor = Color(0xFFEEF8FF);
   static const hintcolor = Colors.grey;
+  
 }

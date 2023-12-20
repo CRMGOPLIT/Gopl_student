@@ -14,44 +14,44 @@ class GridModel {
 
 List<GridModel> dashgrid = [
   GridModel(
-      title: 'Go Fair',
-      image: 'assets/images/eventic.png',
+      title: 'Education Fair',
+      image: 'assets/images/gofairimg.png',
       color: const Color(0xffF4F3FF)),
   GridModel(
       title: 'My Qualifications',
-      image: 'assets/images/addnew1.png',
+      image: 'assets/images/qualiimg.png',
       color: const Color(0xffEEF5FF)),
   GridModel(
       title: 'Upload More Document',
-      image: 'assets/images/documentic.png',
+      image: 'assets/images/moreimg.png',
       color: const Color(0xffFFEEF0)),
   GridModel(
       title: 'Course Search',
-      image: 'assets/images/courseic.png',
+      image: 'assets/images/searchimg.png',
       color: const Color(0xffF4F3FF)),
   GridModel(
       title: 'My Applications',
-      image: 'assets/images/applicationic.png',
+      image: 'assets/images/myappimg.png',
       color: const Color(0xffF2F9F6)),
   GridModel(
       title: 'Test Prep',
-      image: 'assets/images/batchic.png',
+      image: 'assets/images/testimg.png',
       color: const Color(0xffF9F2F6)),
   GridModel(
       title: 'Event Details',
-      image: 'assets/images/eventic.png',
+      image: 'assets/images/evnimg.png',
       color: const Color(0xffFFEEF9)),
   GridModel(
       title: 'Branch Office',
-      image: 'assets/images/locationic.png',
+      image: 'assets/images/branimg.png',
       color: const Color(0xffFFF6EE)),
   GridModel(
       title: 'Upload Visa Document',
-      image: 'assets/images/Visaic.png',
+      image: 'assets/images/visimg.png',
       color: const Color(0xffF3FCFF)),
 ];
-
 // ignore: non_constant_identifier_names
+
 List<GridModel> Countrycourse = [
   GridModel(
     title: 'Uk',
@@ -100,13 +100,9 @@ List<GridModel> gofairlist = [
       image: 'assets/images/booking.png',
       color: const Color(0xffF3FCFF)),
   GridModel(
-      title: 'Go Fair',
+      title: 'Visit Education Fair',
       image: 'assets/images/gpfairnew.png',
       color: const Color(0xffFFEEF0)),
-  // GridModel(
-  //     title: 'Token',
-  //     image: 'assets/images/token.png',
-  //     color: const Color(0xffFFEEF0)),
   GridModel(
       title: 'Appointment History',
       image: 'assets/images/folder.png',
