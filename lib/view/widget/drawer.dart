@@ -199,7 +199,7 @@ class _drawerState extends State<drawer> {
                 ),
               ),
               ListTile(
-                title: Text("Version 1.0.3",
+                title: Text("Version 1.0.8",
                     textScaleFactor: 1.0,
                     style: batchtext2(AppColors.PrimaryBlackColor)),
               ),

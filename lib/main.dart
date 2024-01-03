@@ -8,22 +8,24 @@ import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/routes/customerror.dart';
 import 'package:global_student/utils/routes/routes.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
+import 'package:global_student/view/widget/notificationservices.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 int? isViewed;
 bool? screenboard;
+
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-  //topic Subscribe to  send notification to all user
+  NotificationServices().showNotification(
+    message,
+  );
 }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await FirebaseMessaging.instance.subscribeToTopic("TPITO");
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
@@ -60,6 +62,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
           //  home: MyFileList(),
+
           initialRoute: RoutesName.splash,
           onGenerateRoute: Routes.generateRoute,
         );

@@ -84,19 +84,42 @@ class _SplashScreenState extends State<SplashScreen> {
     }
   }
 
+  getnotificationtoken() async {
+    String devicetoken = await notificationServices.getDeviceToken();
+    // print(value);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    setState(() {
+      prefs.setString('token', devicetoken.toString());
+    });
+  }
+
+  inittoken() {
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      getnotificationtoken();
+    });
+  }
+
+  // String? fcmToken;
+  // Future<void> _retrieveFCMToken() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String devicetoken = await notificationServices.getDeviceToken();
+  //   setState(() {
+  //     fcmToken = devicetoken;
+  //   });
+
+  //   prefs.setString('token', fcmToken.toString());
+  //   // Send the token to the server
+  // }
+
   @override
   initState() {
     notificationServices.requestNotificationPermission();
     notificationServices.forgroundMessage();
     notificationServices.firebaseInit(context);
     notificationServices.setupInteractMessage(context);
-    notificationServices.isTokenRefresh();
-    notificationServices.getDeviceToken().then((value) async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('token', value.toString());
-    });
+    inittoken();
     startStreaming();
-
     _checkInternetConnection();
     super.initState();
   }

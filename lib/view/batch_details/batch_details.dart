@@ -418,7 +418,20 @@ class _ListBatchState extends State<ListBatch> {
                                         ),
                                       ],
                                     ),
-                                  )
+                                  ),
+                                  // SizedBox(
+                                  //   height: 200,
+                                  //   width: 500,
+                                  //   child: ClipPath(
+                                  //       clipper: MyClipper(),
+                                  //       child: Container(
+                                  //         height: 200,
+                                  //         width: 500,
+                                  //         alignment: Alignment.center,
+                                  //         color: Colors.red,
+                                  //         child: const Text("abc"),
+                                  //       )),
+                                  // ),
                                 ],
                               ),
                             ),
@@ -435,4 +448,29 @@ class _ListBatchState extends State<ListBatch> {
     int totl = int.parse(data[i].fBatchSize);
     return totl - (cf + cp);
   }
+}
+
+class MyClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    var smallLineLength = size.width / 20;
+    const smallLineHeight = 10;
+    var path = Path();
+
+    path.lineTo(0, size.height);
+    for (int i = 1; i <= 20; i++) {
+      if (i % 2 == 0) {
+        path.lineTo(smallLineLength * i, size.height);
+      } else {
+        path.lineTo(smallLineLength * i, size.height - smallLineHeight);
+      }
+    }
+    path.lineTo(size.width, 0);
+    path.close();
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper old) => false;
 }

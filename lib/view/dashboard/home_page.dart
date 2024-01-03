@@ -23,6 +23,7 @@ import 'package:global_student/view/qualification/completeeducation.dart';
 import 'package:global_student/view/uploadmoreDocument/upload_more_document.dart';
 import 'package:global_student/view/visa/visa_page.dart';
 import 'package:global_student/view/widget/drawer.dart';
+import 'package:global_student/view/widget/notificationservices.dart';
 import 'package:global_student/view/widget/visanotapplicalble.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -44,7 +45,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _drawerscaffoldkey =
       GlobalKey<ScaffoldState>();
-
+  NotificationServices notificationServices = NotificationServices();
   List<Color> color = [
     const Color(0xffCEA279),
     const Color(0xff5D88C6),
@@ -101,12 +102,11 @@ class _HomePageState extends State<HomePage> {
     _gethomeData();
     getUserDetailsdone();
     getUniversityDetails();
-    sendtokennotification();
+    // sendtokennotification();
+    sendtoken();
     getUserDetails();
-
     colors = generateRandomColors();
     super.initState();
-
     getversionDetails();
     versioncall();
   }
@@ -183,16 +183,22 @@ class _HomePageState extends State<HomePage> {
 
   String? studentid;
   String? tokensend;
+
+  sendtoken() {
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      sendtokennotification();
+    });
+  }
+
   sendtokennotification() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     studentid = prefs.getString("studentId");
     tokensend = prefs.getString("token");
-
     Map<String, String> courseAppliedemail = {
-      "token": tokensend.toString(),
+      "token": tokensend == null ? "jbblk" : tokensend.toString(),
       "studentid": studentid.toString() == "null" ? "" : studentid.toString(),
     };
-
+    setState(() {});
     goFairBloc.callSendToken(courseAppliedemail);
   }
 
@@ -361,19 +367,10 @@ class _HomePageState extends State<HomePage> {
     return packageInfo.version;
   }
 
-  // Future<String> getLatestAppVersion() async {
-  //   // SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   // String? ver = prefs.getString("version");
-  //   String pack = versioncont;
-  //   return pack;
-  // }
-
   void checkForUpdate(BuildContext context) async {
     String currentVersion = await getCurrentAppVersion();
     String latestVersion = versioncont;
 
-    // debugger();
-    // print(latestVersion);
     if (latestVersion.compareTo(currentVersion) > 0) {
       showUpdateDialog(context);
     } else {

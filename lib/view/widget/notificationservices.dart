@@ -3,7 +3,6 @@ import 'package:app_settings/app_settings.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
 import '../splash/splash_screen.dart';
 
 class NotificationServices {
@@ -119,17 +118,18 @@ class NotificationServices {
     });
   }
 
-  //function to get device token on which we will send the notifications
-  Future<String> getDeviceToken() async {
+  Future getDeviceToken() async {
+    FirebaseMessaging.instance.requestPermission();
+    FirebaseMessaging.instance.subscribeToTopic("TPITO");
     String? token = await messaging.getToken();
-    return token!;
+    return (token == null) ? "" : token;
   }
 
-  void isTokenRefresh() async {
-    messaging.onTokenRefresh.listen((event) {
-      event.toString();
-    });
-  }
+  // void isTokenRefresh() async {
+  //   messaging.onTokenRefresh.listen((event) {
+  //     event.toString();
+  //   });
+  // }
 
   void handleMessage(BuildContext context, RemoteMessage message) {
     if (message.data['type'] == 'msj') {

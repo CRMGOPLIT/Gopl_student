@@ -219,14 +219,24 @@ class _EventDetailsState extends State<EventDetails> {
                                                         const EdgeInsets.only(
                                                                 right: 10)
                                                             .r,
-                                                    child: Image.network(
-                                                      universitydetails[index]
-                                                          .logo
-                                                          .toString(),
-                                                      height: 50.h,
-                                                      width: 120.w,
-                                                      fit: BoxFit.fill,
-                                                    ),
+                                                    child: universitydetails[
+                                                                    index]
+                                                                .logo
+                                                                .toString() !=
+                                                            ""
+                                                        ? Image.network(
+                                                            universitydetails[
+                                                                    index]
+                                                                .logo
+                                                                .toString(),
+                                                            height: 50.h,
+                                                            width: 120.w,
+                                                            fit: BoxFit.fill,
+                                                          )
+                                                        : Icon(
+                                                            Icons.school,
+                                                            size: 40.h,
+                                                          ),
                                                   ),
                                                   Text(
                                                     universitydetails[index]
