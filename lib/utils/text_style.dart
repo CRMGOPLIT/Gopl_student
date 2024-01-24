@@ -31,7 +31,6 @@ TextStyle FieldTextStyle(Color? color) {
       fontSize: 12.sp);
 }
 
-
 // ignore: non_constant_identifier_names
 TextStyle TextRegular(Color? color) {
   return TextStyle(
@@ -99,6 +98,16 @@ TextStyle batchtext2(Color? color) {
       // height: 1.1,
       letterSpacing: 0.5.sp,
       fontSize: 11.sp);
+}
+
+TextStyle batchtexthead(Color? color) {
+  return TextStyle(
+      color: color ?? AppColors.TextRegularkColor,
+      fontFamily: "Outfit",
+      fontWeight: FontWeight.w700,
+      // height: 1.1,
+      letterSpacing: 0.5.sp,
+      fontSize: 12.sp);
 }
 
 TextStyle location(Color? color) {

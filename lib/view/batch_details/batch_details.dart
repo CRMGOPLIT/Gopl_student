@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -7,6 +9,7 @@ import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/utils/text_style.dart';
 import 'package:global_student/view/widget/app_bar.dart';
+import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BatchDetails extends StatefulWidget {
@@ -99,8 +102,9 @@ class _ListBatchState extends State<ListBatch> {
   }
 
   _gethomeData() {
+    String spselcected = data2[0].toString();
     Map<String, String> data = {
-      "BatchType": data2[0].toString(),
+      "BatchType": spselcected.toString(),
     };
 
     dashBoardBloc.callGetBatchDetailsApi(data);
@@ -111,6 +115,31 @@ class _ListBatchState extends State<ListBatch> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     sName = prefs.getString('Name');
+  }
+
+  List<Color> colors = [];
+
+  List<Color> generateRandomColors() {
+    List<Color> colorList = [
+      const Color(0xffEEF5FF),
+      const Color(0xffFFEEF0),
+      const Color(0xffF4F3FF),
+      const Color(0xffF2F9F6),
+      const Color(0xffF9F2F6),
+      const Color(0xffFFEEF9),
+      const Color(0xffFFF6EE),
+      const Color(0xffF3FCFF),
+    ];
+
+    colorList.shuffle(Random());
+    return colorList;
+  }
+
+  Color getRandomColor() {
+    if (colors.isEmpty) {
+      colors = generateRandomColors();
+    }
+    return colors.removeLast();
   }
 
   @override
@@ -166,6 +195,7 @@ class _ListBatchState extends State<ListBatch> {
                             bottom: 5,
                           ).r,
                           child: Card(
+                            color: getRandomColor(),
                             elevation: 4,
                             borderOnForeground: true,
                             shape: RoundedRectangleBorder(
@@ -187,37 +217,52 @@ class _ListBatchState extends State<ListBatch> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         children: [
-                                          RichText(
-                                            text: TextSpan(
-                                              text: '',
-                                              style: batchtext2(
-                                                  AppColors.PrimaryBlackColor),
-                                              children: [
-                                                TextSpan(
-                                                  text: data[index]
-                                                      .fFacultyName
-                                                      .toString(),
-                                                  style: batchtext2(AppColors
-                                                      .PrimaryBlackColor),
-                                                ),
-                                              ],
-                                            ),
+                                          Row(
+                                            children: [
+                                              // ImageIcon(
+                                              //   AssetImage(
+                                              //       "assets/images/b4.png"),
+                                              // ),
+                                              Text(
+                                                data[index]
+                                                    .fFacultyName
+                                                    .toString(),
+                                                style: batchtexthead(AppColors
+                                                    .PrimaryBlackColor),
+                                              )
+                                            ],
                                           ),
+                                          // RichText(
+                                          //   text: TextSpan(
+                                          //     text: '',
+                                          //     style: batchtext2(
+                                          //         AppColors.PrimaryBlackColor),
+                                          //     children: [
+                                          //       TextSpan(
+                                          //         text: data[index]
+                                          //             .fFacultyName
+                                          //             .toString(),
+                                          //         style: batchtexthead(AppColors
+                                          //             .PrimaryBlackColor),
+                                          //       ),
+                                          //     ],
+                                          //   ),
+                                          // ),
                                           SizedBox(
                                             height: 5.h,
                                           ),
                                           RichText(
                                             text: TextSpan(
                                               text: 'Batch Type :- ',
-                                              style: batchtext2(
+                                              style: batchtext1(
                                                   AppColors.PrimaryBlackColor),
                                               children: [
                                                 TextSpan(
                                                   text: data[index]
                                                       .fIsOffline
                                                       .toString(),
-                                                  style: batchtext1(AppColors
-                                                      .PrimaryBlackColor),
+                                                  style:
+                                                      batchtext2(Colors.green),
                                                 ),
                                               ],
                                             ),
@@ -236,14 +281,14 @@ class _ListBatchState extends State<ListBatch> {
                                       RichText(
                                         text: TextSpan(
                                           text: 'Batch Name :- ',
-                                          style: batchtext2(
+                                          style: batchtext1(
                                               AppColors.PrimaryBlackColor),
                                           children: [
                                             TextSpan(
                                               text: data[index]
                                                   .fBatchName
                                                   .toString(),
-                                              style: batchtext1(
+                                              style: batchtext2(
                                                   AppColors.PrimaryBlackColor),
                                             ),
                                           ],
@@ -260,14 +305,14 @@ class _ListBatchState extends State<ListBatch> {
                                             overflow: TextOverflow.ellipsis,
                                             text: TextSpan(
                                               text: 'Start Date :- ',
-                                              style: batchtext2(
+                                              style: batchtext1(
                                                   AppColors.PrimaryBlackColor),
                                               children: [
                                                 TextSpan(
                                                   text: data[index]
                                                       .fBatchStartDate
                                                       .toString(),
-                                                  style: batchtext1(AppColors
+                                                  style: batchtext2(AppColors
                                                       .PrimaryBlackColor),
                                                 ),
                                               ],
@@ -277,14 +322,14 @@ class _ListBatchState extends State<ListBatch> {
                                             overflow: TextOverflow.ellipsis,
                                             text: TextSpan(
                                               text: 'End Date :- ',
-                                              style: batchtext2(
+                                              style: batchtext1(
                                                   AppColors.PrimaryBlackColor),
                                               children: [
                                                 TextSpan(
                                                   text: data[index]
                                                       .fBatchEndDate
                                                       .toString(),
-                                                  style: batchtext1(AppColors
+                                                  style: batchtext2(AppColors
                                                       .PrimaryBlackColor),
                                                 ),
                                               ],
@@ -298,13 +343,13 @@ class _ListBatchState extends State<ListBatch> {
                                     ],
                                   ),
                                   Card(
-                                    elevation: 4,
-                                    color: AppColors.backgroungcolor,
+                                    elevation: 0,
+                                    color: Colors.white,
                                     shape: RoundedRectangleBorder(
-                                      side: BorderSide(
-                                        color: AppColors.PrimaryMainColor
-                                            .withOpacity(0.3),
-                                      ),
+                                      // side: BorderSide(
+                                      //   color: AppColors.PrimaryMainColor
+                                      //       .withOpacity(0.3),
+                                      // ),
                                       borderRadius: BorderRadius.circular(5.r),
                                     ),
                                     child: Row(
@@ -317,7 +362,7 @@ class _ListBatchState extends State<ListBatch> {
                                             children: [
                                               Text(
                                                 "Batch Size",
-                                                style: batchtext2(AppColors
+                                                style: batchtext1(AppColors
                                                     .PrimaryBlackColor),
                                               ),
                                               SizedBox(
@@ -328,7 +373,7 @@ class _ListBatchState extends State<ListBatch> {
                                                     .fBatchSize
                                                     .toString(),
                                                 textAlign: TextAlign.center,
-                                                style: batchtext1(AppColors
+                                                style: batchtext2(AppColors
                                                     .PrimaryBlackColor),
                                               ),
                                             ],
@@ -345,7 +390,7 @@ class _ListBatchState extends State<ListBatch> {
                                             children: [
                                               Text(
                                                 "Time",
-                                                style: batchtext2(AppColors
+                                                style: batchtext1(AppColors
                                                     .PrimaryBlackColor),
                                               ),
                                               SizedBox(
@@ -356,7 +401,7 @@ class _ListBatchState extends State<ListBatch> {
                                                     .fBatchTiming
                                                     .toString(),
                                                 textAlign: TextAlign.center,
-                                                style: batchtext1(AppColors
+                                                style: batchtext2(AppColors
                                                     .PrimaryBlackColor),
                                               ),
                                             ],
@@ -373,7 +418,7 @@ class _ListBatchState extends State<ListBatch> {
                                             children: [
                                               Text(
                                                 "Available",
-                                                style: batchtext2(AppColors
+                                                style: batchtext1(AppColors
                                                     .PrimaryBlackColor),
                                               ),
                                               SizedBox(
@@ -382,7 +427,7 @@ class _ListBatchState extends State<ListBatch> {
                                               Text(
                                                 avalible(index).toString(),
                                                 textAlign: TextAlign.center,
-                                                style: batchtext1(AppColors
+                                                style: batchtext2(AppColors
                                                     .PrimaryBlackColor),
                                               ),
                                             ],
@@ -399,7 +444,7 @@ class _ListBatchState extends State<ListBatch> {
                                             children: [
                                               Text(
                                                 "Enrolled",
-                                                style: batchtext2(AppColors
+                                                style: batchtext1(AppColors
                                                     .PrimaryBlackColor),
                                               ),
                                               SizedBox(
@@ -410,7 +455,7 @@ class _ListBatchState extends State<ListBatch> {
                                                     .confirmedWithFullPayment
                                                     .toString(),
                                                 textAlign: TextAlign.center,
-                                                style: batchtext1(AppColors
+                                                style: batchtext2(AppColors
                                                     .PrimaryBlackColor),
                                               ),
                                             ],
@@ -419,6 +464,61 @@ class _ListBatchState extends State<ListBatch> {
                                       ],
                                     ),
                                   ),
+                                  SizedBox(
+                                    height: 5.h,
+                                  ),
+                                  // Container(
+                                  //     width: double.infinity,
+                                  //     height: 40.h,
+                                  //     decoration: BoxDecoration(
+                                  //         color: AppColors.PrimaryMainColor,
+                                  //         borderRadius:
+                                  //             BorderRadius.circular(5).r),
+                                  //     child: Center(
+                                  //         child: Text(
+                                  //       "Interested",
+                                  //       style: batchtexthead(
+                                  //           AppColors.PrimaryWhiteColor),
+                                  //     ))),
+
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Center(
+                                        child: Image.asset(
+                                          "assets/images/bannerlogo.png",
+                                          height: 40.h,
+                                          width: 150.w,
+                                          fit: BoxFit.contain,
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          // sucess();
+                                          Navigator.pushNamed(
+                                            context,
+                                            RoutesName.batchperforma,
+                                            // (routes) => false,
+                                          );
+                                        },
+                                        child: Container(
+                                            width: 100,
+                                            height: 40.h,
+                                            decoration: BoxDecoration(
+                                                color:
+                                                    AppColors.PrimaryMainColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(5).r),
+                                            child: Center(
+                                                child: Text(
+                                              "Interested",
+                                              style: batchtexthead(
+                                                  AppColors.PrimaryWhiteColor),
+                                            ))),
+                                      ),
+                                    ],
+                                  )
                                   // SizedBox(
                                   //   height: 200,
                                   //   width: 500,
@@ -448,29 +548,41 @@ class _ListBatchState extends State<ListBatch> {
     int totl = int.parse(data[i].fBatchSize);
     return totl - (cf + cp);
   }
-}
 
-class MyClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    var smallLineLength = size.width / 20;
-    const smallLineHeight = 10;
-    var path = Path();
-
-    path.lineTo(0, size.height);
-    for (int i = 1; i <= 20; i++) {
-      if (i % 2 == 0) {
-        path.lineTo(smallLineLength * i, size.height);
-      } else {
-        path.lineTo(smallLineLength * i, size.height - smallLineHeight);
-      }
-    }
-    path.lineTo(size.width, 0);
-    path.close();
-
-    return path;
+  sucess() {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: Color(0xffF2F9F6),
+        title: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Column(
+            children: [
+              // Image.asset(
+              //   "assets/images/bannerlogo.png",
+              //   height: 40.h,
+              //   width: 100.w,
+              //   fit: BoxFit.contain,
+              // ),
+              SizedBox(
+                height: 5.h,
+              ),
+              SizedBox(
+                  height: 50.h,
+                  child: Lottie.asset(
+                    "assets/images/sucess1.json",
+                  )),
+            ],
+          ),
+        ),
+        content: Text(
+          "Your Batch Details submitted to counsellor🤗",
+          textAlign: TextAlign.center,
+          style: batchtexthead(AppColors.PrimaryMainColor),
+        ),
+      ),
+    );
   }
-
-  @override
-  bool shouldReclip(CustomClipper old) => false;
 }

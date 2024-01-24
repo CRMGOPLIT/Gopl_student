@@ -17,6 +17,9 @@ import 'package:global_student/view/fairmodule/bookappointmentpage.dart';
 import 'package:global_student/view/fairmodule/gofairpage.dart';
 import 'package:global_student/view/fairmodule/student_fair_details.dart';
 import 'package:global_student/view/login/login_page.dart';
+import 'package:global_student/view/ourservices/ourservices.dart';
+import 'package:global_student/view/payment/batchperforma.dart';
+import 'package:global_student/view/payment/paymenthistory.dart';
 import 'package:global_student/view/qualification/completeeducation.dart';
 import 'package:global_student/view/qualification/graduation.dart';
 import 'package:global_student/view/qualification/highschool.dart';
@@ -30,6 +33,7 @@ import 'package:global_student/view/widget/common_widget.dart';
 import 'package:global_student/view/widget/visanotapplicalble.dart';
 import '../../view/login/otp_page.dart';
 import '../../view/onborarding/onboarding_screen.dart';
+import '../../view/payment/batchrecipt.dart';
 import '../../view/register/register.dart';
 
 class Routes {
@@ -157,6 +161,22 @@ class Routes {
       case RoutesName.studentfairdetails:
         return MaterialPageRoute(
             builder: (BuildContext context) => const StudentFairDetails());
+
+      case RoutesName.batchperforma:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const BatchPerforma());
+
+      case RoutesName.batchrecipt:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const BatchReceipt());
+
+      case RoutesName.paymenthistory:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const PaymentHistory());
+
+      case RoutesName.ourservices:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const OurServices());
 
       default:
         return MaterialPageRoute(builder: (_) {

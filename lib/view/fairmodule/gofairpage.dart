@@ -139,7 +139,13 @@ class _GoFairPageState extends State<GoFairPage> {
                   },
                 ),
               ),
-            )
+            ),
+            Center(
+                child: Image.asset(
+              "assets/images/educationfairimg.png",
+              height: 300.h,
+              width: double.infinity,
+            ))
           ],
         ),
       ),

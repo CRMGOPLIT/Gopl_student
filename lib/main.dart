@@ -3,11 +3,13 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/routes/customerror.dart';
 import 'package:global_student/utils/routes/routes.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
+import 'package:global_student/view/payment/test.dart';
 import 'package:global_student/view/widget/notificationservices.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -24,6 +26,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await SystemChrome.setPreferredOrientations([
@@ -61,7 +64,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
-          //  home: MyFileList(),
+          // home: AddQuestion(),
 
           initialRoute: RoutesName.splash,
           onGenerateRoute: Routes.generateRoute,

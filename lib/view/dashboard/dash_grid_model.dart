@@ -49,6 +49,10 @@ List<GridModel> dashgrid = [
       title: 'Upload Visa Document',
       image: 'assets/images/visimg.png',
       color: const Color(0xffF3FCFF)),
+  GridModel(
+      title: 'Our Services',
+      image: 'assets/images/ourhome.png',
+      color: const Color(0xffFFEEF0)),
 ];
 // ignore: non_constant_identifier_names
 
@@ -108,3 +112,29 @@ List<GridModel> gofairlist = [
       image: 'assets/images/folder.png',
       color: const Color(0xffF2F9F6)),
 ];
+
+List<GridModel> ourservices = [
+  GridModel(
+    title: 'PAS',
+    image: "assets/images/pasimg.png",
+  ),
+  GridModel(
+    title: 'Visa Services',
+    image: "assets/images/visimg.png",
+  ),
+  GridModel(
+    title: 'Miscellaneous',
+    image: "assets/images/misimg.png",
+  ),
+  GridModel(
+    title: 'PR Services',
+    image: "assets/images/primg.png",
+  ),
+];
+
+// List ourservicesimage = [
+//   "assets/images/pasimg.png",
+//   "assets/images/visimg.png",
+//   "assets/images/misimg.png",
+//   "assets/images/primg.png",
+// ];

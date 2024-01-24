@@ -149,6 +149,22 @@ class _drawerState extends State<drawer> {
               ),
               ListTile(
                 leading: Icon(
+                  Icons.history,
+                  size: 20.sp,
+                  color: AppColors.PrimaryBlackColor,
+                ),
+                title: GestureDetector(
+                  onTap: () {
+                    Get.back();
+                    Navigator.pushNamed(context, RoutesName.paymenthistory);
+                  },
+                  child: Text("Payment History",
+                      textScaleFactor: 1.0,
+                      style: batchtext2(AppColors.PrimaryBlackColor)),
+                ),
+              ),
+              ListTile(
+                leading: Icon(
                   Icons.delete,
                   size: 20.sp,
                   color: AppColors.PrimaryBlackColor,

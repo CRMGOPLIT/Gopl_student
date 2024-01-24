@@ -216,6 +216,12 @@ class NetworkConstant {
 
   static const String END_POINT_VERSION = "/Login/GetVersion";
 
+  //Batch Payment
+
+  static const String END_POINT_BATCH_PERFORMA = "/Proposal/GetPIDetailList";
+
+// Batch  recipt
+  static const String END_POINT_BATCH_RECIPT = "/Proposal/GetInvoicePrint";
+
   // http://192.168.1.69/Api/GoFair/GetAppointmentDetails
-  
 }

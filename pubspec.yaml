@@ -43,6 +43,7 @@ dependencies:
   flutter_local_notifications: ^15.1.1
   app_settings: ^5.1.1
   package_info_plus: ^4.2.0
+  flutter_stripe: ^7.0.0
 
 dev_dependencies:
   flutter_test:

@@ -57,8 +57,7 @@ class _BatchListState extends State<BatchList> {
                       return InkWell(
                         onTap: () {
                           Get.to(
-                            () =>
-                            const BatchDetails(),
+                            () => const BatchDetails(),
                             arguments: [
                               batchid[index],
                             ],
@@ -105,7 +104,6 @@ class _BatchListState extends State<BatchList> {
                   ),
                 ),
               )
-           
             ],
           ),
         ));

@@ -19,6 +19,7 @@ import 'package:global_student/view/couse_search/course_search.dart';
 import 'package:global_student/view/dashboard/dash_grid_model.dart';
 import 'package:global_student/view/event_details/event_detils.dart';
 import 'package:global_student/view/fairmodule/gofairpage.dart';
+import 'package:global_student/view/ourservices/ourservices.dart';
 import 'package:global_student/view/qualification/completeeducation.dart';
 import 'package:global_student/view/uploadmoreDocument/upload_more_document.dart';
 import 'package:global_student/view/visa/visa_page.dart';
@@ -655,6 +656,11 @@ class _HomePageState extends State<HomePage> {
                                     bannermodeldata!.studentId,
                                   ],
                                 );
+                    } else if (index == 9) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const OurServices()));
                     } else {
                       index == 1
                           ? Navigator.push(

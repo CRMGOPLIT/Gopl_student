@@ -80,4 +80,17 @@ class RoutesName {
   //Student Fair Details
 
   static const String studentfairdetails = 'studentfairdetails';
+
+  //Payment Batch
+
+  static const String batchperforma = 'batchperforma';
+
+  static const String batchrecipt = 'batchrecipt';
+
+  //payment history
+
+  static const String paymenthistory = 'paymenthistory';
+
+  // our services page
+  static const String ourservices = 'ourservices';
 }
