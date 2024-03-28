@@ -93,4 +93,17 @@ class RoutesName {
 
   // our services page
   static const String ourservices = 'ourservices';
+
+  // our services performa page
+  static const String ourservicesperformapas = 'ourservicesperformapas';
+
+  // our services performa page
+  static const String ourservicevisa = 'ourservicesperformavisa';
+  // our services performa page
+  static const String ourservicemis = 'ourservicesperformamis';
+  // our services performa page
+  static const String ourservicespr = 'ourservicesperformapr';
+
+  // our services performa page
+  static const String ourservicesrecipt = 'ourservicesperformaprrecipt';
 }

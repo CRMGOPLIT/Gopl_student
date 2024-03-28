@@ -92,9 +92,9 @@ class _AccordingWidgetState extends State<AccordingWidget> {
               color: AppColors.PrimaryMainColor,
               borderRadius: isExpanded == false
                   ? BorderRadius.circular(4)
-                  : const BorderRadius.only(
-                      topLeft: Radius.circular(4),
-                      topRight: Radius.circular(4)),
+                  : BorderRadius.only(
+                      topLeft: const Radius.circular(4).r,
+                      topRight: const Radius.circular(4).r),
             ),
             child: Padding(
               padding: const EdgeInsets.only(left: 15, right: 15).r,

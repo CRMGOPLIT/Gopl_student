@@ -82,7 +82,13 @@ class _drawerState extends State<drawer> {
               ),
               InkWell(
                 onTap: () {
-                  Get.back();
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    RoutesName.bottomnav,
+                    (routes) => false,
+                  );
+                  //   Navigator.pushNamed(context, RoutesName.bottomnav);
+                  // Get.back();
                 },
                 child: ListTile(
                   leading: Image.asset(
@@ -92,13 +98,13 @@ class _drawerState extends State<drawer> {
                     fit: BoxFit.contain,
                   ),
                   title: Text("Home",
-                      textScaleFactor: 1.0,
+                      textScaler: const TextScaler.linear(1.0),
                       style: batchtext2(AppColors.PrimaryBlackColor)),
                 ),
               ),
               InkWell(
                 onTap: () {
-                  Get.back();
+                  // Get.back();
                   Navigator.pushNamed(context, RoutesName.profilepage);
                 },
                 child: ListTile(
@@ -109,13 +115,13 @@ class _drawerState extends State<drawer> {
                     fit: BoxFit.contain,
                   ),
                   title: Text("Profile",
-                      textScaleFactor: 1.0,
+                      textScaler: const TextScaler.linear(1.0),
                       style: batchtext2(AppColors.PrimaryBlackColor)),
                 ),
               ),
               InkWell(
                 onTap: () {
-                  Get.back();
+                  // Get.back();
 
                   Navigator.pushNamed(context, RoutesName.aboutpage);
                 },
@@ -126,7 +132,7 @@ class _drawerState extends State<drawer> {
                     color: AppColors.PrimaryBlackColor,
                   ),
                   title: Text("About Us",
-                      textScaleFactor: 1.0,
+                      textScaler: const TextScaler.linear(1.0),
                       style: batchtext2(AppColors.PrimaryBlackColor)),
                 ),
               ),
@@ -139,11 +145,11 @@ class _drawerState extends State<drawer> {
                 ),
                 title: GestureDetector(
                   onTap: () {
-                    Get.back();
+                    //  Get.back();
                     Navigator.pushNamed(context, RoutesName.contactpage);
                   },
                   child: Text("Contact Us",
-                      textScaleFactor: 1.0,
+                      textScaler: const TextScaler.linear(1.0),
                       style: batchtext2(AppColors.PrimaryBlackColor)),
                 ),
               ),
@@ -155,11 +161,11 @@ class _drawerState extends State<drawer> {
                 ),
                 title: GestureDetector(
                   onTap: () {
-                    Get.back();
+                    // Get.back();
                     Navigator.pushNamed(context, RoutesName.paymenthistory);
                   },
                   child: Text("Payment History",
-                      textScaleFactor: 1.0,
+                      textScaler: const TextScaler.linear(1.0),
                       style: batchtext2(AppColors.PrimaryBlackColor)),
                 ),
               ),
@@ -171,11 +177,11 @@ class _drawerState extends State<drawer> {
                 ),
                 title: InkWell(
                   onTap: () {
-                    Get.back();
+                    // Get.back();
                     Navigator.pushNamed(context, RoutesName.deleteaccount);
                   },
                   child: Text("Delete Account",
-                      textScaleFactor: 1.0,
+                      textScaler: const TextScaler.linear(1.0),
                       style: batchtext2(AppColors.PrimaryBlackColor)),
                 ),
               ),
@@ -211,12 +217,13 @@ class _drawerState extends State<drawer> {
                         content: Container());
                   },
                   child: Text("Log Out",
-                      textScaleFactor: 1.0, style: batchtext2(Colors.red)),
+                      textScaler: const TextScaler.linear(1.0),
+                      style: batchtext2(Colors.red)),
                 ),
               ),
               ListTile(
-                title: Text("Version 1.0.8",
-                    textScaleFactor: 1.0,
+                title: Text("Version 1.0.11",
+                    textScaler: const TextScaler.linear(1.0),
                     style: batchtext2(AppColors.PrimaryBlackColor)),
               ),
             ],

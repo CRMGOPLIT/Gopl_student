@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'dart:math';
 import 'package:animated_text_kit/animated_text_kit.dart';
@@ -47,17 +48,6 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _drawerscaffoldkey =
       GlobalKey<ScaffoldState>();
   NotificationServices notificationServices = NotificationServices();
-  List<Color> color = [
-    const Color(0xffCEA279),
-    const Color(0xff5D88C6),
-    const Color(0xffCE7983),
-    const Color(0xff908BCB),
-    const Color(0xff61B993),
-    const Color(0xffB96191),
-    const Color(0xffC65DAF),
-    const Color(0xffCEA279),
-    const Color(0xff6DACC0),
-  ];
 
   Bannermodel? bannermodeldata;
 

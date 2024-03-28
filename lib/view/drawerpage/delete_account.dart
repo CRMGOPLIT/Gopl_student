@@ -27,7 +27,7 @@ class _DeleteAccountState extends State<DeleteAccount> {
   void initState() {
     searchBloc = SearchBloc();
     super.initState();
-    searchBloc.courseappliedEmailStream.listen((event) {
+    searchBloc.deleteaccountStream.listen((event) {
       bool response =
           ApiResponseHelper().handleResponse(event: event, context: context);
 
@@ -93,6 +93,7 @@ class _DeleteAccountState extends State<DeleteAccount> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.backgroungcolor,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(50.h),
         child: AppBarCustom(

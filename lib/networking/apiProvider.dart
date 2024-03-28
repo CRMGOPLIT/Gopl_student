@@ -118,7 +118,7 @@ class ApiProvider {
 
       responseJson = _response(response);
     } catch (e) {
-     // Get.to(() => const CustomErrorWidget());
+      // Get.to(() => const CustomErrorWidget());
     }
     return responseJson;
   }
@@ -184,6 +184,31 @@ class ApiProvider {
 //Email post
 
   Future<dynamic> courseEmailPost(
+      Map<String, dynamic> parameter, String url) async {
+    var responseJson;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    token = prefs.getString('stringValue');
+
+    try {
+      final response = await http.post(
+        Uri.parse(baseUrl + url).replace(queryParameters: parameter),
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      responseJson = jsonDecode(response.body.toString());
+    } catch (e) {
+      Get.to(() => const CustomErrorWidget());
+    }
+    return responseJson;
+  }
+
+  // ///////////////payment Gatway
+
+  Future<dynamic> paymentGatway(
       Map<String, dynamic> parameter, String url) async {
     var responseJson;
     SharedPreferences prefs = await SharedPreferences.getInstance();

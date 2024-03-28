@@ -1,14 +1,16 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:global_student/bloc/batchperformadetailsBloc.dart';
 import 'package:global_student/bloc/dashboardBloc.dart';
 import 'package:global_student/model/batchModel.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/utils/text_style.dart';
+import 'package:global_student/view/helper/apiResponseHelper.dart';
 import 'package:global_student/view/widget/app_bar.dart';
+import 'package:global_student/view/widget/loader.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -56,16 +58,20 @@ class ListBatch extends StatefulWidget {
 class _ListBatchState extends State<ListBatch> {
   bool _animate = false;
 
+  late BatchperformaBloc batchperformaBloc;
+  final GlobalKey<State> _keyLoader = GlobalKey<State>();
+
   static bool _isStart = true;
   var data2 = Get.arguments;
 
   @override
   void initState() {
-    super.initState();
+    batchperformaBloc = BatchperformaBloc();
     dashBoardBloc = DashBoardBloc();
     getBranchDetails();
-    _gethomeData();
+    batchdetailslist();
     saveName();
+    succesEmail();
     if (_isStart) {
       Future.delayed(Duration(milliseconds: widget.index * 1000), () {
         setState(() {
@@ -76,6 +82,7 @@ class _ListBatchState extends State<ListBatch> {
     } else {
       _animate = true;
     }
+    super.initState();
   }
 
   bool loanding = true;
@@ -101,10 +108,15 @@ class _ListBatchState extends State<ListBatch> {
     });
   }
 
-  _gethomeData() {
+  String? studentid;
+  batchdetailslist() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    studentid = prefs.getString("studentId");
+
     String spselcected = data2[0].toString();
     Map<String, String> data = {
       "BatchType": spselcected.toString(),
+      "StudentId": studentid.toString(),
     };
 
     dashBoardBloc.callGetBatchDetailsApi(data);
@@ -140,6 +152,79 @@ class _ListBatchState extends State<ListBatch> {
       colors = generateRandomColors();
     }
     return colors.removeLast();
+  }
+
+  succesEmail() {
+    batchperformaBloc.applybatchemailStream.listen((event) {
+      Navigator.pop(context);
+
+      bool response =
+          ApiResponseHelper().handleResponse(event: event, context: context);
+
+      if (response == true && event.data['Status'] == 'Success') {
+        sucess();
+        Future.delayed(const Duration(seconds: 3), () {
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            RoutesName.batchlist,
+            (routes) => false,
+          );
+        });
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.transparent,
+          behavior: SnackBarBehavior.floating,
+          elevation: 0,
+          duration: const Duration(milliseconds: 1000),
+          content: Container(
+            padding: const EdgeInsets.all(8),
+            height: 60.h,
+            decoration: BoxDecoration(
+              color: Colors.green.withOpacity(0.9),
+              borderRadius: const BorderRadius.all(Radius.circular(15)),
+            ),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 30.w,
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Search your batch',
+                        style: TextStyle(fontSize: 18.sp, color: Colors.white),
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      Text(
+                          "Already Applied ${event.data['BatchID'].toString()} ",
+                          style: batchtext1(
+                            AppColors.PrimaryWhiteColor,
+                          )),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ));
+      }
+    });
+  }
+
+  searchFilter(String batchname) async {
+    NetworkDialog.showLoadingDialog(context, _keyLoader);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    studentid = prefs.getString("studentId");
+    Map<String, String> courseAppliedemail = {
+      "BatchType": batchname.toString(),
+      "StudentId": studentid.toString()
+    };
+
+    batchperformaBloc.callbatchapplyemail(courseAppliedemail);
   }
 
   @override
@@ -206,7 +291,7 @@ class _ListBatchState extends State<ListBatch> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.all(10.0),
+                              padding: const EdgeInsets.all(10.0).r,
                               child: Column(
                                 children: [
                                   Row(
@@ -232,22 +317,6 @@ class _ListBatchState extends State<ListBatch> {
                                               )
                                             ],
                                           ),
-                                          // RichText(
-                                          //   text: TextSpan(
-                                          //     text: '',
-                                          //     style: batchtext2(
-                                          //         AppColors.PrimaryBlackColor),
-                                          //     children: [
-                                          //       TextSpan(
-                                          //         text: data[index]
-                                          //             .fFacultyName
-                                          //             .toString(),
-                                          //         style: batchtexthead(AppColors
-                                          //             .PrimaryBlackColor),
-                                          //       ),
-                                          //     ],
-                                          //   ),
-                                          // ),
                                           SizedBox(
                                             height: 5.h,
                                           ),
@@ -295,7 +364,7 @@ class _ListBatchState extends State<ListBatch> {
                                         ),
                                       ),
                                       SizedBox(
-                                        height: 5.h,
+                                        height: SizeExtension(5).h,
                                       ),
                                       Row(
                                         mainAxisAlignment:
@@ -346,10 +415,6 @@ class _ListBatchState extends State<ListBatch> {
                                     elevation: 0,
                                     color: Colors.white,
                                     shape: RoundedRectangleBorder(
-                                      // side: BorderSide(
-                                      //   color: AppColors.PrimaryMainColor
-                                      //       .withOpacity(0.3),
-                                      // ),
                                       borderRadius: BorderRadius.circular(5.r),
                                     ),
                                     child: Row(
@@ -467,71 +532,92 @@ class _ListBatchState extends State<ListBatch> {
                                   SizedBox(
                                     height: 5.h,
                                   ),
-                                  // Container(
-                                  //     width: double.infinity,
-                                  //     height: 40.h,
-                                  //     decoration: BoxDecoration(
-                                  //         color: AppColors.PrimaryMainColor,
-                                  //         borderRadius:
-                                  //             BorderRadius.circular(5).r),
-                                  //     child: Center(
-                                  //         child: Text(
-                                  //       "Interested",
-                                  //       style: batchtexthead(
-                                  //           AppColors.PrimaryWhiteColor),
-                                  //     ))),
-
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Center(
-                                        child: Image.asset(
-                                          "assets/images/bannerlogo.png",
-                                          height: 40.h,
-                                          width: 150.w,
-                                          fit: BoxFit.contain,
-                                        ),
-                                      ),
-                                      InkWell(
-                                        onTap: () {
-                                          // sucess();
-                                          Navigator.pushNamed(
-                                            context,
-                                            RoutesName.batchperforma,
-                                            // (routes) => false,
-                                          );
-                                        },
-                                        child: Container(
-                                            width: 100,
-                                            height: 40.h,
-                                            decoration: BoxDecoration(
-                                                color:
-                                                    AppColors.PrimaryMainColor,
-                                                borderRadius:
-                                                    BorderRadius.circular(5).r),
-                                            child: Center(
-                                                child: Text(
-                                              "Interested",
-                                              style: batchtexthead(
-                                                  AppColors.PrimaryWhiteColor),
-                                            ))),
-                                      ),
-                                    ],
-                                  )
-                                  // SizedBox(
-                                  //   height: 200,
-                                  //   width: 500,
-                                  //   child: ClipPath(
-                                  //       clipper: MyClipper(),
-                                  //       child: Container(
-                                  //         height: 200,
-                                  //         width: 500,
-                                  //         alignment: Alignment.center,
-                                  //         color: Colors.red,
-                                  //         child: const Text("abc"),
-                                  //       )),
-                                  // ),
+                                  data[index].fBatchName.toString() ==
+                                          data[index].status.toString()
+                                      ? Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Center(
+                                              child: Image.asset(
+                                                "assets/images/bannerlogo.png",
+                                                height: 40.h,
+                                                width: 150.w,
+                                                fit: BoxFit.contain,
+                                              ),
+                                            ),
+                                            InkWell(
+                                              onTap: () {
+                                                Navigator.pushNamed(
+                                                  context,
+                                                  RoutesName.batchperforma,
+                                                );
+                                              },
+                                              child: Container(
+                                                  width: 100,
+                                                  height: 40.h,
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.green,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                                  5)
+                                                              .r),
+                                                  child: Center(
+                                                      child: Text(
+                                                    "Proforma",
+                                                    style: batchtexthead(
+                                                        AppColors
+                                                            .PrimaryWhiteColor),
+                                                  ))),
+                                            ),
+                                          ],
+                                        )
+                                      : Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Center(
+                                              child: Image.asset(
+                                                "assets/images/bannerlogo.png",
+                                                height: 40.h,
+                                                width: 150.w,
+                                                fit: BoxFit.contain,
+                                              ),
+                                            ),
+                                            InkWell(
+                                              onTap: () {
+                                                searchFilter(
+                                                  data[index]
+                                                      .fBatchName
+                                                      .toString(),
+                                                );
+                                                //    sucess();
+                                                // Navigator.pushNamed(
+                                                //   context,
+                                                //   RoutesName.batchperforma,
+                                                //   // (routes) => false,
+                                                // );
+                                              },
+                                              child: Container(
+                                                  width: 100,
+                                                  height: 40.h,
+                                                  decoration: BoxDecoration(
+                                                      color: AppColors
+                                                          .PrimaryMainColor,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                                  5)
+                                                              .r),
+                                                  child: Center(
+                                                      child: Text(
+                                                    "Interested",
+                                                    style: batchtexthead(
+                                                        AppColors
+                                                            .PrimaryWhiteColor),
+                                                  ))),
+                                            ),
+                                          ],
+                                        )
                                 ],
                               ),
                             ),
@@ -543,9 +629,9 @@ class _ListBatchState extends State<ListBatch> {
   }
 
   avalible(int i) {
-    int cf = data[i].confirmedWithFullPayment;
-    int cp = data[i].confirmedWithPartialPayment;
-    int totl = int.parse(data[i].fBatchSize);
+    int cf = int.parse(data[i].confirmedWithFullPayment.toString());
+    int cp = int.parse(data[i].confirmedWithPartialPayment.toString());
+    int totl = int.parse(data[i].fBatchSize.toString());
     return totl - (cf + cp);
   }
 
@@ -553,34 +639,27 @@ class _ListBatchState extends State<ListBatch> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        backgroundColor: Color(0xffF2F9F6),
+        backgroundColor: const Color(0xffF2F9F6),
         title: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
           ),
           child: Column(
             children: [
-              // Image.asset(
-              //   "assets/images/bannerlogo.png",
-              //   height: 40.h,
-              //   width: 100.w,
-              //   fit: BoxFit.contain,
-              // ),
               SizedBox(
-                height: 5.h,
+                height: 10.h,
               ),
               SizedBox(
-                  height: 50.h,
-                  child: Lottie.asset(
-                    "assets/images/sucess1.json",
-                  )),
+                  height: 90.h,
+                  child: Lottie.asset("assets/images/sucess1.json",
+                      fit: BoxFit.contain)),
             ],
           ),
         ),
         content: Text(
-          "Your Batch Details submitted to counsellor🤗",
+          "🤗 Hey,Thank you for Applying Batch. We Will Contact Soon..",
           textAlign: TextAlign.center,
-          style: batchtexthead(AppColors.PrimaryMainColor),
+          style: batchtext2(AppColors.PrimaryMainColor),
         ),
       ),
     );

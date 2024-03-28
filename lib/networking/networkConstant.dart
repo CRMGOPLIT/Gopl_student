@@ -1,6 +1,7 @@
+// ignore: file_names
 class NetworkConstant {
   // ignore: constant_identifier_names
-  //static const String BASE_URL = "http://192.168.1.69/Api";
+  // static const String BASE_URL = "http://192.168.1.87/crmapi/Api";
 
   // static const String BASE_URL =
   //     "http://crmdemoapi.global-opportunities.co.in/Api";
@@ -221,7 +222,19 @@ class NetworkConstant {
   static const String END_POINT_BATCH_PERFORMA = "/Proposal/GetPIDetailList";
 
 // Batch  recipt
-  static const String END_POINT_BATCH_RECIPT = "/Proposal/GetInvoicePrint";
+  // static const String END_POINT_BATCH_RECIPT = "/Proposal/GetInvoicePrint";
+
+  static const String END_POINT_BATCH_RECIPT = "/Payment/GetTokenPaymentPrint";
+
+  static const END_POINT_PERFORMA_CREATE = "/Payment/GetPIDetailList";
+
+  static const END_POINT_CREATE_ORDER = "/Payment/InitiatePayment";
+
+  static const END_POINT_VERYFY_PAYMENT = "/Payment/PaymentRazorPay";
+
+  static const END_POINT_PAYMENT_HISTORY = "/Payment/PaymentRazorPayHistory";
+
+  static const END_POINT_BATCH_APPLY = "/Payment/SendEmailForCounsler";
 
   // http://192.168.1.69/Api/GoFair/GetAppointmentDetails
 }

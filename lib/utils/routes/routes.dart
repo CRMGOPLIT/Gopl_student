@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:global_student/model/paymenthistory.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/view/applicationStatus/application_status.dart';
 import 'package:global_student/view/batch_details/batch_details.dart';
@@ -17,7 +18,11 @@ import 'package:global_student/view/fairmodule/bookappointmentpage.dart';
 import 'package:global_student/view/fairmodule/gofairpage.dart';
 import 'package:global_student/view/fairmodule/student_fair_details.dart';
 import 'package:global_student/view/login/login_page.dart';
+import 'package:global_student/view/ourservices/ourmiscellaneous.dart';
+import 'package:global_student/view/ourservices/ourprservices.dart';
 import 'package:global_student/view/ourservices/ourservices.dart';
+import 'package:global_student/view/ourservices/ourservicesperformapas.dart';
+import 'package:global_student/view/ourservices/ourservicesvisa.dart';
 import 'package:global_student/view/payment/batchperforma.dart';
 import 'package:global_student/view/payment/paymenthistory.dart';
 import 'package:global_student/view/qualification/completeeducation.dart';
@@ -172,11 +177,28 @@ class Routes {
 
       case RoutesName.paymenthistory:
         return MaterialPageRoute(
-            builder: (BuildContext context) => const PaymentHistory());
+            builder: (BuildContext context) => const PaymentHistoryData());
 
       case RoutesName.ourservices:
         return MaterialPageRoute(
             builder: (BuildContext context) => const OurServices());
+
+      case RoutesName.ourservicesperformapas:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const OurservicesPerformaPas());
+      case RoutesName.ourservicevisa:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const Ourvisaservices());
+      case RoutesName.ourservicemis:
+        return MaterialPageRoute(
+            builder: (BuildContext context) =>
+                const Ourmiscellaneousservices());
+      case RoutesName.ourservicespr:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const Ourprservices());
+      case RoutesName.ourservicesrecipt:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const Ourprservices());
 
       default:
         return MaterialPageRoute(builder: (_) {

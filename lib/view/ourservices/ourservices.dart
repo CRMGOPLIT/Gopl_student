@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:global_student/utils/color.dart';
 import 'package:global_student/utils/text_style.dart';
 import 'package:global_student/view/dashboard/dash_grid_model.dart';
@@ -15,6 +14,13 @@ class OurServices extends StatefulWidget {
 }
 
 class _OurServicesState extends State<OurServices> {
+  List page = [
+    RoutesName.ourservicesperformapas,
+    RoutesName.ourservicevisa,
+    RoutesName.ourservicemis,
+    RoutesName.ourservicespr,
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,15 +30,11 @@ class _OurServicesState extends State<OurServices> {
           child: AppBarCustom(
             title: "Our Services",
             onpress: () {
-              // Navigator.pushNamed(context, RoutesName.batchDetails
-              //     // (routes) => false,
-              //     );
-              // Navigator.pushNamed(
-              //   context,
-              //   RoutesName.batchDetails,
-              // );
-
-              Get.back();
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                RoutesName.bottomnav,
+                (routes) => false,
+              );
             },
           )),
       body: SingleChildScrollView(
@@ -67,11 +69,7 @@ class _OurServicesState extends State<OurServices> {
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
                     onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        RoutesName.batchperforma,
-                        // (routes) => false,
-                      );
+                      Navigator.pushNamed(context, page[index]);
                     },
                     child: Card(
                       elevation: 5,

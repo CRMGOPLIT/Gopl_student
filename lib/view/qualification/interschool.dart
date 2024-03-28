@@ -195,8 +195,9 @@ class _InterSchoolState extends State<InterSchool> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => _onbackbuttondoubleClick(context),
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) => _onbackbuttondoubleClick(context),
       child: Scaffold(
         backgroundColor: AppColors.backgroungcolor,
         appBar: PreferredSize(

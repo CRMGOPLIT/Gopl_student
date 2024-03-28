@@ -3,23 +3,23 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:global_student/bloc/batchperformadetailsBloc.dart';
 import 'package:global_student/utils/text_style.dart';
-import 'package:global_student/view/payment/batchrecipt.dart';
+import 'package:global_student/view/ourservices/ourservicesrecipt.dart';
 import '../../model/perfomacreatelistModel.dart';
 import '../../utils/color.dart';
 import '../widget/app_bar.dart';
 
-class BatchPerforma extends StatefulWidget {
-  const BatchPerforma({super.key});
+class OurservicesPerformaPas extends StatefulWidget {
+  const OurservicesPerformaPas({super.key});
 
   @override
-  State<BatchPerforma> createState() => _BatchPerformaState();
+  State<OurservicesPerformaPas> createState() => _OurservicesPerformaPasState();
 }
 
-class _BatchPerformaState extends State<BatchPerforma> {
+class _OurservicesPerformaPasState extends State<OurservicesPerformaPas> {
   late BatchperformaBloc batchperformaBloc;
   Performacreatelist? performacreatelist;
 
-  final List<Miscellaneous> testPrep = [];
+  final List<Miscellaneous> pas = [];
 
   List performa = [];
   bool? loading = true;
@@ -28,22 +28,21 @@ class _BatchPerformaState extends State<BatchPerforma> {
   void initState() {
     batchperformaBloc = BatchperformaBloc();
     getperformadetails();
-    getgofairDetails();
+    getpasDetails();
     super.initState();
   }
 
-  getgofairDetails() {
+  getpasDetails() {
     batchperformaBloc.getperformacreateStream.listen((event) {
       if (event != null) {
         Performacreatelist performaadd = Performacreatelist.fromJson(event);
 
-        testPrep.addAll(performaadd.testPrep);
+        pas.addAll(performaadd.pas);
       }
 
       setState(() {
         loading = false;
       });
-      //}
     });
   }
 
@@ -58,7 +57,7 @@ class _BatchPerformaState extends State<BatchPerforma> {
         appBar: PreferredSize(
             preferredSize: Size.fromHeight(50.h),
             child: AppBarCustom(
-              title: "Batch Proforma",
+              title: "PAS Proforma",
               onpress: () {
                 Get.back();
               },
@@ -69,7 +68,7 @@ class _BatchPerformaState extends State<BatchPerforma> {
                 strokeWidth: 2.w,
                 color: AppColors.PrimaryMainColor,
               ))
-            : testPrep.isEmpty
+            : pas.isEmpty
                 ? Center(
                     child: Image.asset(
                     "assets/images/performaimg.png",
@@ -82,11 +81,11 @@ class _BatchPerformaState extends State<BatchPerforma> {
                       Expanded(
                         child: ListView.builder(
                             shrinkWrap: true,
-                            itemCount: testPrep.length,
+                            itemCount: pas.length,
                             itemBuilder: (context, index) {
                               return Column(
                                 children: [
-                                  testPrep[index].fStage == "PENDING"
+                                  pas[index].fStage == "PENDING"
                                       ? Container(
                                           padding: const EdgeInsets.all(10).r,
                                           width: double.infinity,
@@ -117,7 +116,7 @@ class _BatchPerformaState extends State<BatchPerforma> {
                                                     height: 10.h,
                                                   ),
                                                   Text(
-                                                    testPrep[index].fService,
+                                                    pas[index].fService,
                                                     style: batchtexthead(
                                                         Colors.green),
                                                   ),
@@ -146,8 +145,7 @@ class _BatchPerformaState extends State<BatchPerforma> {
                                                             .PrimaryBlackColor),
                                                       ),
                                                       Text(
-                                                        testPrep[index]
-                                                            .fInvoiceId,
+                                                        pas[index].fInvoiceId,
                                                         textAlign:
                                                             TextAlign.end,
                                                         style: batchtext2(AppColors
@@ -169,7 +167,7 @@ class _BatchPerformaState extends State<BatchPerforma> {
                                                             .PrimaryBlackColor),
                                                       ),
                                                       Text(
-                                                        testPrep[index]
+                                                        pas[index]
                                                             .fInvoiceDate
                                                             .split(" ")[0]
                                                             .toString(),
@@ -195,14 +193,13 @@ class _BatchPerformaState extends State<BatchPerforma> {
                                                             .PrimaryBlackColor),
                                                       ),
                                                       Text(
-                                                        testPrep[index]
+                                                        pas[index]
                                                             .fStage
                                                             .toString(),
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: batchtext2(
-                                                            testPrep[index]
-                                                                        .fStage ==
+                                                            pas[index].fStage ==
                                                                     "PENDING"
                                                                 ? Colors.red
                                                                 : Colors.green),
@@ -226,8 +223,10 @@ class _BatchPerformaState extends State<BatchPerforma> {
                                                             .PrimaryBlackColor),
                                                       ),
                                                       Text(
-                                                        testPrep[index]
+                                                        pas[index]
                                                             .basePriceAndTax,
+                                                        //\n(${totalorgst(index)}+${performaBatch[index].fTaxAmount} Gst)",
+                                                        // performaBatch[index].fTotalAmt,
                                                         textAlign:
                                                             TextAlign.end,
                                                         style: batchtext2(AppColors
@@ -252,8 +251,7 @@ class _BatchPerformaState extends State<BatchPerforma> {
                                                             .PrimaryBlackColor),
                                                       ),
                                                       Text(
-                                                        testPrep[index]
-                                                            .fTotalAmt,
+                                                        pas[index].fTotalAmt,
                                                         textAlign:
                                                             TextAlign.end,
                                                         style: batchtext2(AppColors
@@ -262,27 +260,27 @@ class _BatchPerformaState extends State<BatchPerforma> {
                                                     ],
                                                   ),
                                                   SizedBox(height: 30.h),
-                                                  testPrep[index].fStage ==
-                                                          "PENDING"
+                                                  pas[index].fStage == "PENDING"
                                                       ? InkWell(
                                                           onTap: () {
                                                             Get.to(
                                                                 () =>
-                                                                    const BatchReceipt(),
+                                                                    const OurservicesReceipt(),
                                                                 arguments: [
-                                                                  testPrep[
-                                                                          index]
+                                                                  pas[index]
                                                                       .fInvoiceId,
-                                                                  testPrep[
-                                                                          index]
+                                                                  pas[index]
                                                                       .currentBranch,
-                                                                  testPrep[
-                                                                          index]
+                                                                  pas[index]
                                                                       .currentCounsellor,
-                                                                  testPrep[
-                                                                          index]
+                                                                  pas[index]
                                                                       .fSubCategoryName,
                                                                 ]);
+                                                            // Navigator.pushNamed(
+                                                            //   context,
+                                                            //   RoutesName.batchrecipt,
+                                                            //   //(routes) => false,
+                                                            // );
                                                           },
                                                           child: Container(
                                                               width: 100.w,
@@ -327,21 +325,22 @@ class _BatchPerformaState extends State<BatchPerforma> {
                                               ),
                                             ),
                                           ),
-                                        )
-                                      : Column(
-                                          children: [
-                                            SizedBox(
-                                              height: 200.h,
-                                            ),
-                                            Center(
-                                                child: Image.asset(
-                                              "assets/images/performaimg.png",
-                                              height: 250.h,
-                                              width: 300.w,
-                                              fit: BoxFit.contain,
-                                            )),
-                                          ],
-                                        )
+                                        ):
+                                     Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: 200.h,
+                                                ),
+                                                Center(
+                                                    child: Image.asset(
+                                                  "assets/images/performaimg.png",
+                                                  height: 250.h,
+                                                  width: 300.w,
+                                                  fit: BoxFit.contain,
+                                                )),
+                                              ],
+                                            )
+                                         
                                 ],
                               );
                             }),
@@ -350,5 +349,9 @@ class _BatchPerformaState extends State<BatchPerforma> {
                   ));
   }
 
-  
+  // totalorgst(int i) {
+  //   double totalamount = double.parse(testPrep[i].fTotalAmt);
+  //   double taxamount = double.parse(testPrep[i].fTaxAmount);
+  //   return totalamount - taxamount;
+  // }
 }

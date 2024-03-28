@@ -3,23 +3,23 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:global_student/bloc/batchperformadetailsBloc.dart';
 import 'package:global_student/utils/text_style.dart';
-import 'package:global_student/view/payment/batchrecipt.dart';
+import 'package:global_student/view/ourservices/ourservicesrecipt.dart';
 import '../../model/perfomacreatelistModel.dart';
 import '../../utils/color.dart';
 import '../widget/app_bar.dart';
 
-class BatchPerforma extends StatefulWidget {
-  const BatchPerforma({super.key});
+class Ourprservices extends StatefulWidget {
+  const Ourprservices({super.key});
 
   @override
-  State<BatchPerforma> createState() => _BatchPerformaState();
+  State<Ourprservices> createState() => _OurprservicesState();
 }
 
-class _BatchPerformaState extends State<BatchPerforma> {
+class _OurprservicesState extends State<Ourprservices> {
   late BatchperformaBloc batchperformaBloc;
   Performacreatelist? performacreatelist;
 
-  final List<Miscellaneous> testPrep = [];
+  final List<Miscellaneous> prServices = [];
 
   List performa = [];
   bool? loading = true;
@@ -28,22 +28,21 @@ class _BatchPerformaState extends State<BatchPerforma> {
   void initState() {
     batchperformaBloc = BatchperformaBloc();
     getperformadetails();
-    getgofairDetails();
+    getprperformaDetails();
     super.initState();
   }
 
-  getgofairDetails() {
+  getprperformaDetails() {
     batchperformaBloc.getperformacreateStream.listen((event) {
       if (event != null) {
         Performacreatelist performaadd = Performacreatelist.fromJson(event);
 
-        testPrep.addAll(performaadd.testPrep);
+        prServices.addAll(performaadd.prServices);
       }
 
       setState(() {
         loading = false;
       });
-      //}
     });
   }
 
@@ -58,7 +57,7 @@ class _BatchPerformaState extends State<BatchPerforma> {
         appBar: PreferredSize(
             preferredSize: Size.fromHeight(50.h),
             child: AppBarCustom(
-              title: "Batch Proforma",
+              title: "PR Proforma",
               onpress: () {
                 Get.back();
               },
@@ -69,7 +68,7 @@ class _BatchPerformaState extends State<BatchPerforma> {
                 strokeWidth: 2.w,
                 color: AppColors.PrimaryMainColor,
               ))
-            : testPrep.isEmpty
+            : prServices.isEmpty
                 ? Center(
                     child: Image.asset(
                     "assets/images/performaimg.png",
@@ -82,11 +81,11 @@ class _BatchPerformaState extends State<BatchPerforma> {
                       Expanded(
                         child: ListView.builder(
                             shrinkWrap: true,
-                            itemCount: testPrep.length,
+                            itemCount: prServices.length,
                             itemBuilder: (context, index) {
                               return Column(
                                 children: [
-                                  testPrep[index].fStage == "PENDING"
+                                  prServices[index].fStage == "PENDING"
                                       ? Container(
                                           padding: const EdgeInsets.all(10).r,
                                           width: double.infinity,
@@ -117,7 +116,7 @@ class _BatchPerformaState extends State<BatchPerforma> {
                                                     height: 10.h,
                                                   ),
                                                   Text(
-                                                    testPrep[index].fService,
+                                                    prServices[index].fService,
                                                     style: batchtexthead(
                                                         Colors.green),
                                                   ),
@@ -146,7 +145,7 @@ class _BatchPerformaState extends State<BatchPerforma> {
                                                             .PrimaryBlackColor),
                                                       ),
                                                       Text(
-                                                        testPrep[index]
+                                                        prServices[index]
                                                             .fInvoiceId,
                                                         textAlign:
                                                             TextAlign.end,
@@ -169,7 +168,7 @@ class _BatchPerformaState extends State<BatchPerforma> {
                                                             .PrimaryBlackColor),
                                                       ),
                                                       Text(
-                                                        testPrep[index]
+                                                        prServices[index]
                                                             .fInvoiceDate
                                                             .split(" ")[0]
                                                             .toString(),
@@ -195,13 +194,13 @@ class _BatchPerformaState extends State<BatchPerforma> {
                                                             .PrimaryBlackColor),
                                                       ),
                                                       Text(
-                                                        testPrep[index]
+                                                        prServices[index]
                                                             .fStage
                                                             .toString(),
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: batchtext2(
-                                                            testPrep[index]
+                                                            prServices[index]
                                                                         .fStage ==
                                                                     "PENDING"
                                                                 ? Colors.red
@@ -226,7 +225,7 @@ class _BatchPerformaState extends State<BatchPerforma> {
                                                             .PrimaryBlackColor),
                                                       ),
                                                       Text(
-                                                        testPrep[index]
+                                                        prServices[index]
                                                             .basePriceAndTax,
                                                         textAlign:
                                                             TextAlign.end,
@@ -252,7 +251,7 @@ class _BatchPerformaState extends State<BatchPerforma> {
                                                             .PrimaryBlackColor),
                                                       ),
                                                       Text(
-                                                        testPrep[index]
+                                                        prServices[index]
                                                             .fTotalAmt,
                                                         textAlign:
                                                             TextAlign.end,
@@ -262,24 +261,24 @@ class _BatchPerformaState extends State<BatchPerforma> {
                                                     ],
                                                   ),
                                                   SizedBox(height: 30.h),
-                                                  testPrep[index].fStage ==
+                                                  prServices[index].fStage ==
                                                           "PENDING"
                                                       ? InkWell(
                                                           onTap: () {
                                                             Get.to(
                                                                 () =>
-                                                                    const BatchReceipt(),
+                                                                    const OurservicesReceipt(),
                                                                 arguments: [
-                                                                  testPrep[
+                                                                  prServices[
                                                                           index]
                                                                       .fInvoiceId,
-                                                                  testPrep[
+                                                                  prServices[
                                                                           index]
                                                                       .currentBranch,
-                                                                  testPrep[
+                                                                  prServices[
                                                                           index]
                                                                       .currentCounsellor,
-                                                                  testPrep[
+                                                                  prServices[
                                                                           index]
                                                                       .fSubCategoryName,
                                                                 ]);
@@ -328,20 +327,21 @@ class _BatchPerformaState extends State<BatchPerforma> {
                                             ),
                                           ),
                                         )
-                                      : Column(
-                                          children: [
-                                            SizedBox(
-                                              height: 200.h,
-                                            ),
-                                            Center(
-                                                child: Image.asset(
-                                              "assets/images/performaimg.png",
-                                              height: 250.h,
-                                              width: 300.w,
-                                              fit: BoxFit.contain,
-                                            )),
-                                          ],
-                                        )
+                                      :  Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: 200.h,
+                                                ),
+                                                Center(
+                                                    child: Image.asset(
+                                                  "assets/images/performaimg.png",
+                                                  height: 250.h,
+                                                  width: 300.w,
+                                                  fit: BoxFit.contain,
+                                                )),
+                                              ],
+                                            )
+                                         
                                 ],
                               );
                             }),
@@ -349,6 +349,4 @@ class _BatchPerformaState extends State<BatchPerforma> {
                     ],
                   ));
   }
-
-  
 }

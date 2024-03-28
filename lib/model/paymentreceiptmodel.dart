@@ -1,51 +1,59 @@
+// To parse this JSON data, do
+//
+//     final batchPerformaReceipt = batchPerformaReceiptFromJson(jsonString);
+
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
-PerformaBatch performaBatchFromJson(String str) =>
-    PerformaBatch.fromJson(json.decode(str));
+BatchPerformaReceipt batchPerformaReceiptFromJson(String str) =>
+    BatchPerformaReceipt.fromJson(json.decode(str));
 
-String performaBatchToJson(PerformaBatch data) => json.encode(data.toJson());
+String batchPerformaReceiptToJson(BatchPerformaReceipt data) =>
+    json.encode(data.toJson());
 
-class PerformaBatch {
-  final PrintMain printMain;
+class BatchPerformaReceipt {
+  final List<PrintMain> printMain;
   final List<PrintDetail> printDetail;
   final List<MakePaymentLst> makePaymentLst;
-  final RefundDetails refundDetails;
+  final List<dynamic> refundDetails;
 
-  PerformaBatch({
+  BatchPerformaReceipt({
     required this.printMain,
     required this.printDetail,
     required this.makePaymentLst,
     required this.refundDetails,
   });
 
-  PerformaBatch copyWith({
-    PrintMain? printMain,
+  BatchPerformaReceipt copyWith({
+    List<PrintMain>? printMain,
     List<PrintDetail>? printDetail,
     List<MakePaymentLst>? makePaymentLst,
-    RefundDetails? refundDetails,
+    List<dynamic>? refundDetails,
   }) =>
-      PerformaBatch(
+      BatchPerformaReceipt(
         printMain: printMain ?? this.printMain,
         printDetail: printDetail ?? this.printDetail,
         makePaymentLst: makePaymentLst ?? this.makePaymentLst,
         refundDetails: refundDetails ?? this.refundDetails,
       );
 
-  factory PerformaBatch.fromJson(Map<String, dynamic> json) => PerformaBatch(
-        printMain: PrintMain.fromJson(json["PrintMain"]),
+  factory BatchPerformaReceipt.fromJson(Map<String, dynamic> json) =>
+      BatchPerformaReceipt(
+        printMain: List<PrintMain>.from(
+            json["PrintMain"].map((x) => PrintMain.fromJson(x))),
         printDetail: List<PrintDetail>.from(
             json["PrintDetail"].map((x) => PrintDetail.fromJson(x))),
         makePaymentLst: List<MakePaymentLst>.from(
             json["MakePaymentLst"].map((x) => MakePaymentLst.fromJson(x))),
-        refundDetails: RefundDetails.fromJson(json["RefundDetails"]),
+        refundDetails: List<dynamic>.from(json["RefundDetails"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
-        "PrintMain": printMain.toJson(),
+        "PrintMain": List<dynamic>.from(printMain.map((x) => x.toJson())),
         "PrintDetail": List<dynamic>.from(printDetail.map((x) => x.toJson())),
         "MakePaymentLst":
             List<dynamic>.from(makePaymentLst.map((x) => x.toJson())),
-        "RefundDetails": refundDetails.toJson(),
+        "RefundDetails": List<dynamic>.from(refundDetails.map((x) => x)),
       };
 }
 
@@ -219,7 +227,7 @@ class MakePaymentLst {
         fTds: json["f_TDS"].toString(),
         fTotalReceiveAmt: json["f_TotalReceiveAmt"].toString(),
         fTransactionCharges: json["f_TransactionCharges"].toString(),
-        fNextPaymentDate: json["f_NextPaymentDate"],
+        fNextPaymentDate: json["f_NextPaymentDate"].toString(),
         fServiceName: json["f_ServiceName"].toString(),
         fDescription: json["f_Description"].toString(),
         fReceiptNo: json["f_ReceiptNo"].toString(),
@@ -289,7 +297,7 @@ class PrintDetail {
   final String fTaxAmt;
   final String fTotalAmt;
   final String fDescription;
-  final String fMProposalNo;
+  final dynamic fMProposalNo;
   final String fCountryId;
   final dynamic fReceiptNo;
   final String fSuggestedPrice;
@@ -330,7 +338,7 @@ class PrintDetail {
     String? fTaxAmt,
     String? fTotalAmt,
     String? fDescription,
-    String? fMProposalNo,
+    dynamic fMProposalNo,
     String? fCountryId,
     dynamic fReceiptNo,
     String? fSuggestedPrice,
@@ -403,6 +411,7 @@ class PrintDetail {
 
 class PrintMain {
   final String fUserName;
+  final String pendingAmount;
   final String fClientId;
   final String fProposalNo;
   final String fProposalDate;
@@ -421,7 +430,7 @@ class PrintMain {
   final String fBranchDiscountPer;
   final String studentAddress;
   final String fCity;
-  final dynamic fPin;
+  final String fPin;
   final String fEmail;
   final String studentState;
   final String fClosedAmt;
@@ -430,12 +439,15 @@ class PrintMain {
   final String fBranchName;
   final String isGst;
   final String fGstNo;
-  final dynamic checkdate;
-  final dynamic fLegalPapaerReciept;
-  final dynamic fCurrencyType;
+  final int checkdate;
+  final String fLegalPapaerReciept;
+  final String fCurrencyType;
+  final String fGrandTotal236Percentage;
+  final String totalAmount;
 
   PrintMain({
     required this.fUserName,
+    required this.pendingAmount,
     required this.fClientId,
     required this.fProposalNo,
     required this.fProposalDate,
@@ -466,10 +478,13 @@ class PrintMain {
     required this.checkdate,
     required this.fLegalPapaerReciept,
     required this.fCurrencyType,
+    required this.fGrandTotal236Percentage,
+    required this.totalAmount,
   });
 
   PrintMain copyWith({
     String? fUserName,
+    String? pendingAmount,
     String? fClientId,
     String? fProposalNo,
     String? fProposalDate,
@@ -488,7 +503,7 @@ class PrintMain {
     String? fBranchDiscountPer,
     String? studentAddress,
     String? fCity,
-    dynamic fPin,
+    String? fPin,
     String? fEmail,
     String? studentState,
     String? fClosedAmt,
@@ -498,11 +513,14 @@ class PrintMain {
     String? isGst,
     String? fGstNo,
     int? checkdate,
-    dynamic fLegalPapaerReciept,
-    dynamic fCurrencyType,
+    String? fLegalPapaerReciept,
+    String? fCurrencyType,
+    String? fGrandTotal236Percentage,
+    String? totalAmount,
   }) =>
       PrintMain(
         fUserName: fUserName ?? this.fUserName,
+        pendingAmount: pendingAmount ?? this.pendingAmount,
         fClientId: fClientId ?? this.fClientId,
         fProposalNo: fProposalNo ?? this.fProposalNo,
         fProposalDate: fProposalDate ?? this.fProposalDate,
@@ -533,10 +551,14 @@ class PrintMain {
         checkdate: checkdate ?? this.checkdate,
         fLegalPapaerReciept: fLegalPapaerReciept ?? this.fLegalPapaerReciept,
         fCurrencyType: fCurrencyType ?? this.fCurrencyType,
+        fGrandTotal236Percentage:
+            fGrandTotal236Percentage ?? this.fGrandTotal236Percentage,
+        totalAmount: totalAmount ?? this.totalAmount,
       );
 
   factory PrintMain.fromJson(Map<String, dynamic> json) => PrintMain(
         fUserName: json["f_UserName"].toString(),
+        pendingAmount: json["PendingAmount"].toString(),
         fClientId: json["f_ClientId"].toString(),
         fProposalNo: json["f_Proposal_no"].toString(),
         fProposalDate: json["f_ProposalDate"].toString(),
@@ -567,10 +589,14 @@ class PrintMain {
         checkdate: json["checkdate"],
         fLegalPapaerReciept: json["f_LegalPapaer_Reciept"].toString(),
         fCurrencyType: json["f_CurrencyType"].toString(),
+        fGrandTotal236Percentage:
+            json["f_Grand_Total_2_36_Percentage"].toString(),
+        totalAmount: json["TotalAmount"].toString(),
       );
 
   Map<String, dynamic> toJson() => {
         "f_UserName": fUserName,
+        "PendingAmount": pendingAmount,
         "f_ClientId": fClientId,
         "f_Proposal_no": fProposalNo,
         "f_ProposalDate": fProposalDate,
@@ -601,196 +627,7 @@ class PrintMain {
         "checkdate": checkdate,
         "f_LegalPapaer_Reciept": fLegalPapaerReciept,
         "f_CurrencyType": fCurrencyType,
-      };
-}
-
-class RefundDetails {
-  final dynamic fStudentId;
-  final dynamic fFullName;
-  final dynamic fMobile;
-  final dynamic fEmail;
-  final dynamic fCounsellorId;
-  final dynamic fBranchId;
-  final dynamic fInvoiceNo;
-  final dynamic fRefundedInvoiceNo;
-  final dynamic fClosedInvoiceNo;
-  final dynamic fPaymentMode;
-  final dynamic fChequeNo;
-  final dynamic fChequeDate;
-  final dynamic fBankName;
-  final dynamic fBranch;
-  final dynamic fDraftNo;
-  final dynamic fDraftDate;
-  final dynamic fTransactionDate;
-  final dynamic fTransactionId;
-  final dynamic fCreditCardAmt;
-  final dynamic fRefundDate;
-  final dynamic fTotalOrderAmt;
-  final dynamic fRefundAmt;
-  final dynamic fClosedAmt;
-  final dynamic fServiceName;
-  final dynamic fDescription;
-  final dynamic fReceiptNo;
-  final dynamic fReasonOfRefund;
-  final dynamic imgPath;
-  final dynamic counsellorName;
-
-  RefundDetails({
-    required this.fStudentId,
-    required this.fFullName,
-    required this.fMobile,
-    required this.fEmail,
-    required this.fCounsellorId,
-    required this.fBranchId,
-    required this.fInvoiceNo,
-    required this.fRefundedInvoiceNo,
-    required this.fClosedInvoiceNo,
-    required this.fPaymentMode,
-    required this.fChequeNo,
-    required this.fChequeDate,
-    required this.fBankName,
-    required this.fBranch,
-    required this.fDraftNo,
-    required this.fDraftDate,
-    required this.fTransactionDate,
-    required this.fTransactionId,
-    required this.fCreditCardAmt,
-    required this.fRefundDate,
-    required this.fTotalOrderAmt,
-    required this.fRefundAmt,
-    required this.fClosedAmt,
-    required this.fServiceName,
-    required this.fDescription,
-    required this.fReceiptNo,
-    required this.fReasonOfRefund,
-    required this.imgPath,
-    required this.counsellorName,
-  });
-
-  RefundDetails copyWith({
-    dynamic fStudentId,
-    dynamic fFullName,
-    dynamic fMobile,
-    dynamic fEmail,
-    dynamic fCounsellorId,
-    dynamic fBranchId,
-    dynamic fInvoiceNo,
-    dynamic fRefundedInvoiceNo,
-    dynamic fClosedInvoiceNo,
-    dynamic fPaymentMode,
-    dynamic fChequeNo,
-    dynamic fChequeDate,
-    dynamic fBankName,
-    dynamic fBranch,
-    dynamic fDraftNo,
-    dynamic fDraftDate,
-    dynamic fTransactionDate,
-    dynamic fTransactionId,
-    dynamic fCreditCardAmt,
-    dynamic fRefundDate,
-    dynamic fTotalOrderAmt,
-    dynamic fRefundAmt,
-    dynamic fClosedAmt,
-    dynamic fServiceName,
-    dynamic fDescription,
-    dynamic fReceiptNo,
-    dynamic fReasonOfRefund,
-    dynamic imgPath,
-    dynamic counsellorName,
-  }) =>
-      RefundDetails(
-        fStudentId: fStudentId ?? this.fStudentId,
-        fFullName: fFullName ?? this.fFullName,
-        fMobile: fMobile ?? this.fMobile,
-        fEmail: fEmail ?? this.fEmail,
-        fCounsellorId: fCounsellorId ?? this.fCounsellorId,
-        fBranchId: fBranchId ?? this.fBranchId,
-        fInvoiceNo: fInvoiceNo ?? this.fInvoiceNo,
-        fRefundedInvoiceNo: fRefundedInvoiceNo ?? this.fRefundedInvoiceNo,
-        fClosedInvoiceNo: fClosedInvoiceNo ?? this.fClosedInvoiceNo,
-        fPaymentMode: fPaymentMode ?? this.fPaymentMode,
-        fChequeNo: fChequeNo ?? this.fChequeNo,
-        fChequeDate: fChequeDate ?? this.fChequeDate,
-        fBankName: fBankName ?? this.fBankName,
-        fBranch: fBranch ?? this.fBranch,
-        fDraftNo: fDraftNo ?? this.fDraftNo,
-        fDraftDate: fDraftDate ?? this.fDraftDate,
-        fTransactionDate: fTransactionDate ?? this.fTransactionDate,
-        fTransactionId: fTransactionId ?? this.fTransactionId,
-        fCreditCardAmt: fCreditCardAmt ?? this.fCreditCardAmt,
-        fRefundDate: fRefundDate ?? this.fRefundDate,
-        fTotalOrderAmt: fTotalOrderAmt ?? this.fTotalOrderAmt,
-        fRefundAmt: fRefundAmt ?? this.fRefundAmt,
-        fClosedAmt: fClosedAmt ?? this.fClosedAmt,
-        fServiceName: fServiceName ?? this.fServiceName,
-        fDescription: fDescription ?? this.fDescription,
-        fReceiptNo: fReceiptNo ?? this.fReceiptNo,
-        fReasonOfRefund: fReasonOfRefund ?? this.fReasonOfRefund,
-        imgPath: imgPath ?? this.imgPath,
-        counsellorName: counsellorName ?? this.counsellorName,
-      );
-
-  factory RefundDetails.fromJson(Map<String, dynamic> json) => RefundDetails(
-        fStudentId: json["f_StudentID"].toString(),
-        fFullName: json["f_fullName"].toString(),
-        fMobile: json["f_Mobile"].toString(),
-        fEmail: json["f_Email"].toString(),
-        fCounsellorId: json["f_CounsellorId"].toString(),
-        fBranchId: json["f_BranchId"].toString(),
-        fInvoiceNo: json["f_InvoiceNo"].toString(),
-        fRefundedInvoiceNo: json["f_RefundedInvoiceNo"].toString(),
-        fClosedInvoiceNo: json["f_ClosedInvoiceNo"].toString(),
-        fPaymentMode: json["f_PaymentMode"].toString(),
-        fChequeNo: json["f_ChequeNo"].toString(),
-        fChequeDate: json["f_ChequeDate"].toString(),
-        fBankName: json["f_BankName"].toString(),
-        fBranch: json["f_Branch"].toString(),
-        fDraftNo: json["f_DraftNo"].toString(),
-        fDraftDate: json["f_DraftDate"].toString(),
-        fTransactionDate: json["f_TransactionDate"].toString(),
-        fTransactionId: json["f_TransactionId"].toString(),
-        fCreditCardAmt: json["f_CreditCardAmt"].toString(),
-        fRefundDate: json["f_RefundDate"].toString(),
-        fTotalOrderAmt: json["f_TotalOrderAmt"].toString(),
-        fRefundAmt: json["f_RefundAmt"].toString(),
-        fClosedAmt: json["f_ClosedAmt"].toString(),
-        fServiceName: json["f_ServiceName"].toString(),
-        fDescription: json["f_Description"].toString(),
-        fReceiptNo: json["f_ReceiptNo"].toString(),
-        fReasonOfRefund: json["f_ReasonOfRefund"].toString(),
-        imgPath: json["imgPath"].toString(),
-        counsellorName: json["CounsellorName"].toString(),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "f_StudentID": fStudentId,
-        "f_fullName": fFullName,
-        "f_Mobile": fMobile,
-        "f_Email": fEmail,
-        "f_CounsellorId": fCounsellorId,
-        "f_BranchId": fBranchId,
-        "f_InvoiceNo": fInvoiceNo,
-        "f_RefundedInvoiceNo": fRefundedInvoiceNo,
-        "f_ClosedInvoiceNo": fClosedInvoiceNo,
-        "f_PaymentMode": fPaymentMode,
-        "f_ChequeNo": fChequeNo,
-        "f_ChequeDate": fChequeDate,
-        "f_BankName": fBankName,
-        "f_Branch": fBranch,
-        "f_DraftNo": fDraftNo,
-        "f_DraftDate": fDraftDate,
-        "f_TransactionDate": fTransactionDate,
-        "f_TransactionId": fTransactionId,
-        "f_CreditCardAmt": fCreditCardAmt,
-        "f_RefundDate": fRefundDate,
-        "f_TotalOrderAmt": fTotalOrderAmt,
-        "f_RefundAmt": fRefundAmt,
-        "f_ClosedAmt": fClosedAmt,
-        "f_ServiceName": fServiceName,
-        "f_Description": fDescription,
-        "f_ReceiptNo": fReceiptNo,
-        "f_ReasonOfRefund": fReasonOfRefund,
-        "imgPath": imgPath,
-        "CounsellorName": counsellorName,
+        "f_Grand_Total_2_36_Percentage": fGrandTotal236Percentage,
+        "TotalAmount": totalAmount,
       };
 }

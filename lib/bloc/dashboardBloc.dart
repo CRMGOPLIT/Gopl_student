@@ -291,7 +291,7 @@ class DashBoardBloc {
   visaUploadApi(Map parameter, File files) async {
     try {
       dynamic chuckCats =
-          await dashBoardGet.UploadVisaDocument(parameter, files);
+          await dashBoardGet.uploadVisaDocument(parameter, files);
       uploadviscontrollerSink.add(Response.completed(chuckCats));
     } catch (e) {
       uploadviscontrollerSink.add(Response.error(e.toString()));

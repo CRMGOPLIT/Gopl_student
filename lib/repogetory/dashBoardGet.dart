@@ -121,7 +121,7 @@ class DashBoardGet {
   }
 
 //Upload More Document
-  Future<dynamic> UploadVisaDocument(Map parameter, File files) async {
+  Future<dynamic> uploadVisaDocument(Map parameter, File files) async {
     final response = await _apiProvider.postAfterAuth(
         parameter, NetworkConstant.END_POINT_UPLOAD_VISA, files);
 
@@ -137,4 +137,7 @@ class DashBoardGet {
 
     return response;
   }
+
+
+  
 }

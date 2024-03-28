@@ -578,7 +578,7 @@ class _BookAppointmentState extends State<BookAppointment> {
                                         if (isOpen) {}
                                       },
                                       iconStyleData: IconStyleData(
-                                        icon: Icon(
+                                        icon: const Icon(
                                           Icons.keyboard_arrow_down,
                                           color: AppColors.PrimaryMainColor,
                                         ),

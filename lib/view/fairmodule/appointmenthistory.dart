@@ -236,7 +236,7 @@ class _AppointmentHistoryState extends State<AppointmentHistory> {
                                                       Padding(
                                                         padding:
                                                             const EdgeInsets
-                                                                        .only(
+                                                                    .only(
                                                                     left: 10,
                                                                     top: 5)
                                                                 .r,
@@ -654,7 +654,8 @@ class _AppointmentHistoryState extends State<AppointmentHistory> {
                                                           child: Row(
                                                             children: [
                                                               Padding(
-                                                                padding: EdgeInsets.only(
+                                                                padding: const EdgeInsets
+                                                                        .only(
                                                                         left:
                                                                             10,
                                                                         top: 5)

@@ -13,14 +13,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../utils/color.dart';
 import '../widget/app_bar.dart';
 
-class BatchReceipt extends StatefulWidget {
-  const BatchReceipt({super.key});
+class OurservicesReceipt extends StatefulWidget {
+  const OurservicesReceipt({super.key});
 
   @override
-  State<BatchReceipt> createState() => _BatchReceiptState();
+  State<OurservicesReceipt> createState() => _OurservicesReceiptState();
 }
 
-class _BatchReceiptState extends State<BatchReceipt> {
+class _OurservicesReceiptState extends State<OurservicesReceipt> {
   late BatchperformaBloc batchperformaBloc;
   final GlobalKey<State> _keyLoader = GlobalKey<State>();
   final _razorpay = Razorpay();
@@ -151,6 +151,7 @@ class _BatchReceiptState extends State<BatchReceipt> {
   succespayment() {
     batchperformaBloc.veryfypaymentStream.listen((event) {
       Navigator.pop(context);
+
       bool response =
           ApiResponseHelper().handleResponse(event: event, context: context);
 
@@ -159,7 +160,7 @@ class _BatchReceiptState extends State<BatchReceipt> {
         Future.delayed(const Duration(seconds: 3), () {
           Navigator.pushNamedAndRemoveUntil(
             context,
-            RoutesName.batchlist,
+            RoutesName.ourservices,
             (routes) => false,
           );
         });
@@ -210,10 +211,10 @@ class _BatchReceiptState extends State<BatchReceipt> {
   openGateway(String orderId) {
     var options = {
       'key': "rzp_live_P7187dAkpioejt",
-      'name': 'Global Opportunities Pvt. Ltd.',
-      'order_id': orderId.toString(), 
+      'name': 'Global Opportunities',
+      'order_id': orderId.toString(),
       'description': printDetail[0].fServiceName.toString(),
-      'timeout': 60 * 5, 
+      'timeout': 60 * 5,
       'prefill': {
         'contact': printMaindata[0].fMobile.toString(),
         'email': printMaindata[0].fEmail.toString(),
@@ -227,6 +228,7 @@ class _BatchReceiptState extends State<BatchReceipt> {
       "f_InvoiceID": invoiceid[0].toString(),
       "erp": invoiceid[3].toString(),
     };
+
     batchperformaBloc.callreciptdetailsDetails(data);
   }
 
@@ -258,7 +260,7 @@ class _BatchReceiptState extends State<BatchReceipt> {
       "razorpay_payment_id": paymentId.toString(),
       "razorpay_order_id": orderId.toString(),
       "razorpay_signature": signature.toString(),
-      "ErpService": "".toString(),
+      "ErpService": invoiceid[3].toString(),
       "f_Receiveamt": printMaindata[0].totalAmount.toString()
     };
 
@@ -272,7 +274,7 @@ class _BatchReceiptState extends State<BatchReceipt> {
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(50.h),
           child: AppBarCustom(
-            title: "Batch Recipt",
+            title: "Proforma Details",
             onpress: () {
               Get.back();
             },
@@ -315,7 +317,6 @@ class _BatchReceiptState extends State<BatchReceipt> {
                           Center(
                             child: Text(
                               printMaindata[0].fBranchAddress.toString(),
-                            
                               textAlign: TextAlign.center,
                               style: batchtext1(AppColors.PrimaryMainColor),
                             ),
@@ -428,7 +429,6 @@ class _BatchReceiptState extends State<BatchReceipt> {
                                 printMaindata[0]
                                     .fGrandTotal236Percentage
                                     .toString(),
-                              
                                 textAlign: TextAlign.end,
                                 style: batchtext2(AppColors.PrimaryBlackColor),
                               ),
@@ -455,7 +455,6 @@ class _BatchReceiptState extends State<BatchReceipt> {
                               ),
                               Text(
                                 printMaindata[0].fGrandTotal.toString(),
-                              
                                 textAlign: TextAlign.end,
                                 style:
                                     batchtexthead(AppColors.PrimaryBlackColor),
@@ -483,7 +482,6 @@ class _BatchReceiptState extends State<BatchReceipt> {
                               ),
                               Text(
                                 printMaindata[0].fGrandTotal.toString(),
-                           
                                 textAlign: TextAlign.end,
                                 style: batchtexthead(Colors.green),
                               ),
@@ -564,7 +562,7 @@ class _BatchReceiptState extends State<BatchReceipt> {
           ),
         ),
         content: Text(
-          "🤗 Hey, ${printMaindata[0].fStudentFullName.toString()}!Thank you for purchasing ${printDetail[0].fServiceName.toString()} .Your payment has been confirmed",
+          "🤗 Hey, ${printMaindata[0].fStudentFullName.toString()}!Thank you for purchasing ${printDetail[0].fServiceName.toString()} . Your payment has been confirmed",
           textAlign: TextAlign.center,
           style: batchtext2(AppColors.PrimaryMainColor),
         ),

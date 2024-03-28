@@ -48,8 +48,9 @@ class Loading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        onWillPop: () async => false,
+    return PopScope(
+        canPop: false,
+        onPopInvoked: (didPop) => false,
         child: SimpleDialog(
           key: key,
           backgroundColor: Colors.transparent,
@@ -65,8 +66,9 @@ class NetworkDialog {
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
-          return WillPopScope(
-              onWillPop: () async => false,
+          return PopScope(
+              canPop: false,
+              onPopInvoked: (didPop) => false,
               child: SimpleDialog(
                 key: key,
                 backgroundColor: AppColors.backgroungcolor,
@@ -104,8 +106,9 @@ class NetworkDialogLoading {
         barrierColor: Colors.black.withOpacity(0.1),
         barrierDismissible: false,
         builder: (BuildContext context) {
-          return WillPopScope(
-              onWillPop: () async => false,
+          return PopScope(
+              canPop: false,
+              onPopInvoked: (didPop) => false,
               child: Center(
                 child: CircularProgressIndicator(
                   color: AppColors.PrimaryMainColor,

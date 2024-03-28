@@ -32,8 +32,9 @@ class _BottomState extends State<Bottom> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => _onbackbuttondoubleClick(context),
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) => _onbackbuttondoubleClick(context),
       child: Scaffold(
         body: Center(child: pageData[_currentIndex]),
         bottomNavigationBar: BottomNavigationBar(

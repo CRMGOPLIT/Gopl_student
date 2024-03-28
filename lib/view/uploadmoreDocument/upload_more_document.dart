@@ -66,8 +66,9 @@ class _UploadMoreDocumentState extends State<UploadMoreDocument> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => _onbackbuttondoubleClick(context),
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) => _onbackbuttondoubleClick(context),
       child: Scaffold(
         backgroundColor: AppColors.backgroungcolor,
         appBar: PreferredSize(
@@ -276,7 +277,7 @@ class _UploadMoreDocumentState extends State<UploadMoreDocument> {
                                                           Container(
                                                             padding:
                                                                 const EdgeInsets
-                                                                        .only(
+                                                                    .only(
                                                                     bottom: 10),
                                                             width: 195.w,
                                                             child: Column(
@@ -550,8 +551,7 @@ class _UploadmoreDialogState extends State<UploadmoreDialog> {
   final _registerkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return 
-    Form(
+    return Form(
       key: _registerkey,
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -722,7 +722,6 @@ class _UploadmoreDialogState extends State<UploadmoreDialog> {
         ],
       ),
     );
- 
   }
 
   void selectFile() async {
@@ -813,7 +812,6 @@ class _UploadmoreDialogState extends State<UploadmoreDialog> {
     }
   }
 
- 
   Widget bankStatementWidget(int index) {
     return Padding(
       padding: const EdgeInsets.all(5),

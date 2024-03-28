@@ -1,44 +1,48 @@
+// To parse this JSON data, do
+//
+//     final batchDetailsModel = batchDetailsModelFromJson(jsonString);
+
 import 'dart:convert';
 
-// ignore: non_constant_identifier_names
-List<BatchDetailsModel> BatchDetailsModelFromJson(String str) =>
+List<BatchDetailsModel> batchDetailsModelFromJson(String str) =>
     List<BatchDetailsModel>.from(
         json.decode(str).map((x) => BatchDetailsModel.fromJson(x)));
 
-// ignore: non_constant_identifier_names
-String BatchDetailsModelToJson(List<BatchDetailsModel> data) =>
+String batchDetailsModelToJson(List<BatchDetailsModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class BatchDetailsModel {
-  BatchDetailsModel({
-    required this.fFacultyName,
-    required this.fFacultyGrade,
-    required this.fBatchName,
-    required this.fBatchTiming,
-    required this.fBatchStartDate,
-    required this.fBatchEndDate,
-    required this.fBatchSize,
-    required this.fBranchName,
-    required this.fIsOffline,
-    required this.fIsLaunchBatch,
-    required this.confirmedWithFullPayment,
-    required this.confirmedWithPartialPayment,
-    required this.fFacultyImag,
-  });
+  String? fFacultyName;
+  String? fFacultyGrade;
+  String? fBatchName;
+  String? fBatchTiming;
+  String? fBatchStartDate;
+  String? fBatchEndDate;
+  String? fBatchSize;
+  String? fBranchName;
+  String? fIsOffline;
+  String? fIsLaunchBatch;
+  int? confirmedWithFullPayment;
+  int? confirmedWithPartialPayment;
+  String? status;
+  String? fFacultyImag;
 
-  final String fFacultyName;
-  final String fFacultyGrade;
-  final String fBatchName;
-  final String fBatchTiming;
-  final String fBatchStartDate;
-  final String fBatchEndDate;
-  final String fBatchSize;
-  final String fBranchName;
-  final String fIsOffline;
-  final String fIsLaunchBatch;
-  final int confirmedWithFullPayment;
-  final int confirmedWithPartialPayment;
-  final String fFacultyImag;
+  BatchDetailsModel({
+    this.fFacultyName,
+    this.fFacultyGrade,
+    this.fBatchName,
+    this.fBatchTiming,
+    this.fBatchStartDate,
+    this.fBatchEndDate,
+    this.fBatchSize,
+    this.fBranchName,
+    this.fIsOffline,
+    this.fIsLaunchBatch,
+    this.confirmedWithFullPayment,
+    this.confirmedWithPartialPayment,
+    this.status,
+    this.fFacultyImag,
+  });
 
   factory BatchDetailsModel.fromJson(Map<String, dynamic> json) =>
       BatchDetailsModel(
@@ -54,6 +58,7 @@ class BatchDetailsModel {
         fIsLaunchBatch: json["f_IsLaunchBatch"].toString(),
         confirmedWithFullPayment: json["ConfirmedWithFullPayment"],
         confirmedWithPartialPayment: json["ConfirmedWithPartialPayment"],
+        status: json["status"].toString(),
         fFacultyImag: json["f_FacultyImag"].toString(),
       );
 
@@ -70,6 +75,7 @@ class BatchDetailsModel {
         "f_IsLaunchBatch": fIsLaunchBatch,
         "ConfirmedWithFullPayment": confirmedWithFullPayment,
         "ConfirmedWithPartialPayment": confirmedWithPartialPayment,
+        "status": status,
         "f_FacultyImag": fFacultyImag,
       };
 }

@@ -183,9 +183,9 @@ class SearchBloc {
   callDeleteAccount() async {
     try {
       dynamic chuckCats = await courseRepo.deleteAccount();
-      courseappliedEmailSink.add(Response.completed(chuckCats));
+      deleteaccountSink.add(Response.completed(chuckCats));
     } catch (e) {
-      courseappliedEmailSink.add(Response.error(e.toString()));
+      deleteaccountSink.add(Response.error(e.toString()));
     }
   }
 
