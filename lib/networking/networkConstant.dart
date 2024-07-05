@@ -7,6 +7,9 @@ class NetworkConstant {
   //     "http://crmdemoapi.global-opportunities.co.in/Api";
   static const String BASE_URL = "http://crmapi.global-opportunities.co.in/Api";
 
+  static const String baseUrlChat = "https://sqlchat-4oqq.onrender.com";
+  //'http://192.168.1.113:3000';
+
   //post field Register
   // ignore: constant_identifier_names
   static const String NAME = 'NAME';
@@ -235,6 +238,10 @@ class NetworkConstant {
   static const END_POINT_PAYMENT_HISTORY = "/Payment/PaymentRazorPayHistory";
 
   static const END_POINT_BATCH_APPLY = "/Payment/SendEmailForCounsler";
+
+  static const getcounsellor = "/get-consoller";
+
+  static const getallchat = "/chat-sql";
 
   // http://192.168.1.69/Api/GoFair/GetAppointmentDetails
 }

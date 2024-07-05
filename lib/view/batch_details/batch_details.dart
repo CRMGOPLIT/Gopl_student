@@ -417,7 +417,8 @@ class _ListBatchState extends State<ListBatch> {
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(5.r),
                                     ),
-                                    child: Row(
+                                    child:
+                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
@@ -528,6 +529,7 @@ class _ListBatchState extends State<ListBatch> {
                                         ),
                                       ],
                                     ),
+                                  
                                   ),
                                   SizedBox(
                                     height: 5.h,

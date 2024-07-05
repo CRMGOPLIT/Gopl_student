@@ -3,14 +3,17 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:get/get.dart';
 import 'package:global_student/networking/customException.dart';
+import 'package:global_student/networking/networkConstant.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../utils/routes/customerror.dart';
-import 'NetworkConstant.dart';
+
 import 'package:path/path.dart';
 
 class ApiProvider {
   final String baseUrl = NetworkConstant.BASE_URL;
+
+  final String charUrl = NetworkConstant.baseUrlChat;
   final String beforeAuth = "";
 
   String? token;
@@ -276,10 +279,10 @@ class ApiProvider {
       if (response.statusCode == 200) {
         responseJson = jsonDecode(response.body.toString());
       } else {
-        //  Get.to(() => const CustomErrorWidget());
+        Get.to(() => const CustomErrorWidget());
       }
     } catch (e) {
-      // Get.to(() => const CustomErrorWidget());
+      Get.to(() => const CustomErrorWidget());
     }
     return responseJson;
   }
@@ -344,6 +347,34 @@ class ApiProvider {
         },
       );
       responseJson = jsonDecode(response.body.toString());
+    } catch (e) {
+      Get.to(() => const CustomErrorWidget());
+    }
+    return responseJson;
+  }
+
+//Chat Api Calling
+
+  Future<dynamic> chatGetData(
+      Map<String, dynamic> parameter, String url) async {
+    var responseJson;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    token = prefs.getString('stringValue');
+
+    try {
+      final response = await http.get(
+        Uri.parse(charUrl + url).replace(queryParameters: parameter),
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer $token',
+        },
+      );
+      if (response.statusCode == 200) {
+        responseJson = jsonDecode(response.body.toString());
+      } else {
+        Get.to(() => const CustomErrorWidget());
+      }
     } catch (e) {
       Get.to(() => const CustomErrorWidget());
     }

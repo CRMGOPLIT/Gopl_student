@@ -33,7 +33,6 @@ class _BranchLocationState extends State<BranchLocation> {
     dashBoardBloc.branchControllerStream.listen((event) {
       if (event != null) {
         branchData = event;
-
         for (int i = 0; i < branchData.length; i++) {
           BranchDetailsModel branchDetailsModel =
               BranchDetailsModel.fromJson(event[i]);

@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:global_student/networking/apiProvider.dart';
-import '../networking/NetworkConstant.dart';
+import 'package:global_student/networking/networkConstant.dart';
 
 class GofairRepo {
   final ApiProvider _apiProvider = ApiProvider();
@@ -75,6 +75,22 @@ class GofairRepo {
   Future<dynamic> getVersionDetails() async {
     final response =
         await _apiProvider.getAfterAuth(NetworkConstant.END_POINT_VERSION);
+    return response;
+  }
+
+  Future<dynamic> getChatcounsellordetails(
+    Map<String, dynamic> parameter,
+  ) async {
+    final response = await _apiProvider.chatGetData(
+        parameter, NetworkConstant.getcounsellor);
+    return response;
+  }
+
+  Future<dynamic> getallChat(
+    Map<String, dynamic> parameter,
+  ) async {
+    final response =
+        await _apiProvider.chatGetData(parameter, NetworkConstant.getallchat);
     return response;
   }
 }

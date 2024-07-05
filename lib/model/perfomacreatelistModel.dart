@@ -1,8 +1,4 @@
-// To parse this JSON data, do
-//
-//     final performacreatelist = performacreatelistFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 Performacreatelist performacreatelistFromJson(String str) =>

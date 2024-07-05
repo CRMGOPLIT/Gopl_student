@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:global_student/model/paymenthistory.dart';
 import 'package:global_student/utils/routes/routes_name.dart';
 import 'package:global_student/view/applicationStatus/application_status.dart';
 import 'package:global_student/view/batch_details/batch_details.dart';

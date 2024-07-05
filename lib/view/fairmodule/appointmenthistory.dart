@@ -78,7 +78,6 @@ class _AppointmentHistoryState extends State<AppointmentHistory> {
     goFairBloc.gofairappointmentStream.listen((event) async {
       if (event != null) {
         appointmentdata = event;
-
         for (int i = 0; i < appointmentdata.length; i++) {
           GetAppointmentModel courseDetails =
               GetAppointmentModel.fromJson(event[i]);

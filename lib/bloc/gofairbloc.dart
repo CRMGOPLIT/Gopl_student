@@ -18,6 +18,10 @@ class GoFairBloc {
 
   late StreamController<dynamic> versiondetails;
 
+  late StreamController<dynamic> chatcounsellor;
+
+  late StreamController<dynamic> callallchat;
+
   StreamSink<dynamic> get gofairappointmentSink => gofairappointment.sink;
   Stream<dynamic> get gofairappointmentStream => gofairappointment.stream;
 
@@ -58,6 +62,12 @@ class GoFairBloc {
   StreamSink<dynamic> get versiondetailsSink => versiondetails.sink;
   Stream<dynamic> get versiondetailsStream => versiondetails.stream;
 
+  StreamSink<dynamic> get chatcounsellorSink => chatcounsellor.sink;
+  Stream<dynamic> get chatcounsellorStream => chatcounsellor.stream;
+
+  StreamSink<dynamic> get callallchatSink => callallchat.sink;
+  Stream<dynamic> get callallchatStream => callallchat.stream;
+
   GoFairBloc() {
     gofairappointment = StreamController<dynamic>();
     gofairappointmentpending = StreamController<dynamic>();
@@ -69,6 +79,8 @@ class GoFairBloc {
     sendtokencontroller = StreamController<Response<dynamic>>();
     getfairdocumetlist = StreamController<dynamic>();
     versiondetails = StreamController<dynamic>();
+    chatcounsellor = StreamController<dynamic>();
+    callallchat = StreamController<dynamic>();
     gofairRepo = GofairRepo();
   }
 
@@ -170,6 +182,24 @@ class GoFairBloc {
     }
   }
 
+  callchatcounsellor(Map<String, dynamic> parameter) async {
+    try {
+      dynamic chuckCats = await gofairRepo.getChatcounsellordetails(parameter);
+      chatcounsellorSink.add(chuckCats);
+    } catch (e) {
+      chatcounsellorSink.add('error');
+    }
+  }
+
+  callallChat(Map<String, dynamic> parameter) async {
+    try {
+      dynamic chuckCats = await gofairRepo.getallChat(parameter);
+      callallchatSink.add(chuckCats);
+    } catch (e) {
+      callallchatSink.add('error');
+    }
+  }
+
   dispose() {
     gofairappointment.close();
     gofairappointmentpending.close();
@@ -180,5 +210,7 @@ class GoFairBloc {
     uploadfairdocumentcontroller.close();
     getfairdocumetlist.close();
     versiondetails.close();
+    chatcounsellor.close();
+    callallchat.close();
   }
 }

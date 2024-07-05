@@ -122,6 +122,7 @@ class NotificationServices {
     FirebaseMessaging.instance.requestPermission();
     FirebaseMessaging.instance.subscribeToTopic("TPITO");
     String? token = await messaging.getToken();
+
     return (token == null) ? "" : token;
   }
 

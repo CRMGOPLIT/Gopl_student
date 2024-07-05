@@ -1,8 +1,4 @@
-// To parse this JSON data, do
-//
-//     final batchPerformaReceipt = batchPerformaReceiptFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 BatchPerformaReceipt batchPerformaReceiptFromJson(String str) =>

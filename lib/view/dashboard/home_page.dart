@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'dart:math';
 import 'package:animated_text_kit/animated_text_kit.dart';
@@ -8,6 +7,8 @@ import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:global_student/bloc/dashboardBloc.dart';
+import 'package:global_student/chatsql/chatuipage.dart';
+import 'package:global_student/chatsql/consellormodel.dart';
 import 'package:global_student/model/bannermodel.dart';
 import 'package:global_student/model/qualificationsubmitModel.dart';
 import 'package:global_student/model/usersModel.dart';
@@ -27,6 +28,7 @@ import 'package:global_student/view/visa/visa_page.dart';
 import 'package:global_student/view/widget/drawer.dart';
 import 'package:global_student/view/widget/notificationservices.dart';
 import 'package:global_student/view/widget/visanotapplicalble.dart';
+import 'package:lottie/lottie.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -51,6 +53,14 @@ class _HomePageState extends State<HomePage> {
 
   Bannermodel? bannermodeldata;
 
+  String? studentidchat;
+
+  String? id;
+  late GoFairBloc goFairBloc;
+
+  List<Consellordatum> consellordata = [];
+  bool loading = true;
+
   List page = [
     const GoFairPage(),
     const HighSchool(),
@@ -66,7 +76,7 @@ class _HomePageState extends State<HomePage> {
   bool loanding1 = true;
   bool loanding3 = true;
   late DashBoardBloc dashBoardBloc;
-  late GoFairBloc goFairBloc;
+
   List data = [];
   List dataUser = [];
 
@@ -100,6 +110,8 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     getversionDetails();
     versioncall();
+    getcounsellordata();
+    getcounsellor();
   }
 
   List<QualificationSubmitModel> qualificationdatasubmit = [];
@@ -245,112 +257,153 @@ class _HomePageState extends State<HomePage> {
     return colors.removeLast();
   }
 
+  getcounsellordata() {
+    goFairBloc.chatcounsellorStream.listen((event) {
+      if (event != null) {
+        ConsellorModel consellordatum = ConsellorModel.fromJson(event);
+        consellordata
+            .addAll(consellordatum.consellordata as Iterable<Consellordatum>);
+        setState(() {
+          loading = false;
+        });
+      }
+    });
+  }
+
+  getcounsellor() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    studentidchat = prefs.getString("studentId");
+    id = prefs.getString("studentId");
+    Map<String, dynamic> data = {
+      "studentid": studentidchat.toString(),
+    };
+    goFairBloc.callchatcounsellor(data);
+  }
+
   String capitalize(String str) => str[0].toUpperCase() + str.substring(1);
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        backgroundColor: AppColors.PrimaryWhiteColor,
-        appBar: AppBar(
-          backgroundColor: AppColors.PrimaryWhiteColor,
-          elevation: 0,
-          iconTheme: const IconThemeData(color: AppColors.PrimaryMainColor),
-          leading: InkWell(
-            onTap: () {
-              if (_drawerscaffoldkey.currentState!.isDrawerOpen) {
-                _drawerscaffoldkey.currentState!.closeDrawer();
-              } else {
-                _drawerscaffoldkey.currentState!.openDrawer();
-              }
-            },
-            child: Icon(
-              Icons.menu,
-              color: AppColors.PrimaryBlackColor,
-              size: 30.sp,
-            ),
-          ),
-          title: loanding1 == true
-              ? Container()
-              : RichText(
-                  text: TextSpan(
-                      style: TextStyle(color: Colors.black, fontSize: 18.sp),
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: 'Hello,',
-                            style: batchtext2(
-                              AppColors.PrimaryBlackColor,
-                            )),
-                        TextSpan(
-                            text: capitalize(name!).toString(),
-                            style: batchtext1(
-                              AppColors.PrimaryBlackColor,
-                            )),
-                      ]),
+        child: Scaffold(
+            backgroundColor: AppColors.PrimaryWhiteColor,
+            appBar: AppBar(
+              backgroundColor: AppColors.PrimaryWhiteColor,
+              elevation: 0,
+              iconTheme: const IconThemeData(color: AppColors.PrimaryMainColor),
+              leading: InkWell(
+                onTap: () {
+                  if (_drawerscaffoldkey.currentState!.isDrawerOpen) {
+                    _drawerscaffoldkey.currentState!.closeDrawer();
+                  } else {
+                    _drawerscaffoldkey.currentState!.openDrawer();
+                  }
+                },
+                child: Icon(
+                  Icons.menu,
+                  color: AppColors.PrimaryBlackColor,
+                  size: 30.sp,
                 ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset(
-                "assets/images/bannerlogo.png",
-                height: 20.h,
-                width: 150.w,
-                fit: BoxFit.contain,
               ),
+              title: loanding1 == true
+                  ? Container()
+                  : RichText(
+                      text: TextSpan(
+                          style:
+                              TextStyle(color: Colors.black, fontSize: 18.sp),
+                          children: <TextSpan>[
+                            TextSpan(
+                                text: 'Hello,',
+                                style: batchtext2(
+                                  AppColors.PrimaryBlackColor,
+                                )),
+                            TextSpan(
+                                text: capitalize(name!).toString(),
+                                style: batchtext1(
+                                  AppColors.PrimaryBlackColor,
+                                )),
+                          ]),
+                    ),
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.asset(
+                    "assets/images/bannerlogo.png",
+                    height: 20.h,
+                    width: 150.w,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-        drawer: const drawer(),
-        key: _drawerscaffoldkey,
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-                height: 160.h,
-                padding: EdgeInsets.all(10.r),
-                child: loanding == true
-                    ? Container(
-                        color: AppColors.PrimaryGreyColor,
-                      )
-                    : ImageSlideshow(
-                        width: double.infinity,
-                        initialPage: 0,
-                        indicatorColor: const Color(0xff5D88C6),
-                        indicatorBackgroundColor: AppColors.PrimaryGreyColor,
-                        onPageChanged: (value) {},
-                        autoPlayInterval: 3000,
-                        isLoop: true,
-                        children: List.generate(bannerimages.length, (index) {
-                          return index == 3
-                              ? InkWell(
-                                  onTap: () {
-                                    Get.to(() => const GoFairPage());
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(10.sp),
-                                      image: DecorationImage(
-                                          image:
-                                              NetworkImage(bannerimages[index]),
-                                          fit: BoxFit.fill),
-                                    ),
-                                  ),
-                                )
-                              : Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.sp),
-                                    image: DecorationImage(
-                                        image:
-                                            NetworkImage(bannerimages[index]),
-                                        fit: BoxFit.fill),
-                                  ),
-                                );
-                        }))),
-            Expanded(child: homeBoard()),
-          ],
-        ),
-      ),
-    );
+            drawer: const drawer(),
+            key: _drawerscaffoldkey,
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                    height: 160.h,
+                    padding: EdgeInsets.all(10.r),
+                    child: loanding == true
+                        ? Container(
+                            color: AppColors.PrimaryGreyColor,
+                          )
+                        : ImageSlideshow(
+                            width: double.infinity,
+                            initialPage: 0,
+                            indicatorColor: const Color(0xff5D88C6),
+                            indicatorBackgroundColor:
+                                AppColors.PrimaryGreyColor,
+                            onPageChanged: (value) {},
+                            autoPlayInterval: 3000,
+                            isLoop: true,
+                            children:
+                                List.generate(bannerimages.length, (index) {
+                              return index == 3
+                                  ? InkWell(
+                                      onTap: () {
+                                        Get.to(() => const GoFairPage());
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.sp),
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                                  bannerimages[index]),
+                                              fit: BoxFit.fill),
+                                        ),
+                                      ),
+                                    )
+                                  : Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(10.sp),
+                                        image: DecorationImage(
+                                            image: NetworkImage(
+                                                bannerimages[index]),
+                                            fit: BoxFit.fill),
+                                      ),
+                                    );
+                            }))),
+                Expanded(child: homeBoard()),
+              ],
+            ),
+            floatingActionButton: FloatingActionButton.extended(
+              backgroundColor: Colors.transparent,
+              highlightElevation: 0.0,
+              elevation: 0.0,
+              onPressed: () {
+                Get.to(() => chatPageUIScreen(),
+                    arguments: [consellordata[0].userid, id]);
+                // whatsapp();
+              },
+              label: Lottie.asset(
+                "assets/images/chatsupport.json",
+                fit: BoxFit.cover,
+                height: 100.h,
+                width: 90.w,
+              ),
+            )));
   }
 
   Future<String> getCurrentAppVersion() async {
