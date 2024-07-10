@@ -222,7 +222,7 @@ class _drawerState extends State<drawer> {
                 ),
               ),
               ListTile(
-                title: Text("Version 1.0.11",
+                title: Text("Version 1.0.12",
                     textScaler: const TextScaler.linear(1.0),
                     style: batchtext2(AppColors.PrimaryBlackColor)),
               ),
@@ -236,5 +236,6 @@ class _drawerState extends State<drawer> {
   removeValues() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     token = prefs.remove("stringValue").toString();
+    prefs.remove("Studentidlogin").toString();
   }
 }

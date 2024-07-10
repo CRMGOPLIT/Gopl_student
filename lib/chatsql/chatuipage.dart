@@ -59,7 +59,7 @@ class _chatPageUIScreenState extends State<chatPageUIScreen> {
 
   void connectToNamespace() async {
     socket = IO.io(
-      'https://sqlchat-4oqq.onrender.com/user-namespace',
+      'https://chat.global-opportunities.co.in/user-namespace',
       IO.OptionBuilder().setTransports(['websocket']).setQuery(
           {'auth': data[1].toString()}).build(),
     );
@@ -71,7 +71,7 @@ class _chatPageUIScreenState extends State<chatPageUIScreen> {
       String senderId, String receiverId, String message) async {
     try {
       final response = await http.post(
-        Uri.parse('https://sqlchat-4oqq.onrender.com/save-chat-sql'),
+        Uri.parse('https://chat.global-opportunities.co.in/save-chat-sql'),
         body: {
           'sender_id': senderId,
           'receiver_id': receiverId,
@@ -196,7 +196,7 @@ class _chatPageUIScreenState extends State<chatPageUIScreen> {
                                 children: [
                                   Center(
                                       child: chatMessages[reversedIndex].date ==
-                                              null
+                                              "null"
                                           ? Container()
                                           : Container(
                                               decoration: BoxDecoration(

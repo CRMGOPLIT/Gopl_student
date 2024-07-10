@@ -1,14 +1,12 @@
 // ignore: file_names
 class NetworkConstant {
   // ignore: constant_identifier_names
-  // static const String BASE_URL = "http://192.168.1.87/crmapi/Api";
 
   // static const String BASE_URL =
   //     "http://crmdemoapi.global-opportunities.co.in/Api";
   static const String BASE_URL = "http://crmapi.global-opportunities.co.in/Api";
 
-  static const String baseUrlChat = "https://sqlchat-4oqq.onrender.com";
-  //'http://192.168.1.113:3000';
+  static const String baseUrlChat = "https://chat.global-opportunities.co.in";
 
   //post field Register
   // ignore: constant_identifier_names

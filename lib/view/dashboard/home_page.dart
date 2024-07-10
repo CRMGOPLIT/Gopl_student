@@ -136,6 +136,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   String? name;
+  String? idst;
+
   getUserDetails() async {
     dashBoardBloc.userControllerStream.listen((event) async {
       if (event != null) {
@@ -148,6 +150,8 @@ class _HomePageState extends State<HomePage> {
             'counsellorcall', userData1.fCounsellorMobile.toString());
         setState(() {
           name = prefs.getString('Name');
+          idst = prefs.getString('studentId');
+
           loanding1 = false;
         });
       }
@@ -272,11 +276,11 @@ class _HomePageState extends State<HomePage> {
 
   getcounsellor() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    studentidchat = prefs.getString("studentId");
-    id = prefs.getString("studentId");
+    id = prefs.getString("Studentidlogin");
     Map<String, dynamic> data = {
-      "studentid": studentidchat.toString(),
+      "studentid": id.toString(),
     };
+
     goFairBloc.callchatcounsellor(data);
   }
 

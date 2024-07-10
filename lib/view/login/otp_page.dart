@@ -45,6 +45,7 @@ class _OtpPageState extends State<OtpPage> {
         ));
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('stringValue', event.data['Token'].toString());
+        prefs.setString('Studentidlogin', event.data['StudentId'].toString());
         // ignore: use_build_context_synchronously
         Navigator.pushNamedAndRemoveUntil(
           context,
